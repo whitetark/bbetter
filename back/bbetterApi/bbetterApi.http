@@ -1,0 +1,6 @@
+@bbetterApi_HostAddress = http://localhost:5265
+
+GET {{bbetterApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
