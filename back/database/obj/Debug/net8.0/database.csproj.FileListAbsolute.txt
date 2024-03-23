@@ -1,0 +1,13 @@
+D:\WebThings\bbetter\back\database\obj\Debug\net8.0\database.csproj.AssemblyReference.cache
+D:\WebThings\bbetter\back\database\obj\Debug\net8.0\database.GeneratedMSBuildEditorConfig.editorconfig
+D:\WebThings\bbetter\back\database\obj\Debug\net8.0\database.AssemblyInfoInputs.cache
+D:\WebThings\bbetter\back\database\obj\Debug\net8.0\database.AssemblyInfo.cs
+D:\WebThings\bbetter\back\database\obj\Debug\net8.0\database.csproj.CoreCompileInputs.cache
+D:\WebThings\bbetter\back\database\obj\Debug\net8.0\database.sourcelink.json
+D:\WebThings\bbetter\back\database\bin\Debug\net8.0\database.deps.json
+D:\WebThings\bbetter\back\database\bin\Debug\net8.0\database.dll
+D:\WebThings\bbetter\back\database\bin\Debug\net8.0\database.pdb
+D:\WebThings\bbetter\back\database\obj\Debug\net8.0\database.dll
+D:\WebThings\bbetter\back\database\obj\Debug\net8.0\refint\database.dll
+D:\WebThings\bbetter\back\database\obj\Debug\net8.0\database.pdb
+D:\WebThings\bbetter\back\database\obj\Debug\net8.0\ref\database.dll

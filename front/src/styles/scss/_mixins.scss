@@ -1,0 +1,61 @@
+@mixin spread-map($map: ()) {
+  @each $key, $value in $map {
+    #{$key}: $value;
+  }
+}
+
+@mixin crossBrowser($property, $val) {
+  -webkit-#{$property}: $val;
+  -moz-#{$property}: $val;
+  -ms-#{$property}: $val;
+  #{$property}: $val;
+}
+
+$breakpoints-up: (
+  'medium': '45rem',
+  'large': '64rem',
+  'xlarge': '87.5rem',
+);
+
+$breakpoints-down: (
+  'small': '44.9rem',
+  'medium': '63.9rem',
+  'large': '87.4rem',
+);
+
+@mixin breakpoint-up($size) {
+  @media (min-width: map-get($breakpoints-up, $size)) {
+    @content;
+  }
+}
+
+@mixin breakpoint-down($size) {
+  @media (max-width: map-get($breakpoints-down, $size)) {
+    @content;
+  }
+}
+
+@mixin flex-row {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: row;
+}
+
+@mixin flex-column {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: column;
+}
+
+@mixin overlay {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(black, transparent);
+  opacity: 0.5;
+}

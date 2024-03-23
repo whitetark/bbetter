@@ -3,9 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bbetterApi", "bbetterApi\bbetterApi.csproj", "{729EA107-06CD-40E6-9511-5466C919B37D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bbetterApi", "bbetterApi\bbetterApi.csproj", "{729EA107-06CD-40E6-9511-5466C919B37D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DB48D771-49DF-4334-A05A-9BC7BFB85B32} = {DB48D771-49DF-4334-A05A-9BC7BFB85B32}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "database", "database\database.csproj", "{DB48D771-49DF-4334-A05A-9BC7BFB85B32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "database", "database\database.csproj", "{DB48D771-49DF-4334-A05A-9BC7BFB85B32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
