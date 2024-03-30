@@ -41,9 +41,9 @@ namespace database.Services
         {
             try
             {
-                string sql = @"SELECT * FROM PublicationSchema.Accounts
+                string sql = @"SELECT * FROM bbetterSchema.Accounts
                 WHERE Username = @username";
-                var _pubDbConnection = new SqlConnection(dbConfig.Value.Pub_Database_Connection);
+                var _pubDbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
                 var account = await _pubDbConnection.QuerySingleAsync<Account>(sql, new { username });
                 return account;
             }
@@ -56,9 +56,9 @@ namespace database.Services
         {
             try
             {
-                string sql = @"SELECT * FROM PublicationSchema.Accounts
+                string sql = @"SELECT * FROM bbetterSchema.Accounts
                 WHERE Username = @username";
-                var _pubDbConnection = new SqlConnection(dbConfig.Value.Pub_Database_Connection);
+                var _pubDbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
                 var test = await _pubDbConnection.QueryAsync<Account>(sql, new { username = account.Username });
 
                 if (test.Count() > 0)
@@ -66,7 +66,7 @@ namespace database.Services
                     return test.FirstOrDefault();
                 }
 
-                sql = @"INSERT INTO PublicationSchema.Accounts
+                sql = @"INSERT INTO bbetterSchema.Accounts
                 ([Username],[PasswordHash],[RefreshToken],[TokenCreated],[TokenExpires]) 
                 OUTPUT INSERTED.*
                 VALUES (@username, @passwordHash, @refreshToken, @tokenCreated, @tokenExpires)";
@@ -87,22 +87,22 @@ namespace database.Services
         }
         public async Task DeleteAccount(string id)
         {
-            string sql = @"DELETE FROM PublicationSchema.Accounts
+            string sql = @"DELETE FROM bbetterSchema.Accounts
             WHERE AccountId = @id";
-            var _pubDbConnection = new SqlConnection(dbConfig.Value.Pub_Database_Connection);
+            var _pubDbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
             if (await _pubDbConnection.ExecuteAsync(sql, new { id }) > 0) { return; }
 
             throw new Exception("Failed to Delete Account");
         }
         public async Task UpdateAccount(Account newAccount)
         {
-            string sql = @"UPDATE PublicationSchema.Accounts 
+            string sql = @"UPDATE bbetterSchema.Accounts 
             SET [PasswordHash] = @passwordHash, [RefreshToken] = @refreshToken, [TokenCreated] = @tokenCreated, [TokenExpires] = @tokenExpires
             WHERE Username = @username";
-            var _pubDbConnection = new SqlConnection(dbConfig.Value.Pub_Database_Connection);
+            var _pubDbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
             if (await _pubDbConnection.ExecuteAsync(sql, new { passwordHash = newAccount.PasswordHash, refreshToken = newAccount.RefreshToken, tokenCreated = newAccount.TokenCreated, tokenExpires = newAccount.TokenExpires, username = newAccount.Username }) > 0) { return; }
 
-            throw new Exception("Failed to Update Publication");
+            throw new Exception("Failed to Update Account");
         }
     }
 }

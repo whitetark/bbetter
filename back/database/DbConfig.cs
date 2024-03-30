@@ -8,6 +8,6 @@ namespace database
 {
     public class DbConfig
     {
-        public required string Pub_Database_Connection { get; set; }
+        public required string Database_Connection { get; set; }
     }
 }
