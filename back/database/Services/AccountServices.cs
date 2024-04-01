@@ -12,6 +12,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Task = System.Threading.Tasks.Task;
 
 namespace database.Services
 {
@@ -43,8 +44,8 @@ namespace database.Services
             {
                 string sql = @"SELECT * FROM bbetterSchema.Accounts
                 WHERE Username = @username";
-                var _pubDbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var account = await _pubDbConnection.QuerySingleAsync<Account>(sql, new { username });
+                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+                var account = await _dbConnection.QuerySingleAsync<Account>(sql, new { username });
                 return account;
             }
             catch (Exception ex)
@@ -58,8 +59,8 @@ namespace database.Services
             {
                 string sql = @"SELECT * FROM bbetterSchema.Accounts
                 WHERE Username = @username";
-                var _pubDbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var test = await _pubDbConnection.QueryAsync<Account>(sql, new { username = account.Username });
+                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+                var test = await _dbConnection.QueryAsync<Account>(sql, new { username = account.Username });
 
                 if (test.Count() > 0)
                 {
@@ -71,7 +72,7 @@ namespace database.Services
                 OUTPUT INSERTED.*
                 VALUES (@username, @passwordHash, @refreshToken, @tokenCreated, @tokenExpires)";
 
-                return await _pubDbConnection.QuerySingleAsync<Account>(sql, new
+                return await _dbConnection.QuerySingleAsync<Account>(sql, new
                 {
                     username = account.Username,
                     passwordHash = account.PasswordHash,
@@ -89,8 +90,8 @@ namespace database.Services
         {
             string sql = @"DELETE FROM bbetterSchema.Accounts
             WHERE AccountId = @id";
-            var _pubDbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _pubDbConnection.ExecuteAsync(sql, new { id }) > 0) { return; }
+            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+            if (await _dbConnection.ExecuteAsync(sql, new { id }) > 0) { return; }
 
             throw new Exception("Failed to Delete Account");
         }
@@ -99,8 +100,8 @@ namespace database.Services
             string sql = @"UPDATE bbetterSchema.Accounts 
             SET [PasswordHash] = @passwordHash, [RefreshToken] = @refreshToken, [TokenCreated] = @tokenCreated, [TokenExpires] = @tokenExpires
             WHERE Username = @username";
-            var _pubDbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _pubDbConnection.ExecuteAsync(sql, new { passwordHash = newAccount.PasswordHash, refreshToken = newAccount.RefreshToken, tokenCreated = newAccount.TokenCreated, tokenExpires = newAccount.TokenExpires, username = newAccount.Username }) > 0) { return; }
+            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+            if (await _dbConnection.ExecuteAsync(sql, new { passwordHash = newAccount.PasswordHash, refreshToken = newAccount.RefreshToken, tokenCreated = newAccount.TokenCreated, tokenExpires = newAccount.TokenExpires, username = newAccount.Username }) > 0) { return; }
 
             throw new Exception("Failed to Update Account");
         }

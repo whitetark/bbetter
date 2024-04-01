@@ -76,3 +76,4 @@ D:\WebThings\bbetter\back\bbetterApi\obj\Debug\net8.0\refint\bbetterApi.dll
 D:\WebThings\bbetter\back\bbetterApi\obj\Debug\net8.0\bbetterApi.pdb
 D:\WebThings\bbetter\back\bbetterApi\obj\Debug\net8.0\bbetterApi.genruntimeconfig.cache
 D:\WebThings\bbetter\back\bbetterApi\obj\Debug\net8.0\ref\bbetterApi.dll
+D:\WebThings\bbetter\back\bbetterApi\obj\Debug\net8.0\bbetterApi.MvcApplicationPartsAssemblyInfo.cs
