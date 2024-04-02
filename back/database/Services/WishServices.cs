@@ -14,7 +14,7 @@ namespace database.Services
     public class WishServices(IOptions<DbConfig> dbConfig)
     {
         //get-task
-        public async Task<Wish> GetWishById(string wishId)
+        public async Task<Wish> GetById(int wishId)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace database.Services
         }
 
         //get-tasks
-        public async Task<List<Wish>> GetWishesByAccount(string accountId)
+        public async Task<List<Wish>> GetByAccount(int accountId)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace database.Services
         }
 
         //create
-        public async Task<Wish> AddWish(Wish wish)
+        public async Task<Wish> Add(Wish wish)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace database.Services
         }
 
         //update
-        public async Task UpdateWish(Wish newWish)
+        public async Task Update(Wish newWish)
         {
             string sql = @"UPDATE bbetterSchema.Wishes 
             SET [Content] = @content, [IsCompleted] = @isCompleted
@@ -98,7 +98,7 @@ namespace database.Services
         }
 
         //delete
-        public async Task DeleteWish(string wishId)
+        public async Task Delete(int wishId)
         {
             string sql = @"DELETE FROM bbetterSchema.Wishes
             WHERE WishId = @wishId";
@@ -109,7 +109,7 @@ namespace database.Services
         }
 
         //delete-by-account
-        public async Task DeleteWishes(string accountId)
+        public async Task DeleteMany(int accountId)
         {
             string sql = @"DELETE FROM bbetterSchema.Wishes
             WHERE AccountId = @accountId";

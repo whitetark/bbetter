@@ -14,7 +14,7 @@ namespace database.Services
     public class QuoteServices(IOptions<DbConfig> dbConfig)
     {
         //get-task
-        public async Task<Quote> GetQuoteById(string quoteId)
+        public async Task<Quote> GetById(int quoteId)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace database.Services
         }
 
         //get-tasks
-        public async Task<List<Quote>> GetQuotes()
+        public async Task<List<Quote>> GetAll()
         {
             try
             {
@@ -55,7 +55,7 @@ namespace database.Services
         }
 
         //create
-        public async Task<Quote> AddQuote(Quote quote)
+        public async Task<Quote> Add(Quote quote)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace database.Services
         }
 
         //update
-        public async Task UpdateQuote(Quote newQuote)
+        public async Task Update(Quote newQuote)
         {
             string sql = @"UPDATE bbetterSchema.Quotes 
             SET [Author] = @author, [Content] = @content
@@ -96,7 +96,7 @@ namespace database.Services
         }
 
         //delete
-        public async Task DeleteQuote(string quoteId)
+        public async Task Delete(int quoteId)
         {
             string sql = @"DELETE FROM bbetterSchema.Quotes
             WHERE QuoteId = @quoteId";

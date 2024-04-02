@@ -15,7 +15,7 @@ namespace database.Services
     {
 
         //get-task
-        public async Task<Models.Task> GetTaskById(string taskid)
+        public async Task<Models.Task> GetById(int taskid)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace database.Services
         }
 
         //get-tasks
-        public async Task<List<Models.Task>> GetTasksByAccount(string accountId)
+        public async Task<List<Models.Task>> GetByAccount(int accountId)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace database.Services
         }
 
         //create
-        public async Task<Models.Task> AddTask(Models.Task task)
+        public async Task<Models.Task> Add(Models.Task task)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace database.Services
         }
 
         //update
-        public async Task UpdateTask(Models.Task newTask)
+        public async Task Update(Models.Task newTask)
         {
             string sql = @"UPDATE bbetterSchema.Tasks 
             SET [Content] = @content, [IsUrgent] = @isUrgent, [IsImportant] = @isImportant, [Deadline] = @deadline, [IsCompleted] = @isCompleted
@@ -105,7 +105,7 @@ namespace database.Services
         }
 
         //delete
-        public async Task DeleteTask(string taskId)
+        public async Task Delete(int taskId)
         {
             string sql = @"DELETE FROM bbetterSchema.Tasks
             WHERE TaskId = @taskId";
@@ -116,7 +116,7 @@ namespace database.Services
         }
 
         //delete-by-account
-        public async Task DeleteTasks(string accountId)
+        public async Task DeleteMany(int accountId)
         {
             string sql = @"DELETE FROM bbetterSchema.Tasks
             WHERE AccountId = @accountId";

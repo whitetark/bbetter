@@ -19,26 +19,7 @@ namespace database.Services
     public class AccountServices(IOptions<DbConfig> dbConfig)
     {
 
-        //public async Task<IEnumerable<T>> LoadData<T>(string sql)
-        //{
-        //    return await _pubDbConnection.QueryAsync<T>(sql);
-        //}
-        //public async Task<T> LoadDataSingle<T>(string sql)
-        //{
-        //    return await _pubDbConnection.QuerySingleAsync<T>(sql);
-        //}
-
-        //public async Task<bool> ExecuteSql(string sql)
-        //{
-        //    return await _pubDbConnection.ExecuteAsync(sql) > 0;
-        //}
-
-        //public async Task<int> ExecuteSqlWithRowCount(string sql)
-        //{
-        //    return await _pubDbConnection.ExecuteAsync(sql);
-        //}
-
-        public async Task<Account> GetAccountByUsername(string username)
+        public async Task<Account> GetByUsername(string username)
         {
             try
             {
@@ -53,7 +34,7 @@ namespace database.Services
                 throw new Exception("Failed to Get Account", ex);
             }
         }
-        public async Task<Account> AddAccount(Account account)
+        public async Task<Account> Add(Account account)
         {
             try
             {
@@ -86,7 +67,7 @@ namespace database.Services
                 throw new Exception();
             }
         }
-        public async Task DeleteAccount(string id)
+        public async Task Delete(int id)
         {
             string sql = @"DELETE FROM bbetterSchema.Accounts
             WHERE AccountId = @id";
@@ -95,7 +76,7 @@ namespace database.Services
 
             throw new Exception("Failed to Delete Account");
         }
-        public async Task UpdateAccount(Account newAccount)
+        public async Task Update(Account newAccount)
         {
             string sql = @"UPDATE bbetterSchema.Accounts 
             SET [PasswordHash] = @passwordHash, [RefreshToken] = @refreshToken, [TokenCreated] = @tokenCreated, [TokenExpires] = @tokenExpires

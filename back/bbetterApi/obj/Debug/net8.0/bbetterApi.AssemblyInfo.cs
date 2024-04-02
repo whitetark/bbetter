@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("bbetterApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c62359210259ec7ab3169385b48d159a6db28a77")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5ce3e35bc15d5e66bf648ffa51f76381b5148c2d")]
 [assembly: System.Reflection.AssemblyProductAttribute("bbetterApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("bbetterApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

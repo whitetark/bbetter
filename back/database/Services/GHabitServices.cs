@@ -14,7 +14,7 @@ namespace database.Services
     public class GHabitServices(IOptions<DbConfig> dbConfig)
     {
         //get-task
-        public async Task<GHabit> GetGHabitById(string gHabitId)
+        public async Task<GHabit> GetById(int gHabitId)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace database.Services
         }
 
         //get-tasks
-        public async Task<List<GHabit>> GetGHabitsByAccount(string accountId)
+        public async Task<List<GHabit>> GetByAccount(int accountId)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace database.Services
         }
 
         //create
-        public async Task<GHabit> AddGHabit(GHabit gHabit)
+        public async Task<GHabit> Add(GHabit gHabit)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace database.Services
         }
 
         //update
-        public async Task UpdateGHabit(GHabit newGHabit)
+        public async Task Update(GHabit newGHabit)
         {
             string sql = @"UPDATE bbetterSchema.GHabits 
             SET [Content] = @content, 
@@ -97,7 +97,7 @@ namespace database.Services
         }
 
         //delete
-        public async Task DeleteGHabit(string gHabitId)
+        public async Task Delete(int gHabitId)
         {
             string sql = @"DELETE FROM bbetterSchema.GHabits
             WHERE GHabitId = @gHabitId";
@@ -108,7 +108,7 @@ namespace database.Services
         }
 
         //delete-by-account
-        public async Task DeleteGHabits(string accountId)
+        public async Task DeleteMany(int accountId)
         {
             string sql = @"DELETE FROM bbetterSchema.GHabits
             WHERE AccountId = @accountId";
@@ -117,6 +117,9 @@ namespace database.Services
 
             throw new Exception("Failed to Delete GHabits");
         }
+
+
+
     }
 }
 

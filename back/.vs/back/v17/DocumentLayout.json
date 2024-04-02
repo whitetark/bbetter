@@ -3,28 +3,68 @@
   "WorkspaceRootPath": "D:\\WebThings\\bbetter\\back\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\services\\wishservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\services\\wishservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\bhabitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\bhabitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\ghabitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\ghabitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\dbconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\dbconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\quotecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\quotecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\services\\taskservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\services\\taskservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\services\\quoteservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\services\\quoteservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\wishcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\wishcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\acccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\acccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\services\\ghabitservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\services\\ghabitservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\services\\bhabitservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\services\\bhabitservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\services\\ghabitdateservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\services\\ghabitdateservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\services\\accountservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\services\\accountservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\models\\ghabitdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\models\\ghabitdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\models\\bhabitdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\models\\bhabitdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\models\\userquote.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\models\\userquote.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\models\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,10 +79,6 @@
       "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\models\\bhabit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\models\\bhabit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\models\\ghabit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\models\\ghabit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -51,48 +87,12 @@
       "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\models\\quote.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\quotecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\quotecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\acccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\acccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\ghabitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\ghabitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\bhabitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\bhabitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\wishcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\wishcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\models\\accountupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\models\\accountupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\models\\userresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|solutionrelative:bbetterapi\\models\\userresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|d:\\webthings\\bbetter\\back\\database\\dbconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB48D771-49DF-4334-A05A-9BC7BFB85B32}|database\\database.csproj|solutionrelative:database\\dbconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{729EA107-06CD-40E6-9511-5466C919B37D}|bbetterApi\\bbetterApi.csproj|d:\\webthings\\bbetter\\back\\bbetterapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -130,24 +130,223 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BHabitController.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\BHabitController.cs",
+              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\BHabitController.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\BHabitController.cs",
+              "RelativeToolTip": "bbetterApi\\Controllers\\BHabitController.cs",
+              "ViewState": "AQIAAEoAAAAAAAAAAAAAwFwAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-01T14:08:56.849Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GHabitController.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\GHabitController.cs",
+              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\GHabitController.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\GHabitController.cs",
+              "RelativeToolTip": "bbetterApi\\Controllers\\GHabitController.cs",
+              "ViewState": "AQIAAEEAAAAAAAAAAAAuwFoAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-01T14:08:45.425Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "QuoteController.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\QuoteController.cs",
+              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\QuoteController.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\QuoteController.cs",
+              "RelativeToolTip": "bbetterApi\\Controllers\\QuoteController.cs",
+              "ViewState": "AQIAADQAAAAAAAAAAAAcwFIAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-01T14:09:07.258Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TaskController.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\TaskController.cs",
+              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\TaskController.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\TaskController.cs",
+              "RelativeToolTip": "bbetterApi\\Controllers\\TaskController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACoAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-01T14:08:12.688Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "Wish.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Models\\Wish.cs",
-              "RelativeDocumentMoniker": "database\\Models\\Wish.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Models\\Wish.cs",
-              "RelativeToolTip": "database\\Models\\Wish.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAtAAAA",
+              "Title": "WishController.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\WishController.cs",
+              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\WishController.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\WishController.cs",
+              "RelativeToolTip": "bbetterApi\\Controllers\\WishController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:09:43.075Z",
+              "WhenOpened": "2024-04-01T14:08:20.265Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "TaskServices.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Services\\TaskServices.cs",
+              "RelativeDocumentMoniker": "database\\Services\\TaskServices.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Services\\TaskServices.cs",
+              "RelativeToolTip": "database\\Services\\TaskServices.cs",
+              "ViewState": "AQIAAG0AAAAAAAAAAAAcwIEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T15:46:27.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Program.cs",
+              "RelativeDocumentMoniker": "bbetterApi\\Program.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Program.cs",
+              "RelativeToolTip": "bbetterApi\\Program.cs",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAiwCMAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-20T13:18:50.682Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DbConfig.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\DbConfig.cs",
+              "RelativeDocumentMoniker": "database\\DbConfig.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\DbConfig.cs",
+              "RelativeToolTip": "database\\DbConfig.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAABAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-20T13:20:23.926Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AccController.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\AccController.cs",
+              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\AccController.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\AccController.cs",
+              "RelativeToolTip": "bbetterApi\\Controllers\\AccController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-01T13:56:18.856Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "bbetterApi\\Controllers\\AuthController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAABdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-20T13:19:07.312Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "GHabitServices.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Services\\GHabitServices.cs",
+              "RelativeDocumentMoniker": "database\\Services\\GHabitServices.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Services\\GHabitServices.cs",
+              "RelativeToolTip": "database\\Services\\GHabitServices.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAADwvxAAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-01T14:05:17.665Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "GHabitDateServices.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Services\\GHabitDateServices.cs",
+              "RelativeDocumentMoniker": "database\\Services\\GHabitDateServices.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Services\\GHabitDateServices.cs",
+              "RelativeToolTip": "database\\Services\\GHabitDateServices.cs",
+              "ViewState": "AQIAAFMAAAAAAAAAAAAwwGMAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T14:39:59.165Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AccountServices.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Services\\AccountServices.cs",
+              "RelativeDocumentMoniker": "database\\Services\\AccountServices.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Services\\AccountServices.cs",
+              "RelativeToolTip": "database\\Services\\AccountServices.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAE0AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-23T15:04:28.182Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "GHabitDate.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Models\\GHabitDate.cs",
+              "RelativeDocumentMoniker": "database\\Models\\GHabitDate.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Models\\GHabitDate.cs",
+              "RelativeToolTip": "database\\Models\\GHabitDate.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T14:29:55.262Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "BHabitDate.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Models\\BHabitDate.cs",
+              "RelativeDocumentMoniker": "database\\Models\\BHabitDate.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Models\\BHabitDate.cs",
+              "RelativeToolTip": "database\\Models\\BHabitDate.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T14:30:03.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "UserQuote.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Models\\UserQuote.cs",
+              "RelativeDocumentMoniker": "database\\Models\\UserQuote.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Models\\UserQuote.cs",
+              "RelativeToolTip": "database\\Models\\UserQuote.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T14:13:43.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
               "Title": "Task.cs",
               "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Models\\Task.cs",
               "RelativeDocumentMoniker": "database\\Models\\Task.cs",
@@ -155,90 +354,23 @@
               "RelativeToolTip": "database\\Models\\Task.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:09:36.826Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-01T14:09:36.826Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BHabitServices.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Services\\BHabitServices.cs",
-              "RelativeDocumentMoniker": "database\\Services\\BHabitServices.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Services\\BHabitServices.cs",
-              "RelativeToolTip": "database\\Services\\BHabitServices.cs",
-              "ViewState": "AQIAAF4AAAAAAAAAAAAowHcAAAA8AAAA",
+              "DocumentIndex": 17,
+              "Title": "Wish.cs",
+              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Models\\Wish.cs",
+              "RelativeDocumentMoniker": "database\\Models\\Wish.cs",
+              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Models\\Wish.cs",
+              "RelativeToolTip": "database\\Models\\Wish.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:05:26.217Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-01T14:09:43.075Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AccountServices.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Services\\AccountServices.cs",
-              "RelativeDocumentMoniker": "database\\Services\\AccountServices.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Services\\AccountServices.cs",
-              "RelativeToolTip": "database\\Services\\AccountServices.cs",
-              "ViewState": "AQIAADEAAAAAAAAAAAAgwGwAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T15:04:28.182Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TaskServices.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Services\\TaskServices.cs",
-              "RelativeDocumentMoniker": "database\\Services\\TaskServices.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Services\\TaskServices.cs",
-              "RelativeToolTip": "database\\Services\\TaskServices.cs",
-              "ViewState": "AQIAAGUAAAAAAAAAAAAQwHkAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:04:47.634Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "WishServices.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Services\\WishServices.cs",
-              "RelativeDocumentMoniker": "database\\Services\\WishServices.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Services\\WishServices.cs",
-              "RelativeToolTip": "database\\Services\\WishServices.cs",
-              "ViewState": "AQIAAFsAAAAAAAAAAAAAAG0AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:05:04.33Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "QuoteServices.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Services\\QuoteServices.cs",
-              "RelativeDocumentMoniker": "database\\Services\\QuoteServices.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Services\\QuoteServices.cs",
-              "RelativeToolTip": "database\\Services\\QuoteServices.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:05:40.182Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GHabitServices.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Services\\GHabitServices.cs",
-              "RelativeDocumentMoniker": "database\\Services\\GHabitServices.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Services\\GHabitServices.cs",
-              "RelativeToolTip": "database\\Services\\GHabitServices.cs",
-              "ViewState": "AQIAAGAAAAAAAAAAAAAQwHQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:05:17.665Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 18,
               "Title": "Account.cs",
               "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Models\\Account.cs",
               "RelativeDocumentMoniker": "database\\Models\\Account.cs",
@@ -246,25 +378,11 @@
               "RelativeToolTip": "database\\Models\\Account.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T15:01:07.708Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-23T15:01:07.708Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "BHabit.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Models\\BHabit.cs",
-              "RelativeDocumentMoniker": "database\\Models\\BHabit.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\Models\\BHabit.cs",
-              "RelativeToolTip": "database\\Models\\BHabit.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:10:01.891Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 19,
               "Title": "GHabit.cs",
               "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Models\\GHabit.cs",
               "RelativeDocumentMoniker": "database\\Models\\GHabit.cs",
@@ -272,12 +390,11 @@
               "RelativeToolTip": "database\\Models\\GHabit.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:10:08.963Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-01T14:10:08.963Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 20,
               "Title": "Quote.cs",
               "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\Models\\Quote.cs",
               "RelativeDocumentMoniker": "database\\Models\\Quote.cs",
@@ -285,90 +402,11 @@
               "RelativeToolTip": "database\\Models\\Quote.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:09:50.427Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-01T14:09:50.427Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "QuoteController.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\QuoteController.cs",
-              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\QuoteController.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\QuoteController.cs",
-              "RelativeToolTip": "bbetterApi\\Controllers\\QuoteController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:09:07.258Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "GHabitController.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\GHabitController.cs",
-              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\GHabitController.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\GHabitController.cs",
-              "RelativeToolTip": "bbetterApi\\Controllers\\GHabitController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:08:45.425Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "BHabitController.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\BHabitController.cs",
-              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\BHabitController.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\BHabitController.cs",
-              "RelativeToolTip": "bbetterApi\\Controllers\\BHabitController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:08:56.849Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "WishController.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\WishController.cs",
-              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\WishController.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\WishController.cs",
-              "RelativeToolTip": "bbetterApi\\Controllers\\WishController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:08:20.265Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "TaskController.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\TaskController.cs",
-              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\TaskController.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\TaskController.cs",
-              "RelativeToolTip": "bbetterApi\\Controllers\\TaskController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T14:08:12.688Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "AccController.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\AccController.cs",
-              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\AccController.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\AccController.cs",
-              "RelativeToolTip": "bbetterApi\\Controllers\\AccController.cs",
-              "ViewState": "AQIAAE0AAAAAAAAAAAAIwBIAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T13:56:18.856Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "AccountUpdateDto.cs",
               "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Models\\AccountUpdateDto.cs",
               "RelativeDocumentMoniker": "bbetterApi\\Models\\AccountUpdateDto.cs",
@@ -376,12 +414,7 @@
               "RelativeToolTip": "bbetterApi\\Models\\AccountUpdateDto.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T13:58:04.53Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "WhenOpened": "2024-04-01T13:58:04.53Z"
             },
             {
               "$type": "Document",
@@ -409,32 +442,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Program.cs",
-              "RelativeDocumentMoniker": "bbetterApi\\Program.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Program.cs",
-              "RelativeToolTip": "bbetterApi\\Program.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAAmwCUAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-20T13:18:50.682Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "bbetterApi\\Controllers\\AuthController.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "bbetterApi\\Controllers\\AuthController.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAAN8AAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-20T13:19:07.312Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 26,
               "Title": "bbetterApi.http",
               "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\bbetterApi.http",
@@ -447,7 +454,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "UserResponse.cs",
               "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\bbetterApi\\Models\\UserResponse.cs",
               "RelativeDocumentMoniker": "bbetterApi\\Models\\UserResponse.cs",
@@ -455,8 +462,7 @@
               "RelativeToolTip": "bbetterApi\\Models\\UserResponse.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T14:37:47.514Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-23T14:37:47.514Z"
             },
             {
               "$type": "Document",
@@ -469,18 +475,6 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2024-03-30T13:11:36.476Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "DbConfig.cs",
-              "DocumentMoniker": "D:\\WebThings\\bbetter\\back\\database\\DbConfig.cs",
-              "RelativeDocumentMoniker": "database\\DbConfig.cs",
-              "ToolTip": "D:\\WebThings\\bbetter\\back\\database\\DbConfig.cs",
-              "RelativeToolTip": "database\\DbConfig.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAABAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-20T13:20:23.926Z"
             },
             {
               "$type": "Document",

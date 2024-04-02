@@ -14,7 +14,7 @@ namespace database.Services
     public class BHabitServices(IOptions<DbConfig> dbConfig)
     {
         //get-task
-        public async Task<BHabit> GetGHabitById(string bHabitId)
+        public async Task<BHabit> GetById(int bHabitId)
         {
             try
             {
@@ -31,11 +31,11 @@ namespace database.Services
         }
 
         //get-tasks
-        public async Task<List<BHabit>> GetGHabitsByAccount(string accountId)
+        public async Task<List<BHabit>> GetByAccount(int accountId)
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.GHabits
+                string sql = @"SELECT * FROM bbetterSchema.BHabits
                 WHERE AccountId = @accountId";
                 var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
                 var bhabits = await _dbConnection.QueryAsync<BHabit>(sql, new { accountId });
@@ -56,7 +56,7 @@ namespace database.Services
         }
 
         //create
-        public async Task<BHabit> AddBHabit(BHabit bHabit)
+        public async Task<BHabit> Add(BHabit bHabit)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace database.Services
         }
 
         //update
-        public async Task UpdateBHabit(BHabit newBHabit)
+        public async Task Update(BHabit newBHabit)
         {
             string sql = @"UPDATE bbetterSchema.BHabits 
             SET [Content] = @content, [IssueDate] = @issueDate, 
@@ -99,7 +99,7 @@ namespace database.Services
         }
 
         //delete
-        public async Task DeleteBHabit(string bHabitId)
+        public async Task Delete(int bHabitId)
         {
             string sql = @"DELETE FROM bbetterSchema.BHabits
             WHERE BHabitId = @bHabitId";
@@ -110,7 +110,7 @@ namespace database.Services
         }
 
         //delete-by-account
-        public async Task DeleteBHabits(string accountId)
+        public async Task DeleteMany(int accountId)
         {
             string sql = @"DELETE FROM bbetterSchema.BHabits
             WHERE AccountId = @accountId";

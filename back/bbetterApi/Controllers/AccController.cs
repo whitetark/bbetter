@@ -26,7 +26,7 @@ namespace bbetterApi.Controllers
                 return BadRequest("No username cookie");
             }
 
-            var user = await accountServices.GetAccountByUsername(username);
+            var user = await accountServices.GetByUsername(username);
             if (user == null)
             {
                 return BadRequest("User not found");
@@ -37,9 +37,9 @@ namespace bbetterApi.Controllers
 
         [Route("deleteById/{id}")]
         [HttpDelete]
-        public async Task<ActionResult> DeleteAccount(string id)
+        public async Task<ActionResult> DeleteAccount(int id)
         {
-            await accountServices.DeleteAccount(id);
+            await accountServices.Delete(id);
             return Ok();
         }
 
@@ -47,7 +47,7 @@ namespace bbetterApi.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateAccount(AccountUpdateDto updateDto)
         {
-            var responseFromDb = await accountServices.GetAccountByUsername(updateDto.Username);
+            var responseFromDb = await accountServices.GetByUsername(updateDto.Username);
             if (responseFromDb == null)
             {
                 return BadRequest("User not found");
@@ -63,7 +63,7 @@ namespace bbetterApi.Controllers
                 TokenExpires = updateDto.TokenExpires,
             };
 
-            await accountServices.UpdateAccount(newAccount);
+            await accountServices.Update(newAccount);
             return Ok(newAccount);
         }
 
@@ -71,7 +71,7 @@ namespace bbetterApi.Controllers
         [HttpPatch]
         public async Task<ActionResult> ChangePassword([FromBody] UserDto request)
         {
-            var responseFromDb = await accountServices.GetAccountByUsername(request.username);
+            var responseFromDb = await accountServices.GetByUsername(request.username);
 
             if (responseFromDb == null)
             {
@@ -81,7 +81,7 @@ namespace bbetterApi.Controllers
             string newPasswordHash = BCrypt.Net.BCrypt.HashPassword(request.password);
 
             user.PasswordHash = newPasswordHash;
-            await accountServices.UpdateAccount(user);
+            await accountServices.Update(user);
 
             return Ok();
         }
