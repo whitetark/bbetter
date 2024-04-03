@@ -1,7 +1,4 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import * as Styled from '../styles/NotFound.styled';
 
 const NotFound = () => {
   const navigate = useNavigate();
@@ -10,10 +7,10 @@ const NotFound = () => {
   };
 
   return (
-    <Styled.NotFound>
+    <div>
       <span>404. Not Found</span>
       <button onClick={clickHandler}>Go Back</button>
-    </Styled.NotFound>
+    </div>
   );
 };
 
