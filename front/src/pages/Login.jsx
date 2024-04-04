@@ -1,4 +1,5 @@
 import React from 'react';
+import LoginForm from '../components/LoginPage/LoginForm';
 import Background from '../components/UI/Background';
 import Divider from '../components/UI/Divider';
 import * as Styled from '../styles/Login.styled';
@@ -10,8 +11,7 @@ const LoginPage = () => {
       <Styled.LoginContent>
         Logo
         <span>Welcome to bbettr</span>
-        Form
-        <button>Sign in</button>
+        <LoginForm />
         <Divider />
         <p>
           New bbettr? <button>Create Account</button>

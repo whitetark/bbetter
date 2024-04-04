@@ -1,3 +1,4 @@
+import { TextField } from '@material-ui/core';
 import styled from 'styled-components';
 import { Container } from './UI.styled';
 
@@ -18,4 +19,31 @@ export const LoginContent = styled(Container)`
   flex-direction: column;
   align-items: center;
   height: 100%;
+  border-radius: 10px;
+  padding: 10rem;
+`;
+
+export const LoginForm = styled.div`
+  width: 100%;
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const fontSize = '16px';
+
+export const Field = styled(TextField)`
+  font-size: ${fontSize};
+  label {
+    font-size: ${fontSize};
+  }
+
+  input {
+    font-size: ${fontSize};
+  }
+
+  p {
+    font-size: 12px;
+  }
 `;
