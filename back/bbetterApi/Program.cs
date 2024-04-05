@@ -6,6 +6,8 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -55,7 +57,17 @@ builder.Services.AddScoped<UserQuoteServices>();
 builder.Services.AddScoped<WishServices>();
 
 builder.Services.Configure<DbConfig>(builder.Configuration);
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      builder =>
+                      {
+                          builder.WithOrigins("http://localhost:5173");
+                          builder.AllowCredentials();
+                          builder.AllowAnyHeader();
+                          builder.AllowAnyMethod();
+                      });
+});
 
 var app = builder.Build();
 
@@ -66,6 +78,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

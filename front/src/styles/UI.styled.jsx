@@ -30,13 +30,15 @@ export const Divider = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 1rem;
+  font-size: 20px;
   font-weight: 700;
-
+  width: 100%;
   hr {
-    width: 10rem;
-    height: 0;
-    border: 0.1px solid #c4c4c4;
-    margin: 3px;
+    background-color: ${variables.DIVIDER};
+    height: 1px;
+    border: 0;
+    width: 100%;
+    font-weight: 300;
     display: inline-block;
   }
 `;
@@ -44,15 +46,17 @@ export const Divider = styled.div`
 export const Button = styled.button`
   background-color: white;
   color: ${variables.WHITE_COLOR};
-  border-radius: 10px;
   text-align: center;
 
   transition: background-color 0.2s ease-out;
-  &:hover {
-    background-color: gray;
-  }
 
   &:disabled {
     cursor: default;
+  }
+`;
+
+export const Logo = styled.div`
+  img {
+    width: 18rem;
   }
 `;

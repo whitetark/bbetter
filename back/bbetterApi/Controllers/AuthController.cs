@@ -68,12 +68,12 @@ namespace bbetterApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Logout()
         {
-            var username = Request.Cookies["username"];
-            if (username == null)
+            var id = Request.Cookies["username"];
+            if (id == null)
             {
                 return BadRequest("User not found");
             }
-            var responseFromDb = await accountServices.GetByUsername(username);
+            var responseFromDb = await accountServices.GetByUsername(id);
             var user = responseFromDb;
 
             user.RefreshToken = "";
@@ -92,18 +92,18 @@ namespace bbetterApi.Controllers
         public async Task<ActionResult<object>> RefreshToken()
         {
             var refreshToken = Request.Cookies["refresh_token"];
-            var username = Request.Cookies["username"];
+            var id = Request.Cookies["username"];
             if (refreshToken == null)
             {
                 return BadRequest("Refresh Token not found");
             }
 
-            if (username == null)
+            if (id == null)
             {
                 return BadRequest("No Username");
             }
 
-            var responseFromDb = await accountServices.GetByUsername(username);
+            var responseFromDb = await accountServices.GetByUsername(id);
             var user = responseFromDb;
 
             if (user == null)

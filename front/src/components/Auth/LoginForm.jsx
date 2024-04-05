@@ -1,6 +1,8 @@
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import PathConstants from '../../app/shared/pathConstants';
 import { useLogin } from '../../hooks/use-auth';
 import * as Styled from '../../styles/Login.styled';
 import Button from '../UI/Button';
@@ -25,6 +27,7 @@ const textErrors = (meta) => ({
 
 const LoginForm = (props) => {
   const { mutateAsync: login, error: loginError } = useLogin();
+  const navigate = useNavigate();
   return (
     <Styled.LoginForm>
       <Formik
@@ -37,7 +40,7 @@ const LoginForm = (props) => {
           };
 
           await login(user).then(() => {
-            props.onHide();
+            navigate(PathConstants.BASE);
             actions.resetForm();
           });
           actions.setSubmitting(false);
@@ -68,8 +71,8 @@ const LoginForm = (props) => {
           </Field>
           <Field>
             {(props) => (
-              <Button disabled={!props.form.isValid} onClick={props.form.submitForm} type='submit'>
-                Submit
+              <Button disabled={!props.form.isValid && !props.form.isTouched} type='submit'>
+                Sign in
               </Button>
             )}
           </Field>

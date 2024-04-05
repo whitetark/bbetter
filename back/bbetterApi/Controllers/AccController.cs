@@ -11,11 +11,11 @@ using System.Text;
 
 namespace bbetterApi.Controllers
 {
-    [Authorize(Roles = "User, Admin")]
     [Route("[controller]")]
     [ApiController]
     public class AccController(AccountServices accountServices, IConfiguration configuration) : ControllerBase
     {
+        [Authorize(Roles ="User")]
         [Route("getByUsername")]
         [HttpGet]
         public async Task<ActionResult> GetAccount()
@@ -84,6 +84,13 @@ namespace bbetterApi.Controllers
             await accountServices.Update(user);
 
             return Ok();
+        }
+
+        [Route("getAccs")]
+        [HttpGet]
+        public async Task<List<Account>> GetAccounts()
+        {
+            return await accountServices.GetAccs();
         }
     }
 }

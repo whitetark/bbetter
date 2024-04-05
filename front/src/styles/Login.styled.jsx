@@ -1,6 +1,7 @@
 import { TextField } from '@material-ui/core';
 import styled from 'styled-components';
-import { Container } from './UI.styled';
+import * as variables from '../app/shared/colorVariables';
+import { Button, Container, Logo } from './UI.styled';
 
 export const Login = styled.div`
   position: relative;
@@ -17,10 +18,38 @@ export const LoginContent = styled(Container)`
   z-index: 1;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   align-items: center;
+  width: 55rem;
   height: 100%;
   border-radius: 10px;
-  padding: 10rem;
+  padding: 0 10rem;
+  font-weight: 500;
+
+  > ${Logo} {
+    margin: 8rem 0;
+  }
+
+  > span {
+    color: ${variables.DISABLED_BUTTON};
+    font-size: 18px;
+    margin: 8rem 0;
+  }
+
+  > p {
+    margin: 2rem 0;
+    color: ${variables.DISABLED_BUTTON};
+    > ${Button} {
+      font-size: 16px;
+      color: ${variables.GREEN_HOVER};
+      border-bottom: 1px solid ${variables.GREEN_HOVER};
+
+      &:hover {
+        color: ${variables.GREEN};
+        border-color: ${variables.GREEN};
+      }
+    }
+  }
 `;
 
 export const LoginForm = styled.div`
@@ -28,6 +57,23 @@ export const LoginForm = styled.div`
   form {
     display: flex;
     flex-direction: column;
+  }
+
+  ${Button} {
+    font-size: 24px;
+    background-color: ${variables.GREEN_HOVER};
+    color: ${variables.WHITE};
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 80px;
+
+    &:hover {
+      background-color: ${variables.GREEN};
+    }
+
+    &:disabled {
+      background-color: ${variables.DISABLED_BUTTON};
+    }
   }
 `;
 

@@ -34,6 +34,29 @@ namespace database.Services
                 throw new Exception("Failed to Get Account", ex);
             }
         }
+
+        public async Task<List<Account>> GetAccs()
+        {
+            try
+            {
+                string sql = @"SELECT * FROM bbetterSchema.Accounts";
+                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+                var accounts = await _dbConnection.QueryAsync<Account>(sql);
+                if (accounts.Count() == 0)
+                {
+                    return new List<Account>();
+                }
+
+                var result = accounts.ToList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Get Account", ex);
+            }
+        }
+
         public async Task<Account> Add(Account account)
         {
             try
