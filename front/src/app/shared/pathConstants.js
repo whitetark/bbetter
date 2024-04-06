@@ -1,5 +1,13 @@
+const HOME = '/home';
+
 const PathConstants = {
-  HOME: '/home',
+  HOME: HOME,
+  TASK: `${HOME}/tasks`,
+  WISH: `${HOME}/wishes`,
+  GHABITS: `${HOME}/ghabits`,
+  BHABITS: `${HOME}/bhabits`,
+  QUOTE: `${HOME}/quotes`,
+  SETTINGS: `${HOME}/settings`,
   LOGIN: '/login',
   REGISTER: '/signup',
   BASE: '/',
