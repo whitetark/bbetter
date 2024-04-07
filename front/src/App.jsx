@@ -1,6 +1,13 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFaceFrownOpen, faFaceGrinBeam } from '@fortawesome/free-regular-svg-icons';
-import { faDrum, faGear, faHouse, faListCheck, faPencil } from '@fortawesome/free-solid-svg-icons';
+import {
+  faDrum,
+  faGear,
+  faHouse,
+  faListCheck,
+  faPencil,
+  faQuoteLeft,
+} from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import PathConstants from './app/shared/pathConstants';
 import { useAuthContext } from './app/store/auth-context';
@@ -12,7 +19,16 @@ import NotFound from './pages/NotFound';
 import RegisterPage from './pages/Register';
 import RootLayout from './pages/Root';
 
-library.add(faHouse, faListCheck, faFaceGrinBeam, faFaceFrownOpen, faPencil, faGear, faDrum);
+library.add(
+  faHouse,
+  faListCheck,
+  faFaceGrinBeam,
+  faFaceFrownOpen,
+  faPencil,
+  faGear,
+  faDrum,
+  faQuoteLeft,
+);
 
 function App() {
   const { userData } = useAuthContext();
