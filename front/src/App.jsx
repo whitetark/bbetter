@@ -12,12 +12,18 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import PathConstants from './app/shared/pathConstants';
 import { useAuthContext } from './app/store/auth-context';
 import AppLayout from './pages/AppLayout';
+import BHabitsPage from './pages/BHabits';
 import BasePage from './pages/Base';
+import GHabitsPage from './pages/GHabits';
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
 import NotFound from './pages/NotFound';
+import QuotesPage from './pages/Quotes';
 import RegisterPage from './pages/Register';
 import RootLayout from './pages/Root';
+import SettingsPage from './pages/Settings';
+import TasksPage from './pages/Tasks';
+import WishesPage from './pages/Wishes';
 
 library.add(
   faHouse,
@@ -52,6 +58,12 @@ function App() {
           />
           <Route path={PathConstants.HOME} element={<AppLayout />}>
             <Route index element={<HomePage />} />
+            <Route path={PathConstants.TASK} element={<TasksPage />} />
+            <Route path={PathConstants.WISH} element={<WishesPage />} />
+            <Route path={PathConstants.GHABITS} element={<GHabitsPage />} />
+            <Route path={PathConstants.BHABITS} element={<BHabitsPage />} />
+            <Route path={PathConstants.SETTINGS} element={<SettingsPage />} />
+            <Route path={PathConstants.QUOTE} element={<QuotesPage />} />
           </Route>
           <Route path='*' element={<NotFound />} />
         </Route>

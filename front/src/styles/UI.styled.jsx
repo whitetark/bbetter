@@ -60,3 +60,16 @@ export const Logo = styled.div`
     width: 18rem;
   }
 `;
+
+export const HomePadding = styled.div`
+  height: 100%;
+  z-index: 2;
+  padding: 3rem;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 500;
+    color: ${variables.DISABLED_BUTTON};
+    align-self: flex-start;
+  }
+`;

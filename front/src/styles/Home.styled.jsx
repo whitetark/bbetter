@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
-import { Button } from './UI.styled';
+import { Button, HomePadding } from './UI.styled';
 
 export const HomeHeader = styled.div`
   display: flex;
@@ -68,14 +68,11 @@ export const HomeActions = styled.div`
   }
 `;
 
-export const HomeContent = styled.div`
+export const HomeContent = styled(HomePadding)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  height: 100%;
-  z-index: 2;
-  padding: 3rem;
 `;
 
 export const Home = styled.div`
