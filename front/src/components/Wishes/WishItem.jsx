@@ -11,7 +11,11 @@ const WishItem = () => {
         contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcocontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentntentcontentcontentcontentcontentcontentcontent
         contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent
       </div>
-      <Styled.Input type='checkbox' onClick={(event) => setIsChecked(event.target.checked)} />
+      <Styled.Input
+        type='checkbox'
+        value={isChecked}
+        onClick={(event) => setIsChecked(event.target.checked)}
+      />
     </Styled.WishItem>
   );
 };

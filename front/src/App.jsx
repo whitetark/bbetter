@@ -11,19 +11,19 @@ import {
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import PathConstants from './app/shared/pathConstants';
 import { useAuthContext } from './app/store/auth-context';
-import AppLayout from './pages/AppLayout';
 import BHabitsPage from './pages/BHabits';
-import BasePage from './pages/Base';
 import GHabitsPage from './pages/GHabits';
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
-import NotFound from './pages/NotFound';
 import QuotesPage from './pages/Quotes';
 import RegisterPage from './pages/Register';
-import RootLayout from './pages/Root';
 import SettingsPage from './pages/Settings';
 import TasksPage from './pages/Tasks';
 import WishesPage from './pages/Wishes';
+import AppLayout from './pages/system/AppLayout';
+import BasePage from './pages/system/Base';
+import NotFound from './pages/system/NotFound';
+import RootLayout from './pages/system/Root';
 
 library.add(
   faHouse,

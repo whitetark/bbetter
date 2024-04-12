@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
-import PathConstants from '../app/shared/pathConstants';
-import { useAuthContext } from '../app/store/auth-context';
+import PathConstants from '../../app/shared/pathConstants';
+import { useAuthContext } from '../../app/store/auth-context';
 
 const BasePage = () => {
   const { userData } = useAuthContext();

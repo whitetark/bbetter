@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Sidebar from '../components/Home/Sidebar';
-import * as Styled from '../styles/App.styled';
+import Sidebar from '../../components/Home/Sidebar';
+import * as Styled from '../../styles/App.styled';
 
 const AppLayout = () => {
   return (

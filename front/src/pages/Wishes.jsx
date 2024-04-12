@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../components/UI/Button';
-import WishItem from '../components/Wish/WishItem';
+import WishItem from '../components/Wishes/WishItem';
 import * as Styled from '../styles/Wishes.styled';
 
 const WishesPage = () => {
