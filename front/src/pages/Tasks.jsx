@@ -1,6 +1,6 @@
 import React from 'react';
+import Button from '../components/UI/Button';
 import * as Styled from '../styles/Tasks.styled';
-import { Button } from '../styles/UI.styled';
 
 const TasksPage = () => {
   return (

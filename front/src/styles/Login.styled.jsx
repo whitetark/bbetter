@@ -41,12 +41,12 @@ export const LoginContent = styled(Container)`
     color: ${variables.DISABLED_BUTTON};
     > ${Button} {
       font-size: 16px;
-      color: ${variables.GREEN_HOVER};
-      border-bottom: 1px solid ${variables.GREEN_HOVER};
+      color: ${variables.GREEN};
+      border-bottom: 1px solid ${variables.GREEN};
 
       &:hover {
-        color: ${variables.GREEN};
-        border-color: ${variables.GREEN};
+        color: ${variables.GREEN_HOVER};
+        border-color: ${variables.GREEN_HOVER};
       }
     }
   }
@@ -61,14 +61,14 @@ export const LoginForm = styled.div`
 
   ${Button} {
     font-size: 24px;
-    background-color: ${variables.GREEN_HOVER};
+    background-color: ${variables.GREEN};
     color: ${variables.WHITE};
     padding: 1.5rem;
     margin: 2rem 0;
     border-radius: 80px;
 
     &:hover {
-      background-color: ${variables.GREEN};
+      background-color: ${variables.GREEN_HOVER};
     }
 
     &:disabled {

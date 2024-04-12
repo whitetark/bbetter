@@ -50,7 +50,7 @@ export const HomeActions = styled.div`
   justify-content: space-between;
 
   ${Button} {
-    background-color: ${variables.GREEN_HOVER};
+    background-color: ${variables.GREEN};
     color: ${variables.WHITE};
     font-size: 42px;
     padding: 3rem 4rem;
@@ -59,7 +59,7 @@ export const HomeActions = styled.div`
     font-weight: 500;
 
     &:hover {
-      background-color: ${variables.GREEN};
+      background-color: ${variables.GREEN_HOVER};
     }
 
     &:disabled {

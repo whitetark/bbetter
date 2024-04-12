@@ -9,7 +9,6 @@ export const App = styled(Container)`
   max-width: 180rem;
   border-radius: 10px;
   width: 100%;
-  overflow: hidden;
   box-shadow: ${variables.BOX_SHADOW};
 
   .divider {

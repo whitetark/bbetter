@@ -91,10 +91,10 @@ export const TaskActions = styled.div`
     }
 
     &.active {
-      background-color: ${variables.GREEN_HOVER};
+      background-color: ${variables.GREEN};
 
       &:hover {
-        background-color: ${variables.GREEN};
+        background-color: ${variables.GREEN_HOVER};
       }
     }
   }
