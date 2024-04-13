@@ -28,8 +28,8 @@ const GHabitsPage = () => {
         <GHabitItem />
       </Styled.GHabitList>
       <Styled.GHabitActions>
-        <Button>Show Wish List</Button>
-        <Button className='active'>Add New Wish</Button>
+        <Button>Show Habits</Button>
+        <Button className='active'>Add New Habit</Button>
       </Styled.GHabitActions>
     </Styled.GHabitContent>
   );

@@ -5,7 +5,9 @@ import {
   faGear,
   faHouse,
   faListCheck,
+  faPenToSquare,
   faPencil,
+  faPlus,
   faQuoteLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
@@ -34,6 +36,8 @@ library.add(
   faGear,
   faDrum,
   faQuoteLeft,
+  faPenToSquare,
+  faPlus,
 );
 
 function App() {

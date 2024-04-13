@@ -70,6 +70,7 @@ export const HomePadding = styled.div`
     font-size: 28px;
     font-weight: 500;
     color: ${variables.DISABLED_BUTTON};
+    margin-bottom: auto;
     align-self: flex-start;
   }
 `;

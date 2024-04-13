@@ -78,6 +78,7 @@ export const TaskActions = styled.div`
   display: flex;
   flex-direction: row;
   gap: 3rem;
+  margin-top: auto;
 
   ${Button} {
     background-color: ${variables.BACKGROUND};
