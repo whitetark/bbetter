@@ -1,37 +1,38 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
-import { TaskActions } from './Tasks.styled';
 import { HomePadding } from './UI.styled';
 
 export const BHabitContent = styled(HomePadding)`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 1rem;
 
   h1 {
-    align-self: flex-start;
-    justify-self: flex-start;
   }
 `;
 
-export const BHabitActions = styled(TaskActions)`
-  flex-direction: column;
-  margin-top: 0;
+export const BHabitHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const BHabitActions = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  font-size: 24px;
   justify-self: flex-end;
 `;
-export const BHabitMain = styled.div`
+export const BHabitList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
+  gap: 2rem;
   max-width: 90rem;
   width: 100%;
-`;
-export const BHabitList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  height: 100%;
+  margin: 0 auto;
 `;
 
 export const BHabitItem = styled.div`
@@ -41,6 +42,7 @@ export const BHabitItem = styled.div`
   background-color: ${variables.BACKGROUND};
   padding: 1rem 2rem;
   border-radius: 10px;
+  justify-content: space-between;
 
   .title {
     font-weight: 700;

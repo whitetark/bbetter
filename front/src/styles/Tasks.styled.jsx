@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
-import { Button, HomePadding } from './UI.styled';
+import { BHabitActions, BHabitHeader } from './BHabits.styled';
+import { HomePadding } from './UI.styled';
 
 export const TaskContent = styled(HomePadding)`
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 3rem;
 `;
 
@@ -17,6 +17,7 @@ export const TaskTable = styled.div`
   max-width: 90rem;
   width: 100%;
   gap: 1rem;
+  margin: 0 auto;
 `;
 
 export const TableCell = styled.div`
@@ -74,29 +75,5 @@ export const DelegateCell = styled(TableCell)`
   background-color: ${variables.DELEGATE_CELL};
 `;
 
-export const TaskActions = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 3rem;
-  margin-top: auto;
-
-  ${Button} {
-    background-color: ${variables.BACKGROUND};
-    font-weight: 500;
-    font-size: 24px;
-    padding: 2rem 6rem;
-    border-radius: 80px;
-
-    &:hover {
-      background-color: ${variables.DELETE_CELL};
-    }
-
-    &.active {
-      background-color: ${variables.GREEN};
-
-      &:hover {
-        background-color: ${variables.GREEN_HOVER};
-      }
-    }
-  }
-`;
+export const TaskHeader = styled(BHabitHeader)``;
+export const TaskActions = styled(BHabitActions)``;

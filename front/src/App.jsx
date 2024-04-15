@@ -4,6 +4,7 @@ import {
   faDrum,
   faGear,
   faHouse,
+  faList,
   faListCheck,
   faPenToSquare,
   faPencil,
@@ -38,6 +39,7 @@ library.add(
   faQuoteLeft,
   faPenToSquare,
   faPlus,
+  faList,
 );
 
 function App() {

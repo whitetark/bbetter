@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import Button from '../components/UI/Button';
 import * as Styled from '../styles/Tasks.styled';
@@ -5,7 +6,17 @@ import * as Styled from '../styles/Tasks.styled';
 const TasksPage = () => {
   return (
     <Styled.TaskContent>
-      <h1>Task List</h1>
+      <Styled.TaskHeader>
+        <h1>Task List</h1>
+        <Styled.TaskActions>
+          <Button>
+            <FontAwesomeIcon icon='fa-solid fa-list' fixedWidth />
+          </Button>
+          <Button>
+            <FontAwesomeIcon icon='fa-solid fa-plus' fixedWidth />
+          </Button>
+        </Styled.TaskActions>
+      </Styled.TaskHeader>
       <Styled.TaskTable>
         <div></div>
         <Styled.TableText>Urgent</Styled.TableText>
@@ -49,10 +60,6 @@ const TasksPage = () => {
           </div>
         </Styled.DeleteCell>
       </Styled.TaskTable>
-      <Styled.TaskActions>
-        <Button>Show Task List</Button>
-        <Button className='active'>Add New Task</Button>
-      </Styled.TaskActions>
     </Styled.TaskContent>
   );
 };

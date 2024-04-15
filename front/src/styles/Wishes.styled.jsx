@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
-import { TaskActions } from './Tasks.styled';
+import { BHabitActions, BHabitHeader } from './BHabits.styled';
 import { HomePadding } from './UI.styled';
 
 export const WishContent = styled(HomePadding)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   gap: 3rem;
 `;
 
-export const WishActions = styled(TaskActions)``;
+export const WishActions = styled(BHabitActions)``;
+export const WishHeader = styled(BHabitHeader)``;
 
 export const Input = styled.input`
   height: 20px;
@@ -56,14 +56,43 @@ export const WishItem = styled.div`
     background-color: ${variables.GREEN};
     text-decoration: line-through;
   }
+
+  &:first-child {
+    grid-column: 1/10;
+    grid-row: 1/3;
+    .content {
+      font-size: 24px;
+    }
+  }
+
+  &:nth-child(2) {
+    grid-column: 10/19;
+    grid-row: 1/2;
+    .content {
+      font-size: 22px;
+    }
+  }
+
+  &:nth-child(3) {
+    grid-column: 10/19;
+    grid-row: 2/3;
+    .content {
+      font-size: 22px;
+    }
+  }
+
+  &:nth-of-type(n + 4) {
+    grid-column: 2/18;
+  }
 `;
 
 export const WishList = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, 10rem);
   gap: 3rem;
   height: 100%;
   font-size: 20px;
   width: 100%;
   max-width: 90rem;
+  margin: 0 auto;
 `;

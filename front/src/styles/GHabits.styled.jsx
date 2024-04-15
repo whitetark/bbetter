@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
+import { BHabitHeader } from './BHabits.styled';
 import { TaskActions } from './Tasks.styled';
 import { HomePadding } from './UI.styled';
 
 export const GHabitContent = styled(HomePadding)`
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 export const GHabitList = styled.div`
   display: flex;
@@ -14,10 +14,9 @@ export const GHabitList = styled.div`
   gap: 1rem;
   width: 100%;
   max-width: 90rem;
+  margin: 0 auto;
 `;
-export const GHabitActions = styled(TaskActions)`
-  margin-top: auto;
-`;
+export const GHabitActions = styled(TaskActions)``;
 export const GHabitItem = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr 4fr;
@@ -40,7 +39,9 @@ export const GHabitItem = styled.div`
   }
 `;
 
-export const GHabitHeader = styled.div`
+export const GHabitHeader = styled(BHabitHeader)``;
+
+export const GHabitTableHeader = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr 4fr;
   padding: 1rem 2rem;
