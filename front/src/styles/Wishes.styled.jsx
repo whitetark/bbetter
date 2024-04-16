@@ -1,7 +1,8 @@
+import { Form } from 'formik';
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
 import { BHabitActions, BHabitHeader } from './BHabits.styled';
-import { HomePadding } from './UI.styled';
+import { Button, HomePadding } from './UI.styled';
 
 export const WishContent = styled(HomePadding)`
   display: flex;
@@ -95,4 +96,58 @@ export const WishList = styled.div`
   width: 100%;
   max-width: 90rem;
   margin: 0 auto;
+`;
+
+export const AddWish = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: white;
+  margin: 2rem;
+  padding: 2rem;
+  border-radius: 10px;
+  h1 {
+    font-size: 24px;
+    color: ${variables.DISABLED_BUTTON};
+    font-weight: 500;
+  }
+  box-shadow: ${variables.BOX_SHADOW};
+`;
+
+export const AddWishForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  input {
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 10px;
+    outline: none;
+    font-size: 18px;
+    max-width: 35rem;
+  }
+
+  .error {
+    color: red;
+    font-size: 16px;
+    text-align: right;
+    font-weight: 500;
+  }
+
+  ${Button} {
+    margin-top: 1rem;
+    background-color: ${variables.GREEN};
+    color: ${variables.WHITE};
+    border-radius: 10px;
+    font-weight: 500;
+    padding: 0.5rem;
+    font-size: 18px;
+
+    &:hover {
+      background-color: ${variables.GREEN_HOVER};
+    }
+    &:disabled {
+      background-color: ${variables.DISABLED_BUTTON};
+    }
+  }
 `;

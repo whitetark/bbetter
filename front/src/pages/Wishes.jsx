@@ -1,10 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import Button from '../components/UI/Button';
+import Modal from '../components/UI/Modal';
+import AddWish from '../components/Wishes/AddWish';
 import WishItem from '../components/Wishes/WishItem';
+import useModal from '../hooks/user-modal';
 import * as Styled from '../styles/Wishes.styled';
 
 const WishesPage = () => {
+  const { isShowing: modalIsShowing, toggle: toggleModal } = useModal();
+
   return (
     <Styled.WishContent>
       <Styled.WishHeader>
@@ -13,7 +18,7 @@ const WishesPage = () => {
           <Button>
             <FontAwesomeIcon icon='fa-solid fa-list' fixedWidth />
           </Button>
-          <Button>
+          <Button onClick={toggleModal} className={modalIsShowing ? 'active' : ''}>
             <FontAwesomeIcon icon='fa-solid fa-plus' fixedWidth />
           </Button>
         </Styled.WishActions>
@@ -25,6 +30,9 @@ const WishesPage = () => {
         <WishItem />
         <WishItem />
       </Styled.WishList>
+      <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-wish-modal' hasOverlay>
+        <AddWish />
+      </Modal>
     </Styled.WishContent>
   );
 };

@@ -27,7 +27,7 @@ export const QuoteList = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
-  font-size: 18nfpx;
+  font-size: 18px;
 `;
 
 export const QuotesPage = styled.div`
