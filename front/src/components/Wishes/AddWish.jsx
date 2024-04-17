@@ -1,8 +1,8 @@
-import { ErrorMessage, Field, Formik } from 'formik';
+import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 import * as Styled from '../../styles/Wishes.styled';
-import Button from '../UI/Button';
+import { TextInput } from '../UI/Inputs';
 
 const initialValues = {
   content: '',
@@ -29,13 +29,14 @@ const AddWish = ({ onClick }) => {
           console.log(wish);
         }}>
         <Styled.AddWishForm>
-          <Field name='content' placeholder='Your Wish' type='text' />
-          <ErrorMessage name='content'>{(msg) => <div className='error'>{msg}</div>}</ErrorMessage>
+          <TextInput name='content' placeholder='Your Wish' />
           <Field>
             {(props) => (
-              <Button disabled={!props.form.isValid && !props.form.isTouched} type='submit'>
+              <Styled.AddWishButton
+                disabled={!props.form.isValid && !props.form.isTouched}
+                type='submit'>
                 Add
-              </Button>
+              </Styled.AddWishButton>
             )}
           </Field>
         </Styled.AddWishForm>

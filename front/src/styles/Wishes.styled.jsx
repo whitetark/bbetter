@@ -125,6 +125,7 @@ export const AddWishForm = styled(Form)`
     outline: none;
     font-size: 18px;
     max-width: 35rem;
+    border: 1px solid ${variables.DIVIDER};
   }
 
   .error {
@@ -133,21 +134,21 @@ export const AddWishForm = styled(Form)`
     text-align: right;
     font-weight: 500;
   }
+`;
 
-  ${Button} {
-    margin-top: 1rem;
-    background-color: ${variables.GREEN};
-    color: ${variables.WHITE};
-    border-radius: 10px;
-    font-weight: 500;
-    padding: 0.5rem;
-    font-size: 18px;
+export const AddWishButton = styled(Button)`
+  margin-top: 1rem;
+  background-color: ${variables.GREEN};
+  color: ${variables.WHITE};
+  border-radius: 10px;
+  font-weight: 500;
+  padding: 0.5rem;
+  font-size: 18px;
 
-    &:hover {
-      background-color: ${variables.GREEN_HOVER};
-    }
-    &:disabled {
-      background-color: ${variables.DISABLED_BUTTON};
-    }
+  &:hover {
+    background-color: ${variables.GREEN_HOVER};
+  }
+  &:disabled {
+    background-color: ${variables.DISABLED_BUTTON};
   }
 `;

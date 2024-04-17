@@ -1,9 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import AddTask from '../components/Tasks/AddTask';
 import Button from '../components/UI/Button';
+import Modal from '../components/UI/Modal';
+import useModal from '../hooks/user-modal';
 import * as Styled from '../styles/Tasks.styled';
 
 const TasksPage = () => {
+  const { isShowing: modalIsShowing, toggle: toggleModal } = useModal();
+
   return (
     <Styled.TaskContent>
       <Styled.TaskHeader>
@@ -12,7 +17,7 @@ const TasksPage = () => {
           <Button>
             <FontAwesomeIcon icon='fa-solid fa-list' fixedWidth />
           </Button>
-          <Button>
+          <Button onClick={toggleModal}>
             <FontAwesomeIcon icon='fa-solid fa-plus' fixedWidth />
           </Button>
         </Styled.TaskActions>
@@ -60,6 +65,9 @@ const TasksPage = () => {
           </div>
         </Styled.DeleteCell>
       </Styled.TaskTable>
+      <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-task-modal' hasOverlay>
+        <AddTask />
+      </Modal>
     </Styled.TaskContent>
   );
 };

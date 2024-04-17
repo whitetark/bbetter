@@ -20,6 +20,10 @@ export const Children = styled.div`
   &.add-wish-modal {
     place-self: flex-end;
   }
+
+  &.add-task-modal {
+    place-self: flex-end;
+  }
 `;
 
 export const Modal = styled.div`

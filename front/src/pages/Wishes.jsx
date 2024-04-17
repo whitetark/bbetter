@@ -29,6 +29,7 @@ const WishesPage = () => {
         <WishItem />
         <WishItem />
         <WishItem />
+        <WishItem />
       </Styled.WishList>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-wish-modal' hasOverlay>
         <AddWish />

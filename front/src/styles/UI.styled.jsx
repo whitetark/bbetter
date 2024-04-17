@@ -73,3 +73,11 @@ export const HomePadding = styled.div`
     align-self: flex-start;
   }
 `;
+
+export const TextError = styled.div`
+  color: red;
+  font-size: 16px;
+  text-align: right;
+  font-weight: 500;
+  text-transform: capitalize;
+`;
