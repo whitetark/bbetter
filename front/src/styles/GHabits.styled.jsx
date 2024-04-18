@@ -3,6 +3,7 @@ import * as variables from '../app/shared/colorVariables';
 import { BHabitHeader } from './BHabits.styled';
 import { TaskActions } from './Tasks.styled';
 import { HomePadding } from './UI.styled';
+import { AddWish, AddWishButton, AddWishForm } from './Wishes.styled';
 
 export const GHabitContent = styled(HomePadding)`
   display: flex;
@@ -72,3 +73,7 @@ export const Checklist = styled.div`
   gap: 3rem;
   justify-self: flex-end;
 `;
+
+export const AddGHabit = styled(AddWish)``;
+export const AddGHabitForm = styled(AddWishForm)``;
+export const AddGHabitButton = styled(AddWishButton)``;

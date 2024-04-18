@@ -3,7 +3,7 @@ import React from 'react';
 import AddTask from '../components/Tasks/AddTask';
 import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';
-import useModal from '../hooks/user-modal';
+import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/Tasks.styled';
 
 const TasksPage = () => {
@@ -65,7 +65,7 @@ const TasksPage = () => {
           </div>
         </Styled.DeleteCell>
       </Styled.TaskTable>
-      <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-task-modal' hasOverlay>
+      <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
         <AddTask />
       </Modal>
     </Styled.TaskContent>

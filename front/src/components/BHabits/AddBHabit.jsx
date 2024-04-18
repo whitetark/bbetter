@@ -1,48 +1,52 @@
 import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-import * as Styled from '../../styles/Wishes.styled';
+import * as Styled from '../../styles/BHabits.styled';
+import DatePicker from '../UI/DatePicker';
 import { TextInput } from '../UI/Inputs';
 
 const initialValues = {
   content: '',
+  issueDate: new Date(),
 };
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
   content: Yup.string().min(3, 'Too Short!').max(60, 'Too Long!').required('Required'),
+  issueDate: Yup.date(),
 });
 
-const AddWish = ({ onClick }) => {
+const AddBHabit = ({ onClick }) => {
   return (
-    <Styled.AddWish onClick={onClick}>
-      <h1>Add Wish</h1>
+    <Styled.AddBHabit onClick={onClick}>
+      <h1>Add Bad Habit</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={async (values, actions) => {
-          const wish = {
+          const bhabit = {
             AccountId: 1,
             Content: values.content,
-            isCompleted: false,
+            IssueDate: values.issueDate,
           };
           actions.resetForm();
-          console.log(wish);
+          console.log(bhabit);
         }}>
-        <Styled.AddWishForm>
-          <TextInput name='content' placeholder='Your wish' />
+        <Styled.AddBHabitForm>
+          <TextInput name='content' placeholder='Your new habit' />
+          <DatePicker name='issueDate' label='When happened?' />
           <Field>
             {(props) => (
-              <Styled.AddWishButton
+              <Styled.AddBHabitButton
                 disabled={!props.form.isValid && !props.form.isTouched}
                 type='submit'>
                 Add
-              </Styled.AddWishButton>
+              </Styled.AddBHabitButton>
             )}
           </Field>
-        </Styled.AddWishForm>
+        </Styled.AddBHabitForm>
       </Formik>
-    </Styled.AddWish>
+    </Styled.AddBHabit>
   );
 };
 
-export default AddWish;
+export default AddBHabit;

@@ -103,6 +103,7 @@ export const QuoteData = styled.div`
   .wisdom {
     font-size: 20px;
     align-self: flex-start;
+    font-style: italic;
   }
 
   .author {

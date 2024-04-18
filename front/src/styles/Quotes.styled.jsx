@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
 import { HomePadding } from './UI.styled';
+import { AddWish, AddWishButton, AddWishForm } from './Wishes.styled';
 
 export const QuoteContent = styled(HomePadding)`
   position: relative;
@@ -37,10 +38,23 @@ export const QuotesPage = styled.div`
 `;
 
 export const Quote = styled.div`
+  display: flex;
+  flex-direction: column;
   background-color: ${variables.WHITE};
   padding: 2rem;
   border-radius: 10px;
-  text-align: center;
+
+  .content {
+    font-style: italic;
+    font-size: 20px;
+  }
+
+  .author {
+    font-weight: 500;
+    color: ${variables.DIVIDER};
+    align-self: flex-end;
+    font-size: 16px;
+  }
 `;
 
 export const QuoteActions = styled.div`
@@ -48,3 +62,18 @@ export const QuoteActions = styled.div`
   flex-direction: row;
   font-size: 24px;
 `;
+
+export const AddQuote = styled(AddWish)``;
+export const AddQuoteForm = styled(AddWishForm)`
+  gap: 1rem;
+
+  textarea {
+    width: 100%;
+    padding: 0.5rem;
+    resize: none;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid ${variables.DIVIDER};
+  }
+`;
+export const AddQuoteButton = styled(AddWishButton)``;

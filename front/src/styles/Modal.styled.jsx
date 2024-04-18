@@ -17,11 +17,7 @@ export const Children = styled.div`
   position: fixed;
   z-index: 102;
 
-  &.add-wish-modal {
-    place-self: flex-end;
-  }
-
-  &.add-task-modal {
+  &.add-modal {
     place-self: flex-end;
   }
 `;

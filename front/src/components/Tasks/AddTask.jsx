@@ -1,7 +1,7 @@
 import { Field, Formik } from 'formik';
 import * as Yup from 'yup';
-import DatePicker from '../../app/shared/DatePicker';
 import * as Styled from '../../styles/Tasks.styled';
+import DatePicker from '../UI/DatePicker';
 import { Checkbox, TextInput } from '../UI/Inputs';
 
 const initialValues = {

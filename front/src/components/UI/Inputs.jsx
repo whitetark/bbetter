@@ -1,13 +1,13 @@
 import { ErrorMessage, Field } from 'formik';
-import TextError from '../../app/shared/TextError';
+import TextError from './TextError';
 
 export const TextInput = ({ label, name, ...props }) => {
   return (
-    <>
+    <div>
       {label ? <label htmlFor={name}>label</label> : undefined}
       <Field type='text' name={name} {...props} />
       <ErrorMessage name={name} component={TextError} />
-    </>
+    </div>
   );
 };
 

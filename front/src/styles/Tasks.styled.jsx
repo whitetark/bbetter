@@ -120,7 +120,15 @@ export const AddTaskForm = styled(Form)`
     }
 
     .datePicker {
-      font-size: 1.8rem;
+      .react-datepicker__day,
+      .react-datepicker__day-name,
+      .react-datepicker__time-name {
+        width: 3rem;
+      }
+
+      .react-datepicker__day {
+        font-size: 16px;
+      }
     }
   }
 `;

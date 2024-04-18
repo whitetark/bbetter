@@ -1,7 +1,6 @@
 import { Form } from 'formik';
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
-import { BHabitActions, BHabitHeader } from './BHabits.styled';
 import { Button, HomePadding } from './UI.styled';
 
 export const WishContent = styled(HomePadding)`
@@ -11,8 +10,19 @@ export const WishContent = styled(HomePadding)`
   gap: 3rem;
 `;
 
-export const WishActions = styled(BHabitActions)``;
-export const WishHeader = styled(BHabitHeader)``;
+export const WishActions = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  font-size: 24px;
+  justify-self: flex-end;
+`;
+export const WishHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 export const Input = styled.input`
   height: 20px;
@@ -117,13 +127,13 @@ export const AddWish = styled.div`
 export const AddWishForm = styled(Form)`
   display: flex;
   flex-direction: column;
-  font-size: 18px;
+  font-size: 20px;
   input {
     padding: 0.5rem;
     width: 100%;
     border-radius: 10px;
     outline: none;
-    font-size: 18px;
+    font-size: 20px;
     max-width: 35rem;
     border: 1px solid ${variables.DIVIDER};
   }

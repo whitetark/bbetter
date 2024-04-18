@@ -4,7 +4,7 @@ import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';
 import AddWish from '../components/Wishes/AddWish';
 import WishItem from '../components/Wishes/WishItem';
-import useModal from '../hooks/user-modal';
+import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/Wishes.styled';
 
 const WishesPage = () => {
@@ -31,7 +31,7 @@ const WishesPage = () => {
         <WishItem />
         <WishItem />
       </Styled.WishList>
-      <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-wish-modal' hasOverlay>
+      <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
         <AddWish />
       </Modal>
     </Styled.WishContent>

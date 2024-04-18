@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
 import { HomePadding } from './UI.styled';
+import { AddWish, AddWishButton, AddWishForm, WishActions, WishHeader } from './Wishes.styled';
 
 export const BHabitContent = styled(HomePadding)`
   display: flex;
@@ -11,20 +12,8 @@ export const BHabitContent = styled(HomePadding)`
   }
 `;
 
-export const BHabitHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const BHabitActions = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  font-size: 24px;
-  justify-self: flex-end;
-`;
+export const BHabitHeader = styled(WishHeader)``;
+export const BHabitActions = styled(WishActions)``;
 export const BHabitList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -88,3 +77,30 @@ export const BHabitItem = styled.div`
     }
   }
 `;
+
+export const AddBHabit = styled(AddWish)``;
+export const AddBHabitForm = styled(AddWishForm)`
+  gap: 1rem;
+  .form-control {
+    display: flex;
+    flex-direction: column;
+    label {
+      font-size: 18px;
+      font-weight: 500;
+      color: ${variables.DISABLED_BUTTON};
+    }
+
+    .datePicker {
+      .react-datepicker__day,
+      .react-datepicker__day-name,
+      .react-datepicker__time-name {
+        width: 3rem;
+      }
+
+      .react-datepicker__day {
+        font-size: 16px;
+      }
+    }
+  }
+`;
+export const AddBHabitButton = styled(AddWishButton)``;
