@@ -1,6 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFaceFrownOpen, faFaceGrinBeam } from '@fortawesome/free-regular-svg-icons';
 import {
+  faArrowLeft,
   faDrum,
   faGear,
   faHouse,
@@ -21,6 +22,7 @@ import LoginPage from './pages/Login';
 import QuotesPage from './pages/Quotes';
 import RegisterPage from './pages/Register';
 import SettingsPage from './pages/Settings';
+import TaskListPage from './pages/TaskList';
 import TasksPage from './pages/Tasks';
 import WishesPage from './pages/Wishes';
 import AppLayout from './pages/system/AppLayout';
@@ -40,6 +42,7 @@ library.add(
   faPenToSquare,
   faPlus,
   faList,
+  faArrowLeft,
 );
 
 function App() {
@@ -64,7 +67,10 @@ function App() {
           />
           <Route path={PathConstants.HOME} element={<AppLayout />}>
             <Route index element={<HomePage />} />
-            <Route path={PathConstants.TASK} element={<TasksPage />} />
+            <Route path={PathConstants.TASK}>
+              <Route index element={<TasksPage />} />
+              <Route path={PathConstants.TASK_LIST} element={<TaskListPage />} />
+            </Route>
             <Route path={PathConstants.WISH} element={<WishesPage />} />
             <Route path={PathConstants.GHABITS} element={<GHabitsPage />} />
             <Route path={PathConstants.BHABITS} element={<BHabitsPage />} />

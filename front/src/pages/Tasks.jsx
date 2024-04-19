@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import PathConstants from '../app/shared/pathConstants';
 import AddTask from '../components/Tasks/AddTask';
 import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';
@@ -7,17 +9,21 @@ import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/Tasks.styled';
 
 const TasksPage = () => {
-  const { isShowing: modalIsShowing, toggle: toggleModal } = useModal();
+  const { isShowing: addIsShowing, toggle: toggleAdd } = useModal();
+  const navigate = useNavigate();
 
+  const handleClick = () => {
+    navigate(PathConstants.TASK_LIST);
+  };
   return (
     <Styled.TaskContent>
       <Styled.TaskHeader>
         <h1>Task List</h1>
         <Styled.TaskActions>
-          <Button>
+          <Button onClick={handleClick}>
             <FontAwesomeIcon icon='fa-solid fa-list' fixedWidth />
           </Button>
-          <Button onClick={toggleModal}>
+          <Button onClick={toggleAdd}>
             <FontAwesomeIcon icon='fa-solid fa-plus' fixedWidth />
           </Button>
         </Styled.TaskActions>
@@ -65,7 +71,7 @@ const TasksPage = () => {
           </div>
         </Styled.DeleteCell>
       </Styled.TaskTable>
-      <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
+      <Modal isShowing={addIsShowing} hide={toggleAdd} className='add-modal' hasOverlay>
         <AddTask />
       </Modal>
     </Styled.TaskContent>
