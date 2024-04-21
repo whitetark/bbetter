@@ -16,6 +16,11 @@ export const WishActions = styled.div`
   gap: 2rem;
   font-size: 24px;
   justify-self: flex-end;
+  color: ${variables.DISABLED_BUTTON};
+
+  .active {
+    color: black;
+  }
 `;
 export const WishHeader = styled.div`
   display: flex;

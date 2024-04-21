@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
+import { BHabitActions, BHabitItemActions } from './BHabits.styled';
 import { HomePadding } from './UI.styled';
 import { AddWish, AddWishButton, AddWishForm } from './Wishes.styled';
 
@@ -39,10 +40,11 @@ export const QuotesPage = styled.div`
 
 export const Quote = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background-color: ${variables.WHITE};
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 10px;
+  gap: 1rem;
 
   .content {
     font-style: italic;
@@ -57,10 +59,10 @@ export const Quote = styled.div`
   }
 `;
 
-export const QuoteActions = styled.div`
+export const QuoteActions = styled(BHabitActions)``;
+export const QuoteItemActions = styled(BHabitItemActions)`
   display: flex;
-  flex-direction: row;
-  font-size: 24px;
+  flex-direction: column;
 `;
 
 export const AddQuote = styled(AddWish)``;

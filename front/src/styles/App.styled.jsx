@@ -29,6 +29,7 @@ export const Actions = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 18px;
+  gap: 0.2rem;
 `;
 
 export const Sidebar = styled.div`

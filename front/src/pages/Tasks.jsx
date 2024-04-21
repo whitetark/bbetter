@@ -9,6 +9,7 @@ import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/Tasks.styled';
 
 const TasksPage = () => {
+  document.title = `bbetter - Tasks`;
   const { isShowing: addIsShowing, toggle: toggleAdd } = useModal();
   const navigate = useNavigate();
 

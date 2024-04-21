@@ -6,6 +6,7 @@ import Button from '../components/UI/Button';
 import * as Styled from '../styles/Home.styled';
 
 const HomePage = () => {
+  document.title = `bbetter - Home`;
   return (
     <Styled.Home>
       <Background />

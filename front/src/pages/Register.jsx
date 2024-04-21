@@ -10,7 +10,7 @@ import * as Styled from '../styles/Login.styled';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-
+  document.title = `bbetter - Register`;
   return (
     <Styled.Login>
       <Background />

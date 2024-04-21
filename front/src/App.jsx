@@ -11,6 +11,7 @@ import {
   faPencil,
   faPlus,
   faQuoteLeft,
+  faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import PathConstants from './app/shared/pathConstants';
@@ -43,6 +44,7 @@ library.add(
   faPlus,
   faList,
   faArrowLeft,
+  faTrashCan,
 );
 
 function App() {

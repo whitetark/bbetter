@@ -44,7 +44,6 @@ export const Divider = styled.div`
 `;
 
 export const Button = styled.button`
-  background-color: white;
   color: ${variables.WHITE_COLOR};
   text-align: center;
 
@@ -80,4 +79,36 @@ export const TextError = styled.div`
   text-align: right;
   font-weight: 500;
   text-transform: capitalize;
+`;
+
+export const Confirmation = styled.div`
+  background-color: ${variables.WHITE};
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-radius: 10px;
+  padding: 2rem;
+
+  p {
+    font-size: 28px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+    font-size: 20px;
+
+    ${Button} {
+      background-color: ${variables.DIVIDER};
+      padding: 1rem;
+      border-radius: 10px;
+
+      &.delete {
+        color: ${variables.WHITE};
+        background-color: red;
+      }
+    }
+  }
 `;

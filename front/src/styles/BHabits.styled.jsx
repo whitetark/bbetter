@@ -24,6 +24,11 @@ export const BHabitList = styled.div`
   margin: 0 auto;
 `;
 
+export const BHabitItemHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 export const BHabitItem = styled.div`
   display: flex;
   flex-direction: column;
@@ -75,6 +80,16 @@ export const BHabitItem = styled.div`
 
     .completed {
     }
+  }
+`;
+
+export const BHabitItemActions = styled(BHabitActions)`
+  font-size: 16px;
+  gap: 1rem;
+  color: ${variables.DISABLED_BUTTON};
+  transition: all 0.2s ease-out;
+  &:hover {
+    color: black;
   }
 `;
 

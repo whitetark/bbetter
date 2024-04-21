@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
-import { BHabitHeader } from './BHabits.styled';
+import { BHabitHeader, BHabitItemActions } from './BHabits.styled';
 import { TaskActions } from './Tasks.styled';
 import { HomePadding } from './UI.styled';
 import { AddWish, AddWishButton, AddWishForm } from './Wishes.styled';
@@ -20,7 +20,7 @@ export const GHabitList = styled.div`
 export const GHabitActions = styled(TaskActions)``;
 export const GHabitItem = styled.div`
   display: grid;
-  grid-template-columns: 1fr 4fr 4fr;
+  grid-template-columns: 1fr 4fr 4fr 2fr;
   width: 100%;
   background-color: ${variables.BACKGROUND};
   padding: 1rem 2rem;
@@ -44,7 +44,7 @@ export const GHabitHeader = styled(BHabitHeader)``;
 
 export const GHabitTableHeader = styled.div`
   display: grid;
-  grid-template-columns: 1fr 4fr 4fr;
+  grid-template-columns: 1fr 4fr 4fr 2fr;
   padding: 1rem 2rem;
 
   .weeks-list {
@@ -58,6 +58,7 @@ export const GHabitTableHeader = styled.div`
     color: ${variables.DISABLED_BUTTON};
   }
 `;
+export const GHabitItemActions = styled(BHabitItemActions)``;
 
 export const Input = styled.input`
   height: 20px;

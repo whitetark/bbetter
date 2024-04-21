@@ -8,6 +8,7 @@ import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/Wishes.styled';
 
 const WishesPage = () => {
+  document.title = `bbetter - Wishes`;
   const { isShowing: modalIsShowing, toggle: toggleModal } = useModal();
 
   return (

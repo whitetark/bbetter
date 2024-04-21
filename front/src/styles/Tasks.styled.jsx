@@ -134,21 +134,3 @@ export const AddTaskForm = styled(Form)`
 `;
 
 export const AddTaskButton = styled(AddWishButton)``;
-
-export const TaskList = styled(HomePadding)``;
-export const TaskListHeader = styled(BHabitHeader)`
-  font-size: 24px;
-  justify-content: flex-start;
-  gap: 1rem;
-  color: ${variables.DISABLED_BUTTON};
-`;
-export const TaskListActions = styled(BHabitActions)`
-  margin-left: auto;
-  color: black;
-`;
-export const TaskListMain = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  max-width: 90rem;
-  margin: 0 auto;
-`;
