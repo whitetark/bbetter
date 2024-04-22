@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import AddBHabit from '../components/BHabits/AddBHabit';
+import BHabitAdd from '../components/BHabits/BHabitAdd';
 import BHabitItem from '../components/BHabits/BHabitItem';
 import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';
@@ -31,7 +31,7 @@ const BHabitsPage = () => {
         ))}
       </Styled.BHabitList>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
-        <AddBHabit />
+        <BHabitAdd />
       </Modal>
     </Styled.BHabitContent>
   );

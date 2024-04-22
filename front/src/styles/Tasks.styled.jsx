@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
 import { BHabitActions, BHabitHeader } from './BHabits.styled';
 import { HomePadding } from './UI.styled';
-import { AddWish, AddWishButton } from './Wishes.styled';
+import { AddWishButton } from './Wishes.styled';
 
 export const TaskContent = styled(HomePadding)`
   display: flex;
@@ -80,7 +80,7 @@ export const DelegateCell = styled(TableCell)`
 export const TaskHeader = styled(BHabitHeader)``;
 export const TaskActions = styled(BHabitActions)``;
 
-export const AddTask = styled(AddWish)``;
+export const AddTask = styled.div``;
 export const AddTaskForm = styled(Form)`
   display: flex;
   flex-direction: column;
@@ -134,3 +134,5 @@ export const AddTaskForm = styled(Form)`
 `;
 
 export const AddTaskButton = styled(AddWishButton)``;
+
+export const EditTask = styled.div``;

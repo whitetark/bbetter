@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PathConstants from '../app/shared/pathConstants';
-import AddTask from '../components/Tasks/AddTask';
+import TaskAdd from '../components/Tasks/TaskAdd';
 import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';
 import useModal from '../hooks/use-modal';
@@ -73,7 +73,7 @@ const TasksPage = () => {
         </Styled.DeleteCell>
       </Styled.TaskTable>
       <Modal isShowing={addIsShowing} hide={toggleAdd} className='add-modal' hasOverlay>
-        <AddTask />
+        <TaskAdd />
       </Modal>
     </Styled.TaskContent>
   );

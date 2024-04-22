@@ -7,7 +7,7 @@ import * as Styled from '../../styles/BHabits.styled';
 import Button from '../UI/Button';
 import Confirmation from '../UI/Confirmation';
 import Modal from '../UI/Modal';
-import EditBHabit from './EditBHabit';
+import BHabitEdit from './BHabitEdit';
 
 const BHabitItem = ({ isEdit }) => {
   const [number, setNumber] = useState(29.1);
@@ -49,10 +49,10 @@ const BHabitItem = ({ isEdit }) => {
           />
         </div>
       </Styled.BHabitItem>
-      <Modal isShowing={editIsShowing} hide={toggleEdit} className='task-modal' hasOverlay>
-        <EditBHabit />
+      <Modal isShowing={editIsShowing} hide={toggleEdit} className='add-modal' hasOverlay>
+        <BHabitEdit />
       </Modal>
-      <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='task-modal' hasOverlay>
+      <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='add-modal' hasOverlay>
         <Confirmation hide={toggleDelete} />
       </Modal>
     </>

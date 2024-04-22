@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import AddQuote from '../components/Quotes/AddQuote';
+import QuoteAdd from '../components/Quotes/QuoteAdd';
 import QuoteItem from '../components/Quotes/QuoteItem';
 import Background from '../components/UI/Background';
 import Button from '../components/UI/Button';
@@ -35,7 +35,7 @@ const QuotesPage = () => {
         </Styled.QuoteList>
       </Styled.QuoteContent>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
-        <AddQuote />
+        <QuoteAdd />
       </Modal>
     </Styled.QuotesPage>
   );

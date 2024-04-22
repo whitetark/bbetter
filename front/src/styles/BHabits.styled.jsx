@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
 import { HomePadding } from './UI.styled';
-import { AddWish, AddWishButton, AddWishForm, WishActions, WishHeader } from './Wishes.styled';
+import { AddWishButton, AddWishForm, WishActions, WishHeader } from './Wishes.styled';
 
 export const BHabitContent = styled(HomePadding)`
   display: flex;
@@ -93,7 +93,7 @@ export const BHabitItemActions = styled(BHabitActions)`
   }
 `;
 
-export const AddBHabit = styled(AddWish)``;
+export const AddBHabit = styled.div``;
 export const AddBHabitForm = styled(AddWishForm)`
   gap: 1rem;
   .form-control {

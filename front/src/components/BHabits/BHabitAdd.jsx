@@ -15,7 +15,7 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
   issueDate: Yup.date(),
 });
 
-const AddBHabit = ({ onClick }) => {
+const BHabitAdd = ({ onClick }) => {
   return (
     <Styled.AddBHabit onClick={onClick}>
       <h1>Add Bad Habit</h1>
@@ -49,4 +49,4 @@ const AddBHabit = ({ onClick }) => {
   );
 };
 
-export default AddBHabit;
+export default BHabitAdd;

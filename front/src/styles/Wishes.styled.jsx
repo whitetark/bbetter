@@ -113,21 +113,7 @@ export const WishList = styled.div`
   margin: 0 auto;
 `;
 
-export const AddWish = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background-color: white;
-  margin: 2rem;
-  padding: 2rem;
-  border-radius: 10px;
-  h1 {
-    font-size: 24px;
-    color: ${variables.DISABLED_BUTTON};
-    font-weight: 500;
-  }
-  box-shadow: ${variables.BOX_SHADOW};
-`;
+export const AddWish = styled.div``;
 
 export const AddWishForm = styled(Form)`
   display: flex;

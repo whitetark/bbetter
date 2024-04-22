@@ -1,7 +1,7 @@
 import React from 'react';
 
-const EditQuote = () => {
+const QuoteEdit = () => {
   return <div>EditQuote</div>;
 };
 
-export default EditQuote;
+export default QuoteEdit;

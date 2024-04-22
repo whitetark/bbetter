@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import * as variables from '../app/shared/colorVariables';
 
 export const Overlay = styled.div`
   content: '';
@@ -19,6 +20,21 @@ export const Children = styled.div`
 
   &.add-modal {
     place-self: flex-end;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: white;
+    margin: 2rem;
+    padding: 2rem;
+    border-radius: 10px;
+
+    h1 {
+      font-size: 24px;
+      color: ${variables.DISABLED_BUTTON};
+      font-weight: 500;
+    }
+    box-shadow: ${variables.BOX_SHADOW};
   }
 
   &.task-modal {

@@ -14,7 +14,7 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
   author: Yup.string().min(3, 'Too Short!').max(60, 'Too Long!'),
 });
 
-const AddQuote = ({ onClick }) => {
+const QuoteAdd = ({ onClick }) => {
   return (
     <Styled.AddQuote onClick={onClick}>
       <h1>Add Quote</h1>
@@ -48,4 +48,4 @@ const AddQuote = ({ onClick }) => {
   );
 };
 
-export default AddQuote;
+export default QuoteAdd;

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const EditBHabit = () => {
+const BHabitEdit = () => {
   return <div>BHabitEdit</div>;
 };
 
-export default EditBHabit;
+export default BHabitEdit;

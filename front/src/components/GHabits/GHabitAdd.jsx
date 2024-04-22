@@ -1,7 +1,7 @@
 import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-import * as Styled from '../../styles/Wishes.styled';
+import * as Styled from '../../styles/GHabits.styled';
 import { TextInput } from '../UI/Inputs';
 
 const initialValues = {
@@ -12,37 +12,37 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
   content: Yup.string().min(3, 'Too Short!').max(60, 'Too Long!').required('Required'),
 });
 
-const AddWish = ({ onClick }) => {
+const GHabitAdd = ({ onClick }) => {
   return (
-    <Styled.AddWish onClick={onClick}>
-      <h1>Add Wish</h1>
+    <Styled.AddGHabit onClick={onClick}>
+      <h1>Add New Habit</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={async (values, actions) => {
-          const wish = {
+          const ghabit = {
             AccountId: 1,
             Content: values.content,
             isCompleted: false,
           };
           actions.resetForm();
-          console.log(wish);
+          console.log(ghabit);
         }}>
-        <Styled.AddWishForm>
-          <TextInput name='content' placeholder='Your wish' />
+        <Styled.AddGHabitForm>
+          <TextInput name='content' placeholder='Your new habit' />
           <Field>
             {(props) => (
-              <Styled.AddWishButton
+              <Styled.AddGHabitButton
                 disabled={!props.form.isValid && !props.form.isTouched}
                 type='submit'>
                 Add
-              </Styled.AddWishButton>
+              </Styled.AddGHabitButton>
             )}
           </Field>
-        </Styled.AddWishForm>
+        </Styled.AddGHabitForm>
       </Formik>
-    </Styled.AddWish>
+    </Styled.AddGHabit>
   );
 };
 
-export default AddWish;
+export default GHabitAdd;

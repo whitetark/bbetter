@@ -57,8 +57,4 @@ export const TaskItem = styled.div`
     outline: none;
   }
 `;
-export const TaskModal = styled.div`
-  display: flex;
-  background-color: ${variables.WHITE};
-`;
 export const TaskItemActions = styled(BHabitItemActions)``;

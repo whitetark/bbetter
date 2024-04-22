@@ -1,7 +1,7 @@
 import React from 'react';
 
-const EditGHabit = () => {
+const GHabitEdit = () => {
   return <div>GHabitEdit</div>;
 };
 
-export default EditGHabit;
+export default GHabitEdit;

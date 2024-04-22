@@ -5,7 +5,7 @@ import * as Styled from '../../styles/Quotes.styled';
 import Button from '../UI/Button';
 import Confirmation from '../UI/Confirmation';
 import Modal from '../UI/Modal';
-import EditQuote from './EditQuote';
+import QuoteEdit from './QuoteEdit';
 
 const QuoteItem = ({ isEdit }) => {
   const { isShowing: editIsShowing, toggle: toggleEdit } = useModal();
@@ -30,7 +30,7 @@ const QuoteItem = ({ isEdit }) => {
         )}
       </Styled.Quote>
       <Modal isShowing={editIsShowing} hide={toggleEdit} className='task-modal' hasOverlay>
-        <EditQuote />
+        <QuoteEdit />
       </Modal>
       <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='task-modal' hasOverlay>
         <Confirmation hide={toggleDelete} />

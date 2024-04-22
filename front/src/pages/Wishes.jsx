@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';
-import AddWish from '../components/Wishes/AddWish';
+import WishAdd from '../components/Wishes/WishAdd';
 import WishItem from '../components/Wishes/WishItem';
 import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/Wishes.styled';
@@ -33,7 +33,7 @@ const WishesPage = () => {
         <WishItem />
       </Styled.WishList>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
-        <AddWish />
+        <WishAdd />
       </Modal>
     </Styled.WishContent>
   );

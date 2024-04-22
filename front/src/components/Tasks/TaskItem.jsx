@@ -5,7 +5,7 @@ import * as Styled from '../../styles/TaskList.styled';
 import Button from '../UI/Button';
 import Confirmation from '../UI/Confirmation';
 import Modal from '../UI/Modal';
-import EditTask from './EditTask';
+import TaskEdit from './TaskEdit';
 
 const TaskItem = ({ isEdit }) => {
   const [taskAttributes, setTaskAttributes] = useState({
@@ -59,7 +59,7 @@ const TaskItem = ({ isEdit }) => {
         </Styled.TaskItemActions>
       </Styled.TaskItem>
       <Modal isShowing={editIsShowing} hide={toggleEdit} className='task-modal' hasOverlay>
-        <EditTask />
+        <TaskEdit />
       </Modal>
       <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='task-modal' hasOverlay>
         <Confirmation hide={toggleDelete} />

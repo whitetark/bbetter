@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
 import { BHabitActions, BHabitItemActions } from './BHabits.styled';
 import { HomePadding } from './UI.styled';
-import { AddWish, AddWishButton, AddWishForm } from './Wishes.styled';
+import { AddWishButton, AddWishForm } from './Wishes.styled';
 
 export const QuoteContent = styled(HomePadding)`
   position: relative;
@@ -65,7 +65,7 @@ export const QuoteItemActions = styled(BHabitItemActions)`
   flex-direction: column;
 `;
 
-export const AddQuote = styled(AddWish)``;
+export const AddQuote = styled.div``;
 export const AddQuoteForm = styled(AddWishForm)`
   gap: 1rem;
 

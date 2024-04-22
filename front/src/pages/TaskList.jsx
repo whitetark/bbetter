@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PathConstants from '../app/shared/pathConstants';
-import AddTask from '../components/Tasks/AddTask';
+import TaskAdd from '../components/Tasks/TaskAdd';
 import TaskItem from '../components/Tasks/TaskItem';
 import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';
@@ -44,7 +44,7 @@ const TaskListPage = () => {
         <TaskItem isEdit={isEdit} />
       </Styled.TaskListMain>
       <Modal isShowing={addIsShowing} hide={toggleAdd} className='add-modal' hasOverlay>
-        <AddTask />
+        <TaskAdd />
       </Modal>
     </Styled.TaskList>
   );

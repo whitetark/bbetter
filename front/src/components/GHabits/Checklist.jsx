@@ -19,6 +19,7 @@ const Checklist = (props) => {
   }, [weeks]);
 
   const handleChange = (event) => {
+    event.stopPropagation();
     const target = event.target;
     const value = target.checked;
     const name = target.name;
@@ -29,7 +30,7 @@ const Checklist = (props) => {
   };
 
   return (
-    <Styled.Checklist>
+    <Styled.Checklist onClick={(event) => event.stopPropagation()}>
       <Styled.Input type='checkbox' name='mon' defaultChecked={weeks.mon} onChange={handleChange} />
       <Styled.Input type='checkbox' name='tue' defaultChecked={weeks.tue} onChange={handleChange} />
       <Styled.Input type='checkbox' name='wed' defaultChecked={weeks.wed} onChange={handleChange} />
