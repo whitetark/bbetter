@@ -80,7 +80,9 @@ export const DelegateCell = styled(TableCell)`
 export const TaskHeader = styled(BHabitHeader)``;
 export const TaskActions = styled(BHabitActions)``;
 
-export const AddTask = styled.div``;
+export const AddTask = styled.div`
+  padding: 2rem;
+`;
 export const AddTaskForm = styled(Form)`
   display: flex;
   flex-direction: column;
@@ -135,4 +137,6 @@ export const AddTaskForm = styled(Form)`
 
 export const AddTaskButton = styled(AddWishButton)``;
 
-export const EditTask = styled.div``;
+export const EditTask = styled.div`
+  padding: 2rem;
+`;

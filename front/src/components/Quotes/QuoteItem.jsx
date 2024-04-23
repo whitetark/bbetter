@@ -29,10 +29,10 @@ const QuoteItem = ({ isEdit }) => {
           </Styled.QuoteItemActions>
         )}
       </Styled.Quote>
-      <Modal isShowing={editIsShowing} hide={toggleEdit} className='task-modal' hasOverlay>
+      <Modal isShowing={editIsShowing} hide={toggleEdit} className='add-modal' hasOverlay>
         <QuoteEdit />
       </Modal>
-      <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='task-modal' hasOverlay>
+      <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='add-modal' hasOverlay>
         <Confirmation hide={toggleDelete} />
       </Modal>
     </>

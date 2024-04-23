@@ -20,13 +20,11 @@ export const Children = styled.div`
 
   &.add-modal {
     place-self: flex-end;
-
     display: flex;
     flex-direction: column;
     gap: 1rem;
     background-color: white;
     margin: 2rem;
-    padding: 2rem;
     border-radius: 10px;
 
     h1 {
@@ -38,7 +36,15 @@ export const Children = styled.div`
   }
 
   &.task-modal {
+    border-radius: 10px;
+    background-color: white;
     place-self: center;
+
+    h1 {
+      font-size: 24px;
+      color: ${variables.DISABLED_BUTTON};
+      font-weight: 500;
+    }
   }
 `;
 

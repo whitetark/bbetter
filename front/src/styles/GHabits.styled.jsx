@@ -86,19 +86,21 @@ export const Input = styled.input`
   margin-left: auto;
 `;
 
-export const AddGHabit = styled.div``;
+export const AddGHabit = styled.div`
+  padding: 2rem;
+`;
 export const AddGHabitForm = styled(AddWishForm)``;
 export const AddGHabitButton = styled(AddWishButton)``;
 
 export const GHabitView = styled.div`
   background-color: ${variables.WHITE};
   border-radius: 10px;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   max-width: 37rem;
   width: 100%;
+  padding: 2rem;
 `;
 export const GHabitViewHeader = styled(BHabitItemHeader)`
   align-items: center;
@@ -128,7 +130,13 @@ export const GHabitViewMain = styled.div`
   }
 `;
 
-export const Calendar = styled.div``;
+export const Calendar = styled.div`
+  .css-23p0if-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
+  .css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
+  .css-innj4t-MuiPickersYear-yearButton.Mui-selected {
+    background-color: #00990f !important;
+  }
+`;
 
 export const CalendarActions = styled.div`
   display: flex;

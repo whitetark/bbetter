@@ -27,7 +27,7 @@ function ServerDay(props) {
   );
 }
 
-export default function Calendar() {
+export default function GHabitCalendar() {
   const [isLoading, setIsLoading] = useState(false);
   const [highlightedDays, setHighlightedDays] = useState([1, 2, 15]);
   const [value, setValue] = useState(dayjs(new Date()));

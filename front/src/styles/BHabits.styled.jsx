@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
-import { HomePadding } from './UI.styled';
+import { Button, HomePadding } from './UI.styled';
 import { AddWishButton, AddWishForm, WishActions, WishHeader } from './Wishes.styled';
 
 export const BHabitContent = styled(HomePadding)`
@@ -17,6 +17,7 @@ export const BHabitActions = styled(WishActions)``;
 export const BHabitList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   gap: 2rem;
   max-width: 90rem;
   width: 100%;
@@ -37,6 +38,7 @@ export const BHabitItem = styled.div`
   padding: 1rem 2rem;
   border-radius: 10px;
   justify-content: space-between;
+  transition: all 0.2s ease-out;
 
   .title {
     font-weight: 700;
@@ -81,6 +83,11 @@ export const BHabitItem = styled.div`
     .completed {
     }
   }
+
+  &:hover {
+    filter: brightness(0.8);
+    cursor: pointer;
+  }
 `;
 
 export const BHabitItemActions = styled(BHabitActions)`
@@ -119,3 +126,83 @@ export const AddBHabitForm = styled(AddWishForm)`
   }
 `;
 export const AddBHabitButton = styled(AddWishButton)``;
+
+export const BHabitView = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+
+  .item-content {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+
+    .perc {
+      margin-left: 0;
+      font-size: 48px;
+    }
+  }
+`;
+export const BHabitViewHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .title {
+    font-size: 24px;
+    font-weight: 500;
+    color: ${variables.DISABLED_BUTTON};
+  }
+`;
+export const BHabitViewActions = styled.div`
+  color: ${variables.DISABLED_BUTTON};
+  display: flex;
+  flex-direction: row;
+  font-size: 20px;
+  gap: 1rem;
+  transition: all 0.2s ease-out;
+
+  &:hover {
+    color: black;
+  }
+`;
+export const BHabitViewMain = styled.div``;
+export const BHabitViewItem = styled(BHabitItem)`
+  background-color: initial;
+  pointer-events: none;
+`;
+
+export const Calendar = styled.div`
+  .css-23p0if-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
+  .css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
+  .css-innj4t-MuiPickersYear-yearButton.Mui-selected {
+    background-color: #993000 !important;
+  }
+`;
+
+export const CalendarActions = styled.div`
+  display: flex;
+  flex-direction: row;
+  font-size: 24px;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 2rem;
+
+  ${Button} {
+    border-radius: 80px;
+    padding: 1rem 2rem;
+    color: white;
+    transition: all 0.2s ease-out;
+
+    &.add {
+      background-color: red;
+    }
+    &.remove {
+      background-color: ${variables.GREEN};
+    }
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
+`;

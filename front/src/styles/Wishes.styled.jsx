@@ -102,6 +102,8 @@ export const WishItem = styled.div`
   }
 `;
 
+export const WishItemActions = styled.div``;
+
 export const WishList = styled.div`
   display: grid;
   grid-template-rows: repeat(auto-fit, 10rem);
@@ -113,7 +115,12 @@ export const WishList = styled.div`
   margin: 0 auto;
 `;
 
-export const AddWish = styled.div``;
+export const AddWish = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+`;
 
 export const AddWishForm = styled(Form)`
   display: flex;

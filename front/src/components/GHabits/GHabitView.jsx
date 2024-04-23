@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import * as Styled from '../../styles/GHabits.styled';
 import Button from '../UI/Button';
-import Calendar from './Calendar';
+import GHabitCalendar from './GHabitCalendar';
 
 const GHabitView = (props) => {
   return (
@@ -23,7 +23,7 @@ const GHabitView = (props) => {
             ContentContentContent ContentContentContentC RRrr
             ontentContentContentContentContentContentContentContent
           </p>
-          <Calendar />
+          <GHabitCalendar />
         </Styled.GHabitViewMain>
       </Styled.GHabitView>
     </>

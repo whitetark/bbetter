@@ -5,6 +5,7 @@ const PathConstants = {
   TASK: `${HOME}/tasks`,
   TASK_LIST: `${HOME}/tasks/list`,
   WISH: `${HOME}/wishes`,
+  WISH_LIST: `${HOME}/wishes/list`,
   GHABITS: `${HOME}/ghabits`,
   BHABITS: `${HOME}/bhabits`,
   QUOTE: `${HOME}/quotes`,

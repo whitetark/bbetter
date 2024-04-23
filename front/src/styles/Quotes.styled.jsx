@@ -65,7 +65,9 @@ export const QuoteItemActions = styled(BHabitItemActions)`
   flex-direction: column;
 `;
 
-export const AddQuote = styled.div``;
+export const AddQuote = styled.div`
+  padding: 2rem;
+`;
 export const AddQuoteForm = styled(AddWishForm)`
   gap: 1rem;
 

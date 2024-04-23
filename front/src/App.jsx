@@ -25,6 +25,7 @@ import RegisterPage from './pages/Register';
 import SettingsPage from './pages/Settings';
 import TaskListPage from './pages/TaskList';
 import TasksPage from './pages/Tasks';
+import WishListPage from './pages/WishList';
 import WishesPage from './pages/Wishes';
 import AppLayout from './pages/system/AppLayout';
 import BasePage from './pages/system/Base';
@@ -73,7 +74,10 @@ function App() {
               <Route index element={<TasksPage />} />
               <Route path={PathConstants.TASK_LIST} element={<TaskListPage />} />
             </Route>
-            <Route path={PathConstants.WISH} element={<WishesPage />} />
+            <Route path={PathConstants.WISH}>
+              <Route index element={<WishesPage />} />
+              <Route path={PathConstants.WISH_LIST} element={<WishListPage />} />
+            </Route>
             <Route path={PathConstants.GHABITS} element={<GHabitsPage />} />
             <Route path={PathConstants.BHABITS} element={<BHabitsPage />} />
             <Route path={PathConstants.SETTINGS} element={<SettingsPage />} />

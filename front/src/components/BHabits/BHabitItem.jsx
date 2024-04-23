@@ -1,34 +1,30 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProgressBar from '@ramonak/react-progress-bar';
 import React, { useState } from 'react';
 import * as variables from '../../app/shared/colorVariables';
 import useModal from '../../hooks/use-modal';
 import * as Styled from '../../styles/BHabits.styled';
-import Button from '../UI/Button';
 import Confirmation from '../UI/Confirmation';
 import Modal from '../UI/Modal';
 import BHabitEdit from './BHabitEdit';
+import BHabitView from './BHabitView';
 
 const BHabitItem = ({ isEdit }) => {
   const [number, setNumber] = useState(29.1);
   const { isShowing: editIsShowing, toggle: toggleEdit } = useModal();
   const { isShowing: deleteIsShowing, toggle: toggleDelete } = useModal();
+  const { isShowing: viewIsShowing, toggle: toggleView } = useModal();
 
+  const viewProps = {
+    editIsShowing,
+    toggleEdit,
+    deleteIsShowing,
+    toggleDelete,
+  };
   return (
     <>
-      <Styled.BHabitItem>
+      <Styled.BHabitItem onClick={toggleView}>
         <Styled.BHabitItemHeader>
           <div className='title'>Smoking</div>
-          {isEdit && (
-            <Styled.BHabitItemActions>
-              <Button onClick={toggleEdit}>
-                <FontAwesomeIcon icon='fa-solid fa-pencil' fixedWidth />
-              </Button>
-              <Button onClick={toggleDelete}>
-                <FontAwesomeIcon icon='fa-solid fa-trash-can' fixedWidth />
-              </Button>
-            </Styled.BHabitItemActions>
-          )}
         </Styled.BHabitItemHeader>
         <div className='item-content'>
           <div className='time-content'>
@@ -49,10 +45,13 @@ const BHabitItem = ({ isEdit }) => {
           />
         </div>
       </Styled.BHabitItem>
-      <Modal isShowing={editIsShowing} hide={toggleEdit} className='add-modal' hasOverlay>
+      <Modal isShowing={viewIsShowing} hide={toggleView} className='task-modal' hasOverlay>
+        <BHabitView {...viewProps} />
+      </Modal>
+      <Modal isShowing={editIsShowing} hide={toggleEdit} className='add-modal'>
         <BHabitEdit />
       </Modal>
-      <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='add-modal' hasOverlay>
+      <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='add-modal'>
         <Confirmation hide={toggleDelete} />
       </Modal>
     </>

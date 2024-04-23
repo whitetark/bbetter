@@ -41,7 +41,9 @@ const TaskListPage = () => {
           <div>Important?</div>
           <div className='deadline'>Deadline</div>
         </Styled.TaskHeader>
-        <TaskItem isEdit={isEdit} />
+        {[...Array(1)].map((_, index) => (
+          <TaskItem key={index} isEdit={isEdit} />
+        ))}
       </Styled.TaskListMain>
       <Modal isShowing={addIsShowing} hide={toggleAdd} className='add-modal' hasOverlay>
         <TaskAdd />
