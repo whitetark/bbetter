@@ -4,7 +4,7 @@ import { Container } from './UI.styled';
 
 export const App = styled(Container)`
   display: grid;
-  grid-template-columns: 36rem 3px 1fr;
+  grid-template-columns: minmax(12rem, 36rem) 3px 1fr;
   background-color: ${variables.WHITE};
   max-width: 180rem;
   border-radius: 10px;

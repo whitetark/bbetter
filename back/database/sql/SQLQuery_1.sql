@@ -30,7 +30,7 @@ CREATE TABLE bbetterSchema.Wishes
     WishId INT IDENTITY(1,1) PRIMARY KEY,
     AccountId INT REFERENCES bbetterSchema.Accounts(AccountId),
     Content VARCHAR(1000),
-    isCompleted BIT,
+    IsCompleted BIT,
 )
 
 CREATE TABLE bbetterSchema.GHabits
@@ -66,12 +66,13 @@ CREATE TABLE bbetterSchema.Quotes
 (
     QuoteId INT IDENTITY(1,1) PRIMARY KEY,
     Author VARCHAR(100),
-    Quote VARCHAR(2000),
+    Content VARCHAR(2000),
 )
 
 CREATE TABLE bbetterSchema.UserQuotes
 (
     UserQuoteId INT IDENTITY(1,1) PRIMARY KEY,
     AccountId INT REFERENCES bbetterSchema.Accounts(AccountId),
+    Author VARCHAR(100),
     Quote VARCHAR(2000)
 )

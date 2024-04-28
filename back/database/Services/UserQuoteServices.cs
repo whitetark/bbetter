@@ -63,14 +63,15 @@ namespace database.Services
                 var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
 
                 string sql = @"INSERT INTO bbetterSchema.UserQuotes
-                ([AccountId],[Quote]) 
+                ([AccountId],[Quote],[Author]) 
                 OUTPUT INSERTED.*
-                VALUES (@accountId, @quote)";
+                VALUES (@accountId, @quote, @author])";
 
                 return await _dbConnection.QuerySingleAsync<UserQuote>(sql, new
                 {
                     accountId = quote.AccountId,
                     quote = quote.Quote,
+                    author = quote.Author,
                 });
             }
             catch (Exception)
@@ -83,13 +84,14 @@ namespace database.Services
         public async Task Update(UserQuote newQuote)
         {
             string sql = @"UPDATE bbetterSchema.UserQuotes 
-            SET [Quote] = @quote,
+            SET [Quote] = @quote, [Author] = @author
             WHERE UserQuoteId = @quoteId";
             var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
             if (await _dbConnection.ExecuteAsync(sql, new
             {
                 quote = newQuote.Quote,
                 quoteId = newQuote.UserQuoteId,
+                author = newQuote.Author,
             }) > 0) { return; }
 
             throw new Exception("Failed to Update Quote");

@@ -59,3 +59,102 @@ export const UserService = {
     return api.post('/Auth/refresh-token', payload);
   },
 };
+
+export const TaskService = {
+  async getById(payload) {
+    return api.get(`/Task/getById/${payload.Id}`);
+  },
+  async getByAccount(payload) {
+    return api.get(`/Task/getByAccount/${payload.AccountId}`);
+  },
+  async create(payload) {
+    return api.post('/Task/create/', payload);
+  },
+  async update(payload) {
+    return api.put('/Task/update/', payload);
+  },
+  async deleteById(payload) {
+    return api.delete(`/Task/deleteById/${payload.Id}`);
+  },
+};
+
+export const WishService = {
+  async getById(payload) {
+    return api.get(`/Wish/getById/${payload.Id}`);
+  },
+  async getByAccount(payload) {
+    return api.get(`/Wish/getByAccount/${payload.AccountId}`);
+  },
+  async create(payload) {
+    return api.post('/Wish/create/', payload);
+  },
+  async update(payload) {
+    return api.put('/Wish/update/', payload);
+  },
+  async deleteById(payload) {
+    return api.delete(`/Wish/deleteById/${payload.Id}`);
+  },
+};
+
+export const GHabitService = {
+  async getById(payload) {
+    return api.get(`/GHabit/getById/${payload.Id}`);
+  },
+  async getByAccount(payload) {
+    return api.get(`/GHabit/getAll/${payload.AccountId}`);
+  },
+  async create(payload) {
+    return api.post('/GHabit/create/', payload);
+  },
+  async update(payload) {
+    return api.put('/GHabit/update/', payload);
+  },
+  async deleteById(payload) {
+    return api.delete(`/GHabit/deleteById/${payload.Id}`);
+  },
+};
+
+export const BHabitService = {
+  async getById(payload) {
+    return api.get(`/BHabit/getById/${payload.Id}`);
+  },
+  async getByAccount(payload) {
+    return api.get(`/BHabit/getAll/${payload.AccountId}`);
+  },
+  async create(payload) {
+    return api.post('/BHabit/create/', payload);
+  },
+  async update(payload) {
+    return api.put('/BHabit/update/', payload);
+  },
+  async deleteById(payload) {
+    return api.delete(`/BHabit/deleteById/${payload.Id}`);
+  },
+};
+
+export const QuoteService = {
+  async getRandom() {
+    return api.get('/Quote/getRandom');
+  },
+  async getAll() {
+    return api.get('/Quote/getAll');
+  },
+  async getRandomFromUser() {
+    return api.get('/Quote/user/getRandom');
+  },
+  async getById(payload) {
+    return api.get(`/Quote/user/getById/${payload.Id}`);
+  },
+  async getByAccount(payload) {
+    return api.get(`/Quote/user/getAll/${payload.AccountId}`);
+  },
+  async create(payload) {
+    return api.post('/Quote/user/create/', payload);
+  },
+  async update(payload) {
+    return api.put('/Quote/user/update/', payload);
+  },
+  async deleteById(payload) {
+    return api.delete(`/Quote/user/deleteById/${payload.Id}`);
+  },
+};

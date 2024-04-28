@@ -10,6 +10,7 @@ namespace database.Models
     {
         public int UserQuoteId { get; set; }
         public int AccountId { get; set; }
+        public string Author { get; set; }
         public string Quote {  get; set; }
     }
 }
