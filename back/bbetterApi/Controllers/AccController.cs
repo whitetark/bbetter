@@ -1,4 +1,4 @@
-﻿using bbetterApi.Models;
+﻿using bbetterApi.Dto;
 using database.Models;
 using database.Services;
 using Microsoft.AspNetCore.Authorization;

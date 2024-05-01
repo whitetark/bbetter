@@ -1,3 +1,6 @@
+use master
+DROP DATABASE bbetterDb
+
 CREATE DATABASE bbetterDb
 use bbetterDb
 

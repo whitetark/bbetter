@@ -6,7 +6,10 @@ Ideas
 4. Masonry style for quotes
 5. Priority system for GHabits & Wish List
 6. Make Sidebar become smaller
+7. Task Page pluses on each TableCell
 
 Fixes
 
 1. Check for num of max bad habits, good habits;
+2. Task page doesn't update after changes
+3. Task page doesn't update when go on it;

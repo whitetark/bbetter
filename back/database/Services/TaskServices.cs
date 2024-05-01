@@ -78,9 +78,9 @@ namespace database.Services
                     isCompleted = task.IsCompleted,
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception();
+                throw new Exception("Task added error: ", ex);
             }
         }
 

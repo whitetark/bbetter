@@ -1,6 +1,9 @@
 import { Field, Formik } from 'formik';
 import React from 'react';
+import { useMutation } from 'react-query';
 import * as Yup from 'yup';
+import { TaskService } from '../../app/services/api';
+import { useAuthContext } from '../../app/store/auth-context';
 import * as Styled from '../../styles/Tasks.styled';
 import DatePicker from '../UI/DatePicker';
 import { Checkbox, TextInput } from '../UI/Inputs';
@@ -12,13 +15,22 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
   deadline: Yup.date().required('Required'),
 });
 
-const TaskEdit = ({ onClick }) => {
+const TaskEdit = ({ onClick, data }) => {
+  const { userData } = useAuthContext();
+
   const initialValues = {
-    content: '',
-    isUrgent: false,
-    isImportant: false,
-    deadline: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+    content: data.content,
+    isUrgent: data.isUrgent,
+    isImportant: data.isImportant,
+    deadline: new Date(data.deadline),
   };
+
+  const mutation = useMutation('editTask', (payload) => TaskService.update(payload), {
+    onSuccess: () => {},
+    onError: (error) => {
+      console.log('Task update error:' + error);
+    },
+  });
 
   return (
     <Styled.EditTask onClick={onClick}>
@@ -28,8 +40,8 @@ const TaskEdit = ({ onClick }) => {
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={async (values, actions) => {
           const task = {
-            TaskId: 1,
-            AccountId: 1,
+            TaskId: data.taskId,
+            AccountId: userData.accountId,
             Content: values.content,
             IsUrgent: values.isUrgent,
             IsImportant: values.isImportant,
@@ -37,7 +49,7 @@ const TaskEdit = ({ onClick }) => {
             IsCompleted: false,
           };
           actions.resetForm();
-          console.log(task);
+          mutation.mutateAsync(task);
         }}>
         <Styled.AddTaskForm>
           <TextInput name='content' placeholder='Your Task' />
@@ -55,6 +67,7 @@ const TaskEdit = ({ onClick }) => {
               </Styled.AddTaskButton>
             )}
           </Field>
+          {mutation.isError ? <div>An error occurred: {mutation.error.message}</div> : null}
         </Styled.AddTaskForm>
       </Formik>
     </Styled.EditTask>

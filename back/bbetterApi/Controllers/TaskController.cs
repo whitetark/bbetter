@@ -1,6 +1,9 @@
-﻿using database.Services;
+﻿using bbetterApi.Dto;
+using database.Models;
+using database.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Controllers
 {
@@ -25,9 +28,19 @@ namespace bbetterApi.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<database.Models.Task> CreateTask(database.Models.Task task)
+        public async Task<database.Models.Task> CreateTask(TaskAddDto task)
         {
-            return await taskServices.Add(task);
+            var userRequest = new database.Models.Task
+            {
+                AccountId = task.AccountId,
+                Content = task.Content,
+                IsUrgent = task.IsUrgent,
+                IsImportant = task.IsImportant,
+                Deadline = task.Deadline,
+                IsCompleted = task.IsCompleted,
+            };
+
+            return await taskServices.Add(userRequest);
         }
 
         [HttpPut]

@@ -65,13 +65,14 @@ export const TaskService = {
     return api.get(`/Task/getById/${payload.Id}`);
   },
   async getByAccount(payload) {
+    console.log(payload);
     return api.get(`/Task/getByAccount/${payload.AccountId}`);
   },
   async create(payload) {
-    return api.post('/Task/create/', payload);
+    return api.post('/Task/create', payload);
   },
   async update(payload) {
-    return api.put('/Task/update/', payload);
+    return api.put('/Task/update', payload);
   },
   async deleteById(payload) {
     return api.delete(`/Task/deleteById/${payload.Id}`);
@@ -86,10 +87,10 @@ export const WishService = {
     return api.get(`/Wish/getByAccount/${payload.AccountId}`);
   },
   async create(payload) {
-    return api.post('/Wish/create/', payload);
+    return api.post('/Wish/create', payload);
   },
   async update(payload) {
-    return api.put('/Wish/update/', payload);
+    return api.put('/Wish/update', payload);
   },
   async deleteById(payload) {
     return api.delete(`/Wish/deleteById/${payload.Id}`);
@@ -104,10 +105,10 @@ export const GHabitService = {
     return api.get(`/GHabit/getAll/${payload.AccountId}`);
   },
   async create(payload) {
-    return api.post('/GHabit/create/', payload);
+    return api.post('/GHabit/create', payload);
   },
   async update(payload) {
-    return api.put('/GHabit/update/', payload);
+    return api.put('/GHabit/update', payload);
   },
   async deleteById(payload) {
     return api.delete(`/GHabit/deleteById/${payload.Id}`);
@@ -122,10 +123,10 @@ export const BHabitService = {
     return api.get(`/BHabit/getAll/${payload.AccountId}`);
   },
   async create(payload) {
-    return api.post('/BHabit/create/', payload);
+    return api.post('/BHabit/create', payload);
   },
   async update(payload) {
-    return api.put('/BHabit/update/', payload);
+    return api.put('/BHabit/update', payload);
   },
   async deleteById(payload) {
     return api.delete(`/BHabit/deleteById/${payload.Id}`);
@@ -149,10 +150,10 @@ export const QuoteService = {
     return api.get(`/Quote/user/getAll/${payload.AccountId}`);
   },
   async create(payload) {
-    return api.post('/Quote/user/create/', payload);
+    return api.post('/Quote/user/create', payload);
   },
   async update(payload) {
-    return api.put('/Quote/user/update/', payload);
+    return api.put('/Quote/user/update', payload);
   },
   async deleteById(payload) {
     return api.delete(`/Quote/user/deleteById/${payload.Id}`);

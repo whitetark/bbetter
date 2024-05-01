@@ -1,6 +1,6 @@
 ﻿using database.Models;
 
-namespace bbetterApi.Models
+namespace bbetterApi.Dto
 {
     public class AccountUpdateDto
     {

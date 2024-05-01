@@ -76,6 +76,13 @@ const LoginForm = (props) => {
               </Button>
             )}
           </Field>
+          {loginError ? (
+            loginError.response.data.length < 15 ? (
+              <div>{loginError.response.data}</div>
+            ) : (
+              <div>Server error!</div>
+            )
+          ) : null}
         </Form>
       </Formik>
     </Styled.LoginForm>

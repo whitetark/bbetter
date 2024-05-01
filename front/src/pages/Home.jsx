@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAuthContext } from '../app/store/auth-context';
 import Quote from '../components/Home/Quote';
 import UserPhoto from '../components/Home/UserPhoto';
 import Background from '../components/UI/Background';
@@ -7,6 +8,7 @@ import * as Styled from '../styles/Home.styled';
 
 const HomePage = () => {
   document.title = `bbetter - Home`;
+  const { userData } = useAuthContext();
   return (
     <Styled.Home>
       <Background />
@@ -14,7 +16,7 @@ const HomePage = () => {
         <Styled.HomeHeader>
           <Styled.MiniProfile>
             <UserPhoto />
-            whitetark
+            {userData.username || 'username'}
           </Styled.MiniProfile>
           <Quote />
         </Styled.HomeHeader>

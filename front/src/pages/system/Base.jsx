@@ -7,9 +7,9 @@ const BasePage = () => {
 
   if (!userData) {
     return <Navigate to={PathConstants.LOGIN} replace />;
+  } else {
+    return <Navigate to={PathConstants.HOME} replace />;
   }
-
-  return <Navigate to={PathConstants.HOME} replace />;
 };
 
 export default BasePage;

@@ -29,6 +29,7 @@ export const TableCell = styled.div`
   border-radius: 10px;
   width: 100%;
   gap: 0.5rem;
+  background-color: ${variables.DIVIDER};
 
   h3 {
     font-weight: 500;
@@ -41,13 +42,26 @@ export const TableCell = styled.div`
     padding: 0.4rem;
     border-radius: 10px;
     gap: 0.5rem;
-
+    min-height: 10rem;
     > div {
       background-color: ${variables.DIVIDER};
       border-radius: 10px;
       padding: 0.4rem;
       color: ${variables.DISABLED_BUTTON};
     }
+  }
+
+  &.do {
+    background-color: ${variables.DO_CELL};
+  }
+  &.decide {
+    background-color: ${variables.DECIDE_CELL};
+  }
+  .delegate {
+    background-color: ${variables.DELEGATE_CELL};
+  }
+  &.delete {
+    background-color: ${variables.DELETE_CELL};
   }
 `;
 
@@ -62,19 +76,6 @@ export const TableText = styled.div`
     writing-mode: vertical-lr;
     transform: rotate(180deg);
   }
-`;
-
-export const DeleteCell = styled(TableCell)`
-  background-color: ${variables.DELETE_CELL};
-`;
-export const DecideCell = styled(TableCell)`
-  background-color: ${variables.DECIDE_CELL};
-`;
-export const DoCell = styled(TableCell)`
-  background-color: ${variables.DO_CELL};
-`;
-export const DelegateCell = styled(TableCell)`
-  background-color: ${variables.DELEGATE_CELL};
 `;
 
 export const TaskHeader = styled(BHabitHeader)``;
