@@ -1,7 +1,5 @@
-import React from 'react';
-import ChangePasswordPreview from '../components/Settings/ChangePasswordPreview';
-import Button from '../components/UI/Button';
-import Modal from '../components/UI/Modal';
+import { Button, Modal } from '../components/UI/index';
+import { ChangePasswordPreview } from '../components/index';
 import { useLogout } from '../hooks/use-auth';
 import useModal from '../hooks/use-modal';
 

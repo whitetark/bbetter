@@ -1,11 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useQuoteContext } from '../app/store/quote-context';
-import QuoteAdd from '../components/Quotes/QuoteAdd';
-import QuoteItem from '../components/Quotes/QuoteItem';
-import Background from '../components/UI/Background';
-import Button from '../components/UI/Button';
-import Modal from '../components/UI/Modal';
+import { Background, Button, Modal } from '../components/UI/index';
+import { QuoteAdd, QuoteItem } from '../components/index';
+
 import useEdit from '../hooks/use-edit';
 import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/Quotes.styled';

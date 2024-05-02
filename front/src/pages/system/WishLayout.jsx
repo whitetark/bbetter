@@ -1,4 +1,3 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { WishContextProvider } from '../../app/store/wish-context';
 

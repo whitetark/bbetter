@@ -1,12 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PathConstants from '../app/shared/pathConstants';
 import { useTaskContext } from '../app/store/task-context';
-import TaskAdd from '../components/Tasks/TaskAdd';
-import TaskItem from '../components/Tasks/TaskItem';
-import Button from '../components/UI/Button';
-import Modal from '../components/UI/Modal';
+import { Button, Modal } from '../components/UI/index';
+import { TaskAdd, TaskItem } from '../components/index';
 import useEdit from '../hooks/use-edit';
 import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/TaskList.styled';

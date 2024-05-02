@@ -1,9 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import GHabitAdd from '../components/GHabits/GHabitAdd';
-import GHabitItem from '../components/GHabits/GHabitItem';
-import Button from '../components/UI/Button';
-import Modal from '../components/UI/Modal';
+import { Button, Modal } from '../components/UI/index';
+import { GHabitAdd, GHabitItem } from '../components/index';
 import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/GHabits.styled';
 

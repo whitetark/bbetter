@@ -1,12 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PathConstants from '../app/shared/pathConstants';
 import { useWishContext } from '../app/store/wish-context';
-import Button from '../components/UI/Button';
-import Modal from '../components/UI/Modal';
-import WishAdd from '../components/Wishes/WishAdd';
-import WishItem from '../components/Wishes/WishItem';
+import { Button, Modal } from '../components/UI/index';
+import { WishAdd, WishItem } from '../components/index';
 import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/Wishes.styled';
 

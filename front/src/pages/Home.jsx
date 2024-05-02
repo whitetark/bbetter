@@ -1,9 +1,6 @@
-import React from 'react';
 import { useAuthContext } from '../app/store/auth-context';
-import Quote from '../components/Home/Quote';
-import UserPhoto from '../components/Home/UserPhoto';
-import Background from '../components/UI/Background';
-import Button from '../components/UI/Button';
+import { Background, Button } from '../components/UI/index';
+import { Quote, UserPhoto } from '../components/index';
 import * as Styled from '../styles/Home.styled';
 
 const HomePage = () => {

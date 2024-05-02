@@ -1,9 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import BHabitAdd from '../components/BHabits/BHabitAdd';
-import BHabitItem from '../components/BHabits/BHabitItem';
-import Button from '../components/UI/Button';
-import Modal from '../components/UI/Modal';
+import { Button, Modal } from '../components/UI/index';
+import { BHabitAdd, BHabitItem } from '../components/index';
 import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/BHabits.styled';
 
