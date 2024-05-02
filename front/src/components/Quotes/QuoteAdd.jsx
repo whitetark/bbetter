@@ -1,6 +1,7 @@
 import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import { useQuoteContext } from '../../app/store/quote-context';
 import * as Styled from '../../styles/Quotes.styled';
 import { TextInput } from '../UI/Inputs';
 
@@ -14,7 +15,9 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
   author: Yup.string().min(3, 'Too Short!').max(60, 'Too Long!'),
 });
 
-const QuoteAdd = ({ onClick }) => {
+const QuoteAdd = ({ onClick, hide }) => {
+  const { addQuote } = useQuoteContext();
+
   return (
     <Styled.AddQuote onClick={onClick}>
       <h1>Add Quote</h1>
@@ -27,8 +30,8 @@ const QuoteAdd = ({ onClick }) => {
             Quote: values.content,
             Author: values.author == '' ? 'Me' : values.author,
           };
+          addQuote.mutateAsync(quote).then(hide());
           actions.resetForm();
-          console.log(quote);
         }}>
         <Styled.AddQuoteForm>
           <TextInput name='content' placeholder='Your Quote' component='textarea' rows='4' />
@@ -42,6 +45,9 @@ const QuoteAdd = ({ onClick }) => {
               </Styled.AddQuoteButton>
             )}
           </Field>
+          {addQuote.isError ? (
+            <div className='serverError'>An error occurred: {addQuote.error.message}</div>
+          ) : null}
         </Styled.AddQuoteForm>
       </Formik>
     </Styled.AddQuote>

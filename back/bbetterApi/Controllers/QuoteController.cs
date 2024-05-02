@@ -1,4 +1,5 @@
-﻿using database.Models;
+﻿using bbetterApi.Dto;
+using database.Models;
 using database.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -45,14 +46,14 @@ namespace bbetterApi.Controllers
 
         //UserQuotes
         [HttpGet]
-        [Route("/user/getById/{id}")]
+        [Route("user/getById/{id}")]
         public async Task<UserQuote> GetUserQuoteById(int id)
         {
             return await userQuoteServices.GetById(id);
         }
 
         [HttpGet]
-        [Route("/user/getAll/{accountId}")]
+        [Route("user/getAll/{accountId}")]
         public async Task<List<UserQuote>> GetUserQuotes(int accountId)
         {
             return await userQuoteServices.GetAllByUser(accountId);
@@ -60,14 +61,21 @@ namespace bbetterApi.Controllers
 
 
         [HttpPost]
-        [Route("/user/create")]
-        public async Task<UserQuote> CreateUserQuote(UserQuote quote)
+        [Route("user/create")]
+        public async Task<UserQuote> CreateUserQuote(UserQuoteAddDto quote)
         {
-            return await userQuoteServices.Add(quote);
+            var userRequest = new UserQuote
+            {
+                AccountId = quote.AccountId,
+                Quote = quote.Quote,
+                Author = quote.Author,
+            };
+
+            return await userQuoteServices.Add(userRequest);
         }
 
         [HttpPut]
-        [Route("/user/update")]
+        [Route("user/update")]
         public async Task UpdateUserQuote(UserQuote quote)
         {
             await userQuoteServices.Update(quote);
@@ -75,7 +83,7 @@ namespace bbetterApi.Controllers
         }
 
         [HttpDelete]
-        [Route("/user/deleteById/{id}")]
+        [Route("user/deleteById/{id}")]
         public async Task DeleteUserQuote(int id)
         {
             await userQuoteServices.Delete(id);

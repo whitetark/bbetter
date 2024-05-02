@@ -1,8 +1,7 @@
 import { Field, Formik } from 'formik';
-import { useMutation } from 'react-query';
 import * as Yup from 'yup';
-import { TaskService } from '../../app/services/api';
 import { useAuthContext } from '../../app/store/auth-context';
+import { useTaskContext } from '../../app/store/task-context';
 import * as Styled from '../../styles/Tasks.styled';
 import DatePicker from '../UI/DatePicker';
 import { Checkbox, TextInput } from '../UI/Inputs';
@@ -23,13 +22,7 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 
 const TaskAdd = ({ onClick, hide }) => {
   const { userData } = useAuthContext();
-
-  const mutation = useMutation('addTask', (payload) => TaskService.create(payload), {
-    onSuccess: () => {},
-    onError: (error) => {
-      console.log('Task add error:' + error);
-    },
-  });
+  const { addTask } = useTaskContext();
 
   return (
     <Styled.AddTask onClick={onClick}>
@@ -47,7 +40,7 @@ const TaskAdd = ({ onClick, hide }) => {
             IsCompleted: false,
           };
           actions.resetForm();
-          mutation.mutateAsync(task);
+          addTask.mutateAsync(task).then(hide());
         }}>
         <Styled.AddTaskForm>
           <TextInput name='content' placeholder='Your Task' />
@@ -65,7 +58,7 @@ const TaskAdd = ({ onClick, hide }) => {
               </Styled.AddTaskButton>
             )}
           </Field>
-          {mutation.isError ? <div>An error occurred: {mutation.error.message}</div> : null}
+          {addTask.isError ? <div>An error occurred: {addTask.error.message}</div> : null}
         </Styled.AddTaskForm>
       </Formik>
     </Styled.AddTask>

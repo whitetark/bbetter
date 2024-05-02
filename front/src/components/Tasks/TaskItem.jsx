@@ -1,8 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import React, { useState } from 'react';
-import { useMutation } from 'react-query';
-import { TaskService } from '../../app/services/api';
+import React from 'react';
+import { useTaskContext } from '../../app/store/task-context';
 import useModal from '../../hooks/use-modal';
 import * as Styled from '../../styles/TaskList.styled';
 import Button from '../UI/Button';
@@ -11,30 +10,36 @@ import Modal from '../UI/Modal';
 import TaskEdit from './TaskEdit';
 
 const TaskItem = ({ isEdit, data }) => {
-  const [taskAttributes, setTaskAttributes] = useState({
-    isUrgent: data.isUrgent,
-    isImportant: data.isImportant,
-  });
+  const isUrgent = data.isUrgent;
+  const isImportant = data.isImportant;
+
   const { isShowing: editIsShowing, toggle: toggleEdit } = useModal();
   const { isShowing: deleteIsShowing, toggle: toggleDelete } = useModal();
+  const { deleteTask, editTask } = useTaskContext();
 
-  const handleCheckboxChange = (attribute) => {
-    setTaskAttributes((prevState) => ({
-      ...prevState,
-      [attribute]: !prevState[attribute],
-    }));
+  const handleUrgent = (event) => {
+    const task = {
+      ...data,
+      isUrgent: event.target.checked,
+    };
+
+    editTask.mutateAsync(task);
   };
 
-  const { isUrgent, isImportant } = taskAttributes;
+  const handleImportant = (event) => {
+    const task = {
+      ...data,
+      isImportant: event.target.checked,
+    };
+
+    editTask.mutateAsync(task);
+  };
 
   const classname = `${isUrgent ? 'urgent ' : ''}${isImportant ? 'important' : ''}`;
 
-  const mutation = useMutation('deleteTask', (payload) => TaskService.deleteById(payload), {
-    onSuccess: () => {},
-    onError: (error) => {
-      console.log('Task delete error:' + error);
-    },
-  });
+  const handleDelete = (requestBody) => {
+    deleteTask.mutateAsync(requestBody).then(toggleDelete());
+  };
 
   const requestBody = {
     Id: data.taskId,
@@ -45,18 +50,10 @@ const TaskItem = ({ isEdit, data }) => {
       <Styled.TaskItem className={classname.trim()}>
         <div className='content'>{data.content}</div>
         <div>
-          <input
-            type='checkbox'
-            checked={isUrgent}
-            onChange={() => handleCheckboxChange('isUrgent')}
-          />
+          <input type='checkbox' checked={isUrgent} onChange={handleUrgent} />
         </div>
         <div>
-          <input
-            type='checkbox'
-            checked={isImportant}
-            onChange={() => handleCheckboxChange('isImportant')}
-          />
+          <input type='checkbox' checked={isImportant} onChange={handleImportant} />
         </div>
         <div className='deadline'>{dayjs(data.deadline).format('DD/MM/YYYY')}</div>
         <Styled.TaskItemActions>
@@ -72,11 +69,11 @@ const TaskItem = ({ isEdit, data }) => {
           )}
         </Styled.TaskItemActions>
       </Styled.TaskItem>
-      <Modal isShowing={editIsShowing} hide={toggleEdit} className='task-modal' hasOverlay>
-        <TaskEdit data={data} />
+      <Modal isShowing={editIsShowing} hide={toggleEdit} className='add-modal' hasOverlay>
+        <TaskEdit data={data} hide={toggleEdit} />
       </Modal>
-      <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='task-modal' hasOverlay>
-        <Confirmation hide={toggleDelete} onDelete={() => mutation.mutateAsync(requestBody)} />
+      <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='add-modal' hasOverlay>
+        <Confirmation hide={toggleDelete} onDelete={() => handleDelete(requestBody)} />
       </Modal>
     </>
   );

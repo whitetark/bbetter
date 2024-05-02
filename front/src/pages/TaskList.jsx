@@ -1,10 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
-import { useQuery } from 'react-query';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TaskService } from '../app/services/api';
 import PathConstants from '../app/shared/pathConstants';
-import { useAuthContext } from '../app/store/auth-context';
+import { useTaskContext } from '../app/store/task-context';
 import TaskAdd from '../components/Tasks/TaskAdd';
 import TaskItem from '../components/Tasks/TaskItem';
 import Button from '../components/UI/Button';
@@ -15,43 +13,22 @@ import * as Styled from '../styles/TaskList.styled';
 
 const TaskListPage = () => {
   document.title = `bbetter - All Tasks`;
-  const [tasks, setTasks] = useState([]);
+
   const { isShowing: addIsShowing, toggle: toggleAdd } = useModal();
   const { isEditMode: isEdit, toggle: toggleEdit } = useEdit();
-  const { userData } = useAuthContext();
+  const { tasks, setTasks } = useTaskContext();
   const navigate = useNavigate();
-
-  const requestBody = {
-    AccountId: userData.accountId,
-  };
-
-  const { isFetching: isLoading, refetch: refetchTasks } = useQuery(
-    ['getTasks', requestBody],
-    () => TaskService.getByAccount(requestBody),
-    {
-      onError: (error) => {
-        console.log('Get Tasks error: ' + error.message);
-      },
-      onSuccess: (data) => {
-        setTasks(data.data);
-      },
-    },
-  );
 
   const handleGoBack = () => {
     navigate(PathConstants.TASK);
   };
 
-  const sortedTasks = tasks.sort((a, b) => {
-    if (a.IsUrgent && b.IsImportant && !(b.IsUrgent && a.IsImportant)) return -1;
-    if (b.IsUrgent && a.IsImportant && !(a.IsUrgent && b.IsImportant)) return 1;
-    if (a.IsUrgent && !a.IsImportant && !(b.IsUrgent && !b.IsImportant)) return -1;
-    if (!a.IsUrgent && a.IsImportant && !(b.IsUrgent && b.IsImportant)) return 1;
+  const sortedTasks = tasks.sort((taskA, taskB) => {
+    if (taskA.isImportant === taskB.isImportant) {
+      return taskA.isUrgent ? -1 : 1;
+    }
 
-    if (a.IsCompleted && !b.IsCompleted) return 1;
-    if (!a.IsCompleted && b.IsCompleted) return -1;
-
-    return 0;
+    return taskA.isImportant ? -1 : 1;
   });
 
   return (
@@ -80,7 +57,7 @@ const TaskListPage = () => {
           sortedTasks.map((task, index) => <TaskItem key={index} isEdit={isEdit} data={task} />)}
       </Styled.TaskListMain>
       <Modal isShowing={addIsShowing} hide={toggleAdd} className='add-modal' hasOverlay>
-        <TaskAdd />
+        <TaskAdd hide={toggleAdd} />
       </Modal>
     </Styled.TaskList>
   );

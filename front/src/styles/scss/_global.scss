@@ -17,3 +17,8 @@ body {
   position: relative;
   min-height: 100vh;
 }
+
+.serverError {
+  overflow-wrap: break-word;
+  word-break: break-all;
+}

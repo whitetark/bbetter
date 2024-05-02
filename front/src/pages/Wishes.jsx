@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PathConstants from '../app/shared/pathConstants';
+import { useWishContext } from '../app/store/wish-context';
 import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';
 import WishAdd from '../components/Wishes/WishAdd';
@@ -12,11 +13,20 @@ import * as Styled from '../styles/Wishes.styled';
 const WishesPage = () => {
   document.title = `bbetter - Wishes`;
   const { isShowing: modalIsShowing, toggle: toggleModal } = useModal();
+  const { wishes, refetchWishes } = useWishContext();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    refetchWishes();
+  }, []);
 
   const handleClick = () => {
     navigate(PathConstants.WISH_LIST);
   };
+
+  wishes.sort((a, b) => {
+    return a.isCompleted - b.isCompleted;
+  });
 
   return (
     <Styled.WishContent>
@@ -32,12 +42,12 @@ const WishesPage = () => {
         </Styled.WishActions>
       </Styled.WishHeader>
       <Styled.WishList>
-        {[...Array(6)].map((_, index) => (
-          <WishItem key={index} />
+        {wishes.slice(0, 6).map((wish, index) => (
+          <WishItem key={index} data={wish} />
         ))}
       </Styled.WishList>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
-        <WishAdd />
+        <WishAdd hide={toggleModal} />
       </Modal>
     </Styled.WishContent>
   );

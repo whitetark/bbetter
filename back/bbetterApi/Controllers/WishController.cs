@@ -1,7 +1,9 @@
-﻿using database.Models;
+﻿using bbetterApi.Dto;
+using database.Models;
 using database.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Controllers
@@ -27,9 +29,16 @@ namespace bbetterApi.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<Wish> CreateWish(Wish wish)
+        public async Task<Wish> CreateWish(WishAddDto wish)
         {
-            return await wishServices.Add(wish);
+            var userRequest = new Wish
+            {
+                AccountId = wish.AccountId,
+                Content = wish.Content,
+                IsCompleted = wish.IsCompleted,
+            };
+
+            return await wishServices.Add(userRequest);
         }
 
         [HttpPut]

@@ -65,7 +65,7 @@ namespace database.Services
                 string sql = @"INSERT INTO bbetterSchema.UserQuotes
                 ([AccountId],[Quote],[Author]) 
                 OUTPUT INSERTED.*
-                VALUES (@accountId, @quote, @author])";
+                VALUES (@accountId, @quote, @author)";
 
                 return await _dbConnection.QuerySingleAsync<UserQuote>(sql, new
                 {
@@ -74,9 +74,9 @@ namespace database.Services
                     author = quote.Author,
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception();
+                throw new Exception("Error", ex);
             }
         }
 

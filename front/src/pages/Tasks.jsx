@@ -1,10 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
-import { useQuery } from 'react-query';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TaskService } from '../app/services/api';
 import PathConstants from '../app/shared/pathConstants';
-import { useAuthContext } from '../app/store/auth-context';
+import { useTaskContext } from '../app/store/task-context';
+import TableCell from '../components/Tasks/TableCell';
 import TaskAdd from '../components/Tasks/TaskAdd';
 import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';
@@ -13,36 +12,20 @@ import * as Styled from '../styles/Tasks.styled';
 
 const TasksPage = () => {
   document.title = `bbetter - Tasks`;
-  const [tasks, setTasks] = useState([]);
   const { isShowing: addIsShowing, toggle: toggleAdd } = useModal();
-  const { userData } = useAuthContext();
+  const { tasks, refetchTasks } = useTaskContext();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    refetchTasks();
+  }, []);
 
   const handleClick = () => {
     navigate(PathConstants.TASK_LIST);
   };
 
-  const requestBody = {
-    AccountId: userData.accountId,
-  };
-
-  const { isFetching: isLoading, refetch: refetchTasks } = useQuery(
-    ['getTasks', requestBody],
-    () => TaskService.getByAccount(requestBody),
-    {
-      onError: (error) => {
-        console.log('Get Tasks error: ' + error.message);
-      },
-      onSuccess: (data) => {
-        setTasks(data.data);
-      },
-    },
-  );
-
-  // Filter out completed tasks
   const incompleteTasks = tasks.filter((task) => !task.isCompleted);
 
-  // Categorize tasks based on urgency and importance
   const urgentImportantTasks = incompleteTasks.filter((task) => task.isUrgent && task.isImportant);
   const importantNotUrgentTasks = incompleteTasks.filter(
     (task) => !task.isUrgent && task.isImportant,
@@ -73,43 +56,15 @@ const TasksPage = () => {
           <Styled.TableText>Urgent</Styled.TableText>
           <Styled.TableText>Non urgent</Styled.TableText>
           <Styled.TableText className='text vertical-text'>Important</Styled.TableText>
-          <Styled.TableCell className={urgentImportantTasks.length > 0 && 'do'}>
-            <h3>Do</h3>
-            <div className='item-list'>
-              {urgentImportantTasks.map((task, index) => {
-                return <div key={index}>{task.content}</div>;
-              })}
-            </div>
-          </Styled.TableCell>
-          <Styled.TableCell className={importantNotUrgentTasks.length > 0 && 'decide'}>
-            <h3>Decide</h3>
-            <div className='item-list'>
-              {importantNotUrgentTasks.map((task, index) => {
-                return <div key={index}>{task.content}</div>;
-              })}
-            </div>
-          </Styled.TableCell>
+          <TableCell array={urgentImportantTasks} type={'Do'} />
+          <TableCell array={importantNotUrgentTasks} type={'Decide'} />
           <Styled.TableText className='text vertical-text'>Not important</Styled.TableText>
-          <Styled.TableCell className={urgentNotImportantTasks.length > 0 && 'delegate'}>
-            <h3>Delegate</h3>
-            <div className='item-list'>
-              {urgentNotImportantTasks.map((task, index) => {
-                return <div key={index}>{task.content}</div>;
-              })}
-            </div>
-          </Styled.TableCell>
-          <Styled.TableCell className={notUrgentNotImportantTasks.length > 0 && 'delete'}>
-            <h3>Delete</h3>
-            <div className='item-list'>
-              {notUrgentNotImportantTasks.map((task, index) => {
-                return <div key={index}>{task.content}</div>;
-              })}
-            </div>
-          </Styled.TableCell>
+          <TableCell array={urgentNotImportantTasks} type={'Delegate'} />
+          <TableCell array={notUrgentNotImportantTasks} type={'Delete'} />
         </Styled.TaskTable>
       )}
       <Modal isShowing={addIsShowing} hide={toggleAdd} className='add-modal' hasOverlay>
-        <TaskAdd />
+        <TaskAdd hide={toggleAdd} />
       </Modal>
     </Styled.TaskContent>
   );

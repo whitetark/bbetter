@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useQuoteContext } from '../app/store/quote-context';
 import QuoteAdd from '../components/Quotes/QuoteAdd';
 import QuoteItem from '../components/Quotes/QuoteItem';
 import Background from '../components/UI/Background';
@@ -12,7 +13,13 @@ import * as Styled from '../styles/Quotes.styled';
 const QuotesPage = () => {
   const { isShowing: modalIsShowing, toggle: toggleModal } = useModal();
   const { isEditMode: isEdit, toggle: toggleEdit } = useEdit();
+  const { quotes, refetchQuotes } = useQuoteContext();
   document.title = `bbetter - Quotes`;
+
+  useEffect(() => {
+    refetchQuotes();
+  }, []);
+
   return (
     <Styled.QuotesPage>
       <Background />
@@ -29,13 +36,13 @@ const QuotesPage = () => {
           </Styled.QuoteActions>
         </Styled.QuoteHeader>
         <Styled.QuoteList>
-          {[...Array(4)].map((_, index) => (
-            <QuoteItem key={index} isEdit={isEdit} />
+          {quotes.map((quote, index) => (
+            <QuoteItem key={index} isEdit={isEdit} data={quote} />
           ))}
         </Styled.QuoteList>
       </Styled.QuoteContent>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
-        <QuoteAdd />
+        <QuoteAdd hide={toggleModal} />
       </Modal>
     </Styled.QuotesPage>
   );

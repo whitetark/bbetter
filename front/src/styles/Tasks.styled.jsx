@@ -57,7 +57,7 @@ export const TableCell = styled.div`
   &.decide {
     background-color: ${variables.DECIDE_CELL};
   }
-  .delegate {
+  &.delegate {
     background-color: ${variables.DELEGATE_CELL};
   }
   &.delete {

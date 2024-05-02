@@ -26,6 +26,7 @@ export const Children = styled.div`
     background-color: white;
     margin: 2rem;
     border-radius: 10px;
+    max-width: 30rem;
 
     h1 {
       font-size: 24px;

@@ -13,10 +13,11 @@ import {
   faQuoteLeft,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './app/shared/ProtectedRoute';
 import PathConstants from './app/shared/pathConstants';
 import { useAuthContext } from './app/store/auth-context';
+import { QuoteContextProvider } from './app/store/quote-context';
 import BHabitsPage from './pages/BHabits';
 import GHabitsPage from './pages/GHabits';
 import HomePage from './pages/Home';
@@ -32,6 +33,8 @@ import AppLayout from './pages/system/AppLayout';
 import BasePage from './pages/system/Base';
 import NotFound from './pages/system/NotFound';
 import RootLayout from './pages/system/Root';
+import TaskLayout from './pages/system/TaskLayout';
+import WishLayout from './pages/system/WishLayout';
 
 library.add(
   faHouse,
@@ -61,8 +64,14 @@ function App() {
       <Routes>
         <Route path='/' element={<RootLayout />}>
           <Route index element={<BasePage />} />
-          <Route path={PathConstants.LOGIN} element={<LoginPage />} />
-          <Route path={PathConstants.REGISTER} element={<RegisterPage />} />
+          <Route
+            path={PathConstants.LOGIN}
+            element={!userData ? <LoginPage /> : <Navigate replace to={PathConstants.BASE} />}
+          />
+          <Route
+            path={PathConstants.REGISTER}
+            element={!userData ? <RegisterPage /> : <Navigate replace to={PathConstants.BASE} />}
+          />
           <Route
             path={PathConstants.HOME}
             element={
@@ -71,30 +80,25 @@ function App() {
               </ProtectedRoute>
             }>
             <Route index element={<HomePage />} />
-            <Route path={PathConstants.TASK}>
+            <Route path={PathConstants.TASK} element={<TaskLayout />}>
               <Route index element={<TasksPage />} />
               <Route path={PathConstants.TASK_LIST} element={<TaskListPage />} />
             </Route>
-            <Route path={PathConstants.WISH}>
+            <Route path={PathConstants.WISH} element={<WishLayout />}>
               <Route index element={<WishesPage />} />
               <Route path={PathConstants.WISH_LIST} element={<WishListPage />} />
             </Route>
             <Route path={PathConstants.GHABITS} element={<GHabitsPage />} />
             <Route path={PathConstants.BHABITS} element={<BHabitsPage />} />
             <Route path={PathConstants.SETTINGS} element={<SettingsPage />} />
-            <Route path={PathConstants.QUOTE} element={<QuotesPage />} />
-            <Route path={PathConstants.TASK}>
-              <Route index element={<TasksPage />} />
-              <Route path={PathConstants.TASK_LIST} element={<TaskListPage />} />
-            </Route>
-            <Route path={PathConstants.WISH}>
-              <Route index element={<WishesPage />} />
-              <Route path={PathConstants.WISH_LIST} element={<WishListPage />} />
-            </Route>
-            <Route path={PathConstants.GHABITS} element={<GHabitsPage />} />
-            <Route path={PathConstants.BHABITS} element={<BHabitsPage />} />
-            <Route path={PathConstants.SETTINGS} element={<SettingsPage />} />
-            <Route path={PathConstants.QUOTE} element={<QuotesPage />} />
+            <Route
+              path={PathConstants.QUOTE}
+              element={
+                <QuoteContextProvider>
+                  <QuotesPage />
+                </QuoteContextProvider>
+              }
+            />
           </Route>
           <Route path='*' element={<NotFound />} />
         </Route>

@@ -69,7 +69,7 @@ namespace bbetterApi.Controllers
 
         [Route("changePassword")]
         [HttpPatch]
-        public async Task<ActionResult> ChangePassword([FromBody] UserDto request)
+        public async Task<ActionResult> ChangePassword([FromBody] UserLoginDto request)
         {
             var responseFromDb = await accountServices.GetByUsername(request.username);
 

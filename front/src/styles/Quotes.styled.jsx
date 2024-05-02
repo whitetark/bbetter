@@ -71,6 +71,16 @@ export const AddQuote = styled.div`
 export const AddQuoteForm = styled(AddWishForm)`
   gap: 1rem;
 
+  input[type='text'] {
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 10px;
+    outline: none;
+    font-size: 20px;
+    max-width: 35rem;
+    border: 1px solid ${variables.DIVIDER};
+  }
+
   textarea {
     width: 100%;
     padding: 0.5rem;

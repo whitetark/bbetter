@@ -126,14 +126,29 @@ export const AddWishForm = styled(Form)`
   display: flex;
   flex-direction: column;
   font-size: 20px;
-  input {
-    padding: 0.5rem;
+  gap: 1rem;
+
+  textarea {
     width: 100%;
+    padding: 0.5rem;
+    resize: none;
     border-radius: 10px;
     outline: none;
-    font-size: 20px;
-    max-width: 35rem;
     border: 1px solid ${variables.DIVIDER};
+  }
+
+  .checkbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 500;
+    font-size: 18px;
+    color: ${variables.DISABLED_BUTTON};
+
+    input {
+      width: 2rem;
+      border: 1px solid ${variables.DIVIDER};
+    }
   }
 
   .error {

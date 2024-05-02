@@ -83,18 +83,23 @@ namespace database.Services
         //update
         public async Task Update(Wish newWish)
         {
-            string sql = @"UPDATE bbetterSchema.Wishes 
-            SET [Content] = @content, [IsCompleted] = @isCompleted
-            WHERE WishId = @wishId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new
+            try
             {
-                content = newWish.Content,
-                isCompleted = newWish.IsCompleted,
-                wishId = newWish.WishId,
-            }) > 0) { return; }
+                string sql = @"UPDATE bbetterSchema.Wishes 
+                SET [Content] = @content, [IsCompleted] = @isCompleted
+                WHERE WishId = @wishId";
+                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+                if (await _dbConnection.ExecuteAsync(sql, new
+                {
+                    content = newWish.Content,
+                    isCompleted = newWish.IsCompleted,
+                    wishId = newWish.WishId,
+                }) > 0) { return; }
 
-            throw new Exception("Failed to Update Wish");
+            } catch (Exception ex)
+            {
+                throw new Exception("Failed to Update Wish", ex);
+            }
         }
 
         //delete

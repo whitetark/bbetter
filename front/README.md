@@ -11,5 +11,7 @@ Ideas
 Fixes
 
 1. Check for num of max bad habits, good habits;
-2. Task page doesn't update after changes
-3. Task page doesn't update when go on it;
+2. Check for overflow on task page
+3. DDOS problem with checkboxes
+4. Authorize on backend controllers
+5. Think about stop fetching data when not changed (Move all context providers to main.jsx and delete useEffects)

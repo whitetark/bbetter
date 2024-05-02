@@ -19,7 +19,7 @@ namespace bbetterApi.Controllers
     {
         [Route("register")]
         [HttpPost]
-        public async Task<ActionResult<Account>> Register([FromBody] UserDto request)
+        public async Task<ActionResult<Account>> Register([FromBody] UserLoginDto request)
         {
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.password);
 
@@ -42,7 +42,7 @@ namespace bbetterApi.Controllers
 
         [Route("login")]
         [HttpPost]
-        public async Task<ActionResult<object>> Login([FromBody] UserDto request)
+        public async Task<ActionResult<object>> Login([FromBody] UserLoginDto request)
         {
             var responseFromDb = await accountServices.GetByUsername(request.username);
 
@@ -133,7 +133,7 @@ namespace bbetterApi.Controllers
         [Authorize]
         [Route("checkCredentials")]
         [HttpPost]
-        public async Task<ActionResult> CheckCredentials([FromBody] UserDto request)
+        public async Task<ActionResult> CheckCredentials([FromBody] UserLoginDto request)
         {
             var responseFromDb = await accountServices.GetByUsername(request.username);
 
