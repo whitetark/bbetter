@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { useQuoteContext } from '../../app/store/quote-context';
 import useModal from '../../hooks/use-modal';
+import { useDeleteQuote } from '../../hooks/use-quote';
 import * as Styled from '../../styles/Quotes.styled';
 import Button from '../UI/Button';
 import Confirmation from '../UI/Confirmation';
@@ -12,10 +12,10 @@ const QuoteItem = ({ isEdit, data }) => {
   const { isShowing: editIsShowing, toggle: toggleEdit } = useModal();
   const { isShowing: deleteIsShowing, toggle: toggleDelete } = useModal();
 
-  const { deleteQuote } = useQuoteContext();
+  const { mutateAsync } = useDeleteQuote();
 
   const handleDelete = (requestBody) => {
-    deleteQuote.mutateAsync(requestBody).then(toggleDelete());
+    mutateAsync(requestBody).then(toggleDelete());
   };
 
   const requestBody = {

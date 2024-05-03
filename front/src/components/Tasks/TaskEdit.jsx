@@ -2,7 +2,7 @@ import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 import { useAuthContext } from '../../app/store/auth-context';
-import { useTaskContext } from '../../app/store/task-context';
+import { useEditTask } from '../../hooks/use-task';
 import * as Styled from '../../styles/Tasks.styled';
 import DatePicker from '../UI/DatePicker';
 import { Checkbox, TextInput } from '../UI/Inputs';
@@ -16,7 +16,7 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 
 const TaskEdit = ({ onClick, data, hide }) => {
   const { userData } = useAuthContext();
-  const { editTask } = useTaskContext();
+  const { mutateAsync, isError, error } = useEditTask();
 
   const initialValues = {
     content: data.content,
@@ -42,7 +42,7 @@ const TaskEdit = ({ onClick, data, hide }) => {
             IsCompleted: false,
           };
           actions.resetForm();
-          editTask.mutateAsync(task).then(hide());
+          mutateAsync(task).then(hide());
         }}>
         <Styled.AddTaskForm>
           <TextInput name='content' placeholder='Your Task' />
@@ -60,7 +60,7 @@ const TaskEdit = ({ onClick, data, hide }) => {
               </Styled.AddTaskButton>
             )}
           </Field>
-          {editTask.isError ? <div>An error occurred: {editTask.error.message}</div> : null}
+          {isError ? <div>An error occurred: {error.message}</div> : null}
         </Styled.AddTaskForm>
       </Formik>
     </Styled.EditTask>

@@ -1,22 +1,33 @@
-import React from 'react';
-import { useWishContext } from '../../app/store/wish-context';
+import React, { useEffect, useState } from 'react';
+import { useEditWish } from '../../hooks/use-wish';
 import * as Styled from '../../styles/Wishes.styled';
 
 const WishItem = ({ data }) => {
-  const isChecked = data.isCompleted;
-  const { editWish } = useWishContext();
+  const [isChecked, setIsChecked] = useState(data.isCompleted);
+  const [initialRender, setInitialRender] = useState(false);
+  const { mutateAsync } = useEditWish();
 
-  const handleChange = (event) => {
-    const wish = {
-      ...data,
-      isCompleted: event.target.checked,
-    };
-    editWish.mutateAsync(wish);
-  };
+  useEffect(() => {
+    if (!initialRender) {
+      setInitialRender(true);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      const task = {
+        ...data,
+        isCompleted: isChecked,
+      };
+
+      mutateAsync(task);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [isChecked]);
 
   return (
     <Styled.WishItem className={isChecked ? 'checked' : ''}>
-      <Styled.Input type='checkbox' checked={isChecked} onChange={handleChange} />
+      <Styled.Input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
       <div className='content'>{data.content}</div>
     </Styled.WishItem>
   );

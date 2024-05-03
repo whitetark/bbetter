@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import React from 'react';
-import { useTaskContext } from '../../app/store/task-context';
+import React, { useEffect, useState } from 'react';
 import useModal from '../../hooks/use-modal';
+import { useDeleteTask, useEditTask } from '../../hooks/use-task';
 import * as Styled from '../../styles/TaskList.styled';
 import Button from '../UI/Button';
 import Confirmation from '../UI/Confirmation';
@@ -10,35 +10,38 @@ import Modal from '../UI/Modal';
 import TaskEdit from './TaskEdit';
 
 const TaskItem = ({ isEdit, data }) => {
-  const isUrgent = data.isUrgent;
-  const isImportant = data.isImportant;
+  const [isUrgent, setIsUrgent] = useState(data.isUrgent);
+  const [isImportant, setIsImportant] = useState(data.isImportant);
+  const [initialRender, setInitialRender] = useState(false);
 
   const { isShowing: editIsShowing, toggle: toggleEdit } = useModal();
   const { isShowing: deleteIsShowing, toggle: toggleDelete } = useModal();
-  const { deleteTask, editTask } = useTaskContext();
+  const { mutateAsync: deleteAsync, isError, error } = useDeleteTask();
+  const { mutateAsync: editAsync } = useEditTask();
 
-  const handleUrgent = (event) => {
-    const task = {
-      ...data,
-      isUrgent: event.target.checked,
-    };
+  useEffect(() => {
+    if (!initialRender) {
+      setInitialRender(true);
+      return;
+    }
 
-    editTask.mutateAsync(task);
-  };
+    const timer = setTimeout(() => {
+      const task = {
+        ...data,
+        isUrgent: isUrgent,
+        isImportant: isImportant,
+      };
 
-  const handleImportant = (event) => {
-    const task = {
-      ...data,
-      isImportant: event.target.checked,
-    };
+      editAsync(task);
+    }, 3000);
 
-    editTask.mutateAsync(task);
-  };
+    return () => clearTimeout(timer);
+  }, [isUrgent, isImportant]);
 
   const classname = `${isUrgent ? 'urgent ' : ''}${isImportant ? 'important' : ''}`;
 
   const handleDelete = (requestBody) => {
-    deleteTask.mutateAsync(requestBody).then(toggleDelete());
+    deleteAsync(requestBody).then(toggleDelete());
   };
 
   const requestBody = {
@@ -50,10 +53,14 @@ const TaskItem = ({ isEdit, data }) => {
       <Styled.TaskItem className={classname.trim()}>
         <div className='content'>{data.content}</div>
         <div>
-          <input type='checkbox' checked={isUrgent} onChange={handleUrgent} />
+          <input type='checkbox' checked={isUrgent} onChange={() => setIsUrgent(!isUrgent)} />
         </div>
         <div>
-          <input type='checkbox' checked={isImportant} onChange={handleImportant} />
+          <input
+            type='checkbox'
+            checked={isImportant}
+            onChange={() => setIsImportant(!isImportant)}
+          />
         </div>
         <div className='deadline'>{dayjs(data.deadline).format('DD/MM/YYYY')}</div>
         <Styled.TaskItemActions>

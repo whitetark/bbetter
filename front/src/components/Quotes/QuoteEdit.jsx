@@ -1,13 +1,13 @@
 import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-import { useQuoteContext } from '../../app/store/quote-context';
+import { useEditQuote } from '../../hooks/use-quote';
 import * as Styled from '../../styles/Quotes.styled';
 import { TextInput } from '../UI/Inputs';
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
   content: Yup.string().min(3, 'Too Short!').max(240, 'Too Long!').required('Required'),
-  author: Yup.string().min(3, 'Too Short!').max(60, 'Too Long!'),
+  author: Yup.string().min(1, 'Too Short!').max(60, 'Too Long!'),
 });
 
 const QuoteEdit = ({ onClick, data, hide }) => {
@@ -15,7 +15,7 @@ const QuoteEdit = ({ onClick, data, hide }) => {
     content: data.quote,
     author: data.author,
   };
-  const { editQuote } = useQuoteContext();
+  const { mutateAsync, error, isError } = useEditQuote();
   return (
     <Styled.AddQuote onClick={onClick}>
       <h1>Edit Quote</h1>
@@ -29,7 +29,7 @@ const QuoteEdit = ({ onClick, data, hide }) => {
             Quote: values.content,
             Author: values.author == '' ? 'Me' : values.author,
           };
-          editQuote.mutateAsync(quote).then(hide());
+          mutateAsync(quote).then(hide());
           actions.resetForm();
         }}>
         <Styled.AddQuoteForm>
@@ -44,7 +44,7 @@ const QuoteEdit = ({ onClick, data, hide }) => {
               </Styled.AddQuoteButton>
             )}
           </Field>
-          {editQuote.isError ? <div>An error occurred: {editQuote.error.message}</div> : null}
+          {isError ? <div>An error occurred: {error.message}</div> : null}
         </Styled.AddQuoteForm>
       </Formik>
     </Styled.AddQuote>

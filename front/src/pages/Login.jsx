@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import PathConstants from '../app/shared/pathConstants';
 import { Background, Button, Divider, Logo } from '../components/UI/index';
-import LoginForm from '../components/index';
+import { LoginForm } from '../components/index';
 import * as Styled from '../styles/Login.styled';
 
 const LoginPage = () => {

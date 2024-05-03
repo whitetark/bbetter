@@ -2,7 +2,7 @@ import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 import { useAuthContext } from '../../app/store/auth-context';
-import { useWishContext } from '../../app/store/wish-context';
+import { useEditWish } from '../../hooks/use-wish';
 import * as Styled from '../../styles/Wishes.styled';
 import { Checkbox, TextInput } from '../UI/Inputs';
 
@@ -17,7 +17,7 @@ const WishEdit = ({ onClick, hide, data }) => {
     isCompleted: data.isCompleted,
   };
 
-  const { editWish } = useWishContext();
+  const { mutateAsync, isError, error } = useEditWish();
   const { userData } = useAuthContext();
   return (
     <Styled.AddWish onClick={onClick}>
@@ -34,7 +34,7 @@ const WishEdit = ({ onClick, hide, data }) => {
           };
           actions.resetForm();
           console.log(wish);
-          editWish.mutateAsync(wish).then(hide());
+          mutateAsync(wish).then(hide());
         }}>
         <Styled.AddWishForm>
           <TextInput name='content' placeholder='Your wish' component='textarea' rows='4' />
@@ -49,7 +49,7 @@ const WishEdit = ({ onClick, hide, data }) => {
               </Styled.AddWishButton>
             )}
           </Field>
-          {editWish.isError ? <div>An error occurred: {editWish.error.message}</div> : null}
+          {isError ? <div>An error occurred: {error.message}</div> : null}
         </Styled.AddWishForm>
       </Formik>
     </Styled.AddWish>

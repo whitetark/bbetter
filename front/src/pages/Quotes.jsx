@@ -1,22 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect } from 'react';
-import { useQuoteContext } from '../app/store/quote-context';
 import { Background, Button, Modal } from '../components/UI/index';
 import { QuoteAdd, QuoteItem } from '../components/index';
 
 import useEdit from '../hooks/use-edit';
 import useModal from '../hooks/use-modal';
+import { useRefetchQuotes } from '../hooks/use-quote';
 import * as Styled from '../styles/Quotes.styled';
 
 const QuotesPage = () => {
   const { isShowing: modalIsShowing, toggle: toggleModal } = useModal();
   const { isEditMode: isEdit, toggle: toggleEdit } = useEdit();
-  const { quotes, refetchQuotes } = useQuoteContext();
+  const { quotes, error, isLoading } = useRefetchQuotes();
   document.title = `bbetter - Quotes`;
-
-  useEffect(() => {
-    refetchQuotes();
-  }, []);
 
   return (
     <Styled.QuotesPage>
@@ -34,8 +29,8 @@ const QuotesPage = () => {
           </Styled.QuoteActions>
         </Styled.QuoteHeader>
         <Styled.QuoteList>
-          {quotes.map((quote, index) => (
-            <QuoteItem key={index} isEdit={isEdit} data={quote} />
+          {quotes.map((quote) => (
+            <QuoteItem key={quote.userQuoteId} isEdit={isEdit} data={quote} />
           ))}
         </Styled.QuoteList>
       </Styled.QuoteContent>

@@ -17,7 +17,6 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './app/shared/ProtectedRoute';
 import PathConstants from './app/shared/pathConstants';
 import { useAuthContext } from './app/store/auth-context';
-import { QuoteContextProvider } from './app/store/quote-context';
 import {
   AppLayout,
   BHabitsPage,
@@ -30,10 +29,8 @@ import {
   RegisterPage,
   RootLayout,
   SettingsPage,
-  TaskLayout,
   TaskListPage,
   TasksPage,
-  WishLayout,
   WishListPage,
   WishesPage,
 } from './pages/index';
@@ -82,25 +79,18 @@ function App() {
               </ProtectedRoute>
             }>
             <Route index element={<HomePage />} />
-            <Route path={PathConstants.TASK} element={<TaskLayout />}>
+            <Route path={PathConstants.TASK}>
               <Route index element={<TasksPage />} />
               <Route path={PathConstants.TASK_LIST} element={<TaskListPage />} />
             </Route>
-            <Route path={PathConstants.WISH} element={<WishLayout />}>
+            <Route path={PathConstants.WISH}>
               <Route index element={<WishesPage />} />
               <Route path={PathConstants.WISH_LIST} element={<WishListPage />} />
             </Route>
             <Route path={PathConstants.GHABITS} element={<GHabitsPage />} />
             <Route path={PathConstants.BHABITS} element={<BHabitsPage />} />
             <Route path={PathConstants.SETTINGS} element={<SettingsPage />} />
-            <Route
-              path={PathConstants.QUOTE}
-              element={
-                <QuoteContextProvider>
-                  <QuotesPage />
-                </QuoteContextProvider>
-              }
-            />
+            <Route path={PathConstants.QUOTE} element={<QuotesPage />} />
           </Route>
           <Route path='*' element={<NotFound />} />
         </Route>

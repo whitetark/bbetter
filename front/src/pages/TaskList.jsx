@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import PathConstants from '../app/shared/pathConstants';
-import { useTaskContext } from '../app/store/task-context';
 import { Button, Modal } from '../components/UI/index';
 import { TaskAdd, TaskItem } from '../components/index';
 import useEdit from '../hooks/use-edit';
 import useModal from '../hooks/use-modal';
+import { useRefetchTasks } from '../hooks/use-task';
 import * as Styled from '../styles/TaskList.styled';
 
 const TaskListPage = () => {
@@ -13,7 +13,7 @@ const TaskListPage = () => {
 
   const { isShowing: addIsShowing, toggle: toggleAdd } = useModal();
   const { isEditMode: isEdit, toggle: toggleEdit } = useEdit();
-  const { tasks, setTasks } = useTaskContext();
+  const { tasks, isLoading, error } = useRefetchTasks();
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -51,7 +51,7 @@ const TaskListPage = () => {
           <div className='deadline'>Deadline</div>
         </Styled.TaskHeader>
         {sortedTasks.length > 0 &&
-          sortedTasks.map((task, index) => <TaskItem key={index} isEdit={isEdit} data={task} />)}
+          sortedTasks.map((task) => <TaskItem key={task.taskId} isEdit={isEdit} data={task} />)}
       </Styled.TaskListMain>
       <Modal isShowing={addIsShowing} hide={toggleAdd} className='add-modal' hasOverlay>
         <TaskAdd hide={toggleAdd} />

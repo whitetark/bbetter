@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import { useWishContext } from '../../app/store/wish-context';
+import React, { useEffect, useState } from 'react';
 import useModal from '../../hooks/use-modal';
+import { useDeleteWish, useEditWish } from '../../hooks/use-wish';
 import * as Styled from '../../styles/WishList.styled';
 import Button from '../UI/Button';
 import Confirmation from '../UI/Confirmation';
@@ -9,22 +9,34 @@ import Modal from '../UI/Modal';
 import WishEdit from './WishEdit';
 
 const WishListItem = ({ isEdit, data }) => {
-  const isChecked = data.isCompleted;
+  const [isChecked, setIsChecked] = useState(data.isCompleted);
+  const [initialRender, setInitialRender] = useState(false);
   const { isShowing: editIsShowing, toggle: toggleEdit } = useModal();
   const { isShowing: deleteIsShowing, toggle: toggleDelete } = useModal();
 
-  const { editWish, deleteWish } = useWishContext();
+  const { mutateAsync: editAsync } = useEditWish();
+  const { mutateAsync: deleteAsync } = useDeleteWish();
+
+  useEffect(() => {
+    if (!initialRender) {
+      setInitialRender(true);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      const task = {
+        ...data,
+        isCompleted: isChecked,
+      };
+
+      editAsync(task);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [isChecked]);
 
   const handleDelete = (requestBody) => {
-    deleteWish.mutateAsync(requestBody).then(toggleDelete());
-  };
-
-  const handleEdit = (event) => {
-    const wish = {
-      ...data,
-      isCompleted: event.target.checked,
-    };
-    editWish.mutateAsync(wish);
+    deleteAsync(requestBody).then(toggleDelete());
   };
 
   const requestBody = {
@@ -34,7 +46,11 @@ const WishListItem = ({ isEdit, data }) => {
   return (
     <>
       <Styled.WishListItem className={isChecked ? 'checked' : ''}>
-        <Styled.Input type='checkbox' checked={isChecked} onChange={handleEdit} />
+        <Styled.Input
+          type='checkbox'
+          checked={isChecked}
+          onChange={() => setIsChecked(!isChecked)}
+        />
         <div className='content'>{data.content}</div>
         {isEdit && (
           <Styled.WishListItemActions>

@@ -6,8 +6,8 @@ const TableCell = ({ array, type }) => {
     <Styled.TableCell className={array.length > 0 && `${type.toLowerCase()}`}>
       <h3>{type}</h3>
       <div className='item-list'>
-        {array.slice(0, 4).map((task, index) => {
-          return <div key={index}>{task.content}</div>;
+        {array.slice(0, 4).map((task) => {
+          return <div key={task.taskId}>{task.content}</div>;
         })}
       </div>
     </Styled.TableCell>

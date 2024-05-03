@@ -1,23 +1,18 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PathConstants from '../app/shared/pathConstants';
-import { useTaskContext } from '../app/store/task-context';
 import { Button, Modal } from '../components/UI/index';
 import { TableCell, TaskAdd } from '../components/index';
 import useModal from '../hooks/use-modal';
+import { useRefetchTasks } from '../hooks/use-task';
 import * as Styled from '../styles/Tasks.styled';
 
 const TasksPage = () => {
   document.title = `bbetter - Tasks`;
   const { isShowing: addIsShowing, toggle: toggleAdd } = useModal();
-  const { tasks, refetchTasks } = useTaskContext();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    refetchTasks();
-  }, []);
-
+  const { tasks, isLoading, error } = useRefetchTasks();
   const handleClick = () => {
     navigate(PathConstants.TASK_LIST);
   };

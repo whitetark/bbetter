@@ -1,18 +1,18 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import PathConstants from '../app/shared/pathConstants';
-import { useWishContext } from '../app/store/wish-context';
 import { Button, Modal } from '../components/UI/index';
 import { WishAdd, WishListItem } from '../components/index';
 import useEdit from '../hooks/use-edit';
 import useModal from '../hooks/use-modal';
+import { useRefetchWishes } from '../hooks/use-wish';
 import * as Styled from '../styles/WishList.styled';
 
 const WishListPage = () => {
   document.title = `bbetter - All Wishes`;
   const { isShowing: addIsShowing, toggle: toggleAdd } = useModal();
   const { isEditMode: isEdit, toggle: toggleEdit } = useEdit();
-  const { wishes } = useWishContext();
+  const { wishes, error, isLoading } = useRefetchWishes();
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -40,8 +40,8 @@ const WishListPage = () => {
           </Styled.WishListActions>
         </Styled.WishListHeader>
         <Styled.WishListMain>
-          {wishes.map((wish, index) => (
-            <WishListItem key={index} isEdit={isEdit} data={wish} />
+          {wishes.map((wish) => (
+            <WishListItem key={wish.wishId} isEdit={isEdit} data={wish} />
           ))}
         </Styled.WishListMain>
       </Styled.WishList>
