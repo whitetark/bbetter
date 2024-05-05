@@ -10,6 +10,6 @@ namespace database.Models
     {
         public int GHabitDateId { get; set; }
         public int GHabitId { get; set; }
-        public DateOnly DateOf { get; set; }
+        public DateTime DateOf { get; set; }
     }
 }

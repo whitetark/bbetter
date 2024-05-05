@@ -113,6 +113,20 @@ export const GHabitService = {
   async deleteById(payload) {
     return api.delete(`/GHabit/deleteById/${payload.Id}`);
   },
+  async getDatesByMonth(payload) {
+    return api.get(
+      `/GHabit/date/getByMonth?id=${payload.id}&month=${payload.month}&year=${payload.year}`,
+      {
+        signal: payload.signal,
+      },
+    );
+  },
+  async createDate(payload) {
+    return api.post('/GHabit/date/create', payload);
+  },
+  async deleteDate(payload) {
+    return api.delete(`/GHabit/date/delete?id=${payload.id}&date=${payload.date}`);
+  },
 };
 
 export const BHabitService = {

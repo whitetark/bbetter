@@ -5,6 +5,7 @@ import Button from '../UI/Button';
 import GHabitCalendar from './GHabitCalendar';
 
 const GHabitView = (props) => {
+  const data = props.data;
   return (
     <>
       <Styled.GHabitView onClick={props.onClick}>
@@ -19,11 +20,8 @@ const GHabitView = (props) => {
           </Styled.GHabitViewActions>
         </Styled.GHabitViewHeader>
         <Styled.GHabitViewMain>
-          <p className='content'>
-            ContentContentContent ContentContentContentC RRrr
-            ontentContentContentContentContentContentContentContent
-          </p>
-          <GHabitCalendar />
+          <p className='content'>{data.content}</p>
+          <GHabitCalendar ghabit={data} />
         </Styled.GHabitViewMain>
       </Styled.GHabitView>
     </>

@@ -5,14 +5,18 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { useQuery } from 'react-query';
+import { GHabitService } from '../../app/services/api';
+import { useAddGHabitDate, useDeleteGHabitDate } from '../../hooks/use-ghabits';
 import * as Styled from '../../styles/GHabits.styled';
 import Button from '../UI/Button';
 
 function ServerDay(props) {
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
 
-  const isSelected = !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
+  const isSelected =
+    !props.outsideCurrentMonth && highlightedDays?.data?.indexOf(props.day.date()) >= 0;
 
   return (
     <>
@@ -27,39 +31,72 @@ function ServerDay(props) {
   );
 }
 
-export default function GHabitCalendar() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [highlightedDays, setHighlightedDays] = useState([1, 2, 15]);
+export default function GHabitCalendar({ ghabit }) {
+  const requestAbortController = useRef(null);
   const [value, setValue] = useState(dayjs(new Date()));
+  const [month, setMonth] = useState(dayjs(new Date()));
+
+  const { mutateAsync: addAsync } = useAddGHabitDate();
+  const { mutateAsync: deleteAsync } = useDeleteGHabitDate();
+  const valueForPayload = month || value;
+
+  const payload = {
+    id: ghabit.gHabitId,
+    month: valueForPayload.month() + 1,
+    year: valueForPayload.year(),
+  };
+
+  const { data: highlightedDays } = useQuery(
+    ['getDatesByMonth', payload],
+    () => {
+      const controller = new AbortController();
+      requestAbortController.current = controller;
+      return GHabitService.getDatesByMonth({ ...payload, signal: controller.signal });
+    },
+    {
+      onError: (error) => {
+        console.log('Get GHabits Date error: ' + error.message);
+      },
+      staleTime: 30000,
+      enabled: !!month,
+    },
+  );
 
   const handleMonthChange = (date) => {
-    setIsLoading(true);
-    setHighlightedDays([1, 2, 13]);
+    if (requestAbortController.current) {
+      requestAbortController.current.abort();
+    }
+    setMonth(date);
   };
 
   const handleAdd = () => {
-    const newDays = highlightedDays;
-    newDays.push(value.date());
-    setHighlightedDays(newDays);
+    const requestBody = {
+      GHabitDateId: 0,
+      GHabitId: ghabit.gHabitId,
+      DateOf: value.format('YYYY-MM-DDTHH:mm:ss'),
+    };
+    addAsync(requestBody);
   };
 
   const handleRemove = () => {
-    const newDays = highlightedDays;
-    const index = newDays.indexOf(value.date());
-    newDays.splice(index, 1);
-    setHighlightedDays(newDays);
+    const requestBody = {
+      id: ghabit.gHabitId,
+      date: value.format('YYYY-MM-DDTHH:mm:ss'),
+    };
+    deleteAsync(requestBody);
   };
 
-  const isSelected = highlightedDays.indexOf(value.date()) >= 0;
+  const isSelected = highlightedDays?.data?.indexOf(value.date()) >= 0;
 
   return (
     <Styled.Calendar>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateCalendar
           value={value}
-          loading={isLoading}
           renderLoading={() => <DayCalendarSkeleton />}
           onChange={(newValue) => setValue(newValue)}
+          onMonthChange={handleMonthChange}
+          onYearChange={handleMonthChange}
           disableFuture
           slots={{
             day: ServerDay,

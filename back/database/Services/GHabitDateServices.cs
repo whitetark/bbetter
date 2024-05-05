@@ -55,16 +55,45 @@ namespace database.Services
             }
         }
 
+        //get-by-month
+        public async Task<List<GHabitDate>> GetByMonth(int habitId, int month, int year)
+        {
+            try
+            {
+                string sql = @"SELECT * FROM bbetterSchema.GHabitDate
+                WHERE GHabitId = @habitId
+                AND MONTH(DateOf) = @month
+                AND YEAR(DateOf) = @year;";
+
+                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+                var ghabits = await _dbConnection.QueryAsync<GHabitDate>(sql, new { habitId, month, year });
+
+                if (ghabits.Count() == 0)
+                {
+                    return new List<GHabitDate>();
+                }
+
+                var result = ghabits.ToList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Get GHabit Dates", ex);
+            }
+        }
+
         //create
         public async Task<bool> Add(GHabitDate gHabitDate)
         {
             try
             {
                 string sql = @"SELECT * FROM bbetterSchema.GHabitDate
-                WHERE (DateOf = @dateof)";
+                WHERE DateOf = @dateof
+                AND GHabitId = @gHabitId";
 
                 var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var test = await _dbConnection.QueryAsync<GHabitDate>(sql, new { dateof = gHabitDate.DateOf });
+                var test = await _dbConnection.QueryAsync<GHabitDate>(sql, new { dateof = gHabitDate.DateOf, gHabitId = gHabitDate.GHabitId });
 
                 if (test.Count() > 0) { return false; }
 
@@ -78,22 +107,28 @@ namespace database.Services
                     dateOf = gHabitDate.DateOf,
                 }) > 0;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception();
+                throw new Exception("err", ex);
             }
         }
 
 
         //delete
-        public async Task Delete(int gHabitDateId)
+        public async Task Delete(int gHabitId, DateTime dateOf )
         {
-            string sql = @"DELETE FROM bbetterSchema.GHabitDate
-            WHERE GHabitDateId = @gHabitDateId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { gHabitDateId }) > 0) { return; }
-
-            throw new Exception("Failed to Delete GHabitDate");
+            try
+            {
+                string sql = @"DELETE FROM bbetterSchema.GHabitDate
+            WHERE GHabitId = @gHabitId
+            AND DateOf = @dateOf";
+                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+                if (await _dbConnection.ExecuteAsync(sql, new { gHabitId, dateOf }) > 0) { return; }
+            } catch(Exception ex)
+            {
+                throw new Exception("err", ex);
+            }
+            
         }
 
         //delete-by-bhabit

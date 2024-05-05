@@ -1,4 +1,5 @@
-﻿using database.Models;
+﻿using bbetterApi.Dto;
+using database.Models;
 using database.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,9 +29,15 @@ namespace bbetterApi.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<GHabit> CreateGHabit(GHabit gHabit)
+        public async Task<GHabit> CreateGHabit(GHabitAddDto gHabit)
         {
-            return await gHabitServices.Add(gHabit);
+            var userRequest = new GHabit
+            {
+                AccountId = gHabit.AccountId,
+                Content = gHabit.Content,
+            };
+
+            return await gHabitServices.Add(userRequest);
         }
 
         [HttpPut]
@@ -72,19 +79,41 @@ namespace bbetterApi.Controllers
             return await gHabitDateServices.GetByHabitId(habitId);
         }
 
+        [HttpGet]
+        [Route("date/getByMonth")]
+        public async Task<int[]> GetDatesByMonth([FromQuery(Name="id")] int habitId, [FromQuery(Name ="month")] int month, [FromQuery(Name = "year")] int year)
+        {
+            var dates = await gHabitDateServices.GetByMonth(habitId, month, year);
+            var days = dates.Select(h => h.DateOf.Day).ToArray();
+            if(days.Length > 0)
+            {
+                return days;
+            }
+
+            return [];
+
+        }
+
         [HttpPost]
         [Route("date/create")]
         public async Task CreateGHabitDate(GHabitDate date)
         {
-            await gHabitDateServices.Add(date);
+            var userRequest = new GHabitDate
+            {
+                GHabitId = date.GHabitId,
+                DateOf = date.DateOf.Date
+            };
+
+            await gHabitDateServices.Add(userRequest);
             return;
         }
 
         [HttpDelete]
-        [Route("date/deleteById/{id}")]
-        public async Task DeleteGHabitDate(int id)
+        [Route("date/delete")]
+        public async Task DeleteGHabitDate([FromQuery(Name = "id")]int id, [FromQuery(Name ="date")] DateTime date)
         {
-            await gHabitDateServices.Delete(id);
+            var reformatedDate = date.Date;
+            await gHabitDateServices.Delete(id, reformatedDate);
             return;
         }
 

@@ -10,6 +10,6 @@ namespace database.Models
     {
         public int BHabitDateId {  get; set; }
         public int BHabitId { get; set; }
-        public DateOnly DateOf {  get; set; }
+        public DateTime DateOf {  get; set; }
     }
 }

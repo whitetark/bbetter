@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import useModal from '../../hooks/use-modal';
 import * as Styled from '../../styles/GHabits.styled';
 import Confirmation from '../UI/Confirmation';
+import { useDeleteGHabit } from '../../hooks/use-ghabits';
 import Modal from '../UI/Modal';
 import Checklist from './Checklist';
 import GHabitEdit from './GHabitEdit';
 import GHabitView from './GHabitView';
 
-const GHabitItem = () => {
+const GHabitItem = ({ data }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const { isShowing: viewIsShowing, toggle: toggleView } = useModal();
   const { isShowing: editIsShowing, toggle: toggleEdit } = useModal();
   const { isShowing: deleteIsShowing, toggle: toggleDelete } = useModal();
+  const { mutateAsync } = useDeleteGHabit();
 
   const handleCheckList = (value) => {
     setIsChecked(value);
@@ -25,6 +27,10 @@ const GHabitItem = () => {
     toggleDelete,
   };
 
+  const handleDelete = (requestBody) => {
+    mutateAsync(requestBody).then(toggleDelete());
+  };
+
   return (
     <>
       <Styled.GHabitItem className={isChecked ? 'checked' : ''} onClick={toggleView}>
@@ -32,18 +38,18 @@ const GHabitItem = () => {
           <span className='number'>1</span>
         </Styled.GHabitItemPart>
         <Styled.GHabitItemPart>
-          <p>content</p>
+          <p>{data.content}</p>
         </Styled.GHabitItemPart>
         <Checklist onChange={handleCheckList} className='checklist' />
       </Styled.GHabitItem>
       <Modal isShowing={viewIsShowing} hide={toggleView} className='task-modal' hasOverlay>
-        <GHabitView {...viewProps} />
+        <GHabitView data={data} {...viewProps} />
       </Modal>
       <Modal isShowing={editIsShowing} hide={toggleEdit} className='add-modal'>
-        <GHabitEdit />
+        <GHabitEdit data={data} hide={toggleEdit} />
       </Modal>
       <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='add-modal'>
-        <Confirmation hide={toggleDelete} />
+        <Confirmation hide={toggleDelete} onDelete={handleDelete} />
       </Modal>
     </>
   );

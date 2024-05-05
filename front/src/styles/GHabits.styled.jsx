@@ -89,7 +89,17 @@ export const Input = styled.input`
 export const AddGHabit = styled.div`
   padding: 2rem;
 `;
-export const AddGHabitForm = styled(AddWishForm)``;
+export const AddGHabitForm = styled(AddWishForm)`
+  input[type='text'] {
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 10px;
+    outline: none;
+    font-size: 20px;
+    max-width: 35rem;
+    border: 1px solid ${variables.DIVIDER};
+  }
+`;
 export const AddGHabitButton = styled(AddWishButton)``;
 
 export const GHabitView = styled.div`

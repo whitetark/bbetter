@@ -1,6 +1,8 @@
 import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import { useAuthContext } from '../../app/store/auth-context';
+import { useEditGHabit } from '../../hooks/use-ghabits';
 import * as Styled from '../../styles/GHabits.styled';
 import { TextInput } from '../UI/Inputs';
 
@@ -8,10 +10,12 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
   content: Yup.string().min(3, 'Too Short!').max(60, 'Too Long!').required('Required'),
 });
 
-const GHabitEdit = ({ onClick }) => {
+const GHabitEdit = ({ onClick, data, hide }) => {
   const initialValues = {
-    content: '',
+    content: data.content,
   };
+  const { userData } = useAuthContext();
+  const { mutateAsync, error, isError } = useEditGHabit();
   return (
     <Styled.AddGHabit onClick={onClick}>
       <h1>Edit Habit</h1>
@@ -20,13 +24,12 @@ const GHabitEdit = ({ onClick }) => {
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={async (values, actions) => {
           const ghabit = {
-            GHabitId: 1,
-            AccountId: 1,
+            GHabitId: data.gHabitId,
+            AccountId: userData.accountId,
             Content: values.content,
-            isCompleted: false,
           };
           actions.resetForm();
-          console.log(ghabit);
+          mutateAsync(ghabit).hide();
         }}>
         <Styled.AddGHabitForm>
           <TextInput name='content' placeholder='Your habit' />
@@ -39,6 +42,7 @@ const GHabitEdit = ({ onClick }) => {
               </Styled.AddGHabitButton>
             )}
           </Field>
+          {isError ? <div>An error occurred: {error.message}</div> : null}
         </Styled.AddGHabitForm>
       </Formik>
     </Styled.AddGHabit>

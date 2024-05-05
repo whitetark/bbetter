@@ -1,12 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Modal } from '../components/UI/index';
 import { GHabitAdd, GHabitItem } from '../components/index';
+import { useRefetchGHabits } from '../hooks/use-ghabits';
 import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/GHabits.styled';
 
 const GHabitsPage = () => {
   document.title = `bbetter - Good Habits`;
   const { isShowing: modalIsShowing, toggle: toggleModal } = useModal();
+  const { ghabits, error, isLoading } = useRefetchGHabits();
 
   return (
     <Styled.GHabitContent>
@@ -33,12 +35,12 @@ const GHabitsPage = () => {
           </div>
           <div></div>
         </Styled.GHabitTableHeader>
-        {[...Array(1)].map((_, index) => (
-          <GHabitItem key={index} />
+        {ghabits.map((ghabit) => (
+          <GHabitItem key={ghabit.gHabitId} data={ghabit} />
         ))}
       </Styled.GHabitList>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
-        <GHabitAdd />
+        <GHabitAdd hide={toggleModal} />
       </Modal>
     </Styled.GHabitContent>
   );

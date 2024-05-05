@@ -1,12 +1,9 @@
 Ideas
 
-1. Sorting wishes by isChecked and after that by priorities;
-2. Make Add Button & Show List Button only with icon at the level of Header
-3. Quote div on home page to cloud form
-4. Priority system for GHabits & Wish List
-5. Make Sidebar become smaller
-6. Task Page pluses on each TableCell
-7. User Picture
+1. Priority system for GHabits & Wish List
+2. Make Sidebar become smaller
+3. Task Page pluses on each TableCell
+4. User Picture
 
 Fixes
 
