@@ -29,7 +29,7 @@ const GHabitEdit = ({ onClick, data, hide }) => {
             Content: values.content,
           };
           actions.resetForm();
-          mutateAsync(ghabit).hide();
+          mutateAsync(ghabit).then(hide());
         }}>
         <Styled.AddGHabitForm>
           <TextInput name='content' placeholder='Your habit' />

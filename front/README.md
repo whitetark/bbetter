@@ -11,3 +11,4 @@ Fixes
 2. Check for overflow on task page
 3. Authorize on backend controllers
 4. Check for Slow 3G Loadings
+5. Check for deleting objects (BHabit deletes BHabitDates and etc)

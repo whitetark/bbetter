@@ -1,6 +1,8 @@
 import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import { useAuthContext } from '../../app/store/auth-context';
+import { useAddBHabit } from '../../hooks/use-bhabits';
 import * as Styled from '../../styles/BHabits.styled';
 import DatePicker from '../UI/DatePicker';
 import { TextInput } from '../UI/Inputs';
@@ -15,7 +17,10 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
   issueDate: Yup.date(),
 });
 
-const BHabitAdd = ({ onClick }) => {
+const BHabitAdd = ({ onClick, hide }) => {
+  const { mutateAsync, isError, error } = useAddBHabit();
+  const { userData } = useAuthContext();
+
   return (
     <Styled.AddBHabit onClick={onClick}>
       <h1>Add Bad Habit</h1>
@@ -24,12 +29,12 @@ const BHabitAdd = ({ onClick }) => {
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={async (values, actions) => {
           const bhabit = {
-            AccountId: 1,
+            AccountId: userData.accountId,
             Content: values.content,
             IssueDate: values.issueDate,
           };
           actions.resetForm();
-          console.log(bhabit);
+          mutateAsync(bhabit).then(hide());
         }}>
         <Styled.AddBHabitForm>
           <TextInput name='content' placeholder='Your new habit' />
@@ -43,6 +48,7 @@ const BHabitAdd = ({ onClick }) => {
               </Styled.AddBHabitButton>
             )}
           </Field>
+          {isError ? <div>An error occurred: {error.message}</div> : null}
         </Styled.AddBHabitForm>
       </Formik>
     </Styled.AddBHabit>

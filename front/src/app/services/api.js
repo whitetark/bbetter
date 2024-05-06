@@ -145,6 +145,20 @@ export const BHabitService = {
   async deleteById(payload) {
     return api.delete(`/BHabit/deleteById/${payload.Id}`);
   },
+  async getDatesByMonth(payload) {
+    return api.get(
+      `/BHabit/date/getByMonth?id=${payload.id}&month=${payload.month}&year=${payload.year}`,
+      {
+        signal: payload.signal,
+      },
+    );
+  },
+  async createDate(payload) {
+    return api.post('/BHabit/date/create', payload);
+  },
+  async deleteDate(payload) {
+    return api.delete(`/BHabit/date/delete?id=${payload.id}`);
+  },
 };
 
 export const QuoteService = {

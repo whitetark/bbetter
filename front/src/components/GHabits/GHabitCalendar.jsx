@@ -46,7 +46,7 @@ export default function GHabitCalendar({ ghabit }) {
     year: valueForPayload.year(),
   };
 
-  const { data: highlightedDays } = useQuery(
+  const { data: highlightedDays, isLoading } = useQuery(
     ['getDatesByMonth', payload],
     () => {
       const controller = new AbortController();
@@ -93,6 +93,7 @@ export default function GHabitCalendar({ ghabit }) {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateCalendar
           value={value}
+          loading={isLoading}
           renderLoading={() => <DayCalendarSkeleton />}
           onChange={(newValue) => setValue(newValue)}
           onMonthChange={handleMonthChange}

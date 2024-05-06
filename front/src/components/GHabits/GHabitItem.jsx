@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { useDeleteGHabit } from '../../hooks/use-ghabits';
 import useModal from '../../hooks/use-modal';
 import * as Styled from '../../styles/GHabits.styled';
 import Confirmation from '../UI/Confirmation';
-import { useDeleteGHabit } from '../../hooks/use-ghabits';
 import Modal from '../UI/Modal';
 import Checklist from './Checklist';
 import GHabitEdit from './GHabitEdit';
@@ -27,7 +27,11 @@ const GHabitItem = ({ data }) => {
     toggleDelete,
   };
 
-  const handleDelete = (requestBody) => {
+  const requestBody = {
+    Id: data.gHabitId,
+  };
+
+  const handleDelete = () => {
     mutateAsync(requestBody).then(toggleDelete());
   };
 

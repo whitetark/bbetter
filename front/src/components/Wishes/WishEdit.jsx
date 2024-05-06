@@ -33,7 +33,6 @@ const WishEdit = ({ onClick, hide, data }) => {
             isCompleted: values.isCompleted,
           };
           actions.resetForm();
-          console.log(wish);
           mutateAsync(wish).then(hide());
         }}>
         <Styled.AddWishForm>

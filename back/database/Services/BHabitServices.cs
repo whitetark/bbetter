@@ -84,7 +84,7 @@ namespace database.Services
         public async Task Update(BHabit newBHabit)
         {
             string sql = @"UPDATE bbetterSchema.BHabits 
-            SET [Content] = @content, [IssueDate] = @issueDate, 
+            SET [Content] = @content, [IssueDate] = @issueDate 
             WHERE BHabitId = @bHabitId";
             var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
             if (await _dbConnection.ExecuteAsync(sql, new

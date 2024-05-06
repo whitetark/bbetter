@@ -100,9 +100,22 @@ export const BHabitItemActions = styled(BHabitActions)`
   }
 `;
 
-export const AddBHabit = styled.div``;
+export const AddBHabit = styled.div`
+  padding: 2rem;
+`;
 export const AddBHabitForm = styled(AddWishForm)`
   gap: 1rem;
+
+  input[type='text'] {
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 10px;
+    outline: none;
+    font-size: 20px;
+    max-width: 35rem;
+    border: 1px solid ${variables.DIVIDER};
+  }
+
   .form-control {
     display: flex;
     flex-direction: column;

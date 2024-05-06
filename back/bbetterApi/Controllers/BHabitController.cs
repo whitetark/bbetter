@@ -30,7 +30,13 @@ namespace bbetterApi.Controllers
         [Route("create")]
         public async Task<BHabit> CreateBHabit(BHabit bHabit)
         {
-            return await bHabitServices.Add(bHabit);
+            var userRequest = new BHabit
+            {
+                AccountId = bHabit.AccountId,
+                Content = bHabit.Content,
+                IssueDate = DateTime.Now.Date,
+            };
+            return await bHabitServices.Add(userRequest);
         }
 
         [HttpPut]
@@ -59,10 +65,14 @@ namespace bbetterApi.Controllers
 
         //Dates
         [HttpGet]
-        [Route("date/getById/{id}")]
-        public async Task<BHabitDate> GetBHabitDatesById(int id)
+        [Route("date/getByMonth")]
+        public async Task<ActionResult<BHabitDate>> GetDatesByMonth([FromQuery(Name = "id")] int habitId, [FromQuery(Name = "month")] int month, [FromQuery(Name = "year")] int year)
         {
-            return await bHabitDateServices.GetById(id);
+            var dates = await bHabitDateServices.GetByMonth(habitId, month, year);
+            var days = dates.Select(h => h.DateOf.Day).ToArray();
+
+            return new OkObjectResult(new { dates, days });
+
         }
 
         [HttpGet]
@@ -77,13 +87,19 @@ namespace bbetterApi.Controllers
         [Route("date/create")]
         public async Task CreateBHabitDate(BHabitDate date)
         {
-            await bHabitDateServices.Add(date);
+            var userRequest = new BHabitDate
+            {
+                BHabitId = date.BHabitId,
+                DateOf = date.DateOf
+            };
+
+            await bHabitDateServices.Add(userRequest);
             return;
         }
 
         [HttpDelete]
-        [Route("date/deleteById/{id}")]
-        public async Task DeleteBHabitDate(int id)
+        [Route("date/delete")]
+        public async Task DeleteBHabitDate([FromQuery(Name = "id")] int id)
         {
             await bHabitDateServices.Delete(id);
             return;

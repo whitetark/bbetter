@@ -55,16 +55,45 @@ namespace database.Services
             }
         }
 
+        //get-by-month
+        public async Task<List<BHabitDate>> GetByMonth(int habitId, int month, int year)
+        {
+            try
+            {
+                string sql = @"SELECT * FROM bbetterSchema.BHabitDate
+                WHERE BHabitId = @habitId
+                AND MONTH(DateOf) = @month
+                AND YEAR(DateOf) = @year;";
+
+                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+                var ghabits = await _dbConnection.QueryAsync<BHabitDate>(sql, new { habitId, month, year });
+
+                if (ghabits.Count() == 0)
+                {
+                    return new List<BHabitDate>();
+                }
+
+                var result = ghabits.ToList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Get BHabit Dates", ex);
+            }
+        }
+
         //create
         public async Task<bool> Add(BHabitDate bHabitDate)
         {
             try
             {
                 string sql = @"SELECT * FROM bbetterSchema.BHabitDate
-                WHERE (DateOf = @dateof)";
+                WHERE (DateOf = @dateof)
+                AND BHabitId = @bHabitId";
 
                 var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var test = await _dbConnection.QueryAsync<BHabitDate>(sql, new { dateof = bHabitDate.DateOf });
+                var test = await _dbConnection.QueryAsync<BHabitDate>(sql, new { dateof = bHabitDate.DateOf, bHabitId = bHabitDate.BHabitId });
 
                 if(test.Count() > 0) { return false; }
 

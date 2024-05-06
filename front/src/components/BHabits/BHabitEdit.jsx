@@ -1,20 +1,21 @@
 import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import { useAuthContext } from '../../app/store/auth-context';
+import { useEditBHabit } from '../../hooks/use-bhabits';
 import * as Styled from '../../styles/BHabits.styled';
-import DatePicker from '../UI/DatePicker';
 import { TextInput } from '../UI/Inputs';
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
   content: Yup.string().min(3, 'Too Short!').max(60, 'Too Long!').required('Required'),
-  issueDate: Yup.date(),
 });
 
-const BHabitEdit = ({ onClick }) => {
+const BHabitEdit = ({ onClick, data, hide }) => {
   const initialValues = {
-    content: '',
-    issueDate: new Date(),
+    content: data.content,
   };
+  const { userData } = useAuthContext();
+  const { mutateAsync, error, isError } = useEditBHabit();
 
   return (
     <Styled.AddBHabit onClick={onClick}>
@@ -24,16 +25,16 @@ const BHabitEdit = ({ onClick }) => {
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={async (values, actions) => {
           const bhabit = {
-            AccountId: 1,
+            BHabitId: data.bHabitId,
+            AccountId: userData.accountId,
             Content: values.content,
-            IssueDate: values.issueDate,
+            IssueDate: data.issueDate,
           };
           actions.resetForm();
-          console.log(bhabit);
+          mutateAsync(bhabit).then(hide());
         }}>
         <Styled.AddBHabitForm>
           <TextInput name='content' placeholder='Your new habit' />
-          <DatePicker name='issueDate' label='When happened?' />
           <Field>
             {(props) => (
               <Styled.AddBHabitButton
@@ -43,6 +44,7 @@ const BHabitEdit = ({ onClick }) => {
               </Styled.AddBHabitButton>
             )}
           </Field>
+          {isError ? <div>An error occurred: {error.message}</div> : null}
         </Styled.AddBHabitForm>
       </Formik>
     </Styled.AddBHabit>
