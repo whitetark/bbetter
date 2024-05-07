@@ -55,6 +55,36 @@ namespace database.Services
             }
         }
 
+        //get-by-week
+        public async Task<List<GHabitDate>> GetByWeek(int habitId)
+        {
+            try
+            {
+                string sql = @"SET DATEFIRST 1
+                SELECT * FROM bbetterSchema.GHabitDate
+                WHERE GHabitId = @habitId
+                AND MONTH(DateOf) = @month
+                WHERE DATEPART(week, DateOf) = DATEPART(week, GETDATE())
+                AND DATEPART(year, DateOf) = DATEPART(year, GETDATE());";
+
+                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+                var ghabits = await _dbConnection.QueryAsync<GHabitDate>(sql, new { habitId});
+
+                if (ghabits.Count() == 0)
+                {
+                    return new List<GHabitDate>();
+                }
+
+                var result = ghabits.ToList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Get GHabit Dates", ex);
+            }
+        }
+
         //get-by-month
         public async Task<List<GHabitDate>> GetByMonth(int habitId, int month, int year)
         {

@@ -80,6 +80,13 @@ namespace bbetterApi.Controllers
         }
 
         [HttpGet]
+        [Route("date/getByWeek")]
+        public async Task<List<GHabitDate>> GetDatesByMonth([FromQuery(Name = "id")] int habitId)
+        {
+            return await gHabitDateServices.GetByWeek(habitId);
+        }
+
+        [HttpGet]
         [Route("date/getByMonth")]
         public async Task<int[]> GetDatesByMonth([FromQuery(Name="id")] int habitId, [FromQuery(Name ="month")] int month, [FromQuery(Name = "year")] int year)
         {

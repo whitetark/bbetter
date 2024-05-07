@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProgressBar from '@ramonak/react-progress-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import * as variables from '../../app/shared/colorVariables';
 import * as Styled from '../../styles/BHabits.styled';
 import Button from '../UI/Button';
@@ -8,6 +8,8 @@ import BHabitCalendar from './BHabitCalendar';
 import BHabitClock from './BHabitClock';
 
 const BHabitView = (props) => {
+  const [timeDiff, setTimeDiff] = useState(0);
+
   const data = props.data;
   return (
     <Styled.BHabitView onClick={props.onClick}>
@@ -28,13 +30,17 @@ const BHabitView = (props) => {
             <div className='time-content'>
               <div className='time'>Abstinence Time</div>
               <span>
-                <BHabitClock issueDate={data.issueDate} />
+                <BHabitClock
+                  issueDate={data.issueDate}
+                  timeDiff={timeDiff}
+                  setTimeDiff={setTimeDiff}
+                />
               </span>
             </div>
             <div className='perc'>{props.number}%</div>
           </div>
           <div className='progress-content'>
-            <span>1 week</span>
+            <span>{props.limit}</span>
             <ProgressBar
               completed={props.number}
               maxCompleted={100}

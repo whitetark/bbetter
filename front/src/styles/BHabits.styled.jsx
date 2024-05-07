@@ -47,6 +47,7 @@ export const BHabitItem = styled.div`
   .item-content {
     display: flex;
     flex-direction: row;
+    gap: 2rem;
 
     .perc {
       font-size: 40px;
@@ -133,6 +134,10 @@ export const AddBHabitForm = styled(AddWishForm)`
       }
 
       .react-datepicker__day {
+        font-size: 16px;
+      }
+
+      .react-datepicker__input-time-container {
         font-size: 16px;
       }
     }

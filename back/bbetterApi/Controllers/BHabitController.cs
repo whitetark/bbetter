@@ -34,7 +34,7 @@ namespace bbetterApi.Controllers
             {
                 AccountId = bHabit.AccountId,
                 Content = bHabit.Content,
-                IssueDate = DateTime.Now.Date,
+                IssueDate = bHabit.IssueDate,
             };
             return await bHabitServices.Add(userRequest);
         }

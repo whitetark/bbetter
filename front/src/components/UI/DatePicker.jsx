@@ -19,8 +19,9 @@ function DatePicker(props) {
               {...field}
               {...rest}
               selected={value}
+              timeFormat='HH:mm:ss'
               calendarClassName='datePicker'
-              dateFormat='dd/MM/YYYY'
+              dateFormat='yyyy-MM-dd HH:mm:ss'
               onChange={(val) => setFieldValue(name, val)}
             />
           );
