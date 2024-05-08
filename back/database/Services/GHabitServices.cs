@@ -2,6 +2,7 @@
 using database.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,51 @@ namespace database.Services
                 var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
                 var ghabit = await _dbConnection.QuerySingleAsync<GHabit>(sql, new { gHabitId });
                 return ghabit;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Get GHabit", ex);
+            }
+        }
+
+        //get-by-account-with-dates
+        public async Task<List<GHabitWithDates>> GetWDatesByAccount(int accountId)
+        {
+            try
+            {
+                var GHabitDictionary = new Dictionary<string, GHabitWithDates>();
+
+                string sql = @"SET DATEFIRST 1
+                SELECT * FROM bbetterSchema.GHabits
+                WHERE AccountId = @accountId;
+                SELECT GHD.GHabitDateId, GHD.DateOf, GHD.GHabitId
+                FROM bbetterSchema.GHabits GH
+                JOIN bbetterSchema.GHabitDate GHD ON GH.GHabitId = GHD.GHabitId
+                WHERE GH.AccountId = @accountId 
+                AND DATEPART(week, DateOf) = DATEPART(week, GETDATE())
+                AND DATEPART(year, DateOf) = DATEPART(year, GETDATE());";
+
+                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+                await _dbConnection.OpenAsync();
+                var results = await _dbConnection.QueryMultipleAsync(sql, new { accountId });
+                var ghabits = results.ReadAsync<GHabit>().Result.ToList();
+                var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
+
+                var habitWithDates = ghabits.GroupJoin(
+                        ghabitDates,
+                        gHabit => gHabit.GHabitId.ToString(),
+                        gHabitWeekResult => gHabitWeekResult.GHabitId,
+                        (gHabit, gHabitWeekResultsGroup) =>
+                            new GHabitWithDates
+                            {
+                                GHabitId = gHabit.GHabitId.ToString(),
+                                AccountId = gHabit.AccountId,
+                                Content = gHabit.Content,
+                                GHabitDates = gHabitWeekResultsGroup.ToList()
+                            })
+                    .ToList();
+
+                return habitWithDates;
             }
             catch (Exception ex)
             {

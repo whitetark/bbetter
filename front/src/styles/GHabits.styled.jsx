@@ -44,7 +44,7 @@ export const GHabitItem = styled.div`
     text-decoration: line-through;
   }
 
-  &:has(${GHabitItemPart}:hover) {
+  &:hover {
     filter: brightness(0.8);
     cursor: pointer;
   }
@@ -84,6 +84,10 @@ export const Input = styled.input`
   background-color: ${variables.WHITE};
   accent-color: ${variables.DISABLED_BUTTON};
   margin-left: auto;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const AddGHabit = styled.div`

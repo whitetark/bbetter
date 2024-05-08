@@ -104,6 +104,9 @@ export const GHabitService = {
   async getByAccount(payload) {
     return api.get(`/GHabit/getAll/${payload.AccountId}`);
   },
+  async getWithDates(payload) {
+    return api.get(`/GHabit/getWithDates/${payload.AccountId}`);
+  },
   async create(payload) {
     return api.post('/GHabit/create', payload);
   },

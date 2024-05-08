@@ -63,7 +63,6 @@ namespace database.Services
                 string sql = @"SET DATEFIRST 1
                 SELECT * FROM bbetterSchema.GHabitDate
                 WHERE GHabitId = @habitId
-                AND MONTH(DateOf) = @month
                 WHERE DATEPART(week, DateOf) = DATEPART(week, GETDATE())
                 AND DATEPART(year, DateOf) = DATEPART(year, GETDATE());";
 

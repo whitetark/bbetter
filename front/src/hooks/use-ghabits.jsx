@@ -10,7 +10,7 @@ export const useRefetchGHabits = () => {
 
   const { data, error, isLoading } = useQuery(
     ['getGHabits', requestBody],
-    () => GHabitService.getByAccount(requestBody),
+    () => GHabitService.getWithDates(requestBody),
     {
       onError: (error) => {
         console.log('Get GHabits error: ' + error.message);
@@ -25,6 +25,7 @@ export const useRefetchGHabits = () => {
   } else {
     ghabits = data.data;
   }
+
   return { ghabits, error, isLoading };
 };
 
@@ -68,6 +69,7 @@ export const useAddGHabitDate = () => {
   const queryClient = useQueryClient();
   return useMutation('addGHabitDate', (payload) => GHabitService.createDate(payload), {
     onSuccess: () => {
+      queryClient.invalidateQueries('getGHabits');
       queryClient.invalidateQueries('getDatesByMonth');
     },
     onError: (error) => {
@@ -79,6 +81,7 @@ export const useDeleteGHabitDate = () => {
   const queryClient = useQueryClient();
   return useMutation('deleteGHabitDate', (payload) => GHabitService.deleteDate(payload), {
     onSuccess: () => {
+      queryClient.invalidateQueries('getGHabits');
       queryClient.invalidateQueries('getDatesByMonth');
     },
     onError: (error) => {

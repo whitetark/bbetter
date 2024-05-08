@@ -26,6 +26,12 @@ namespace bbetterApi.Controllers
             return await gHabitServices.GetByAccount(accountId);
         }
 
+        [HttpGet]
+        [Route("getWithDates/{accountId}")]
+        public async Task<List<GHabitWithDates>> GetWithDates(int accountId)
+        {
+            return await gHabitServices.GetWDatesByAccount(accountId);
+        }
 
         [HttpPost]
         [Route("create")]

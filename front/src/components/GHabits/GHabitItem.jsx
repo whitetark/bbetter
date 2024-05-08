@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDeleteGHabit } from '../../hooks/use-ghabits';
 import useModal from '../../hooks/use-modal';
 import * as Styled from '../../styles/GHabits.styled';
@@ -9,16 +9,10 @@ import GHabitEdit from './GHabitEdit';
 import GHabitView from './GHabitView';
 
 const GHabitItem = ({ data }) => {
-  const [isChecked, setIsChecked] = useState(false);
-
   const { isShowing: viewIsShowing, toggle: toggleView } = useModal();
   const { isShowing: editIsShowing, toggle: toggleEdit } = useModal();
   const { isShowing: deleteIsShowing, toggle: toggleDelete } = useModal();
   const { mutateAsync } = useDeleteGHabit();
-
-  const handleCheckList = (value) => {
-    setIsChecked(value);
-  };
 
   const viewProps = {
     editIsShowing,
@@ -37,14 +31,19 @@ const GHabitItem = ({ data }) => {
 
   return (
     <>
-      <Styled.GHabitItem className={isChecked ? 'checked' : ''} onClick={toggleView}>
+      <Styled.GHabitItem
+        className={data.gHabitDates?.length == 7 ? 'checked' : ''}
+        onClick={(event) => {
+          event.preventDefault();
+          toggleView();
+        }}>
         <Styled.GHabitItemPart>
           <span className='number'>1</span>
         </Styled.GHabitItemPart>
         <Styled.GHabitItemPart>
           <p>{data.content}</p>
         </Styled.GHabitItemPart>
-        <Checklist onChange={handleCheckList} className='checklist' />
+        <Checklist data={data.gHabitDates} className='checklist' />
       </Styled.GHabitItem>
       <Modal isShowing={viewIsShowing} hide={toggleView} className='task-modal' hasOverlay>
         <GHabitView data={data} {...viewProps} />

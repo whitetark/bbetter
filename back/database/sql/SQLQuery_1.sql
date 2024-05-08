@@ -1,5 +1,4 @@
 use master
-DROP DATABASE bbetterDb
 
 CREATE DATABASE bbetterDb
 use bbetterDb
@@ -79,3 +78,13 @@ CREATE TABLE bbetterSchema.UserQuotes
     Author VARCHAR(100),
     Quote VARCHAR(2000)
 )
+
+SELECT * FROM bbetterSchema.Accounts;
+
+SET DATEFIRST 1
+SELECT GH.GHabitId, GH.AccountId, GH.Content, GHD.GHabitDateId, GHD.DateOf
+FROM bbetterSchema.GHabits GH
+JOIN bbetterSchema.GHabitDate GHD ON GH.GHabitId = GHD.GHabitId
+WHERE GH.AccountId = 1 
+AND DATEPART(week, DateOf) = DATEPART(week, GETDATE())
+AND DATEPART(year, DateOf) = DATEPART(year, GETDATE())

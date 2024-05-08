@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import * as Styled from '../../styles/GHabits.styled';
 
 const Checklist = (props) => {
+  const data = props.data;
+
   const [weeks, setWeeks] = useState({
     mon: false,
     tue: false,
@@ -13,13 +15,15 @@ const Checklist = (props) => {
   });
 
   useEffect(() => {
-    props.onChange(
-      weeks.mon && weeks.tue && weeks.wed && weeks.thu && weeks.fri && weeks.sat && weeks.sun,
-    );
-  }, [weeks]);
+    data.forEach((item) => {
+      const date = new Date(item.dateOf);
+      const day = date.getDay(); // Returns a number from 0 (Sunday) to 6 (Saturday)
+      const dayName = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][day];
+      setWeeks((prevState) => ({ ...prevState, [dayName]: true }));
+    });
+  }, [data]);
 
   const handleChange = (event) => {
-    event.stopPropagation();
     const target = event.target;
     const value = target.checked;
     const name = target.name;
@@ -30,14 +34,14 @@ const Checklist = (props) => {
   };
 
   return (
-    <Styled.Checklist onClick={(event) => event.stopPropagation()}>
-      <Styled.Input type='checkbox' name='mon' defaultChecked={weeks.mon} onChange={handleChange} />
-      <Styled.Input type='checkbox' name='tue' defaultChecked={weeks.tue} onChange={handleChange} />
-      <Styled.Input type='checkbox' name='wed' defaultChecked={weeks.wed} onChange={handleChange} />
-      <Styled.Input type='checkbox' name='thu' defaultChecked={weeks.thu} onChange={handleChange} />
-      <Styled.Input type='checkbox' name='fri' defaultChecked={weeks.fri} onChange={handleChange} />
-      <Styled.Input type='checkbox' name='sat' defaultChecked={weeks.sat} onChange={handleChange} />
-      <Styled.Input type='checkbox' name='sun' defaultChecked={weeks.sun} onChange={handleChange} />
+    <Styled.Checklist>
+      <Styled.Input type='checkbox' name='mon' checked={weeks.mon} readOnly />
+      <Styled.Input type='checkbox' name='tue' checked={weeks.tue} readOnly />
+      <Styled.Input type='checkbox' name='wed' checked={weeks.wed} readOnly />
+      <Styled.Input type='checkbox' name='thu' checked={weeks.thu} readOnly />
+      <Styled.Input type='checkbox' name='fri' checked={weeks.fri} readOnly />
+      <Styled.Input type='checkbox' name='sat' checked={weeks.sat} readOnly />
+      <Styled.Input type='checkbox' name='sun' checked={weeks.sun} readOnly />
     </Styled.Checklist>
   );
 };
