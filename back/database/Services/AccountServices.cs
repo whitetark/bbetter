@@ -109,5 +109,59 @@ namespace database.Services
 
             throw new Exception("Failed to Update Account");
         }
+
+        public async Task<AccountActivities> GetAllActivities(int accountId)
+        {
+            string sql = @"
+            SET DATEFIRST 1
+            SELECT T.TaskId, T.Content, T.IsUrgent, T.IsImportant, T.Deadline 
+            FROM bbetterSchema.Tasks T
+            WHERE AccountId = @accountId
+            AND IsCompleted = 0;
+            SELECT W.WishId, W.Content
+            FROM bbetterSchema.Wishes W
+            WHERE AccountId = @accountId
+            AND IsCompleted = 0;
+            SELECT * FROM bbetterSchema.GHabits
+            WHERE AccountId = @accountId;
+            SELECT GHD.GHabitDateId, GHD.DateOf, GHD.GHabitId
+            FROM bbetterSchema.GHabits GH
+            JOIN bbetterSchema.GHabitDate GHD ON GH.GHabitId = GHD.GHabitId
+            WHERE GH.AccountId = @accountId 
+            AND CONVERT(DATE, GHD.DateOf) = CONVERT(DATE, GETDATE());
+            ";
+
+            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+            await _dbConnection.OpenAsync();
+            var results = await _dbConnection.QueryMultipleAsync(sql, new { accountId });
+            var tasks = results.ReadAsync<AccountTasks>().Result.ToList();
+            var wishes = results.ReadAsync<AccountWishes>().Result.ToList();
+            var ghabits = results.ReadAsync<GHabit>().Result.ToList();
+            var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
+
+            var habitWithDates = ghabits.GroupJoin(
+                        ghabitDates,
+                        gHabit => gHabit.GHabitId.ToString(),
+                        gHabitWeekResult => gHabitWeekResult.GHabitId,
+                        (gHabit, gHabitWeekResultsGroup) =>
+                            new GHabitWithDates
+                            {
+                                GHabitId = gHabit.GHabitId.ToString(),
+                                AccountId = gHabit.AccountId,
+                                Content = gHabit.Content,
+                                GHabitDates = gHabitWeekResultsGroup.ToList()
+                            })
+                    .ToList();
+
+            var result = new AccountActivities
+            {
+                accountId = accountId,
+                tasks = tasks,
+                wishes = wishes,
+                ghabits = habitWithDates,
+            };
+
+            return result;
+        }
     }
 }

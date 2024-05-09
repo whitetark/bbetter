@@ -1,4 +1,6 @@
 ﻿using bbetterApi.Dto;
+using bbetterApi.Models;
+using bbetterApi.Utils;
 using database.Models;
 using database.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Controllers
 {
@@ -91,6 +94,14 @@ namespace bbetterApi.Controllers
         public async Task<List<Account>> GetAccounts()
         {
             return await accountServices.GetAccs();
+        }
+
+        [Route("whatToDo")]
+        [HttpGet]
+        public async Task<WhatToDoResponse> GetWhatToDo([FromQuery] int id)
+        {
+            var data = await accountServices.GetAllActivities(id);
+            return WhatToDoUtil.FormatData(data);
         }
     }
 }
