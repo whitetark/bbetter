@@ -5,12 +5,14 @@ import {
   faDrum,
   faGear,
   faHouse,
+  faKey,
   faList,
   faListCheck,
   faPenToSquare,
   faPencil,
   faPlus,
   faQuoteLeft,
+  faRightFromBracket,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
@@ -49,6 +51,8 @@ library.add(
   faList,
   faArrowLeft,
   faTrashCan,
+  faRightFromBracket,
+  faKey,
 );
 
 function App() {

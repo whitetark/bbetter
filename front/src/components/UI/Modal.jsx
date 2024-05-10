@@ -13,6 +13,11 @@ const Modal = ({ children, isShowing, hide, className, hasOverlay }) => {
     e.stopPropagation();
   };
 
+  if (isShowing) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'unset';
+  }
   return isShowing
     ? createPortal(
         <Styled.Modal onClick={hide}>

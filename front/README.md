@@ -13,3 +13,4 @@ Fixes
 4. Check for Slow 3G Loadings
 5. Check for deleting objects (BHabit deletes BHabitDates and etc)
 6. Fix BHabitAdd time issue
+7. TryCatch for controllers

@@ -1,6 +1,7 @@
-import { Field, Form, Formik } from 'formik';
+import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import { useAuthContext } from '../../app/store/auth-context';
 import { useChangePassword } from '../../hooks/use-auth';
 import * as Styled from '../../styles/Settings.styled';
 import { TextInput } from '../UI/Inputs';
@@ -22,16 +23,16 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
     .oneOf([Yup.ref('newPassword')], 'Passwords must match'),
 });
 
-const ChangePassword = ({ setIsSuccess, username }) => {
+const ChangePassword = ({ setIsSuccess }) => {
   const { mutateAsync: changePassword, error: changingPasswordError } = useChangePassword();
-
+  const { userData } = useAuthContext();
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={DisplayingErrorMessagesSchema}
       onSubmit={async (values, actions) => {
         const user = {
-          username: 'whitetark',
+          username: userData.username,
           password: values.newPassword,
         };
 
@@ -41,7 +42,7 @@ const ChangePassword = ({ setIsSuccess, username }) => {
         actions.resetForm();
         actions.setSubmitting(false);
       }}>
-      <Form>
+      <Styled.ChangePasswordForm>
         <TextInput type='password' name='newPassword' placeholder='New Password' />
         <TextInput type='password' name='newRepeatPassword' placeholder='Repeat New Password' />
         {changingPasswordError ? changingPasswordError.response.data : null}
@@ -54,7 +55,7 @@ const ChangePassword = ({ setIsSuccess, username }) => {
             </Styled.ChangePasswordButton>
           )}
         </Field>
-      </Form>
+      </Styled.ChangePasswordForm>
     </Formik>
   );
 };

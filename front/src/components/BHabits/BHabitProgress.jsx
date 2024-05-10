@@ -34,8 +34,21 @@ const BHabitProgress = ({ number, setNumber, timeDiff, limit, setLimit }) => {
       },
       { interval: '', diff: Infinity },
     );
-    const nearestIntervalMinutes =
-      parseInt(nearestInterval.interval) * (nearestInterval.interval.includes('h') ? 60 : 24 * 60);
+
+    let forMath = 0;
+    if (nearestInterval?.interval.includes('h')) {
+      forMath = 60;
+    } else if (nearestInterval?.interval.includes('d')) {
+      forMath = 24 * 60;
+    } else if (nearestInterval?.interval.includes('w')) {
+      forMath = 7 * 24 * 60;
+    } else if (nearestInterval?.interval.includes('m')) {
+      forMath = 30 * 24 * 60;
+    } else if (nearestInterval?.interval.includes('y')) {
+      forMath = 365 * 24 * 60;
+    }
+
+    const nearestIntervalMinutes = parseInt(nearestInterval.interval) * forMath;
     const percentage =
       ((nearestIntervalMinutes - nearestInterval.diff) / nearestIntervalMinutes) * 100;
 

@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 
-import { useAuthContext } from '../../app/store/auth-context';
 import * as Styled from '../../styles/Settings.styled';
 import ChangePassword from './ChangePassword';
 import ConfirmPassword from './ConfirmPassword';
 
-const ChangePasswordPreview = ({ onClick }) => {
-  const { userData } = useAuthContext();
-
+const ChangePasswordPreview = ({ onClick, hide }) => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const isSuccessContent = <div>You succesfully changed password!</div>;
+  const isSuccessContent = (
+    <Styled.ChangePasswordSuccess>
+      <p>You succesfully changed password! 🥰</p>
+      <Styled.ChangePasswordButton onClick={hide}>Close</Styled.ChangePasswordButton>
+    </Styled.ChangePasswordSuccess>
+  );
   const isNotSuccessContent = isConfirmed ? (
     <ChangePassword setIsSuccess={setIsSuccess} />
   ) : (

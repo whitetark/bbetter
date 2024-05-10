@@ -47,6 +47,13 @@ export const Children = styled.div`
       font-weight: 500;
     }
   }
+
+  &.wtd-modal {
+    justify-self: right;
+    align-self: center;
+    max-height: 100%;
+    overflow-y: auto;
+  }
 `;
 
 export const Modal = styled.div`

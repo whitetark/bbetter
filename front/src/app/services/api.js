@@ -58,6 +58,9 @@ export const UserService = {
   async refreshToken(payload) {
     return api.post('/Auth/refresh-token', payload);
   },
+  async getWhatToDo(payload) {
+    return api.get(`/Acc/whatToDo?id=${payload.Id}`);
+  },
 };
 
 export const TaskService = {

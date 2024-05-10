@@ -1,6 +1,7 @@
-import { Field, Form, Formik } from 'formik';
+import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import { useAuthContext } from '../../app/store/auth-context';
 import { useConfirmationData } from '../../hooks/use-auth';
 import * as Styled from '../../styles/Settings.styled';
 import { TextInput } from '../UI/Inputs';
@@ -16,16 +17,16 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
     .required('Required'),
 });
 
-const ConfirmPassword = ({ setIsConfirmed, username }) => {
+const ConfirmPassword = ({ setIsConfirmed }) => {
   const { mutateAsync: checkCredentials, error: confirmationError } = useConfirmationData();
-
+  const { userData } = useAuthContext();
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={DisplayingErrorMessagesSchema}
       onSubmit={(values, actions) => {
         const user = {
-          username: 'whitetark',
+          username: userData.username,
           password: values.password,
         };
         checkCredentials(user).then(() => {
@@ -34,7 +35,7 @@ const ConfirmPassword = ({ setIsConfirmed, username }) => {
         actions.resetForm();
         actions.setSubmitting(false);
       }}>
-      <Form>
+      <Styled.ChangePasswordForm>
         <TextInput type='password' name='password' placeholder='Current Password' />
         {confirmationError ? confirmationError.response.data : null}
         <Field>
@@ -46,7 +47,7 @@ const ConfirmPassword = ({ setIsConfirmed, username }) => {
             </Styled.ChangePasswordButton>
           )}
         </Field>
-      </Form>
+      </Styled.ChangePasswordForm>
     </Formik>
   );
 };
