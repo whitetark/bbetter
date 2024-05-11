@@ -11,6 +11,10 @@ const HomePage = () => {
   const { userData } = useAuthContext();
   const { isShowing: isWTDShowing, toggle: toggleWTD } = useModal();
   const { isShowing: isReflectShowing, toggle: toggleReflect } = useModal();
+
+  var currentDate = new Date();
+  var dayOfWeek = currentDate.getDay();
+
   return (
     <Styled.Home>
       <Background />
@@ -25,7 +29,9 @@ const HomePage = () => {
         <Styled.HomeMain>
           <Styled.HomeActions>
             <Button onClick={toggleWTD}>What to do?</Button>
-            <Button onClick={toggleReflect}>Weekly Reflection</Button>
+            <Button onClick={toggleReflect} disabled={dayOfWeek !== 0}>
+              Weekly Reflection
+            </Button>
           </Styled.HomeActions>
           <Styled.HomeStats>Weekly Stats</Styled.HomeStats>
         </Styled.HomeMain>
@@ -33,7 +39,7 @@ const HomePage = () => {
       <Modal isShowing={isWTDShowing} hide={toggleWTD} className='wtd-modal' hasOverlay>
         <WhatToDo hide={toggleWTD} />
       </Modal>
-      <Modal isShowing={true} hide={toggleReflect} className='task-modal' hasOverlay>
+      <Modal isShowing={isReflectShowing} hide={toggleReflect} className='task-modal' hasOverlay>
         <ReflectionAdd />
       </Modal>
     </Styled.Home>

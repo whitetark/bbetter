@@ -1,7 +1,6 @@
 import { Unstable_NumberInput as BaseNumberInput } from '@mui/base/Unstable_NumberInput';
 import { ErrorMessage, Field } from 'formik';
 import { forwardRef } from 'react';
-import * as Styled from '../../styles/Reflections.styled';
 import TextError from './TextError';
 
 export const TextInput = ({ label, name, ...props }) => {
@@ -24,21 +23,26 @@ export const Checkbox = ({ children, name, ...props }) => {
 };
 
 export const NumberInput = forwardRef(function CustomNumberInput(props, ref) {
+  const incrementDisable = props.max == props.value;
+  const decrementDisable = props.min == props.value;
   return (
     <BaseNumberInput
-      slots={{
-        root: Styled.InputRoot,
-        input: Styled.Input,
-        incrementButton: Styled.Button,
-        decrementButton: Styled.Button,
-      }}
       slotProps={{
+        root: {
+          className: 'baseNumberInput-root',
+        },
+        input: {
+          className: 'baseNumberInput-input',
+        },
         incrementButton: {
           children: '+',
-          className: 'increment',
+          className: 'baseNumberInput-button increment',
+          disabled: incrementDisable,
         },
         decrementButton: {
           children: '-',
+          className: 'baseNumberInput-button',
+          disabled: decrementDisable,
         },
       }}
       {...props}

@@ -62,7 +62,7 @@ namespace database.Services
             {
                 var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
 
-                string sql = @"INSERT INTO bbetterSchema.Reflection
+                string sql = @"INSERT INTO bbetterSchema.Reflections
                 ([AccountId],[DateOf],[Emotion],[Productivity],[ThreeWords],[UserGoal]) 
                 OUTPUT INSERTED.*
                 VALUES (@accountId, @dateOf, @emotion, @productivity, @threeWords, @userGoal)";

@@ -2,8 +2,9 @@ import { Field, Formik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { useAuthContext } from '../../app/store/auth-context';
+import { useAddReflection } from '../../hooks/use-reflections';
 import * as Styled from '../../styles/Reflections.styled';
-import { Button, TextInput } from '../UI';
+import { TextInput } from '../UI';
 import { NumberInput } from '../UI/Inputs';
 
 const initialValues = {
@@ -16,32 +17,35 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
   userGoal: Yup.string().min(3, 'Too Short!').max(100, 'Too Long!'),
 });
 
-const labels = {
-  0.5: 'Useless',
-  1: 'Useless+',
-  1.5: 'Poor',
-  2: 'Poor+',
-  2.5: 'Ok',
-  3: 'Ok+',
-  3.5: 'Good',
-  4: 'Good+',
-  4.5: 'Excellent',
-  5: 'Excellent+',
-};
-
-function getLabelText(value) {
-  return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
-}
-
-const ReflectionAdd = ({ onClick }) => {
-  const [hover, setHover] = useState(-1);
+const ReflectionAdd = ({ onClick, hide }) => {
   const [productivity, setProductivity] = useState(1);
   const [emotion, setEmotion] = useState(1);
+
+  const { mutateAsync, error, isError } = useAddReflection();
   const { userData } = useAuthContext();
   return (
     <Styled.ReflectionAdd onClick={onClick}>
       <h1>Add Reflection</h1>
-      <NumberInput min={1} max={10} />
+      <Styled.ReflectRating>
+        <p>Rate your emotionality</p>
+        <NumberInput
+          value={emotion}
+          min={1}
+          max={10}
+          onChange={(event, val) => setEmotion(val)}
+          readOnly
+        />
+      </Styled.ReflectRating>
+      <Styled.ReflectRating>
+        <p>Rate your productivity</p>
+        <NumberInput
+          value={productivity}
+          min={1}
+          max={10}
+          onChange={(event, val) => setProductivity(val)}
+          readOnly
+        />
+      </Styled.ReflectRating>
       <Formik
         initialValues={initialValues}
         validationSchema={DisplayingErrorMessagesSchema}
@@ -49,23 +53,33 @@ const ReflectionAdd = ({ onClick }) => {
           const reflection = {
             AccountId: userData.accountId,
             DateOf: new Date(),
-            Emotion: values.emotion,
-            Productivity: values.productivity,
-            ThreeWords: values.threeWords,
-            UserGoal: values.userGoal,
+            Emotion: emotion,
+            Productivity: productivity,
+            ThreeWords: values.threeWords || '',
+            UserGoal: values.userGoal || '',
           };
-          console.log(reflection);
+          actions.resetForm();
+          mutateAsync(reflection).then(hide());
         }}>
         <Styled.AddReflectForm>
-          <TextInput name='threeWords' placeholder='Three Words' />
-          <TextInput name='userGoal' placeholder='User Goal' />
+          <Styled.ReflectRating>
+            <p>Describe past week in 3 words</p>
+            <TextInput name='threeWords' placeholder='Three Words' />
+          </Styled.ReflectRating>
+          <Styled.ReflectRating>
+            <p>Set some goals for next week</p>
+            <TextInput name='userGoal' placeholder='User Goal' />
+          </Styled.ReflectRating>
           <Field>
             {(props) => (
-              <Button disabled={!props.form.isValid && !props.form.isTouched} type='submit'>
+              <Styled.ReflectButton
+                disabled={!props.form.isValid && !props.form.isTouched}
+                type='submit'>
                 Add
-              </Button>
+              </Styled.ReflectButton>
             )}
           </Field>
+          {isError ? <div>An error occurred: {error.message}</div> : null}
         </Styled.AddReflectForm>
       </Formik>
     </Styled.ReflectionAdd>
