@@ -55,6 +55,7 @@ builder.Services.AddScoped<QuoteServices>();
 builder.Services.AddScoped<TaskServices>();
 builder.Services.AddScoped<UserQuoteServices>();
 builder.Services.AddScoped<WishServices>();
+builder.Services.AddScoped<ReflectionServices>();
 
 builder.Services.Configure<DbConfig>(builder.Configuration);
 builder.Services.AddCors(options =>

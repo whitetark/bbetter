@@ -81,10 +81,19 @@ CREATE TABLE bbetterSchema.UserQuotes
 
 SELECT * FROM bbetterSchema.Accounts;
 
-SET DATEFIRST 1
-SELECT GH.GHabitId, GH.AccountId, GH.Content, GHD.GHabitDateId, GHD.DateOf
+SELECT GHD.GHabitDateId, GHD.DateOf, GHD.GHabitId
 FROM bbetterSchema.GHabits GH
 JOIN bbetterSchema.GHabitDate GHD ON GH.GHabitId = GHD.GHabitId
 WHERE GH.AccountId = 1 
-AND DATEPART(week, DateOf) = DATEPART(week, GETDATE())
-AND DATEPART(year, DateOf) = DATEPART(year, GETDATE())
+AND CONVERT(DATE, GHD.DateOf) = CONVERT(DATE, GETDATE())
+
+CREATE TABLE bbetterSchema.Reflections
+(
+    ReflectionId INT IDENTITY(1,1) PRIMARY KEY,
+    AccountId INT REFERENCES bbetterSchema.Accounts(AccountId),
+    DateOf DATETIME,
+    Emotion INT,
+    Productivity INT,
+    ThreeWords VARCHAR(120),
+    UserGoal VARCHAR(2000)
+)

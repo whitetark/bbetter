@@ -68,7 +68,6 @@ export const TaskService = {
     return api.get(`/Task/getById/${payload.Id}`);
   },
   async getByAccount(payload) {
-    console.log(payload);
     return api.get(`/Task/getByAccount/${payload.AccountId}`);
   },
   async create(payload) {
@@ -194,5 +193,23 @@ export const QuoteService = {
   },
   async deleteById(payload) {
     return api.delete(`/Quote/user/deleteById/${payload.Id}`);
+  },
+};
+
+export const ReflectService = {
+  async getById(payload) {
+    return api.get(`/Reflect/getById/${payload.Id}`);
+  },
+  async getByAccount(payload) {
+    return api.get(`/Reflect/getByAccount/${payload.AccountId}`);
+  },
+  async create(payload) {
+    return api.post('/Reflect/create', payload);
+  },
+  async update(payload) {
+    return api.put('/Reflect/update', payload);
+  },
+  async deleteById(payload) {
+    return api.delete(`/Reflect/deleteById/${payload.Id}`);
   },
 };
