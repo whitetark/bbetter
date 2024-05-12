@@ -11,7 +11,7 @@ const initialValues = {
 };
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
-  content: Yup.string().min(3, 'Too Short!').max(240, 'Too Long!').required('Required'),
+  content: Yup.string().min(3, 'Too Short!').max(160, 'Too Long!').required('Required'),
   author: Yup.string().min(1, 'Too Short!').max(60, 'Too Long!'),
 });
 

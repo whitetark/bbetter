@@ -1,4 +1,6 @@
-﻿using bbetterApi.Dto;
+﻿using bbetterApi.Clients;
+using bbetterApi.Dto;
+using bbetterApi.Models;
 using database.Models;
 using database.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -7,42 +9,40 @@ using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Controllers
 {
-    [Authorize(Roles = "User, Admin")]
     [Route("[controller]")]
     [ApiController]
-    public class QuoteController(QuoteServices quoteServices, UserQuoteServices userQuoteServices, IConfiguration configuration) : ControllerBase
+    public class QuoteController(QuotableClient quotableClient, AccountServices accountServices, UserQuoteServices userQuoteServices, IConfiguration configuration) : ControllerBase
     {
+
         [HttpGet]
-        [Route("getAll")]
-        public async Task<List<Quote>> GetQuotes()
+        [Route("getQuoteOfDay")]
+        public async Task<ActionResult> GetQuoteOfDay([FromQuery(Name = "id")] string id)
         {
-           return await quoteServices.GetAll();
+            var user = await accountServices.GetById(id);
+            var result = new Quote();
+
+            if (DateTime.Now > user.QuoteExpires)
+            {
+                result = await quotableClient.GetRandomQuote();
+                user.QuoteExpires = DateTime.Now.Date.AddDays(1);
+                user.QuoteOfDayId = result.QuoteId;
+                await accountServices.Update(user);
+            }
+            else
+            {
+                result = await quotableClient.GetQuoteById(user.QuoteOfDayId);
+            }
+
+            return Ok(result);
         }
 
-
-        [HttpPost]
-        [Route("create")]
-        public async Task<Quote> CreateQuote(Quote quote)
+        [HttpGet]
+        [Route("getQuoteById")]
+        public async Task<Quote> GetQuoteById([FromQuery(Name = "id")] string id)
         {
-            return await quoteServices.Add(quote);
-        }
 
-        [HttpPut]
-        [Route("update")]
-        public async Task UpdateQuote(Quote quote)
-        {
-            await quoteServices.Update(quote);
-            return;
+            return await quotableClient.GetQuoteById(id);
         }
-
-        [HttpDelete]
-        [Route("deleteById/{id}")]
-        public async Task DeleteQuote(int id)
-        {
-            await quoteServices.Delete(id);
-            return;
-        }
-
 
         //UserQuotes
         [HttpGet]

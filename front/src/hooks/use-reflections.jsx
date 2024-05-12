@@ -34,6 +34,7 @@ export const useAddReflection = () => {
   return useMutation('addReflect', (payload) => ReflectService.create(payload), {
     onSuccess: () => {
       queryClient.invalidateQueries('getReflects');
+      queryClient.invalidateQueries('checkReflection');
     },
     onError: (error) => {
       console.log('Reflection add error:' + error);

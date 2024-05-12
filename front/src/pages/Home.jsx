@@ -1,3 +1,5 @@
+import { useQuery } from 'react-query';
+import { ReflectService } from '../app/services/api';
 import { useAuthContext } from '../app/store/auth-context';
 import WhatToDo from '../components/Home/WhatToDo';
 import ReflectionAdd from '../components/Settings/ReflectionAdd';
@@ -12,8 +14,22 @@ const HomePage = () => {
   const { isShowing: isWTDShowing, toggle: toggleWTD } = useModal();
   const { isShowing: isReflectShowing, toggle: toggleReflect } = useModal();
 
-  var currentDate = new Date();
-  var dayOfWeek = currentDate.getDay();
+  const currentDate = new Date();
+  const isSunday = currentDate.getDay() == 0;
+  const requestBody = {
+    AccountId: userData.accountId,
+  };
+
+  const { data: isReflect } = useQuery(
+    ['checkReflection', requestBody],
+    () => ReflectService.checkForToday(requestBody),
+    {
+      onError: (error) => {
+        console.log('Get Reflections error: ' + error.message);
+      },
+      enabled: isSunday,
+    },
+  );
 
   return (
     <Styled.Home>
@@ -29,7 +45,7 @@ const HomePage = () => {
         <Styled.HomeMain>
           <Styled.HomeActions>
             <Button onClick={toggleWTD}>What to do?</Button>
-            <Button onClick={toggleReflect} disabled={dayOfWeek !== 0}>
+            <Button onClick={toggleReflect} disabled={!isSunday || isReflect?.data}>
               Weekly Reflection
             </Button>
           </Styled.HomeActions>
@@ -40,7 +56,7 @@ const HomePage = () => {
         <WhatToDo hide={toggleWTD} />
       </Modal>
       <Modal isShowing={isReflectShowing} hide={toggleReflect} className='task-modal' hasOverlay>
-        <ReflectionAdd />
+        <ReflectionAdd hide={toggleReflect} />
       </Modal>
     </Styled.Home>
   );

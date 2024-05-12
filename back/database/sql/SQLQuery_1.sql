@@ -1,8 +1,10 @@
 use master
+DROP DATABASE bbetterDb
 
 CREATE DATABASE bbetterDb
-use bbetterDb
+GO
 
+use bbetterDb
 CREATE SCHEMA bbetterSchema
 GO
 
@@ -12,8 +14,10 @@ CREATE TABLE bbetterSchema.Accounts
     Username VARCHAR(32),
     PasswordHash VARCHAR(1000),
     RefreshToken VARCHAR(2000),
-    TokenCreated VARCHAR(2000),
-    TokenExpires VARCHAR(2000)
+    TokenCreated DATETIME,
+    TokenExpires DATETIME,
+    QuoteOfDayId VARCHAR(30),
+    QuoteExpires DATETIME,
 )
 
 CREATE TABLE bbetterSchema.Tasks
@@ -64,13 +68,6 @@ CREATE TABLE bbetterSchema.BHabitDate
     DateOf DATETIME,
 )
 
-CREATE TABLE bbetterSchema.Quotes
-(
-    QuoteId INT IDENTITY(1,1) PRIMARY KEY,
-    Author VARCHAR(100),
-    Content VARCHAR(2000),
-)
-
 CREATE TABLE bbetterSchema.UserQuotes
 (
     UserQuoteId INT IDENTITY(1,1) PRIMARY KEY,
@@ -78,14 +75,6 @@ CREATE TABLE bbetterSchema.UserQuotes
     Author VARCHAR(100),
     Quote VARCHAR(2000)
 )
-
-SELECT * FROM bbetterSchema.Accounts;
-
-SELECT GHD.GHabitDateId, GHD.DateOf, GHD.GHabitId
-FROM bbetterSchema.GHabits GH
-JOIN bbetterSchema.GHabitDate GHD ON GH.GHabitId = GHD.GHabitId
-WHERE GH.AccountId = 1 
-AND CONVERT(DATE, GHD.DateOf) = CONVERT(DATE, GETDATE())
 
 CREATE TABLE bbetterSchema.Reflections
 (
@@ -97,3 +86,10 @@ CREATE TABLE bbetterSchema.Reflections
     ThreeWords VARCHAR(120),
     UserGoal VARCHAR(2000)
 )
+
+SELECT * FROM bbetterSchema.Accounts;
+
+SELECT COUNT(*) AS NumReflections 
+                FROM bbetterSchema.Reflections
+                WHERE AccountId = 1
+                AND CONVERT(DATE, DateOf) = CONVERT(DATE, GETDATE());

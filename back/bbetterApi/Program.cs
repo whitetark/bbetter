@@ -1,3 +1,4 @@
+using bbetterApi.Clients;
 using database;
 using database.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -46,12 +47,13 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
+builder.Services.AddSingleton<QuotableClient>();
+
 builder.Services.AddScoped<AccountServices>();
 builder.Services.AddScoped<BHabitDateServices>();
 builder.Services.AddScoped<BHabitServices>();
 builder.Services.AddScoped<GHabitDateServices>();
 builder.Services.AddScoped<GHabitServices>();
-builder.Services.AddScoped<QuoteServices>();
 builder.Services.AddScoped<TaskServices>();
 builder.Services.AddScoped<UserQuoteServices>();
 builder.Services.AddScoped<WishServices>();

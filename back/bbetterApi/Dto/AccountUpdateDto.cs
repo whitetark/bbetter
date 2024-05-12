@@ -4,10 +4,12 @@ namespace bbetterApi.Dto
 {
     public class AccountUpdateDto
     {
-        public int Id { get; set; }
+        public int AccountId { get; set; }
         public string Username { get; set; } = string.Empty;
         public string RefreshToken { get; set; } = string.Empty;
-        public string TokenCreated { get; set; }
-        public string TokenExpires { get; set; }
+        public DateTime TokenCreated { get; set; }
+        public DateTime TokenExpires { get; set; }
+        public string QuoteOfDayId { get; set; } = string.Empty;
+        public DateTime QuoteExpires { get; set; } = DateTime.Now;
     }
 }

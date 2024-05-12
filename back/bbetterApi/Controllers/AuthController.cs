@@ -31,7 +31,8 @@ namespace bbetterApi.Controllers
                 RefreshToken = refreshToken.Token,
                 TokenCreated = refreshToken.Created,
                 TokenExpires = refreshToken.Expires,
-
+                QuoteExpires = DateTime.Now,
+                QuoteOfDayId = "",
             };
             var user = await accountServices.Add(userRequest);
             string token = GenerateAccessToken(user);
@@ -78,8 +79,8 @@ namespace bbetterApi.Controllers
             var user = responseFromDb;
 
             user.RefreshToken = "";
-            user.TokenExpires = DateTime.UtcNow.ToString("s");
-            user.TokenCreated = DateTime.UtcNow.ToString("s");
+            user.TokenExpires = DateTime.UtcNow;
+            user.TokenCreated = DateTime.UtcNow;
             _ = accountServices.Update(user);
 
             Response.Cookies.Delete("username");
@@ -117,7 +118,7 @@ namespace bbetterApi.Controllers
                 return BadRequest("Wrong refresh token");
             }
 
-            if (DateTime.Parse(user.TokenExpires) < DateTime.Now)
+            if (user.TokenExpires < DateTime.Now)
             {
                 return BadRequest("Token expired");
             }
@@ -162,7 +163,7 @@ namespace bbetterApi.Controllers
         {
             var cookieOptions = new CookieOptions
             {
-                Expires = DateTime.Parse(newRefreshToken.Expires),
+                Expires = newRefreshToken.Expires,
                 HttpOnly = true,
                 SameSite = SameSiteMode.None,
                 Secure = true,
@@ -181,8 +182,8 @@ namespace bbetterApi.Controllers
             var refreshToken = new RefreshToken
             {
                 Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-                Created = DateTime.Now.ToString("s"),
-                Expires = DateTime.Now.AddDays(7).ToString("s"),
+                Created = DateTime.Now,
+                Expires = DateTime.Now.AddDays(7),
             };
 
             return refreshToken;
@@ -218,6 +219,8 @@ namespace bbetterApi.Controllers
                 RefreshToken = account.RefreshToken,
                 TokenCreated = account.TokenCreated,
                 TokenExpires = account.TokenExpires,
+                QuoteOfDayId = account.QuoteOfDayId,
+                QuoteExpires = account.QuoteExpires,
             };
             return response;
         }

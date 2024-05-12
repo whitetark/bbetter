@@ -170,11 +170,8 @@ export const BHabitService = {
 };
 
 export const QuoteService = {
-  async getRandom() {
-    return api.get('/Quote/getRandom');
-  },
-  async getAll() {
-    return api.get('/Quote/getAll');
+  async getQuoteOfTheDay(payload) {
+    return api.get(`/Quote/getQuoteOfDay?id=${payload.accountId}`);
   },
   async getRandomFromUser() {
     return api.get('/Quote/user/getRandom');
@@ -202,6 +199,9 @@ export const ReflectService = {
   },
   async getByAccount(payload) {
     return api.get(`/Reflect/getByAccount/${payload.AccountId}`);
+  },
+  async checkForToday(payload) {
+    return api.get(`/Reflect/checkForToday?id=${payload.AccountId}`);
   },
   async create(payload) {
     return api.post('/Reflect/create', payload);

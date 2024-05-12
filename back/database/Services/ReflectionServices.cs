@@ -55,6 +55,31 @@ namespace database.Services
             }
         }
 
+        //check-by-today
+        public async Task<bool> CheckToday(int accountId)
+        {
+            try
+            {
+                string sql = @"SELECT COUNT(*) AS NumReflections 
+                FROM bbetterSchema.Reflections
+                WHERE AccountId = @accountId
+                AND CONVERT(DATE, DateOf) = CONVERT(DATE, GETDATE());";
+                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+                var result = await _dbConnection.QuerySingleAsync<int>(sql, new { accountId });
+                if(result == 0)
+                {
+                    return false;
+                } else
+                {
+                    return true;
+                }
+
+            } catch (Exception ex)
+            {
+                throw new Exception("Failed to Check Reflection", ex);
+            }
+        }
+
         //create
         public async Task<Reflection> Add(Reflection reflection)
         {

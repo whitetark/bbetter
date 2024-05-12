@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace database.Models
+namespace bbetterApi.Models
 {
     public class Quote
     {
-        public int QuoteId { get; set; }
+        public string QuoteId { get; set; }
         public string Author { get; set; }
         public string Content {  get; set; }
     }

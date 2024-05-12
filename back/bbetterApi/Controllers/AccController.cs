@@ -58,12 +58,14 @@ namespace bbetterApi.Controllers
 
             var newAccount = new Account
             {
-                AccountId = updateDto.Id,
+                AccountId = updateDto.AccountId,
                 Username = updateDto.Username,
                 PasswordHash = responseFromDb.PasswordHash,
                 RefreshToken = updateDto.RefreshToken,
                 TokenCreated = updateDto.TokenCreated,
                 TokenExpires = updateDto.TokenExpires,
+                QuoteOfDayId = updateDto.QuoteOfDayId,
+                QuoteExpires = updateDto.QuoteExpires,
             };
 
             await accountServices.Update(newAccount);

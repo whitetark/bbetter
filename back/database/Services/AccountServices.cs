@@ -18,6 +18,21 @@ namespace database.Services
 {
     public class AccountServices(IOptions<DbConfig> dbConfig)
     {
+        public async Task<Account> GetById(string id)
+        {
+            try
+            {
+                string sql = @"SELECT * FROM bbetterSchema.Accounts
+                WHERE AccountId = @id";
+                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+                var account = await _dbConnection.QuerySingleAsync<Account>(sql, new { id });
+                return account;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Get Account", ex);
+            }
+        }
 
         public async Task<Account> GetByUsername(string username)
         {
@@ -72,9 +87,9 @@ namespace database.Services
                 }
 
                 sql = @"INSERT INTO bbetterSchema.Accounts
-                ([Username],[PasswordHash],[RefreshToken],[TokenCreated],[TokenExpires]) 
+                ([Username],[PasswordHash],[RefreshToken],[TokenCreated],[TokenExpires],[QuoteOfDayId],[QuoteExpires]) 
                 OUTPUT INSERTED.*
-                VALUES (@username, @passwordHash, @refreshToken, @tokenCreated, @tokenExpires)";
+                VALUES (@username, @passwordHash, @refreshToken, @tokenCreated, @tokenExpires, @quoteId, @quoteExpires)";
 
                 return await _dbConnection.QuerySingleAsync<Account>(sql, new
                 {
@@ -82,12 +97,14 @@ namespace database.Services
                     passwordHash = account.PasswordHash,
                     refreshToken = account.RefreshToken,
                     tokenCreated = account.TokenCreated,
-                    tokenExpires = account.TokenExpires
+                    tokenExpires = account.TokenExpires,
+                    quoteId = account.QuoteOfDayId,
+                    quoteExpires = account.QuoteExpires,
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception();
+                throw new Exception("err", ex);
             }
         }
         public async Task Delete(int id)
@@ -102,10 +119,17 @@ namespace database.Services
         public async Task Update(Account newAccount)
         {
             string sql = @"UPDATE bbetterSchema.Accounts 
-            SET [PasswordHash] = @passwordHash, [RefreshToken] = @refreshToken, [TokenCreated] = @tokenCreated, [TokenExpires] = @tokenExpires
+            SET [PasswordHash] = @passwordHash, [RefreshToken] = @refreshToken, [TokenCreated] = @tokenCreated, [TokenExpires] = @tokenExpires, [QuoteOfDayId] = @quote, [QuoteExpires] = @quoteExpires
             WHERE Username = @username";
             var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { passwordHash = newAccount.PasswordHash, refreshToken = newAccount.RefreshToken, tokenCreated = newAccount.TokenCreated, tokenExpires = newAccount.TokenExpires, username = newAccount.Username }) > 0) { return; }
+            if (await _dbConnection.ExecuteAsync(sql, new { 
+                passwordHash = newAccount.PasswordHash, 
+                refreshToken = newAccount.RefreshToken, 
+                tokenCreated = newAccount.TokenCreated, 
+                tokenExpires = newAccount.TokenExpires, 
+                username = newAccount.Username, 
+                quote = newAccount.QuoteOfDayId, 
+                quoteExpires = newAccount.QuoteExpires }) > 0) { return; }
 
             throw new Exception("Failed to Update Account");
         }

@@ -12,7 +12,9 @@ namespace database.Models
         public string Username { get; set; }
         public string PasswordHash { get; set; }
         public string RefreshToken { get; set; }
-        public string TokenCreated { get; set; }
-        public string TokenExpires { get; set; }
+        public DateTime TokenCreated { get; set; }
+        public DateTime TokenExpires { get; set; }
+        public string QuoteOfDayId { get; set; }
+        public DateTime QuoteExpires { get; set; }
     }
 }

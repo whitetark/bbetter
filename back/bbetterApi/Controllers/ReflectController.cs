@@ -26,15 +26,17 @@ namespace bbetterApi.Controllers
             return await reflectionServices.GetByAccount(accountId);
         }
 
+        [HttpGet]
+        [Route("checkForToday")]
+        public async Task<bool> CheckForToday([FromQuery(Name ="id")] int accountId)
+        {
+            return await reflectionServices.CheckToday(accountId);
+        }
+
         [HttpPost]
         [Route("create")]
         public async Task<Reflection> CreateReflection(Reflection reflection)
         {
-            var userRequest = new Reflection
-            {
-
-            };
-
             return await reflectionServices.Add(reflection);
         }
 

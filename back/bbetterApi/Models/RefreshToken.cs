@@ -3,7 +3,7 @@
     public class RefreshToken
     {
         public string Token { get; set; }
-        public string Created { get; set; }
-        public string Expires { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Expires { get; set; }
     }
 }
