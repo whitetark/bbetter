@@ -10,6 +10,7 @@ const PathConstants = {
   BHABITS: `${HOME}/bhabits`,
   QUOTE: `${HOME}/quotes`,
   SETTINGS: `${HOME}/settings`,
+  REFLECTIONS: `${HOME}/reflections`,
   LOGIN: '/login',
   REGISTER: '/signup',
   BASE: '/',

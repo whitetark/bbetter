@@ -104,7 +104,6 @@ namespace bbetterApi.Controllers
             }
 
             return [];
-
         }
 
         [HttpPost]

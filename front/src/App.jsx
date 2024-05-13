@@ -1,7 +1,13 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faFaceFrownOpen, faFaceGrinBeam, faStar } from '@fortawesome/free-regular-svg-icons';
+import {
+  faFaceFrownOpen,
+  faFaceGrinBeam,
+  faFaceSmile,
+  faStar,
+} from '@fortawesome/free-regular-svg-icons';
 import {
   faArrowLeft,
+  faCheckToSlot,
   faDrum,
   faGear,
   faHouse,
@@ -10,6 +16,7 @@ import {
   faListCheck,
   faPenToSquare,
   faPencil,
+  faPersonDigging,
   faPlus,
   faQuoteLeft,
   faRightFromBracket,
@@ -29,6 +36,7 @@ import {
   LoginPage,
   NotFound,
   QuotesPage,
+  ReflectionsPage,
   RegisterPage,
   RootLayout,
   SettingsPage,
@@ -56,6 +64,9 @@ library.add(
   faKey,
   faStar,
   faStarSolid,
+  faFaceSmile,
+  faPersonDigging,
+  faCheckToSlot,
 );
 
 function App() {
@@ -97,6 +108,7 @@ function App() {
             <Route path={PathConstants.GHABITS} element={<GHabitsPage />} />
             <Route path={PathConstants.BHABITS} element={<BHabitsPage />} />
             <Route path={PathConstants.SETTINGS} element={<SettingsPage />} />
+            <Route path={PathConstants.REFLECTIONS} element={<ReflectionsPage />} />
             <Route path={PathConstants.QUOTE} element={<QuotesPage />} />
           </Route>
           <Route path='*' element={<NotFound />} />

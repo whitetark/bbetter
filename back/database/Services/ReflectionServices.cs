@@ -13,7 +13,7 @@ namespace database.Services
 {
     public class ReflectionServices(IOptions<DbConfig> dbConfig)
     {
-        //get-task
+        //get-reflection
         public async Task<Reflection> GetById(int reflectionid)
         {
             try
@@ -30,7 +30,7 @@ namespace database.Services
             }
         }
 
-        //get-tasks
+        //get-reflections
         public async Task<List<Reflection>> GetByAccount(int accountId)
         {
             try
@@ -52,6 +52,34 @@ namespace database.Services
             catch (Exception ex)
             {
                 throw new Exception("Failed to Get Reflection", ex);
+            }
+        }
+
+        //get-by-month
+        public async Task<List<Reflection>> GetByMonth(int accountId, int month, int year)
+        {
+            try
+            {
+                string sql = @"SELECT * FROM bbetterSchema.Reflections
+                WHERE AccountId = @accountId
+                AND MONTH(DateOf) = @month
+                AND YEAR(DateOf) = @year;";
+
+                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+                var ghabits = await _dbConnection.QueryAsync<Reflection>(sql, new { accountId, month, year });
+
+                if (ghabits.Count() == 0)
+                {
+                    return [];
+                }
+
+                var result = ghabits.ToList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Get GHabit Dates", ex);
             }
         }
 

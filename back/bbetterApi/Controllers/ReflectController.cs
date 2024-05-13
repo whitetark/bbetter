@@ -27,6 +27,13 @@ namespace bbetterApi.Controllers
         }
 
         [HttpGet]
+        [Route("getByMonth")]
+        public async Task<List<Reflection>> GetDatesByMonth([FromQuery(Name ="id")] int accountId, [FromQuery(Name = "month")] int month, [FromQuery(Name = "year")] int year)
+        {
+            return await reflectionServices.GetByMonth(accountId, month, year);
+        }
+
+        [HttpGet]
         [Route("checkForToday")]
         public async Task<bool> CheckForToday([FromQuery(Name ="id")] int accountId)
         {

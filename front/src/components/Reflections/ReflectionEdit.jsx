@@ -2,26 +2,24 @@ import { Field, Formik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { useAuthContext } from '../../app/store/auth-context';
-import { useAddReflection } from '../../hooks/use-reflections';
+import { useEditReflection } from '../../hooks/use-reflections';
 import * as Styled from '../../styles/Reflections.styled';
-import { TextInput } from '../UI';
-import { NumberInput } from '../UI/Inputs';
-
-const initialValues = {
-  threeWords: '',
-  userGoal: '',
-};
+import { NumberInput, TextInput } from '../UI/Inputs';
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
   threeWords: Yup.string().min(3, 'Too Short!').max(100, 'Too Long!'),
   userGoal: Yup.string().min(3, 'Too Short!').max(100, 'Too Long!'),
 });
 
-const ReflectionAdd = ({ onClick, hide }) => {
-  const [productivity, setProductivity] = useState(1);
-  const [emotion, setEmotion] = useState(1);
+const ReflectionEdit = ({ onClick, hide, data }) => {
+  const initialValues = {
+    threeWords: data.threeWords,
+    userGoal: data.userGoal,
+  };
+  const [productivity, setProductivity] = useState(data.productivity);
+  const [emotion, setEmotion] = useState(data.emotion);
 
-  const { mutateAsync, error, isError } = useAddReflection();
+  const { mutateAsync, error, isError } = useEditReflection();
   const { userData } = useAuthContext();
   return (
     <Styled.ReflectionAdd onClick={onClick}>
@@ -51,12 +49,13 @@ const ReflectionAdd = ({ onClick, hide }) => {
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={async (values, actions) => {
           const reflection = {
+            ReflectionId: data.reflectionId,
             AccountId: userData.accountId,
-            DateOf: new Date(),
+            DateOf: data.dateOf,
             Emotion: emotion,
             Productivity: productivity,
-            ThreeWords: values.threeWords || '',
-            UserGoal: values.userGoal || '',
+            ThreeWords: values.threeWords || data.threeWords,
+            UserGoal: values.userGoal || data.userGoal,
           };
           actions.resetForm();
           mutateAsync(reflection).then(hide());
@@ -75,7 +74,7 @@ const ReflectionAdd = ({ onClick, hide }) => {
               <Styled.ReflectButton
                 disabled={!props.form.isValid && !props.form.isTouched}
                 type='submit'>
-                Add
+                Edit
               </Styled.ReflectButton>
             )}
           </Field>
@@ -86,4 +85,4 @@ const ReflectionAdd = ({ onClick, hide }) => {
   );
 };
 
-export default ReflectionAdd;
+export default ReflectionEdit;

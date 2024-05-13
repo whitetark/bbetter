@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import { ReflectService } from '../app/services/api';
 import { useAuthContext } from '../app/store/auth-context';
 import WhatToDo from '../components/Home/WhatToDo';
-import ReflectionAdd from '../components/Settings/ReflectionAdd';
+import ReflectionAdd from '../components/Reflections/ReflectionAdd';
 import { Background, Button, Modal } from '../components/UI/index';
 import { Quote, UserPhoto } from '../components/index';
 import useModal from '../hooks/use-modal';

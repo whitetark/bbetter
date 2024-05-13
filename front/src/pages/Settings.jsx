@@ -1,4 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
+import PathConstants from '../app/shared/pathConstants';
 import { Button, Confirmation, Modal } from '../components/UI/index';
 import { ChangePasswordPreview } from '../components/index';
 import { useLogout } from '../hooks/use-auth';
@@ -7,6 +9,7 @@ import * as Styled from '../styles/Settings.styled';
 
 const SettingsPage = () => {
   const { mutateAsync: logout } = useLogout();
+  const navigate = useNavigate();
   document.title = `bbetter - Settings`;
 
   const { isShowing: changeIsShowing, toggle: toggleChange } = useModal();
@@ -21,12 +24,16 @@ const SettingsPage = () => {
       <h1>Settings</h1>
       <Styled.SettingsMain>
         <Styled.SettingsActions>
+          <Button onClick={() => navigate(PathConstants.REFLECTIONS)}>
+            <FontAwesomeIcon icon='fa-solid fa-check-to-slot' fixedWidth />
+            Reflections
+          </Button>
           <Button onClick={toggleChange}>
-            <FontAwesomeIcon icon='fa-solid fa-key' />
+            <FontAwesomeIcon icon='fa-solid fa-key' fixedWidth />
             Change Password
           </Button>
           <Button onClick={toggleDelete}>
-            <FontAwesomeIcon icon='fa-solid fa-right-from-bracket' />
+            <FontAwesomeIcon icon='fa-solid fa-right-from-bracket' fixedWidth />
             Log out
           </Button>
         </Styled.SettingsActions>

@@ -203,6 +203,14 @@ export const ReflectService = {
   async checkForToday(payload) {
     return api.get(`/Reflect/checkForToday?id=${payload.AccountId}`);
   },
+  async getDatesByMonth(payload) {
+    return api.get(
+      `/Reflect/getByMonth?id=${payload.id}&month=${payload.month}&year=${payload.year}`,
+      {
+        signal: payload.signal,
+      },
+    );
+  },
   async create(payload) {
     return api.post('/Reflect/create', payload);
   },

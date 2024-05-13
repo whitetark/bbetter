@@ -3,6 +3,7 @@ import GHabitsPage from './GHabits';
 import HomePage from './Home';
 import LoginPage from './Login';
 import QuotesPage from './Quotes';
+import ReflectionsPage from './Reflections';
 import RegisterPage from './Register';
 import SettingsPage from './Settings';
 import TaskListPage from './TaskList';
@@ -23,6 +24,7 @@ export {
   LoginPage,
   NotFound,
   QuotesPage,
+  ReflectionsPage,
   RegisterPage,
   RootLayout,
   SettingsPage,
