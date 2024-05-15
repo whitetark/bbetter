@@ -13,23 +13,6 @@ namespace database.Services
 {
     public class BHabitDateServices(IOptions<DbConfig> dbConfig)
     {
-        //get-date
-        public async Task<BHabitDate> GetById(int bHabitDateId)
-        {
-            try
-            {
-                string sql = @"SELECT * FROM bbetterSchema.BHabitDate
-                WHERE BHabitDateId = @bHabitDateId";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var bhabit = await _dbConnection.QuerySingleAsync<BHabitDate>(sql, new { bHabitDateId });
-                return bhabit;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Failed to Get BHabitDate", ex);
-            }
-        }
-
         //get-dates
         public async Task<List<BHabitDate>> GetByHabitId(int habitId)
         {

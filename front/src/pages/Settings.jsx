@@ -15,8 +15,8 @@ const SettingsPage = () => {
   const { isShowing: changeIsShowing, toggle: toggleChange } = useModal();
   const { isShowing: deleteIsShowing, toggle: toggleDelete } = useModal();
 
-  const handleLogout = () => {
-    async () => await logout();
+  const handleLogout = async () => {
+    await logout();
   };
 
   return (

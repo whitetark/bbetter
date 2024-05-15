@@ -163,9 +163,6 @@ namespace database.Services
 
             throw new Exception("Failed to Delete GHabits");
         }
-
-
-
     }
 }
 

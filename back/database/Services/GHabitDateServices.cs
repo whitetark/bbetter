@@ -160,7 +160,7 @@ namespace database.Services
             
         }
 
-        //delete-by-bhabit
+        //delete-by-ghabit
         public async Task DeleteMany(int gHabitId)
         {
             string sql = @"DELETE FROM bbetterSchema.GHabitDate

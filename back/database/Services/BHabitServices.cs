@@ -13,7 +13,7 @@ namespace database.Services
 {
     public class BHabitServices(IOptions<DbConfig> dbConfig)
     {
-        //get-task
+        //get
         public async Task<BHabit> GetById(int bHabitId)
         {
             try
@@ -30,7 +30,7 @@ namespace database.Services
             }
         }
 
-        //get-tasks
+        //get-many
         public async Task<List<BHabit>> GetByAccount(int accountId)
         {
             try
