@@ -1,6 +1,7 @@
 using bbetterApi.Clients;
+using bbetterApi.Services;
 using database;
-using database.Services;
+using database.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -49,15 +50,24 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddSingleton<QuotableClient>();
 
-builder.Services.AddScoped<AccountServices>();
-builder.Services.AddScoped<BHabitDateServices>();
-builder.Services.AddScoped<BHabitServices>();
-builder.Services.AddScoped<GHabitDateServices>();
-builder.Services.AddScoped<GHabitServices>();
-builder.Services.AddScoped<TaskServices>();
-builder.Services.AddScoped<UserQuoteServices>();
-builder.Services.AddScoped<WishServices>();
-builder.Services.AddScoped<ReflectionServices>();
+builder.Services.AddScoped<AccService>();
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<BHabitService>();
+builder.Services.AddScoped<GHabitService>();
+builder.Services.AddScoped<QuoteService>();
+builder.Services.AddScoped<ReflectService>();
+builder.Services.AddScoped<TaskService>();
+builder.Services.AddScoped<WishService>();
+
+builder.Services.AddScoped<AccountRepository>();
+builder.Services.AddScoped<BHabitDateRepository>();
+builder.Services.AddScoped<BHabitRepository>();
+builder.Services.AddScoped<GHabitDateRepository>();
+builder.Services.AddScoped<GHabitRepository>();
+builder.Services.AddScoped<TaskRepository>();
+builder.Services.AddScoped<UserQuoteRepository>();
+builder.Services.AddScoped<WishRepository>();
+builder.Services.AddScoped<ReflectionRepository>();
 
 builder.Services.Configure<DbConfig>(builder.Configuration);
 builder.Services.AddCors(options =>

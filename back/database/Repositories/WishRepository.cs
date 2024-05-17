@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-namespace database.Services
+namespace database.Repositories
 {
-    public class WishServices(IOptions<DbConfig> dbConfig)
+    public class WishRepository(IOptions<DbConfig> dbConfig)
     {
         //get-task
         public async Task<Wish> GetById(int wishId)

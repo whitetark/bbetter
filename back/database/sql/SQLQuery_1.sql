@@ -12,8 +12,8 @@ CREATE TABLE bbetterSchema.Accounts
 (
     AccountId INT IDENTITY(1,1) PRIMARY KEY,
     Username VARCHAR(32),
-    PasswordHash VARCHAR(1000),
-    RefreshToken VARCHAR(2000),
+    PasswordHash VARCHAR(400),
+    RefreshToken VARCHAR(500),
     TokenCreated DATETIME,
     TokenExpires DATETIME,
     QuoteOfDayId VARCHAR(30),
@@ -24,7 +24,7 @@ CREATE TABLE bbetterSchema.Tasks
 (
     TaskId INT IDENTITY(1,1) PRIMARY KEY,
     AccountId INT REFERENCES bbetterSchema.Accounts(AccountId),
-    Content VARCHAR(1000),
+    Content VARCHAR(300),
     IsUrgent BIT,
     IsImportant BIT,
     Deadline DATETIME,
@@ -35,7 +35,7 @@ CREATE TABLE bbetterSchema.Wishes
 (
     WishId INT IDENTITY(1,1) PRIMARY KEY,
     AccountId INT REFERENCES bbetterSchema.Accounts(AccountId),
-    Content VARCHAR(1000),
+    Content VARCHAR(300),
     IsCompleted BIT,
 )
 
@@ -43,7 +43,7 @@ CREATE TABLE bbetterSchema.GHabits
 (
     GHabitId INT IDENTITY(1,1) PRIMARY KEY,
     AccountId INT REFERENCES bbetterSchema.Accounts(AccountId),
-    Content VARCHAR(1000),
+    Content VARCHAR(300),
 )
 
 CREATE TABLE bbetterSchema.GHabitDate
@@ -57,7 +57,7 @@ CREATE TABLE bbetterSchema.BHabits
 (
     BHabitId INT IDENTITY(1,1) PRIMARY KEY,
     AccountId INT REFERENCES bbetterSchema.Accounts(AccountId),
-    Content VARCHAR(1000),
+    Content VARCHAR(300),
     IssueDate DATETIME,
 )
 
@@ -72,8 +72,8 @@ CREATE TABLE bbetterSchema.UserQuotes
 (
     UserQuoteId INT IDENTITY(1,1) PRIMARY KEY,
     AccountId INT REFERENCES bbetterSchema.Accounts(AccountId),
-    Author VARCHAR(100),
-    Quote VARCHAR(2000)
+    Author VARCHAR(150),
+    Quote VARCHAR(500)
 )
 
 CREATE TABLE bbetterSchema.Reflections
@@ -83,8 +83,8 @@ CREATE TABLE bbetterSchema.Reflections
     DateOf DATETIME,
     Emotion INT,
     Productivity INT,
-    ThreeWords VARCHAR(120),
-    UserGoal VARCHAR(2000)
+    ThreeWords VARCHAR(200),
+    UserGoal VARCHAR(500)
 )
 
 SELECT * FROM bbetterSchema.Accounts;

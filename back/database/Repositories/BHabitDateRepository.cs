@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-namespace database.Services
+namespace database.Repositories
 {
-    public class BHabitDateServices(IOptions<DbConfig> dbConfig)
+    public class BHabitDateRepository(IOptions<DbConfig> dbConfig)
     {
         //get-dates
         public async Task<List<BHabitDate>> GetByHabitId(int habitId)

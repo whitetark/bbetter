@@ -1,6 +1,7 @@
 ﻿using bbetterApi.Dto;
+using bbetterApi.Services;
 using database.Models;
-using database.Services;
+using database.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Task = System.Threading.Tasks.Task;
@@ -10,47 +11,42 @@ namespace bbetterApi.Controllers
     [Authorize(Roles = "User, Admin")]
     [Route("[controller]")]
     [ApiController]
-    public class GHabitController(GHabitServices gHabitServices, GHabitDateServices gHabitDateServices, IConfiguration configuration) : ControllerBase
+    public class GHabitController(GHabitService gHabitServices, IConfiguration configuration) : ControllerBase
     {
         [HttpGet]
         [Route("getById/{id}")]
         public async Task<GHabit> GetGHabit(int id)
         {
-            return await gHabitServices.GetById(id);
+            return await gHabitServices.GetGHabit(id);
         }
 
         [HttpGet]
         [Route("getAll/{accountId}")]
         public async Task<List<GHabit>> GetGHabits(int accountId)
         {
-            return await gHabitServices.GetByAccount(accountId);
+            return await gHabitServices.GetGHabits(accountId);
         }
 
         [HttpGet]
         [Route("getWithDates/{accountId}")]
         public async Task<List<GHabitWithDates>> GetWithDates(int accountId)
         {
-            return await gHabitServices.GetWDatesByAccount(accountId);
+            return await gHabitServices.GetWithDates(accountId);
         }
 
         [HttpPost]
         [Route("create")]
         public async Task<GHabit> CreateGHabit(GHabitAddDto gHabit)
         {
-            var userRequest = new GHabit
-            {
-                AccountId = gHabit.AccountId,
-                Content = gHabit.Content,
-            };
 
-            return await gHabitServices.Add(userRequest);
+            return await gHabitServices.CreateGHabit(gHabit);
         }
 
         [HttpPut]
         [Route("update")]
-        public async Task UpdateBHabit(GHabit ghabit)
+        public async Task UpdateGHabit(GHabit ghabit)
         {
-            await gHabitServices.Update(ghabit);
+            await gHabitServices.UpdateGHabit(ghabit);
             return;
         }
 
@@ -58,7 +54,7 @@ namespace bbetterApi.Controllers
         [Route("deleteById/{id}")]
         public async Task DeleteGHabit(int id)
         {
-            await gHabitServices.Delete(id);
+            await gHabitServices.DeleteGHabit(id);
             return;
         }
 
@@ -66,7 +62,7 @@ namespace bbetterApi.Controllers
         [Route("deleteByAccount/{accountId}")]
         public async Task DeleteGHabits(int accountId)
         {
-            await gHabitServices.DeleteMany(accountId);
+            await gHabitServices.DeleteGHabits(accountId);
             return;
         }
 
@@ -75,48 +71,35 @@ namespace bbetterApi.Controllers
         [Route("date/getById/{id}")]
         public async Task<GHabitDate> GetGHabitDatesById(int id)
         {
-            return await gHabitDateServices.GetById(id);
+            return await gHabitServices.GetGHabitDatesById(id);
         }
 
         [HttpGet]
         [Route("date/getAll/{habitId}")]
         public async Task<List<GHabitDate>> GetDatesByHabitId(int habitId)
         {
-            return await gHabitDateServices.GetByHabitId(habitId);
+            return await gHabitServices.GetDatesByHabitId(habitId);
         }
 
         [HttpGet]
         [Route("date/getByWeek")]
         public async Task<List<GHabitDate>> GetDatesByMonth([FromQuery(Name = "id")] int habitId)
         {
-            return await gHabitDateServices.GetByWeek(habitId);
+            return await gHabitServices.GetDatesByMonth(habitId);
         }
 
         [HttpGet]
         [Route("date/getByMonth")]
         public async Task<int[]> GetDatesByMonth([FromQuery(Name="id")] int habitId, [FromQuery(Name ="month")] int month, [FromQuery(Name = "year")] int year)
         {
-            var dates = await gHabitDateServices.GetByMonth(habitId, month, year);
-            var days = dates.Select(h => h.DateOf.Day).ToArray();
-            if(days.Length > 0)
-            {
-                return days;
-            }
-
-            return [];
+            return await gHabitServices.GetDatesByMonth(habitId, month, year);
         }
 
         [HttpPost]
         [Route("date/create")]
         public async Task CreateGHabitDate(GHabitDate date)
         {
-            var userRequest = new GHabitDate
-            {
-                GHabitId = date.GHabitId,
-                DateOf = date.DateOf.Date
-            };
-
-            await gHabitDateServices.Add(userRequest);
+            await gHabitServices.CreateGHabitDate(date);
             return;
         }
 
@@ -124,8 +107,7 @@ namespace bbetterApi.Controllers
         [Route("date/delete")]
         public async Task DeleteGHabitDate([FromQuery(Name = "id")]int id, [FromQuery(Name ="date")] DateTime date)
         {
-            var reformatedDate = date.Date;
-            await gHabitDateServices.Delete(id, reformatedDate);
+            await gHabitServices.DeleteGHabitDate(id, date);
             return;
         }
 
@@ -133,7 +115,7 @@ namespace bbetterApi.Controllers
         [Route("date/deleteMany/{habitId}")]
         public async Task DeleteGHabitDates(int habitId)
         {
-            await gHabitDateServices.DeleteMany(habitId);
+            await gHabitServices.DeleteGHabitDates(habitId);
             return;
         }
     }

@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-namespace database.Services
+namespace database.Repositories
 {
-    public class BHabitServices(IOptions<DbConfig> dbConfig)
+    public class BHabitRepository(IOptions<DbConfig> dbConfig)
     {
         //get
         public async Task<BHabit> GetById(int bHabitId)

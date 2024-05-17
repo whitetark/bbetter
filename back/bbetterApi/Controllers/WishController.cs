@@ -1,6 +1,7 @@
 ﻿using bbetterApi.Dto;
+using bbetterApi.Services;
 using database.Models;
-using database.Services;
+using database.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -11,41 +12,35 @@ namespace bbetterApi.Controllers
     [Authorize(Roles = "User, Admin")]
     [Route("[controller]")]
     [ApiController]
-    public class WishController(WishServices wishServices, IConfiguration configuration) : ControllerBase
+    public class WishController(WishService wishServices, IConfiguration configuration) : ControllerBase
     {
         [HttpGet]
         [Route("getById/{id}")]
         public async Task<Wish> GetWish(int id)
         {
-            return await wishServices.GetById(id);
+            return await wishServices.GetWish(id);
         }
 
         [HttpGet]
         [Route("getByAccount/{accountId}")]
         public async Task<List<Wish>> GetWishes(int accountId)
         {
-            return await wishServices.GetByAccount(accountId);
+            return await wishServices.GetWishes(accountId);
         }
 
         [HttpPost]
         [Route("create")]
         public async Task<Wish> CreateWish(WishAddDto wish)
         {
-            var userRequest = new Wish
-            {
-                AccountId = wish.AccountId,
-                Content = wish.Content,
-                IsCompleted = wish.IsCompleted,
-            };
-
-            return await wishServices.Add(userRequest);
+            
+            return await wishServices.CreateWish(wish);
         }
 
         [HttpPut]
         [Route("update")]
         public async Task UpdateWish(Wish wish)
         {
-            await wishServices.Update(wish);
+            await wishServices.UpdateWish(wish);
             return;
         }
 
@@ -53,7 +48,7 @@ namespace bbetterApi.Controllers
         [Route("deleteById/{id}")]
         public async Task DeleteWish(int id)
         {
-            await wishServices.Delete(id);
+            await wishServices.DeleteWish(id);
             return;
         }
 
@@ -61,7 +56,7 @@ namespace bbetterApi.Controllers
         [Route("deleteByAccount/{accountId}")]
         public async Task DeleteWishesByAccount(int accountId)
         {
-            await wishServices.DeleteMany(accountId);
+            await wishServices.DeleteWishesByAccount(accountId);
             return;
         }
     }

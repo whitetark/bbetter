@@ -1,5 +1,5 @@
 using database.Models;
-using database.Services;
+using database.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -15,7 +15,7 @@ namespace bbetterApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AuthController(AccountServices accountServices, IConfiguration configuration) : ControllerBase
+    public class AuthController(AccountRepository accountServices, IConfiguration configuration) : ControllerBase
     {
         [Route("register")]
         [HttpPost]

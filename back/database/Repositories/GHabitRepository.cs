@@ -10,9 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-namespace database.Services
+namespace database.Repositories
 {
-    public class GHabitServices(IOptions<DbConfig> dbConfig)
+    public class GHabitRepository(IOptions<DbConfig> dbConfig)
     {
         //get-task
         public async Task<GHabit> GetById(int gHabitId)
@@ -36,7 +36,6 @@ namespace database.Services
         {
             try
             {
-                var GHabitDictionary = new Dictionary<string, GHabitWithDates>();
 
                 string sql = @"SET DATEFIRST 1
                 SELECT * FROM bbetterSchema.GHabits
@@ -54,17 +53,17 @@ namespace database.Services
                 var ghabits = results.ReadAsync<GHabit>().Result.ToList();
                 var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
 
-                var habitWithDates = ghabits.GroupJoin(
+                List<GHabitWithDates> habitWithDates = ghabits.GroupJoin(
                         ghabitDates,
                         gHabit => gHabit.GHabitId.ToString(),
-                        gHabitWeekResult => gHabitWeekResult.GHabitId,
-                        (gHabit, gHabitWeekResultsGroup) =>
+                        gHabitDate => gHabitDate.GHabitId,
+                        (gHabit, gHabitDateResultsGroup) =>
                             new GHabitWithDates
                             {
                                 GHabitId = gHabit.GHabitId.ToString(),
                                 AccountId = gHabit.AccountId,
                                 Content = gHabit.Content,
-                                GHabitDates = gHabitWeekResultsGroup.ToList()
+                                GHabitDates = gHabitDateResultsGroup.ToList()
                             })
                     .ToList();
 

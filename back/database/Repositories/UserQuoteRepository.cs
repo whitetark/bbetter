@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-namespace database.Services
+namespace database.Repositories
 {
-    public class UserQuoteServices(IOptions<DbConfig> dbConfig)
+    public class UserQuoteRepository(IOptions<DbConfig> dbConfig)
     {
         //get-task
         public async Task<UserQuote> GetById(int quoteId)

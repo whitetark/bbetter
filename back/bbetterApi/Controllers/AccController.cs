@@ -1,8 +1,9 @@
 ﻿using bbetterApi.Dto;
 using bbetterApi.Models;
+using bbetterApi.Services;
 using bbetterApi.Utils;
 using database.Models;
-using database.Services;
+using database.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -16,7 +17,7 @@ namespace bbetterApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AccController(AccountServices accountServices, IConfiguration configuration) : ControllerBase
+    public class AccController(AccService accountServices, IConfiguration configuration) : ControllerBase
     {
         [Authorize(Roles ="User")]
         [Route("getByUsername")]
@@ -29,7 +30,7 @@ namespace bbetterApi.Controllers
                 return BadRequest("No username cookie");
             }
 
-            var user = await accountServices.GetByUsername(username);
+            var user = await accountServices.GetAccount(username);
             if (user == null)
             {
                 return BadRequest("User not found");
@@ -42,7 +43,7 @@ namespace bbetterApi.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeleteAccount(int id)
         {
-            await accountServices.Delete(id);
+            await accountServices.DeleteAccount(id);
             return Ok();
         }
 
@@ -50,44 +51,22 @@ namespace bbetterApi.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateAccount(AccountUpdateDto updateDto)
         {
-            var responseFromDb = await accountServices.GetByUsername(updateDto.Username);
-            if (responseFromDb == null)
+          
+            var result = await accountServices.UpdateAccount(updateDto);
+
+            if (result == null)
             {
                 return BadRequest("User not found");
             }
 
-            var newAccount = new Account
-            {
-                AccountId = updateDto.AccountId,
-                Username = updateDto.Username,
-                PasswordHash = responseFromDb.PasswordHash,
-                RefreshToken = updateDto.RefreshToken,
-                TokenCreated = updateDto.TokenCreated,
-                TokenExpires = updateDto.TokenExpires,
-                QuoteOfDayId = updateDto.QuoteOfDayId,
-                QuoteExpires = updateDto.QuoteExpires,
-            };
-
-            await accountServices.Update(newAccount);
-            return Ok(newAccount);
+            return Ok(result);
         }
 
         [Route("changePassword")]
         [HttpPatch]
         public async Task<ActionResult> ChangePassword([FromBody] UserLoginDto request)
         {
-            var responseFromDb = await accountServices.GetByUsername(request.username);
-
-            if (responseFromDb == null)
-            {
-                return BadRequest("User not found");
-            }
-            var user = responseFromDb;
-            string newPasswordHash = BCrypt.Net.BCrypt.HashPassword(request.password);
-
-            user.PasswordHash = newPasswordHash;
-            await accountServices.Update(user);
-
+            await accountServices.ChangePassword(request);
             return Ok();
         }
 
@@ -95,15 +74,14 @@ namespace bbetterApi.Controllers
         [HttpGet]
         public async Task<List<Account>> GetAccounts()
         {
-            return await accountServices.GetAccs();
+            return await accountServices.GetAccounts();
         }
 
         [Route("whatToDo")]
         [HttpGet]
         public async Task<WhatToDoResponse> GetWhatToDo([FromQuery] int id)
         {
-            var data = await accountServices.GetAllActivities(id);
-            return WhatToDoUtil.FormatData(data);
+            return await accountServices.GetWhatToDo(id);
         }
     }
 }

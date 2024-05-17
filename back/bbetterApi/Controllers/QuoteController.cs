@@ -1,8 +1,9 @@
 ﻿using bbetterApi.Clients;
 using bbetterApi.Dto;
 using bbetterApi.Models;
+using bbetterApi.Services;
 using database.Models;
-using database.Services;
+using database.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Task = System.Threading.Tasks.Task;
@@ -11,28 +12,14 @@ namespace bbetterApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class QuoteController(QuotableClient quotableClient, AccountServices accountServices, UserQuoteServices userQuoteServices, IConfiguration configuration) : ControllerBase
+    public class QuoteController(QuoteService quoteServices, IConfiguration configuration) : ControllerBase
     {
 
         [HttpGet]
         [Route("getQuoteOfDay")]
         public async Task<ActionResult> GetQuoteOfDay([FromQuery(Name = "id")] string id)
         {
-            var user = await accountServices.GetById(id);
-            var result = new Quote();
-
-            if (DateTime.Now > user.QuoteExpires)
-            {
-                result = await quotableClient.GetRandomQuote();
-                user.QuoteExpires = DateTime.Now.Date.AddDays(1);
-                user.QuoteOfDayId = result.QuoteId;
-                await accountServices.Update(user);
-            }
-            else
-            {
-                result = await quotableClient.GetQuoteById(user.QuoteOfDayId);
-            }
-
+            var result = await quoteServices.GetQuoteOfDay(id);
             return Ok(result);
         }
 
@@ -41,7 +28,7 @@ namespace bbetterApi.Controllers
         public async Task<Quote> GetQuoteById([FromQuery(Name = "id")] string id)
         {
 
-            return await quotableClient.GetQuoteById(id);
+            return await quoteServices.GetQuoteById(id);
         }
 
         //UserQuotes
@@ -49,14 +36,14 @@ namespace bbetterApi.Controllers
         [Route("user/getById/{id}")]
         public async Task<UserQuote> GetUserQuoteById(int id)
         {
-            return await userQuoteServices.GetById(id);
+            return await quoteServices.GetUserQuoteById(id);
         }
 
         [HttpGet]
         [Route("user/getAll/{accountId}")]
         public async Task<List<UserQuote>> GetUserQuotes(int accountId)
         {
-            return await userQuoteServices.GetAllByUser(accountId);
+            return await quoteServices.GetUserQuotes(accountId);
         }
 
 
@@ -64,21 +51,14 @@ namespace bbetterApi.Controllers
         [Route("user/create")]
         public async Task<UserQuote> CreateUserQuote(UserQuoteAddDto quote)
         {
-            var userRequest = new UserQuote
-            {
-                AccountId = quote.AccountId,
-                Quote = quote.Quote,
-                Author = quote.Author,
-            };
-
-            return await userQuoteServices.Add(userRequest);
+            return await quoteServices.CreateUserQuote(quote);
         }
 
         [HttpPut]
         [Route("user/update")]
         public async Task UpdateUserQuote(UserQuote quote)
         {
-            await userQuoteServices.Update(quote);
+            await quoteServices.UpdateUserQuote(quote);
             return;
         }
 
@@ -86,7 +66,7 @@ namespace bbetterApi.Controllers
         [Route("user/deleteById/{id}")]
         public async Task DeleteUserQuote(int id)
         {
-            await userQuoteServices.Delete(id);
+            await quoteServices.DeleteUserQuote(id);
             return;
         }
     }

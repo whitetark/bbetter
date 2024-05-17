@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-namespace database.Services
+namespace database.Repositories
 {
-    public class GHabitDateServices(IOptions<DbConfig> dbConfig)
+    public class GHabitDateRepository(IOptions<DbConfig> dbConfig)
     {
         //get-date
         public async Task<GHabitDate> GetById(int gHabitDateId)

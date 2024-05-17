@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-namespace database.Services
+namespace database.Repositories
 {
-    public class ReflectionServices(IOptions<DbConfig> dbConfig)
+    public class ReflectionRepository(IOptions<DbConfig> dbConfig)
     {
         //get-reflection
         public async Task<Reflection> GetById(int reflectionid)

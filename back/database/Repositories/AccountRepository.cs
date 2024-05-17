@@ -14,9 +14,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-namespace database.Services
-{
-    public class AccountServices(IOptions<DbConfig> dbConfig)
+namespace database.Repositories
+    public class AccountRepository(IOptions<DbConfig> dbConfig)
     {
         public async Task<Account> GetById(string id)
         {
@@ -163,7 +162,7 @@ namespace database.Services
             var ghabits = results.ReadAsync<GHabit>().Result.ToList();
             var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
 
-            var habitWithDates = ghabits.GroupJoin(
+            List<GHabitWithDates> habitWithDates = ghabits.GroupJoin(
                         ghabitDates,
                         gHabit => gHabit.GHabitId.ToString(),
                         gHabitWeekResult => gHabitWeekResult.GHabitId,

@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-namespace database.Services
+namespace database.Repositories
 {
-    public class TaskServices(IOptions<DbConfig> dbConfig)
+    public class TaskRepository(IOptions<DbConfig> dbConfig)
     {
 
         //get-task
