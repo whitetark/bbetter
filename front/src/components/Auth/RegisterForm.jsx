@@ -94,6 +94,13 @@ const RegisterForm = (props) => {
               </Button>
             )}
           </Field>
+          {registerError ? (
+            registerError.response.data.length < 40 ? (
+              <div>{registerError.response.data}</div>
+            ) : (
+              <div>Server error!</div>
+            )
+          ) : null}
         </Form>
       </Formik>
     </Styled.LoginForm>

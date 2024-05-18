@@ -27,30 +27,38 @@ const WhatToDo = ({ onClick }) => {
   return (
     !isLoading && (
       <Styled.WhatToDo onClick={onClick}>
-        <Styled.WhatToDoBlock>
-          <h1>What To Do?</h1>
-          {whatToDo?.topThree.map((wtd, index) => (
-            <WhatToDoItem key={index} data={wtd} hasType />
-          ))}
-        </Styled.WhatToDoBlock>
-        <Styled.WhatToDoBlock>
-          <h1>Good Habits</h1>
-          {whatToDo?.topGhabits.map((wtd, index) => (
-            <WhatToDoItem key={index} data={wtd} />
-          ))}
-        </Styled.WhatToDoBlock>
-        <Styled.WhatToDoBlock>
-          <h1>Tasks</h1>
-          {whatToDo?.topTasks.map((wtd, index) => (
-            <WhatToDoItem key={index} data={wtd} />
-          ))}
-        </Styled.WhatToDoBlock>
-        <Styled.WhatToDoBlock>
-          <h1>Wishes</h1>
-          {whatToDo?.topWishes.map((wtd, index) => (
-            <WhatToDoItem key={index} data={wtd} />
-          ))}
-        </Styled.WhatToDoBlock>
+        {whatToDo.topThree.length > 0 ? (
+          <>
+            <Styled.WhatToDoBlock>
+              <h1>What To Do?</h1>
+              {whatToDo?.topThree.map((wtd, index) => (
+                <WhatToDoItem key={index} data={wtd} hasType />
+              ))}
+            </Styled.WhatToDoBlock>
+            <Styled.WhatToDoBlock>
+              <h1>Good Habits</h1>
+              {whatToDo?.topGhabits.map((wtd, index) => (
+                <WhatToDoItem key={index} data={wtd} />
+              ))}
+            </Styled.WhatToDoBlock>
+            <Styled.WhatToDoBlock>
+              <h1>Tasks</h1>
+              {whatToDo?.topTasks.map((wtd, index) => (
+                <WhatToDoItem key={index} data={wtd} />
+              ))}
+            </Styled.WhatToDoBlock>
+            <Styled.WhatToDoBlock>
+              <h1>Wishes</h1>
+              {whatToDo?.topWishes.map((wtd, index) => (
+                <WhatToDoItem key={index} data={wtd} />
+              ))}
+            </Styled.WhatToDoBlock>{' '}
+          </>
+        ) : (
+          <Styled.WhatToDoBlock>
+            <h1>You don`t have enough activities</h1>
+          </Styled.WhatToDoBlock>
+        )}
       </Styled.WhatToDo>
     )
   );

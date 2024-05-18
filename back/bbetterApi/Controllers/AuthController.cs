@@ -35,6 +35,11 @@ namespace bbetterApi.Controllers
                 QuoteOfDayId = "",
             };
             var user = await accountServices.Add(userRequest);
+
+            if (user == null) {
+                return BadRequest("Login is occupied");
+            }
+
             string token = GenerateAccessToken(user);
             SetResponseCookies(refreshToken, user);
             var result = CreateUserResponse(user);
@@ -216,9 +221,6 @@ namespace bbetterApi.Controllers
             {
                 AccountId = account.AccountId,
                 Username = account.Username,
-                RefreshToken = account.RefreshToken,
-                TokenCreated = account.TokenCreated,
-                TokenExpires = account.TokenExpires,
                 QuoteOfDayId = account.QuoteOfDayId,
                 QuoteExpires = account.QuoteExpires,
             };

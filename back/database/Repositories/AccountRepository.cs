@@ -14,7 +14,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-namespace database.Repositories
+namespace database.Repositories 
+{ 
     public class AccountRepository(IOptions<DbConfig> dbConfig)
     {
         public async Task<Account> GetById(string id)
@@ -82,7 +83,7 @@ namespace database.Repositories
 
                 if (test.Count() > 0)
                 {
-                    return test.FirstOrDefault();
+                    return null;
                 }
 
                 sql = @"INSERT INTO bbetterSchema.Accounts

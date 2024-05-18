@@ -103,9 +103,40 @@ export const BHabitItemActions = styled(BHabitActions)`
 
 export const AddBHabit = styled.div`
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 export const AddBHabitForm = styled(AddWishForm)`
   gap: 1rem;
+
+  p {
+    color: ${variables.DISABLED_BUTTON};
+    font-weight: 500;
+  }
+
+  .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+    input[type='text'] {
+      border-width: 0px;
+      outline: none;
+    }
+  }
+
+  .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+    border-color: ${variables.DIVIDER};
+    border-radius: 10px;
+    outline: none;
+
+    &.Mui-focused {
+      border-color: inherit;
+      border-width: 1px;
+    }
+  }
+
+  .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: inherit;
+    border-width: 1px;
+  }
 
   input[type='text'] {
     padding: 0.5rem;

@@ -9,7 +9,6 @@ import SettingsPage from './Settings';
 import TaskListPage from './TaskList';
 import TasksPage from './Tasks';
 import WishListPage from './WishList';
-import WishesPage from './Wishes';
 import AppLayout from './system/AppLayout';
 import BasePage from './system/Base';
 import NotFound from './system/NotFound';
@@ -31,5 +30,4 @@ export {
   TaskListPage,
   TasksPage,
   WishListPage,
-  WishesPage,
 };

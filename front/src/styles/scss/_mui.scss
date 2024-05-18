@@ -24,3 +24,42 @@
 .css-1r7ctd-MuiBadge-badge {
   font-size: 14px !important;
 }
+
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  color: #00990f !important;
+}
+
+.css-1e3wlyl-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item,
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  font-size: 16px !important;
+}
+
+.css-1e3wlyl-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected,
+.css-23p0if-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected,
+.css-23p0if-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
+.css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+  background-color: #00990f !important;
+}
+
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+  input[type='text'] {
+    border-width: 0px !important;
+    outline: none !important;
+  }
+}
+
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  border-color: #d9d9d9 !important;
+  border-radius: 10px !important;
+  outline: none !important;
+
+  &.Mui-focused {
+    border-color: inherit !important;
+    border-width: 1px !important;
+  }
+}
+
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: inherit !important;
+  border-width: 1px !important;
+}

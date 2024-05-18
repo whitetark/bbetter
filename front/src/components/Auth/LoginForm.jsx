@@ -27,6 +27,7 @@ const textErrors = (meta) => ({
 
 const LoginForm = (props) => {
   const { mutateAsync: login, error: loginError } = useLogin();
+  console.log(loginError);
   const navigate = useNavigate();
   return (
     <Styled.LoginForm>
@@ -77,7 +78,7 @@ const LoginForm = (props) => {
             )}
           </Field>
           {loginError ? (
-            loginError.response.data.length < 15 ? (
+            loginError.response.data.length < 40 ? (
               <div>{loginError.response.data}</div>
             ) : (
               <div>Server error!</div>

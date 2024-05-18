@@ -1,6 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router-dom';
-import PathConstants from '../app/shared/pathConstants';
 import { Button, Modal } from '../components/UI/index';
 import { WishAdd, WishListItem } from '../components/index';
 import useEdit from '../hooks/use-edit';
@@ -13,11 +11,6 @@ const WishListPage = () => {
   const { isShowing: addIsShowing, toggle: toggleAdd } = useModal();
   const { isEditMode: isEdit, toggle: toggleEdit } = useEdit();
   const { wishes, error, isLoading } = useRefetchWishes();
-  const navigate = useNavigate();
-
-  const handleGoBack = () => {
-    navigate(PathConstants.WISH);
-  };
 
   wishes.sort((a, b) => {
     return a.isCompleted - b.isCompleted;
@@ -27,9 +20,6 @@ const WishListPage = () => {
     <>
       <Styled.WishList>
         <Styled.WishListHeader>
-          <Button onClick={handleGoBack}>
-            <FontAwesomeIcon icon='fa-solid fa-arrow-left' fixedWidth />
-          </Button>
           <Styled.WishListActions>
             <Button onClick={toggleEdit} className={isEdit && 'active'}>
               <FontAwesomeIcon icon='fa-solid fa-pencil' fixedWidth />

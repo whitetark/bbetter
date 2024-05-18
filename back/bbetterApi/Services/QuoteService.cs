@@ -17,6 +17,7 @@ namespace bbetterApi.Services
         {
            this.quoteRepository = quoteRepository;
            this.quotableClient = quotableClient;
+           this.accountRepository = accountRepository;
         }
 
         public async Task<Quote> GetQuoteOfDay(string id)

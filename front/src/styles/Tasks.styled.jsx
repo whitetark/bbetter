@@ -99,6 +99,12 @@ export const AddTaskForm = styled(Form)`
     border: 1px solid ${variables.DIVIDER};
   }
 
+  p {
+    color: ${variables.DISABLED_BUTTON};
+    font-weight: 500;
+    font-size: 18px;
+  }
+
   .checkbox {
     display: flex;
     flex-direction: row;

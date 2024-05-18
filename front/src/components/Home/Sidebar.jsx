@@ -16,7 +16,7 @@ const Sidebar = () => {
           <FontAwesomeIcon icon='fa-solid fa-list-check' fixedWidth />
           <span>Task List</span>
         </NavLink>
-        <NavLink to={PathConstants.WISH}>
+        <NavLink to={PathConstants.WISH_LIST}>
           <FontAwesomeIcon icon='fa-solid fa-drum' fixedWidth />
           <span>Wish List</span>
         </NavLink>

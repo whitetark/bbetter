@@ -1,5 +1,6 @@
 ﻿using bbetterApi.Clients;
 using bbetterApi.Dto;
+using bbetterApi.Middleware;
 using bbetterApi.Models;
 using bbetterApi.Services;
 using database.Models;
@@ -19,6 +20,11 @@ namespace bbetterApi.Controllers
         [Route("getQuoteOfDay")]
         public async Task<ActionResult> GetQuoteOfDay([FromQuery(Name = "id")] string id)
         {
+            if(id == "undefined")
+            {
+                throw new AppException("Id cannot be undefined");
+            }
+
             var result = await quoteServices.GetQuoteOfDay(id);
             return Ok(result);
         }

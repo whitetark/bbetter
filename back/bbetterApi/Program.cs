@@ -1,4 +1,5 @@
 using bbetterApi.Clients;
+using bbetterApi.Middleware;
 using bbetterApi.Services;
 using database;
 using database.Repositories;
@@ -51,7 +52,6 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddSingleton<QuotableClient>();
 
 builder.Services.AddScoped<AccService>();
-builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<BHabitService>();
 builder.Services.AddScoped<GHabitService>();
 builder.Services.AddScoped<QuoteService>();
@@ -92,6 +92,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors(MyAllowSpecificOrigins);
+app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

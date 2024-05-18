@@ -31,7 +31,7 @@
   <Class Name="bbetterApi.Controllers.GHabitController">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAAAIAAYABAAAACAAAAAAAAAEgAAAAAIAABGEAAAAAA=</HashCode>
+      <HashCode>gAAAIAAYEBAAAACAAAAAAAAAEAAAAAAIAABGEAAAAAA=</HashCode>
       <FileName>Controllers\GHabitController.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -45,7 +45,7 @@
   <Class Name="bbetterApi.Controllers.ReflectController">
     <Position X="16.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAIAAEAAAgAQAAgAAAAABAAABAAAAAAAAAAACA=</HashCode>
+      <HashCode>AAAAAAAIAAEAAAgAAAAgAAABAAAAgBAAAAAAAAAAACA=</HashCode>
       <FileName>Controllers\ReflectController.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -64,79 +64,79 @@
     </TypeIdentifier>
   </Class>
   <Class Name="bbetterApi.Dto.AccountUpdateDto" Collapsed="true">
-    <Position X="20.25" Y="8.5" Width="1.5" />
+    <Position X="23.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEQAAAAAAAAwAAAEAAAAAAAIAAAAAAAAAgAAA=</HashCode>
       <FileName>Dto\AccountUpdateDto.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="bbetterApi.Dto.GHabitAddDto" Collapsed="true">
-    <Position X="20.25" Y="8.5" Width="1.5" />
+    <Position X="23.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Dto\GHabitAddDto.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="bbetterApi.Dto.GHabitDateAdd">
-    <Position X="20.25" Y="7.75" Width="1.5" />
+  <Class Name="bbetterApi.Dto.GHabitDateAdd" Collapsed="true">
+    <Position X="23.5" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
       <FileName>Dto\GHabitDateAdd.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="bbetterApi.Dto.TaskAddDto" Collapsed="true">
-    <Position X="20.25" Y="8.25" Width="1.5" />
+    <Position X="23.5" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAgAAAAAAAgAAAAACAAAAABAAAAEAAAAAAAA=</HashCode>
       <FileName>Dto\TaskAddDto.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="bbetterApi.Dto.UserLoginDto" Collapsed="true">
-    <Position X="20.25" Y="3" Width="1.5" />
+  <Class Name="bbetterApi.Dto.UserLoginDto">
+    <Position X="19.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAgAAAAA=</HashCode>
       <FileName>Dto\UserLoginDto.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="bbetterApi.Dto.UserQuoteAddDto" Collapsed="true">
-    <Position X="20.25" Y="9.5" Width="1.5" />
+    <Position X="23.5" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAggAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Dto\UserQuoteAddDto.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="bbetterApi.Dto.WishAddDto" Collapsed="true">
-    <Position X="20.25" Y="9" Width="1.5" />
+    <Position X="23.5" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAgAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>Dto\WishAddDto.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="bbetterApi.Models.QuotableItem">
-    <Position X="12.75" Y="3" Width="1.5" />
+    <Position X="12.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\QuotableItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="bbetterApi.Models.Quote">
-    <Position X="12.75" Y="4.75" Width="1.5" />
+    <Position X="12.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACgAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Quote.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="bbetterApi.Models.RefreshToken">
-    <Position X="0.5" Y="6.5" Width="1.5" />
+    <Position X="0.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAIAAAAAABAAA=</HashCode>
       <FileName>Models\RefreshToken.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="bbetterApi.Models.UserResponse">
-    <Position X="2.25" Y="6" Width="1.5" />
+    <Position X="2.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEQAAAAAAAAwAAAEAAAAAAAIAAAAAAAAAgAAA=</HashCode>
+      <HashCode>AAAAAAAEAAAAAAAAAwAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\UserResponse.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -170,23 +170,23 @@
     </TypeIdentifier>
   </Class>
   <Class Name="database.Models.Account">
-    <Position X="2.25" Y="3" Width="1.5" />
+    <Position X="2.25" Y="2.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
-  <Class Name="database.Models.AccountActivities" Collapsed="true">
-    <Position X="20.25" Y="5.25" Width="1.5" />
+  <Class Name="database.Models.AccountActivities">
+    <Position X="18" Y="6.5" Width="1.5" />
     <TypeIdentifier />
   </Class>
-  <Class Name="database.Models.AccountTasks" Collapsed="true">
-    <Position X="20.25" Y="6.75" Width="1.5" />
+  <Class Name="database.Models.AccountTasks">
+    <Position X="18" Y="8.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
-  <Class Name="database.Models.AccountWishes" Collapsed="true">
-    <Position X="20.25" Y="6" Width="1.5" />
+  <Class Name="database.Models.AccountWishes">
+    <Position X="19.75" Y="8" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="database.Models.BHabit">
-    <Position X="11" Y="6.5" Width="1.5" />
+    <Position X="9.25" Y="0.5" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="database.Models.BHabitDate">
@@ -194,23 +194,23 @@
     <TypeIdentifier />
   </Class>
   <Class Name="database.Models.GHabit">
-    <Position X="7.5" Y="7" Width="1.5" />
+    <Position X="9.25" Y="4.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="database.Models.GHabitDate">
-    <Position X="9.25" Y="7.75" Width="1.5" />
+    <Position X="9.25" Y="6.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
-  <Class Name="database.Models.GHabitWeekResult" Collapsed="true">
-    <Position X="20.25" Y="3.75" Width="1.5" />
+  <Class Name="database.Models.GHabitWeekResult">
+    <Position X="19.75" Y="3.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
-  <Class Name="database.Models.GHabitWithDates" Collapsed="true">
-    <Position X="20.25" Y="4.5" Width="1.5" />
+  <Class Name="database.Models.GHabitWithDates">
+    <Position X="19.75" Y="5.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="database.Models.Reflection">
-    <Position X="16.25" Y="6" Width="1.5" />
+    <Position X="16.25" Y="6.25" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="database.Models.Task">
@@ -218,51 +218,96 @@
     <TypeIdentifier />
   </Class>
   <Class Name="database.Models.UserQuote">
-    <Position X="14.5" Y="5.5" Width="1.5" />
+    <Position X="12.75" Y="5.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="database.Models.Wish">
     <Position X="5.75" Y="5.5" Width="1.5" />
     <TypeIdentifier />
   </Class>
-  <Class Name="database.Services.AccountServices">
-    <Position X="0.5" Y="3.75" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="database.Services.BHabitDateServices">
-    <Position X="9.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="database.Services.BHabitServices">
-    <Position X="11" Y="4" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="database.Services.GHabitDateServices">
-    <Position X="9.25" Y="5" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="database.Services.GHabitServices">
-    <Position X="7.5" Y="4.25" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="database.Services.ReflectionServices">
-    <Position X="16.25" Y="3.25" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="database.Services.TaskServices">
-    <Position X="4" Y="3" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="database.Services.UserQuoteServices">
-    <Position X="14.5" Y="3" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="database.Services.WishServices">
-    <Position X="5.75" Y="3" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
   <Class Name="database.DbConfig">
-    <Position X="0.5" Y="8.25" Width="1.5" />
+    <Position X="19.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="bbetterApi.Services.AccService">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgAAAAIAAQAAAAAAAAAAQAAAAAUAAAAA=</HashCode>
+      <FileName>Services\AccService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="bbetterApi.Services.BHabitService">
+    <Position X="11" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAECIqBAAAAAAAAAAAQAAAgAAAAAAgQEAAAAAAAA=</HashCode>
+      <FileName>Services\BHabitService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="bbetterApi.Services.GHabitService">
+    <Position X="7.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAIAAYEBAAAACAAAAAAAAAEAAAAAAIAiBGEAAAAAA=</HashCode>
+      <FileName>Services\GHabitService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="bbetterApi.Services.QuoteService">
+    <Position X="14.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAADAggQAAAADAAAAAAACAAAAAAAAACAAAEAA=</HashCode>
+      <FileName>Services\QuoteService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="bbetterApi.Services.ReflectService">
+    <Position X="16.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAEAAAgAAAAgAAABAAAAoBAAAAAAAAAAACA=</HashCode>
+      <FileName>Services\ReflectService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="bbetterApi.Services.TaskService">
+    <Position X="4" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgQABAAAAAAAAAQAAAAAAAgBAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\TaskService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="bbetterApi.Services.WishService">
+    <Position X="5.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAQAAAAAACAAAAAAAAAAAIAAAAAABQAAAAAAA=</HashCode>
+      <FileName>Services\WishService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="database.Repositories.AccountRepository">
+    <Position X="2.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="database.Repositories.BHabitDateRepository">
+    <Position X="9.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="database.Repositories.BHabitRepository">
+    <Position X="11" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="database.Repositories.GHabitDateRepository">
+    <Position X="12.75" Y="8" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="database.Repositories.GHabitRepository">
+    <Position X="7.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="database.Repositories.WishRepository">
+    <Position X="5.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="database.Repositories.TaskRepository">
+    <Position X="4" Y="8.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="database.Repositories.UserQuoteRepository">
+    <Position X="14.5" Y="6.5" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Font Name="Segoe UI" Size="9" />

@@ -1,10 +1,12 @@
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 import { useAuthContext } from '../../app/store/auth-context';
 import { useEditTask } from '../../hooks/use-task';
 import * as Styled from '../../styles/Tasks.styled';
-import DatePicker from '../UI/DatePicker';
 import { Checkbox, TextInput } from '../UI/Inputs';
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
@@ -22,7 +24,7 @@ const TaskEdit = ({ onClick, data, hide }) => {
     content: data.content,
     isUrgent: data.isUrgent,
     isImportant: data.isImportant,
-    deadline: new Date(data.deadline),
+    deadline: dayjs(data.deadline),
   };
 
   return (
@@ -44,24 +46,40 @@ const TaskEdit = ({ onClick, data, hide }) => {
           actions.resetForm();
           mutateAsync(task).then(hide());
         }}>
-        <Styled.AddTaskForm>
-          <TextInput name='content' placeholder='Your Task' />
-          <hr />
-          <Checkbox name='isUrgent'>Is Urgent?</Checkbox>
-          <Checkbox name='isImportant'>Is Important?</Checkbox>
-          <hr />
-          <DatePicker name='deadline' label='Deadline' />
-          <Field>
-            {(props) => (
-              <Styled.AddTaskButton
-                disabled={!props.form.isValid && !props.form.isTouched}
-                type='submit'>
-                Edit
-              </Styled.AddTaskButton>
-            )}
-          </Field>
-          {isError ? <div>An error occurred: {error.message}</div> : null}
-        </Styled.AddTaskForm>
+        {({ errors, handleSubmit, touched, values, setFieldValue }) => (
+          <Styled.AddTaskForm>
+            <TextInput name='content' placeholder='Your Task' />
+            <hr />
+            <Checkbox name='isUrgent'>Is Urgent?</Checkbox>
+            <Checkbox name='isImportant'>Is Important?</Checkbox>
+            <hr />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <p>Deadline</p>
+              <DatePicker
+                onChange={(value) => setFieldValue('deadline', value, true)}
+                value={values.deadline}
+                disablePast
+                renderInput={(params) => (
+                  <TextInput
+                    error={Boolean(touched.deadline && errors.deadline)}
+                    helperText={touched.deadline && errors.deadline}
+                    {...params}
+                  />
+                )}
+              />
+            </LocalizationProvider>
+            <Field>
+              {(props) => (
+                <Styled.AddTaskButton
+                  disabled={!props.form.isValid && !props.form.isTouched}
+                  type='submit'>
+                  Edit
+                </Styled.AddTaskButton>
+              )}
+            </Field>
+            {isError ? <div>An error occurred: {error.message}</div> : null}
+          </Styled.AddTaskForm>
+        )}
       </Formik>
     </Styled.EditTask>
   );

@@ -25,7 +25,7 @@ const ReflectionAdd = ({ onClick, hide, date }) => {
   const [productivity, setProductivity] = useState(1);
   const [emotion, setEmotion] = useState(1);
 
-  const dateOf = date || new Date();
+  const dateOf = date || dayjs(new Date());
 
   const { mutateAsync, error, isError } = useAddReflection();
   const { userData } = useAuthContext();
@@ -56,7 +56,6 @@ const ReflectionAdd = ({ onClick, hide, date }) => {
         initialValues={initialValues}
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={async (values, actions) => {
-          console.log(dayjs(date));
           const reflection = {
             AccountId: userData.accountId,
             DateOf: dateOf,
