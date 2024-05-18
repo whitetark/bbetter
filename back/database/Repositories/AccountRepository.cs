@@ -138,11 +138,11 @@ namespace database.Repositories
         {
             string sql = @"
             SET DATEFIRST 1
-            SELECT T.TaskId, T.Content, T.IsUrgent, T.IsImportant, T.Deadline 
+            SELECT * 
             FROM bbetterSchema.Tasks T
             WHERE AccountId = @accountId
             AND IsCompleted = 0;
-            SELECT W.WishId, W.Content
+            SELECT *
             FROM bbetterSchema.Wishes W
             WHERE AccountId = @accountId
             AND IsCompleted = 0;
@@ -158,8 +158,8 @@ namespace database.Repositories
             var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
             await _dbConnection.OpenAsync();
             var results = await _dbConnection.QueryMultipleAsync(sql, new { accountId });
-            var tasks = results.ReadAsync<AccountTasks>().Result.ToList();
-            var wishes = results.ReadAsync<AccountWishes>().Result.ToList();
+            var tasks = results.ReadAsync<Models.Task>().Result.ToList();
+            var wishes = results.ReadAsync<Wish>().Result.ToList();
             var ghabits = results.ReadAsync<GHabit>().Result.ToList();
             var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
 

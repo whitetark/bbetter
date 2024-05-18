@@ -1,6 +1,7 @@
 ﻿using bbetterApi.Models;
 using database.Models;
 using Microsoft.IdentityModel.Tokens;
+using Task = database.Models.Task;
 
 namespace bbetterApi.Utils
 {
@@ -20,9 +21,9 @@ namespace bbetterApi.Utils
             return result;
         }
 
-        private class TaskComparator : IComparer<AccountTasks>
+        private class TaskComparator : IComparer<Task>
         {
-            public int Compare(AccountTasks x, AccountTasks y)
+            public int Compare(Task x, Task y)
             {
                 if (x.IsImportant && !y.IsImportant)
                     return -1;
@@ -38,17 +39,17 @@ namespace bbetterApi.Utils
             }
         }
 
-        private static List<WhatToDoItem> FindTopTasks(List<AccountTasks> accountTasks)
+        private static List<WhatToDoItem> FindTopTasks(List<Task> accountTasks)
         {
             accountTasks.Sort(new TaskComparator());
-            List<AccountTasks> topThree = accountTasks.Take(3).ToList();
+            List<Task> topThree = accountTasks.Take(3).ToList();
             var whatToDoItems = topThree.Select(ConvertToWhatToDoItem).ToList();
             return whatToDoItems;
         }
-        private static List<WhatToDoItem> FindTopWishes(List<AccountWishes> accountWishes)
+        private static List<WhatToDoItem> FindTopWishes(List<Wish> accountWishes)
         {
             Random random = new Random();
-            List<AccountWishes> threeWishes = accountWishes.OrderBy(x => random.Next()).Take(3).ToList();
+            List<Wish> threeWishes = accountWishes.OrderBy(x => random.Next()).Take(3).ToList();
             var whatToDoItems = threeWishes.Select(ConvertToWhatToDoItem).ToList();
             return whatToDoItems;
         }
@@ -80,11 +81,11 @@ namespace bbetterApi.Utils
             return topActivities.Take(3).ToList();
         }
 
-        private static WhatToDoItem ConvertToWhatToDoItem(AccountTasks task)
+        private static WhatToDoItem ConvertToWhatToDoItem(Task task)
         {
             return new WhatToDoItem { Content = task.Content, Type = "Tasks" };
         }
-        private static WhatToDoItem ConvertToWhatToDoItem(AccountWishes wish)
+        private static WhatToDoItem ConvertToWhatToDoItem(Wish wish)
         {
             return new WhatToDoItem { Content = wish.Content, Type = "Wish" };
         }

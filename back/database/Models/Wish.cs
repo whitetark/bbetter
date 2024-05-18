@@ -13,5 +13,6 @@ namespace database.Models
         public int AccountId { get; set; }
         public string Content {  get; set; }
         public bool IsCompleted { get; set; }
+        public DateTime CompleteDate { get; set; }
     }
 }
