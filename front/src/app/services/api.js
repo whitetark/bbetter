@@ -46,6 +46,9 @@ export const UserService = {
   async fetchUserData() {
     return api.get('/Acc/getByUsername');
   },
+  async updateUser(payload) {
+    return api.put('/Acc/update', payload);
+  },
   async checkCredentials(payload) {
     return api.post('/Auth/checkCredentials', payload);
   },

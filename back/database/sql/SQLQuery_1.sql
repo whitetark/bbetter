@@ -104,3 +104,6 @@ JOIN bbetterSchema.GHabitDate GHD ON GH.GHabitId = GHD.GHabitId
 WHERE GH.AccountId = 1
 AND GHD.DateOf >= @startOfLastWeek 
 AND GHD.DateOf < @endOfLastWeek;
+
+ALTER TABLE bbetterSchema.Accounts
+ADD isUserQuote BIT DEFAULT 0;

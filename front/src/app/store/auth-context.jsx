@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { UserService } from '../services/api';
 
 const AuthContext = createContext();
@@ -14,6 +14,7 @@ export const AuthContextProvider = ({ children }) => {
   });
   const [userData, setUserData] = useState([]);
   const [serverIsOn, setServerIsOn] = useState(false);
+  const queryClient = useQueryClient();
 
   useQuery('user data', () => UserService.fetchUserData(), {
     onSuccess: ({ data }) => {
@@ -34,6 +35,15 @@ export const AuthContextProvider = ({ children }) => {
     },
   });
 
+  const useUpdateUser = useMutation('updateUser', (payload) => UserService.updateUser(payload), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('user data');
+    },
+    onError: (error) => {
+      console.log('Update user error:' + error);
+    },
+  });
+
   return (
     <AuthContext.Provider
       value={{
@@ -43,6 +53,7 @@ export const AuthContextProvider = ({ children }) => {
         setUserData,
         setUserToken,
         setServerIsOn,
+        useUpdateUser,
       }}>
       {children}
     </AuthContext.Provider>

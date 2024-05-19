@@ -10,6 +10,7 @@ export const App = styled(Container)`
   border-radius: 10px;
   width: 100%;
   box-shadow: ${variables.BOX_SHADOW};
+  overflow: hidden;
 
   .divider {
     content: '';

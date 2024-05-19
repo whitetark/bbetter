@@ -2,11 +2,12 @@ import { useQuery } from 'react-query';
 import { ReflectService, UserService } from '../app/services/api';
 import { useAuthContext } from '../app/store/auth-context';
 import RecentReflection from '../components/Home/RecentReflection';
+import UserPhoto from '../components/Home/UserPhoto';
 import WeeklyStats from '../components/Home/WeeklyStats';
 import WhatToDo from '../components/Home/WhatToDo';
 import ReflectionAdd from '../components/Reflections/ReflectionAdd';
 import { Background, Button, Modal } from '../components/UI/index';
-import { Quote, UserPhoto } from '../components/index';
+import { Quote } from '../components/index';
 import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/Home.styled';
 
@@ -45,16 +46,6 @@ const HomePage = () => {
     },
   );
 
-  const stats = {
-    productivityCoef: 29.5,
-    taskCompletionRate: 39.5,
-    taskCompletedNum: 4,
-    taskCompletedExtra: 1,
-    gHabitCompletionRate: 19.3,
-    gHabitFullyCompleted: 1,
-    wishesCompleteNum: 5,
-  };
-
   return (
     <Styled.Home>
       <Background />
@@ -67,16 +58,23 @@ const HomePage = () => {
           <Quote quote={homeData?.data.quote} />
         </Styled.HomeHeader>
         <Styled.HomeMain>
-          <Styled.HomeActions>
-            <Button onClick={toggleWTD}>What to do?</Button>
-            <Button onClick={toggleReflect} disabled={!isSunday || isReflect?.data}>
-              Weekly Reflection
-            </Button>
-          </Styled.HomeActions>
           <Styled.HomeInfo>
             <WeeklyStats stats={homeData?.data.stats} />
             <RecentReflection reflection={homeData?.data.reflection} />
           </Styled.HomeInfo>
+          <Styled.HomeActionsBlock>
+            <Styled.HomeActions>
+              <h1>Actions</h1>
+              <Button onClick={toggleWTD}>What to do?</Button>
+              <Button>New Activity</Button>
+              <div>
+                <p>Every Sunday</p>
+                <Button onClick={toggleReflect} disabled={!isSunday || isReflect?.data}>
+                  Weekly Reflection
+                </Button>
+              </div>
+            </Styled.HomeActions>
+          </Styled.HomeActionsBlock>
         </Styled.HomeMain>
       </Styled.HomeContent>
       <Modal isShowing={isWTDShowing} hide={toggleWTD} className='wtd-modal' hasOverlay>

@@ -87,9 +87,9 @@ namespace database.Repositories
                 }
 
                 sql = @"INSERT INTO bbetterSchema.Accounts
-                ([Username],[PasswordHash],[RefreshToken],[TokenCreated],[TokenExpires],[QuoteOfDayId],[QuoteExpires]) 
+                ([Username],[PasswordHash],[RefreshToken],[TokenCreated],[TokenExpires],[QuoteOfDayId],[QuoteExpires],[isUserQuote]) 
                 OUTPUT INSERTED.*
-                VALUES (@username, @passwordHash, @refreshToken, @tokenCreated, @tokenExpires, @quoteId, @quoteExpires)";
+                VALUES (@username, @passwordHash, @refreshToken, @tokenCreated, @tokenExpires, @quoteId, @quoteExpires, @isUserQuote)";
 
                 return await _dbConnection.QuerySingleAsync<Account>(sql, new
                 {
@@ -100,6 +100,7 @@ namespace database.Repositories
                     tokenExpires = account.TokenExpires,
                     quoteId = account.QuoteOfDayId,
                     quoteExpires = account.QuoteExpires,
+                    account.isUserQuote,
                 });
             }
             catch (Exception ex)
@@ -119,7 +120,7 @@ namespace database.Repositories
         public async Task Update(Account newAccount)
         {
             string sql = @"UPDATE bbetterSchema.Accounts 
-            SET [PasswordHash] = @passwordHash, [RefreshToken] = @refreshToken, [TokenCreated] = @tokenCreated, [TokenExpires] = @tokenExpires, [QuoteOfDayId] = @quote, [QuoteExpires] = @quoteExpires
+            SET [PasswordHash] = @passwordHash, [RefreshToken] = @refreshToken, [TokenCreated] = @tokenCreated, [TokenExpires] = @tokenExpires, [QuoteOfDayId] = @quote, [QuoteExpires] = @quoteExpires, [isUserQuote] = @isUserQuote
             WHERE Username = @username";
             var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
             if (await _dbConnection.ExecuteAsync(sql, new {
@@ -129,7 +130,8 @@ namespace database.Repositories
                 tokenExpires = newAccount.TokenExpires,
                 username = newAccount.Username,
                 quote = newAccount.QuoteOfDayId,
-                quoteExpires = newAccount.QuoteExpires }) > 0) { return; }
+                quoteExpires = newAccount.QuoteExpires,
+                newAccount.isUserQuote}) > 0) { return; }
 
             throw new Exception("Failed to Update Account");
         }

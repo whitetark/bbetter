@@ -34,6 +34,10 @@ const Sidebar = () => {
           <FontAwesomeIcon icon='fa-solid fa-house' fixedWidth />
           <span>Home</span>
         </NavLink>
+        <NavLink to={PathConstants.REFLECTIONS}>
+          <FontAwesomeIcon icon='fa-solid fa-check-to-slot' fixedWidth />
+          <span>Reflections</span>
+        </NavLink>
         <NavLink to={PathConstants.QUOTE}>
           <FontAwesomeIcon icon='fa-solid fa-pencil' fixedWidth />
           <span>Quotes</span>

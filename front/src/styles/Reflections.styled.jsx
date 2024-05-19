@@ -123,6 +123,11 @@ export const Calendar = styled.div`
     }
   }
 
+  .css-23p0if-MuiButtonBase-root-MuiPickersDay-root {
+    margin: 0;
+    border-radius: 0;
+  }
+
   .hovered {
     background-color: ${variables.GREEN};
 

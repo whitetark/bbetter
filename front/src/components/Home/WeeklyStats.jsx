@@ -57,6 +57,7 @@ const WeeklyStats = ({ stats }) => {
     stats && (
       <Styled.WeeklyStats>
         <Styled.StatsMain>
+          <h1>Weekly Stats</h1>
           <Styled.StatsBlock>
             <h1>Tasks</h1>
             <p>

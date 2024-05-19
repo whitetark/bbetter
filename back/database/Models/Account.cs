@@ -16,5 +16,6 @@ namespace database.Models
         public DateTime TokenExpires { get; set; }
         public string QuoteOfDayId { get; set; }
         public DateTime QuoteExpires { get; set; }
+        public bool isUserQuote { get; set; }
     }
 }

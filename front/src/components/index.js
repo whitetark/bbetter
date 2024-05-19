@@ -8,7 +8,6 @@ import GHabitItem from './GHabits/GHabitItem';
 import GHabitView from './GHabits/GHabitView';
 import Quote from './Home/Quote';
 import Sidebar from './Home/Sidebar';
-import UserPhoto from './Home/UserPhoto';
 import QuoteAdd from './Quotes/QuoteAdd';
 import QuoteItem from './Quotes/QuoteItem';
 import ChangePasswordPreview from './Settings/ChangePasswordPreview';
@@ -36,7 +35,6 @@ export {
   TableCell,
   TaskAdd,
   TaskItem,
-  UserPhoto,
   WishAdd,
   WishItem,
   WishListItem,

@@ -14,7 +14,7 @@ namespace database.Repositories
     public class UserQuoteRepository(IOptions<DbConfig> dbConfig)
     {
         //get-task
-        public async Task<UserQuote> GetById(int quoteId)
+        public async Task<UserQuote> GetById(string quoteId)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get UserQuote", ex);
+                return null;
             }
         }
 
@@ -40,12 +40,39 @@ namespace database.Repositories
                 var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
                 var quotes = await _dbConnection.QueryAsync<UserQuote>(sql, new { accountId });
 
-                if (quotes.Count() == 0)
+                if (!quotes.Any())
                 {
-                    return new List<UserQuote>();
+                    return [];
                 }
 
                 var result = quotes.ToList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Get UserQuotes", ex);
+            }
+        }
+
+        //get-random
+        public async Task<UserQuote?> GetRandom(string accountId)
+        {
+            try
+            {
+                string sql = @"SELECT TOP 1 *
+                FROM bbetterSchema.UserQuotes
+                WHERE AccountId = @accountId
+                ORDER BY NEWID();";
+                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+                var quotes = await _dbConnection.QueryAsync<UserQuote>(sql, new { accountId });
+
+                if (!quotes.Any())
+                {
+                    return null;
+                }
+
+                var result = quotes.FirstOrDefault();
 
                 return result;
             }

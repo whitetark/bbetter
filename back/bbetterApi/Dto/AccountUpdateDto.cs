@@ -11,5 +11,6 @@ namespace bbetterApi.Dto
         public DateTime TokenExpires { get; set; }
         public string QuoteOfDayId { get; set; } = string.Empty;
         public DateTime QuoteExpires { get; set; } = DateTime.Now;
+        public bool isUserQuote { get; set; } = false;
     }
 }

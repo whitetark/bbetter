@@ -40,20 +40,31 @@ export const MiniProfile = styled.div`
 
 export const HomeMain = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   gap: 4rem;
 `;
 
 export const HomeActions = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: ${variables.WHITE};
+  border-radius: 10px;
+  padding: 2rem;
+
+  p {
+    color: ${variables.DIVIDER};
+    font-weight: 500;
+    font-size: 14px;
+    text-align: end;
+  }
 
   ${Button} {
     background-color: ${variables.GREEN};
     color: ${variables.WHITE};
-    font-size: 32px;
-    padding: 3rem 4rem;
+    padding: 1rem 1.5rem;
+    font-size: 24px;
     border-radius: 10px;
     box-shadow: ${variables.BOX_SHADOW};
     font-weight: 500;
@@ -68,9 +79,14 @@ export const HomeActions = styled.div`
   }
 `;
 
+export const HomeActionsBlock = styled.div`
+  display: flex;
+  align-items: flex-end;
+`;
+
 export const HomeInfo = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
 `;
 
@@ -128,6 +144,7 @@ export const UserPhoto = styled.div`
 export const WeeklyStats = styled.div`
   display: flex;
   flex-direction: row;
+  gap: 2rem;
   justify-content: space-between;
   background-color: ${variables.WHITE};
   border-radius: 10px;

@@ -13,37 +13,9 @@ namespace bbetterApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class QuoteController(QuoteService quoteServices) : ControllerBase
+    public class QuoteController(UserQuoteService quoteServices) : ControllerBase
     {
-
-        [HttpGet]
-        [Route("getQuoteOfDay")]
-        public async Task<ActionResult> GetQuoteOfDay([FromQuery(Name = "id")] string id)
-        {
-            if(id == "undefined")
-            {
-                throw new AppException("Id cannot be undefined");
-            }
-
-            var result = await quoteServices.GetQuoteOfDay(id);
-            return Ok(result);
-        }
-
-        [HttpGet]
-        [Route("getQuoteById")]
-        public async Task<Quote> GetQuoteById([FromQuery(Name = "id")] string id)
-        {
-
-            return await quoteServices.GetQuoteById(id);
-        }
-
         //UserQuotes
-        [HttpGet]
-        [Route("user/getById/{id}")]
-        public async Task<UserQuote> GetUserQuoteById(int id)
-        {
-            return await quoteServices.GetUserQuoteById(id);
-        }
 
         [HttpGet]
         [Route("user/getAll/{accountId}")]

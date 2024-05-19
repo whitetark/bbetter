@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
-import PathConstants from '../app/shared/pathConstants';
+import ChangeHomeQuote from '../components/Settings/ChangeHomeQuote';
 import { Button, Confirmation, Modal } from '../components/UI/index';
 import { ChangePasswordPreview } from '../components/index';
 import { useLogout } from '../hooks/use-auth';
@@ -13,6 +13,7 @@ const SettingsPage = () => {
   document.title = `bbetter - Settings`;
 
   const { isShowing: changeIsShowing, toggle: toggleChange } = useModal();
+  const { isShowing: quoteIsShowing, toggle: toggleQuote } = useModal();
   const { isShowing: deleteIsShowing, toggle: toggleDelete } = useModal();
 
   const handleLogout = async () => {
@@ -24,13 +25,13 @@ const SettingsPage = () => {
       <h1>Settings</h1>
       <Styled.SettingsMain>
         <Styled.SettingsActions>
-          <Button onClick={() => navigate(PathConstants.REFLECTIONS)}>
-            <FontAwesomeIcon icon='fa-solid fa-check-to-slot' fixedWidth />
-            Reflections
-          </Button>
           <Button onClick={toggleChange}>
             <FontAwesomeIcon icon='fa-solid fa-key' fixedWidth />
             Change Password
+          </Button>
+          <Button onClick={toggleQuote}>
+            <FontAwesomeIcon icon='fa-solid fa-toggle-on' fixedWidth />
+            Change Home Quote
           </Button>
           <Button onClick={toggleDelete}>
             <FontAwesomeIcon icon='fa-solid fa-right-from-bracket' fixedWidth />
@@ -43,6 +44,9 @@ const SettingsPage = () => {
       </Modal>
       <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='task-modal' hasOverlay>
         <Confirmation hide={toggleDelete} onDelete={handleLogout} isLogout />
+      </Modal>
+      <Modal isShowing={quoteIsShowing} hide={toggleQuote} className='task-modal' hasOverlay>
+        <ChangeHomeQuote hide={toggleQuote} />
       </Modal>
     </Styled.Settings>
   );

@@ -15,10 +15,7 @@ namespace bbetterApi.Services
     {
         public async Task<Account> GetAccount(string username)
         {
-
-            var user = await accountRepository.GetByUsername(username);
-
-            return user;
+            return await accountRepository.GetByUsername(username);
         }
 
         public async Task DeleteAccount(int id)
@@ -27,39 +24,17 @@ namespace bbetterApi.Services
             return;
         }
 
-        public async Task<Account?> UpdateAccount(AccountUpdateDto updateDto)
+        public async Task<Account?> UpdateAccount(Account updateDto)
         {
-            var responseFromDb = await accountRepository.GetByUsername(updateDto.Username);
-            if (responseFromDb == null)
-            {
-                throw new AppException("Username not found");
-            }
-
-            var newAccount = new Account
-            {
-                AccountId = updateDto.AccountId,
-                Username = updateDto.Username,
-                PasswordHash = responseFromDb.PasswordHash,
-                RefreshToken = updateDto.RefreshToken,
-                TokenCreated = updateDto.TokenCreated,
-                TokenExpires = updateDto.TokenExpires,
-                QuoteOfDayId = updateDto.QuoteOfDayId,
-                QuoteExpires = updateDto.QuoteExpires,
-            };
-
-            await accountRepository.Update(newAccount);
-            return newAccount;
+            var responseFromDb = await accountRepository.GetByUsername(updateDto.Username) ?? throw new AppException("Username not found");
+           
+            await accountRepository.Update(updateDto);
+            return updateDto;
         }
 
         public async Task ChangePassword(UserLoginDto request)
         {
-            var responseFromDb = await accountRepository.GetByUsername(request.username);
-
-            if (responseFromDb == null)
-            {
-                throw new AppException("Username not found");
-            }
-
+            var responseFromDb = await accountRepository.GetByUsername(request.username) ?? throw new AppException("Username not found");
             var user = responseFromDb;
             string newPasswordHash = BCrypt.Net.BCrypt.HashPassword(request.password);
 
@@ -80,7 +55,6 @@ namespace bbetterApi.Services
 
         public async Task<Statistics> GetStatistics(int id, string type)
         {
-
             var result = await accountRepository.GetActivitiesForDate(id, type);
             return StatsUtil.CalculateStats(result, type);
         }

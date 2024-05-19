@@ -54,10 +54,11 @@ builder.Services.AddSingleton<QuotableClient>();
 builder.Services.AddScoped<AccService>();
 builder.Services.AddScoped<BHabitService>();
 builder.Services.AddScoped<GHabitService>();
-builder.Services.AddScoped<QuoteService>();
+builder.Services.AddScoped<UserQuoteService>();
 builder.Services.AddScoped<ReflectService>();
 builder.Services.AddScoped<TaskService>();
 builder.Services.AddScoped<WishService>();
+builder.Services.AddScoped<QuoteOfDayService>();
 
 builder.Services.AddScoped<AccountRepository>();
 builder.Services.AddScoped<BHabitDateRepository>();

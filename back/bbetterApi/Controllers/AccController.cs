@@ -17,7 +17,7 @@ namespace bbetterApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AccController(AccService accountServices, QuoteService quoteService, ReflectService reflectService) : ControllerBase
+    public class AccController(AccService accountServices, QuoteOfDayService quoteOfDayService, ReflectService reflectService) : ControllerBase
     {
         [Authorize(Roles ="User")]
         [Route("getByUsername")]
@@ -49,7 +49,7 @@ namespace bbetterApi.Controllers
 
         [Route("update")]
         [HttpPut]
-        public async Task<ActionResult> UpdateAccount(AccountUpdateDto updateDto)
+        public async Task<ActionResult> UpdateAccount([FromBody] Account updateDto)
         {
           
             var result = await accountServices.UpdateAccount(updateDto);
@@ -96,7 +96,7 @@ namespace bbetterApi.Controllers
         public async Task<ActionResult> GetHomePage([FromQuery] int id, string type)
         {
             var stats = await accountServices.GetStatistics(id, type);
-            var quote = await quoteService.GetQuoteOfDay(id.ToString());
+            var quote = await quoteOfDayService.GetQuote(id.ToString());
             var reflection = await reflectService.GetRecent(id);
 
             return Ok(new {stats, quote, reflection });

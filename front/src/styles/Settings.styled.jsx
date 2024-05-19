@@ -2,7 +2,7 @@ import { Form } from 'formik';
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
 import { Button, HomePadding } from './UI.styled';
-import { AddWishButton } from './Wishes.styled';
+import { AddWishButton, AddWishForm } from './Wishes.styled';
 
 export const Settings = styled(HomePadding)``;
 export const SettingsMain = styled.div`
@@ -70,3 +70,22 @@ export const ChangePasswordSuccess = styled.div`
   font-style: italic;
   gap: 1rem;
 `;
+
+export const ChangeHomeQuote = styled.div`
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+export const ChangeQuoteForm = styled(AddWishForm)`
+  select {
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 10px;
+    outline: none;
+    font-size: 20px;
+    max-width: 35rem;
+    border: 1px solid ${variables.DIVIDER};
+  }
+`;
+export const ChangeQuoteButton = styled(AddWishButton)``;

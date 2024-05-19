@@ -21,6 +21,7 @@ import {
   faQuoteLeft,
   faRightFromBracket,
   faStar as faStarSolid,
+  faToggleOn,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
@@ -66,6 +67,7 @@ library.add(
   faFaceSmile,
   faPersonDigging,
   faCheckToSlot,
+  faToggleOn,
 );
 
 function App() {
