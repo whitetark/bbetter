@@ -1,16 +1,12 @@
-﻿using bbetterApi.Clients;
-using bbetterApi.Dto;
-using bbetterApi.Middleware;
-using bbetterApi.Models;
-using bbetterApi.Services;
+﻿using bbetterApi.Services;
 using database.Models;
-using database.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Controllers
 {
+    [Authorize(Roles = "User, Admin")]
     [Route("[controller]")]
     [ApiController]
     public class QuoteController(UserQuoteService quoteServices) : ControllerBase
@@ -18,34 +14,34 @@ namespace bbetterApi.Controllers
         //UserQuotes
 
         [HttpGet]
-        [Route("user/getAll/{accountId}")]
-        public async Task<List<UserQuote>> GetUserQuotes(int accountId)
+        [Route("user/getAll")]
+        public async Task<ActionResult<List<UserQuote>>> GetUserQuotes([FromQuery] int accountId)
         {
-            return await quoteServices.GetUserQuotes(accountId);
+            return Ok(await quoteServices.GetUserQuotes(accountId));
         }
 
 
         [HttpPost]
         [Route("user/create")]
-        public async Task<UserQuote> CreateUserQuote(UserQuote quote)
+        public async Task<ActionResult<UserQuote>> CreateUserQuote([FromBody] UserQuote quote)
         {
-            return await quoteServices.CreateUserQuote(quote);
+            return Ok(await quoteServices.CreateUserQuote(quote));
         }
 
         [HttpPut]
         [Route("user/update")]
-        public async Task UpdateUserQuote(UserQuote quote)
+        public async Task<ActionResult> UpdateUserQuote([FromBody] UserQuote quote)
         {
             await quoteServices.UpdateUserQuote(quote);
-            return;
+            return Ok();
         }
 
         [HttpDelete]
-        [Route("user/deleteById/{id}")]
-        public async Task DeleteUserQuote(int id)
+        [Route("user/deleteById")]
+        public async Task<ActionResult> DeleteUserQuote([FromQuery] int id)
         {
             await quoteServices.DeleteUserQuote(id);
-            return;
+            return Ok();
         }
     }
 }

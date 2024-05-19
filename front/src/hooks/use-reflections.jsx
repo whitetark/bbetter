@@ -8,6 +8,7 @@ export const useAddReflection = () => {
     onSuccess: () => {
       queryClient.invalidateQueries('getReflectsByMonth');
       queryClient.invalidateQueries('checkReflection');
+      queryClient.invalidateQueries('getRecentReflection');
     },
     onError: (error) => {
       console.log('Reflection add error:' + error);
@@ -21,6 +22,7 @@ export const useEditReflection = () => {
   return useMutation('editReflect', (payload) => ReflectService.update(payload), {
     onSuccess: () => {
       queryClient.invalidateQueries('getReflectsByMonth');
+      queryClient.invalidateQueries('getRecentReflection');
     },
     onError: (error) => {
       console.log('Reflection update error:' + error);
@@ -35,6 +37,7 @@ export const useDeleteReflection = () => {
     onSuccess: () => {
       queryClient.invalidateQueries('getReflectsByMonth');
       queryClient.invalidateQueries('checkReflection');
+      queryClient.invalidateQueries('getRecentReflection');
     },
     onError: (error) => {
       console.log('Reflect delete error:' + error);

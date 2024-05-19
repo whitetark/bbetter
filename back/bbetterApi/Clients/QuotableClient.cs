@@ -38,7 +38,7 @@ namespace bbetterApi.Clients
                 return quote;
             } catch (Exception ex)
             {
-                throw;
+                return null;
             }
         }
 
@@ -63,7 +63,7 @@ namespace bbetterApi.Clients
             }
             catch (Exception ex)
             {
-                throw;
+                return null;
             }
         }
     }

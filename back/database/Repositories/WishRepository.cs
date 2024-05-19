@@ -20,9 +20,11 @@ namespace database.Repositories
             {
                 string sql = @"SELECT * FROM bbetterSchema.Wishes
                 WHERE WishId = @wishId";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var wish = await _dbConnection.QuerySingleAsync<Wish>(sql, new { wishId });
-                return wish;
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+                {
+                    var wish = await _dbConnection.QuerySingleAsync<Wish>(sql, new { wishId });
+                    return wish;
+                }
             }
             catch (Exception ex)
             {
@@ -37,17 +39,19 @@ namespace database.Repositories
             {
                 string sql = @"SELECT * FROM bbetterSchema.Wishes
                 WHERE AccountId = @accountId";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var wishes = await _dbConnection.QueryAsync<Wish>(sql, new { accountId });
-
-                if (wishes.Count() == 0)
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    return new List<Wish>();
+                    var wishes = await _dbConnection.QueryAsync<Wish>(sql, new { accountId });
+
+                    if (!wishes.Any())
+                    {
+                        return [];
+                    }
+
+                    var result = wishes.ToList();
+
+                    return result;
                 }
-
-                var result = wishes.ToList();
-
-                return result;
             }
             catch (Exception ex)
             {
@@ -60,19 +64,21 @@ namespace database.Repositories
         {
             try
             {
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
 
                 string sql = @"INSERT INTO bbetterSchema.Wishes
                 ([AccountId],[Content],[IsCompleted]) 
                 OUTPUT INSERTED.*
                 VALUES (@accountId, @content, @isCompleted)";
 
-                return await _dbConnection.QuerySingleAsync<Wish>(sql, new
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    accountId = wish.AccountId,
-                    content = wish.Content,
-                    isCompleted = wish.IsCompleted,
-                });
+                    return await _dbConnection.QuerySingleAsync<Wish>(sql, new
+                    {
+                        accountId = wish.AccountId,
+                        content = wish.Content,
+                        isCompleted = wish.IsCompleted,
+                    });
+                }
             }
             catch (Exception)
             {
@@ -88,13 +94,16 @@ namespace database.Repositories
                 string sql = @"UPDATE bbetterSchema.Wishes 
                 SET [Content] = @content, [IsCompleted] = @isCompleted
                 WHERE WishId = @wishId";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                if (await _dbConnection.ExecuteAsync(sql, new
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    content = newWish.Content,
-                    isCompleted = newWish.IsCompleted,
-                    wishId = newWish.WishId,
-                }) > 0) { return; }
+                    if (await _dbConnection.ExecuteAsync(sql, new
+                    {
+                        content = newWish.Content,
+                        isCompleted = newWish.IsCompleted,
+                        wishId = newWish.WishId,
+                    }) > 0) { return; }
+
+                }
 
             } catch (Exception ex)
             {
@@ -107,8 +116,10 @@ namespace database.Repositories
         {
             string sql = @"DELETE FROM bbetterSchema.Wishes
             WHERE WishId = @wishId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { wishId }) > 0) { return; }
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                if (await _dbConnection.ExecuteAsync(sql, new { wishId }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Delete Wishes");
         }
@@ -118,8 +129,10 @@ namespace database.Repositories
         {
             string sql = @"DELETE FROM bbetterSchema.Wishes
             WHERE AccountId = @accountId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Delete Wishes");
         }

@@ -1,5 +1,4 @@
-﻿using bbetterApi.Dto;
-using database.Repositories;
+﻿using database.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bbetterApi.Services

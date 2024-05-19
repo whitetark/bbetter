@@ -64,17 +64,20 @@ export const UserService = {
   async getWhatToDo(payload) {
     return api.get(`/Acc/whatToDo?id=${payload.Id}`);
   },
-  async getHomePage(payload) {
-    return api.get(`/Acc/getHomePage?id=${payload.Id}&type=${payload.Type}`);
+  async getStatistics(payload) {
+    return api.get(`/Acc/getStatistics?id=${payload.Id}&type=${payload.Type}`);
+  },
+  async getQuoteOfTheDay(payload) {
+    return api.get(`/Acc/getQuoteOfTheDay?id=${payload.Id}`);
+  },
+  async getRecentReflection(payload) {
+    return api.get(`/Acc/getRecentReflection?id=${payload.Id}`);
   },
 };
 
 export const TaskService = {
-  async getById(payload) {
-    return api.get(`/Task/getById/${payload.Id}`);
-  },
   async getByAccount(payload) {
-    return api.get(`/Task/getByAccount/${payload.AccountId}`);
+    return api.get(`/Task/getByAccount?accountId=${payload.AccountId}`);
   },
   async create(payload) {
     return api.post('/Task/create', payload);
@@ -83,16 +86,13 @@ export const TaskService = {
     return api.put('/Task/update', payload);
   },
   async deleteById(payload) {
-    return api.delete(`/Task/deleteById/${payload.Id}`);
+    return api.delete(`/Task/deleteById?id=${payload.Id}`);
   },
 };
 
 export const WishService = {
-  async getById(payload) {
-    return api.get(`/Wish/getById/${payload.Id}`);
-  },
   async getByAccount(payload) {
-    return api.get(`/Wish/getByAccount/${payload.AccountId}`);
+    return api.get(`/Wish/getByAccount?accountId=${payload.AccountId}`);
   },
   async create(payload) {
     return api.post('/Wish/create', payload);
@@ -101,19 +101,13 @@ export const WishService = {
     return api.put('/Wish/update', payload);
   },
   async deleteById(payload) {
-    return api.delete(`/Wish/deleteById/${payload.Id}`);
+    return api.delete(`/Wish/deleteById?id=${payload.Id}`);
   },
 };
 
 export const GHabitService = {
-  async getById(payload) {
-    return api.get(`/GHabit/getById/${payload.Id}`);
-  },
-  async getByAccount(payload) {
-    return api.get(`/GHabit/getAll/${payload.AccountId}`);
-  },
   async getWithDates(payload) {
-    return api.get(`/GHabit/getWithDates/${payload.AccountId}`);
+    return api.get(`/GHabit/getWithDates?accountId=${payload.AccountId}`);
   },
   async create(payload) {
     return api.post('/GHabit/create', payload);
@@ -122,7 +116,7 @@ export const GHabitService = {
     return api.put('/GHabit/update', payload);
   },
   async deleteById(payload) {
-    return api.delete(`/GHabit/deleteById/${payload.Id}`);
+    return api.delete(`/GHabit/deleteById?id=${payload.Id}`);
   },
   async getDatesByWeek(payload) {
     return api.get(`/GHabits/date/getByWeek?id=${payload.id}`);
@@ -144,11 +138,8 @@ export const GHabitService = {
 };
 
 export const BHabitService = {
-  async getById(payload) {
-    return api.get(`/BHabit/getById/${payload.Id}`);
-  },
   async getByAccount(payload) {
-    return api.get(`/BHabit/getAll/${payload.AccountId}`);
+    return api.get(`/BHabit/getAll?accountId=${payload.AccountId}`);
   },
   async create(payload) {
     return api.post('/BHabit/create', payload);
@@ -157,7 +148,7 @@ export const BHabitService = {
     return api.put('/BHabit/update', payload);
   },
   async deleteById(payload) {
-    return api.delete(`/BHabit/deleteById/${payload.Id}`);
+    return api.delete(`/BHabit/deleteById?id=${payload.Id}`);
   },
   async getDatesByMonth(payload) {
     return api.get(
@@ -182,11 +173,8 @@ export const QuoteService = {
   async getRandomFromUser() {
     return api.get('/Quote/user/getRandom');
   },
-  async getById(payload) {
-    return api.get(`/Quote/user/getById/${payload.Id}`);
-  },
   async getByAccount(payload) {
-    return api.get(`/Quote/user/getAll/${payload.AccountId}`);
+    return api.get(`/Quote/user/getAll?accountId=${payload.AccountId}`);
   },
   async create(payload) {
     return api.post('/Quote/user/create', payload);
@@ -195,17 +183,11 @@ export const QuoteService = {
     return api.put('/Quote/user/update', payload);
   },
   async deleteById(payload) {
-    return api.delete(`/Quote/user/deleteById/${payload.Id}`);
+    return api.delete(`/Quote/user/deleteById?id=${payload.Id}`);
   },
 };
 
 export const ReflectService = {
-  async getById(payload) {
-    return api.get(`/Reflect/getById/${payload.Id}`);
-  },
-  async getByAccount(payload) {
-    return api.get(`/Reflect/getByAccount/${payload.AccountId}`);
-  },
   async checkForToday(payload) {
     return api.get(`/Reflect/checkForToday?id=${payload.Id}`);
   },
@@ -224,6 +206,6 @@ export const ReflectService = {
     return api.put('/Reflect/update', payload);
   },
   async deleteById(payload) {
-    return api.delete(`/Reflect/deleteById/${payload.Id}`);
+    return api.delete(`/Reflect/deleteById?id=${payload.Id}`);
   },
 };

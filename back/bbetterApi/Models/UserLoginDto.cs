@@ -1,4 +1,4 @@
-﻿namespace bbetterApi.Dto
+﻿namespace bbetterApi.Models
 {
     public class UserLoginDto
     {

@@ -38,6 +38,7 @@ export const AuthContextProvider = ({ children }) => {
   const useUpdateUser = useMutation('updateUser', (payload) => UserService.updateUser(payload), {
     onSuccess: () => {
       queryClient.invalidateQueries('user data');
+      queryClient.invalidateQueries('getQuoteOfTheDay');
     },
     onError: (error) => {
       console.log('Update user error:' + error);

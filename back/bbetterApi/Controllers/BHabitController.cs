@@ -12,50 +12,36 @@ namespace bbetterApi.Controllers
     [ApiController]
     public class BHabitController(BHabitService bHabitServices, IConfiguration configuration) : ControllerBase
     {
-        [HttpGet]
-        [Route("getById/{id}")]
-        public async Task<BHabit> GetBHabit(int id)
-        {
-            return await bHabitServices.GetBHabit(id);
-        }
 
         [HttpGet]
-        [Route("getAll/{accountId}")]
-        public async Task<List<BHabit>> GetBHabits(int accountId)
+        [Route("getAll")]
+        public async Task<ActionResult<List<BHabit>>> GetBHabits([FromQuery] int accountId)
         {
-            return await bHabitServices.GetBHabits(accountId);
+            return Ok(await bHabitServices.GetBHabits(accountId));
         }
 
 
         [HttpPost]
         [Route("create")]
-        public async Task<BHabit> CreateBHabit(BHabit bHabit)
+        public async Task<ActionResult<BHabit>> CreateBHabit([FromBody] BHabit bHabit)
         {
-            return await bHabitServices.CreateBHabit(bHabit);
+            return Ok(await bHabitServices.CreateBHabit(bHabit));
         }
 
         [HttpPut]
         [Route("update")]
-        public async Task UpdateBHabit(BHabit bhabit)
+        public async Task<ActionResult> UpdateBHabit([FromBody] BHabit bhabit)
         {
             await bHabitServices.UpdateBHabit(bhabit);
-            return;
+            return Ok();
         }
 
         [HttpDelete]
-        [Route("deleteById/{id}")]
-        public async Task DeleteBHabit(int id)
+        [Route("deleteById")]
+        public async Task<ActionResult> DeleteBHabit([FromQuery] int id)
         {
             await bHabitServices.DeleteBHabit(id);
-            return;
-        }
-
-        [HttpDelete]
-        [Route("deleteByAccount/{accountId}")]
-        public async Task DeleteBHabits(int accountId)
-        {
-            await bHabitServices.DeleteBHabits(accountId);
-            return;
+            return Ok();
         }
 
         //Dates
@@ -69,36 +55,27 @@ namespace bbetterApi.Controllers
         }
 
         [HttpGet]
-        [Route("date/getAll/{habitId}")]
-        public async Task<List<BHabitDate>> GetDatesByHabitId(int habitId)
+        [Route("date/getAll")]
+        public async Task<ActionResult<List<BHabitDate>>> GetDatesByHabitId([FromQuery] int habitId)
         {
-            return await bHabitServices.GetDatesByHabitId(habitId);
+            return Ok(await bHabitServices.GetDatesByHabitId(habitId));
         }
 
 
         [HttpPost]
         [Route("date/create")]
-        public async Task CreateBHabitDate(BHabitDate date)
+        public async Task<ActionResult> CreateBHabitDate([FromBody] BHabitDate date)
         {
-
             await bHabitServices.CreateBHabitDate(date);
-            return;
+            return Ok();
         }
 
         [HttpDelete]
         [Route("date/delete")]
-        public async Task DeleteBHabitDate([FromQuery(Name = "id")] int id)
+        public async Task<ActionResult> DeleteBHabitDate([FromQuery(Name = "id")] int id)
         {
             await bHabitServices.DeleteBHabitDate(id);
-            return;
-        }
-
-        [HttpDelete]
-        [Route("date/deleteMany/{habitId}")]
-        public async Task DeleteBHabitDates(int habitId)
-        {
-            await bHabitServices.DeleteBHabitDates(habitId);
-            return;
+            return Ok();
         }
     }
 }

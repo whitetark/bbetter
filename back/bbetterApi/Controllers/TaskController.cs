@@ -1,5 +1,4 @@
-﻿using bbetterApi.Dto;
-using bbetterApi.Services;
+﻿using bbetterApi.Services;
 using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -14,49 +13,34 @@ namespace bbetterApi.Controllers
     public class TaskController(TaskService taskServices) : ControllerBase
     {
         [HttpGet]
-        [Route("getById/{id}")]
-        public async Task<database.Models.Task> GetTask(int id)
+        [Route("getByAccount")]
+        public async Task<ActionResult<List<database.Models.Task>>> GetTasks([FromQuery] int accountId)
         {
-            return await taskServices.GetTask(id);
-        }
-
-        [HttpGet]
-        [Route("getByAccount/{accountId}")]
-        public async Task<List<database.Models.Task>> GetTasks(int accountId)
-        {
-            return await taskServices.GetTasks(accountId);
+            return Ok(await taskServices.GetTasks(accountId));
         }
 
         [HttpPost]
         [Route("create")]
-        public async Task<database.Models.Task> CreateTask(database.Models.Task task)
+        public async Task<ActionResult<database.Models.Task>> CreateTask([FromBody] database.Models.Task task)
         {
 
-            return await taskServices.CreateTask(task);
+            return Ok(await taskServices.CreateTask(task));
         }
 
         [HttpPut]
         [Route("update")]
-        public async Task UpdateTask(database.Models.Task task)
+        public async Task<ActionResult> UpdateTask([FromBody] database.Models.Task task)
         {
             await taskServices.UpdateTask(task);
-            return;
+            return Ok();
         }
 
         [HttpDelete]
-        [Route("deleteById/{id}")]
-        public async Task DeleteTask(int id)
+        [Route("deleteById")]
+        public async Task<ActionResult> DeleteTask([FromQuery] int id)
         {
             await taskServices.DeleteTask(id);
-            return;
-        }
-
-        [HttpDelete]
-        [Route("deleteByAccount/{accountId}")]
-        public async Task DeleteTaskByAccount(int accountId)
-        {
-            await taskServices.DeleteTaskByAccount(accountId);
-            return;
+            return Ok();
         }
     }
 }

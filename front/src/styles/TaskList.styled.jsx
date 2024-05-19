@@ -52,6 +52,10 @@ export const TaskItem = styled.div`
     background-color: ${variables.DELEGATE_CELL};
   }
 
+  &.completed {
+    background-color: ${variables.DISABLED_BUTTON} !important;
+  }
+
   input {
     transform: scale(1.5);
     outline: none;

@@ -15,7 +15,7 @@ export const useRefetchWishes = () => {
       onError: (error) => {
         console.log('Get Wishes error: ' + error.message);
       },
-      staleTime: 30000,
+      staleTime: 1000 * 60 * 15,
     },
   );
 

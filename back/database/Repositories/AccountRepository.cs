@@ -24,9 +24,11 @@ namespace database.Repositories
             {
                 string sql = @"SELECT * FROM bbetterSchema.Accounts
                 WHERE AccountId = @id";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var account = await _dbConnection.QuerySingleAsync<Account>(sql, new { id });
-                return account;
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+                {
+                    var account = await _dbConnection.QuerySingleAsync<Account>(sql, new { id });
+                    return account;
+                }
             }
             catch (Exception ex)
             {
@@ -40,9 +42,11 @@ namespace database.Repositories
             {
                 string sql = @"SELECT * FROM bbetterSchema.Accounts
                 WHERE Username = @username";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var account = await _dbConnection.QuerySingleAsync<Account>(sql, new { username });
-                return account;
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+                {
+                    var account = await _dbConnection.QuerySingleAsync<Account>(sql, new { username });
+                    return account;
+                }
             }
             catch (Exception ex)
             {
@@ -55,16 +59,18 @@ namespace database.Repositories
             try
             {
                 string sql = @"SELECT * FROM bbetterSchema.Accounts";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var accounts = await _dbConnection.QueryAsync<Account>(sql);
-                if (accounts.Count() == 0)
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    return new List<Account>();
+                    var accounts = await _dbConnection.QueryAsync<Account>(sql);
+                    if (!accounts.Any())
+                    {
+                        return new List<Account>();
+                    }
+
+                    var result = accounts.ToList();
+
+                    return result;
                 }
-
-                var result = accounts.ToList();
-
-                return result;
             }
             catch (Exception ex)
             {
@@ -78,30 +84,32 @@ namespace database.Repositories
             {
                 string sql = @"SELECT * FROM bbetterSchema.Accounts
                 WHERE Username = @username";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var test = await _dbConnection.QueryAsync<Account>(sql, new { username = account.Username });
-
-                if (test.Count() > 0)
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    return null;
-                }
+                    var test = await _dbConnection.QueryAsync<Account>(sql, new { username = account.Username });
 
-                sql = @"INSERT INTO bbetterSchema.Accounts
+                    if (test.Any())
+                    {
+                        return null;
+                    }
+
+                    sql = @"INSERT INTO bbetterSchema.Accounts
                 ([Username],[PasswordHash],[RefreshToken],[TokenCreated],[TokenExpires],[QuoteOfDayId],[QuoteExpires],[isUserQuote]) 
                 OUTPUT INSERTED.*
                 VALUES (@username, @passwordHash, @refreshToken, @tokenCreated, @tokenExpires, @quoteId, @quoteExpires, @isUserQuote)";
 
-                return await _dbConnection.QuerySingleAsync<Account>(sql, new
-                {
-                    username = account.Username,
-                    passwordHash = account.PasswordHash,
-                    refreshToken = account.RefreshToken,
-                    tokenCreated = account.TokenCreated,
-                    tokenExpires = account.TokenExpires,
-                    quoteId = account.QuoteOfDayId,
-                    quoteExpires = account.QuoteExpires,
-                    account.isUserQuote,
-                });
+                    return await _dbConnection.QuerySingleAsync<Account>(sql, new
+                    {
+                        username = account.Username,
+                        passwordHash = account.PasswordHash,
+                        refreshToken = account.RefreshToken,
+                        tokenCreated = account.TokenCreated,
+                        tokenExpires = account.TokenExpires,
+                        quoteId = account.QuoteOfDayId,
+                        quoteExpires = account.QuoteExpires,
+                        account.isUserQuote,
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -112,8 +120,10 @@ namespace database.Repositories
         {
             string sql = @"DELETE FROM bbetterSchema.Accounts
             WHERE AccountId = @id";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { id }) > 0) { return; }
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                if (await _dbConnection.ExecuteAsync(sql, new { id }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Delete Account");
         }
@@ -122,16 +132,20 @@ namespace database.Repositories
             string sql = @"UPDATE bbetterSchema.Accounts 
             SET [PasswordHash] = @passwordHash, [RefreshToken] = @refreshToken, [TokenCreated] = @tokenCreated, [TokenExpires] = @tokenExpires, [QuoteOfDayId] = @quote, [QuoteExpires] = @quoteExpires, [isUserQuote] = @isUserQuote
             WHERE Username = @username";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new {
-                passwordHash = newAccount.PasswordHash,
-                refreshToken = newAccount.RefreshToken,
-                tokenCreated = newAccount.TokenCreated,
-                tokenExpires = newAccount.TokenExpires,
-                username = newAccount.Username,
-                quote = newAccount.QuoteOfDayId,
-                quoteExpires = newAccount.QuoteExpires,
-                newAccount.isUserQuote}) > 0) { return; }
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                if (await _dbConnection.ExecuteAsync(sql, new
+                {
+                    passwordHash = newAccount.PasswordHash,
+                    refreshToken = newAccount.RefreshToken,
+                    tokenCreated = newAccount.TokenCreated,
+                    tokenExpires = newAccount.TokenExpires,
+                    username = newAccount.Username,
+                    quote = newAccount.QuoteOfDayId,
+                    quoteExpires = newAccount.QuoteExpires,
+                    newAccount.isUserQuote
+                }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Update Account");
         }
@@ -157,37 +171,38 @@ namespace database.Repositories
             AND CONVERT(DATE, GHD.DateOf) = CONVERT(DATE, GETDATE());
             ";
 
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            await _dbConnection.OpenAsync();
-            var results = await _dbConnection.QueryMultipleAsync(sql, new { accountId });
-            var tasks = results.ReadAsync<Models.Task>().Result.ToList();
-            var wishes = results.ReadAsync<Wish>().Result.ToList();
-            var ghabits = results.ReadAsync<GHabit>().Result.ToList();
-            var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
-
-            List<GHabitWithDates> habitWithDates = ghabits.GroupJoin(
-                        ghabitDates,
-                        gHabit => gHabit.GHabitId.ToString(),
-                        gHabitWeekResult => gHabitWeekResult.GHabitId,
-                        (gHabit, gHabitWeekResultsGroup) =>
-                            new GHabitWithDates
-                            {
-                                GHabitId = gHabit.GHabitId.ToString(),
-                                AccountId = gHabit.AccountId,
-                                Content = gHabit.Content,
-                                GHabitDates = gHabitWeekResultsGroup.ToList()
-                            })
-                    .ToList();
-
-            var result = new AccountActivities
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                accountId = accountId,
-                tasks = tasks,
-                wishes = wishes,
-                ghabits = habitWithDates,
-            };
+                await _dbConnection.OpenAsync();
+                var results = await _dbConnection.QueryMultipleAsync(sql, new { accountId });
+                var tasks = results.ReadAsync<Models.Task>().Result.ToList();
+                var wishes = results.ReadAsync<Wish>().Result.ToList();
+                var ghabits = results.ReadAsync<GHabit>().Result.ToList();
+                var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
 
-            return result;
+                List<GHabitWithDates> habitWithDates = ghabits.GroupJoin(
+                            ghabitDates,
+                            gHabit => gHabit.GHabitId.ToString(),
+                            gHabitWeekResult => gHabitWeekResult.GHabitId,
+                            (gHabit, gHabitWeekResultsGroup) =>
+                                new GHabitWithDates
+                                {
+                                    GHabitId = gHabit.GHabitId.ToString(),
+                                    AccountId = gHabit.AccountId,
+                                    Content = gHabit.Content,
+                                    GHabitDates = gHabitWeekResultsGroup.ToList()
+                                })
+                        .ToList();
+
+                var result = new AccountActivities
+                {
+                    accountId = accountId,
+                    tasks = tasks,
+                    wishes = wishes,
+                    ghabits = habitWithDates,
+                };
+                return result;
+            }
         }
 
         public async Task<AccountActivities> GetActivitiesForDate(int accountId, string type)
@@ -235,37 +250,39 @@ namespace database.Repositories
 
             dateSql += sql;
 
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            await _dbConnection.OpenAsync();
-            var results = await _dbConnection.QueryMultipleAsync(dateSql, new { accountId });
-            var tasks = results.ReadAsync<Models.Task>().Result.ToList();
-            var wishes = results.ReadAsync<Wish>().Result.ToList();
-            var ghabits = results.ReadAsync<GHabit>().Result.ToList();
-            var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
-
-            List<GHabitWithDates> habitWithDates = ghabits.GroupJoin(
-                ghabitDates,
-                gHabit => gHabit.GHabitId.ToString(),
-                gHabitWeekResult => gHabitWeekResult.GHabitId,
-                (gHabit, gHabitWeekResultsGroup) =>
-                    new GHabitWithDates
-                    {
-                        GHabitId = gHabit.GHabitId.ToString(),
-                        AccountId = gHabit.AccountId,
-                        Content = gHabit.Content,
-                        GHabitDates = gHabitWeekResultsGroup.ToList()
-                    })
-                .ToList();
-
-            var result = new AccountActivities
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                accountId = accountId,
-                tasks = tasks,
-                wishes = wishes,
-                ghabits = habitWithDates,
-            };
+                await _dbConnection.OpenAsync();
+                var results = await _dbConnection.QueryMultipleAsync(dateSql, new { accountId });
+                var tasks = results.ReadAsync<Models.Task>().Result.ToList();
+                var wishes = results.ReadAsync<Wish>().Result.ToList();
+                var ghabits = results.ReadAsync<GHabit>().Result.ToList();
+                var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
 
-            return result;
+                List<GHabitWithDates> habitWithDates = ghabits.GroupJoin(
+                    ghabitDates,
+                    gHabit => gHabit.GHabitId.ToString(),
+                    gHabitWeekResult => gHabitWeekResult.GHabitId,
+                    (gHabit, gHabitWeekResultsGroup) =>
+                        new GHabitWithDates
+                        {
+                            GHabitId = gHabit.GHabitId.ToString(),
+                            AccountId = gHabit.AccountId,
+                            Content = gHabit.Content,
+                            GHabitDates = gHabitWeekResultsGroup.ToList()
+                        })
+                    .ToList();
+
+                var result = new AccountActivities
+                {
+                    accountId = accountId,
+                    tasks = tasks,
+                    wishes = wishes,
+                    ghabits = habitWithDates,
+                };
+
+                return result;
+            }
         }
     }
 }

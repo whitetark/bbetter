@@ -15,7 +15,7 @@ export const useRefetchGHabits = () => {
       onError: (error) => {
         console.log('Get GHabits error: ' + error.message);
       },
-      staleTime: 30000,
+      staleTime: 1000 * 60 * 15,
     },
   );
 

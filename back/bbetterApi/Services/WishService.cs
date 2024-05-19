@@ -1,5 +1,4 @@
-﻿using bbetterApi.Dto;
-using database.Models;
+﻿using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Task = System.Threading.Tasks.Task;

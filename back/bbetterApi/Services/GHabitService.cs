@@ -1,5 +1,4 @@
-﻿using bbetterApi.Dto;
-using database.Models;
+﻿using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Task = System.Threading.Tasks.Task;
@@ -45,6 +44,7 @@ namespace bbetterApi.Services
 
         public async Task DeleteGHabit(int id)
         {
+            await gHabitDateRepository.DeleteMany(id);
             await ghabitRepository.Delete(id);
             return;
         }

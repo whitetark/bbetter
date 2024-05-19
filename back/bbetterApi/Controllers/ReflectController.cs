@@ -1,5 +1,4 @@
-﻿using bbetterApi.Dto;
-using bbetterApi.Services;
+﻿using bbetterApi.Services;
 using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -11,65 +10,44 @@ namespace bbetterApi.Controllers
     [Authorize(Roles = "User, Admin")]
     [Route("[controller]")]
     [ApiController]
-    public class ReflectController(ReflectService reflectionServices, IConfiguration configuration)
+    public class ReflectController(ReflectService reflectionServices) : ControllerBase
     {
-        [HttpGet]
-        [Route("getById/{id}")]
-        public async Task<Reflection> GetReflection(int id)
-        {
-            return await reflectionServices.GetReflection(id);
-        }
-
-        [HttpGet]
-        [Route("getByAccount/{accountId}")]
-        public async Task<List<Reflection>> GetReflections(int accountId)
-        {
-            return await reflectionServices.GetReflections(accountId);
-        }
 
         [HttpGet]
         [Route("getByMonth")]
-        public async Task<List<Reflection>> GetDatesByMonth([FromQuery(Name ="id")] int accountId, [FromQuery(Name = "month")] int month, [FromQuery(Name = "year")] int year)
+        public async Task<ActionResult<List<Reflection>>> GetDatesByMonth([FromQuery(Name ="id")] int accountId, [FromQuery(Name = "month")] int month, [FromQuery(Name = "year")] int year)
         {
-            return await reflectionServices.GetDatesByMonth(accountId, month, year);
+            return Ok(await reflectionServices.GetDatesByMonth(accountId, month, year));
         }
 
         [HttpGet]
         [Route("checkForToday")]
-        public async Task<bool> CheckForToday([FromQuery(Name ="id")] int accountId)
+        public async Task<ActionResult<bool>> CheckForToday([FromQuery(Name ="id")] int accountId)
         {
-            return await reflectionServices.CheckForToday(accountId);
+            return Ok(await reflectionServices.CheckForToday(accountId));
         }
 
         [HttpPost]
         [Route("create")]
-        public async Task<Reflection> CreateReflection(Reflection reflection)
+        public async Task<ActionResult<Reflection>> CreateReflection([FromBody] Reflection reflection)
         {
-            return await reflectionServices.CreateReflection(reflection);
+            return Ok(await reflectionServices.CreateReflection(reflection));
         }
 
         [HttpPut]
         [Route("update")]
-        public async Task UpdateReflection(Reflection task)
+        public async Task<ActionResult> UpdateReflection([FromBody] Reflection reflection)
         {
-            await reflectionServices.UpdateReflection(task);
-            return;
+            await reflectionServices.UpdateReflection(reflection);
+            return Ok();
         }
 
         [HttpDelete]
-        [Route("deleteById/{id}")]
-        public async Task DeleteReflection(int id)
+        [Route("deleteById")]
+        public async Task<ActionResult> DeleteReflection([FromQuery] int id)
         {
             await reflectionServices.DeleteReflection(id);
-            return;
-        }
-
-        [HttpDelete]
-        [Route("deleteByAccount/{accountId}")]
-        public async Task DeleteReflectionsByAccount(int accountId)
-        {
-            await reflectionServices.DeleteReflectionsByAccount(accountId);
-            return;
+            return Ok();
         }
     }
 }

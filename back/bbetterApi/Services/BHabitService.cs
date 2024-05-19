@@ -1,6 +1,7 @@
 ﻿using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Services
@@ -26,7 +27,18 @@ namespace bbetterApi.Services
                 Content = bHabit.Content,
                 IssueDate = bHabit.IssueDate,
             };
-            return await bhabitRepository.Add(userRequest);
+
+            var bhabitResult = await bhabitRepository.Add(userRequest);
+
+            var dateRequest = new BHabitDate
+            {
+                BHabitId = bhabitResult.BHabitId,
+                DateOf = bhabitResult.IssueDate,
+            };
+
+            await bhabitDateRepository.Add(dateRequest);
+
+            return bhabitResult;
         }
 
         public async Task UpdateBHabit(BHabit bhabit)
@@ -37,6 +49,7 @@ namespace bbetterApi.Services
 
         public async Task DeleteBHabit(int id)
         {
+            await bhabitDateRepository.DeleteMany(id);
             await bhabitRepository.Delete(id);
             return;
         }
@@ -72,12 +85,48 @@ namespace bbetterApi.Services
             };
 
             await bhabitDateRepository.Add(userRequest);
+
+            var bhabit = await bhabitRepository.GetById(date.BHabitId);
+
+            var recent = await bhabitDateRepository.GetRecent(bhabit.BHabitId);
+
+            if (bhabit.IssueDate < recent.DateOf)
+            {
+                bhabit.IssueDate = recent.DateOf;
+                await bhabitRepository.Update(bhabit);
+            }
+
             return;
         }
 
         public async Task DeleteBHabitDate(int id)
         {
+            var bHabitDate = await bhabitDateRepository.GetByHabitDateId(id);
+            var bhabit = await bhabitRepository.GetById(bHabitDate.BHabitId);
+
             await bhabitDateRepository.Delete(id);
+
+            var recent = await bhabitDateRepository.GetRecent(bhabit.BHabitId);
+
+            if(recent == null)
+            {
+                var newBHabitDate = new BHabitDate
+                {
+                    DateOf = DateTime.Now,
+                    BHabitId = bhabit.BHabitId
+                };
+
+                await CreateBHabitDate(newBHabitDate);
+
+                bhabit.IssueDate = newBHabitDate.DateOf;
+            }
+            else
+            {
+                bhabit.IssueDate = recent.DateOf;
+            }
+
+            await bhabitRepository.Update(bhabit);
+
             return;
         }
 
@@ -86,5 +135,6 @@ namespace bbetterApi.Services
             await bhabitDateRepository.DeleteMany(habitId);
             return;
         }
+
     }
 }

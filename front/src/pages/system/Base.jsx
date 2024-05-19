@@ -4,11 +4,10 @@ import { useAuthContext } from '../../app/store/auth-context';
 
 const BasePage = () => {
   const { userData } = useAuthContext();
-
-  if (!userData) {
-    return <Navigate to={PathConstants.LOGIN} replace />;
-  } else {
+  if (userData) {
     return <Navigate to={PathConstants.HOME} replace />;
+  } else {
+    return <Navigate to={PathConstants.LOGIN} replace />;
   }
 };
 

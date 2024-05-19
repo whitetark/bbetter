@@ -9,7 +9,6 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
-using bbetterApi.Dto;
 
 namespace bbetterApi.Controllers
 {
@@ -70,7 +69,7 @@ namespace bbetterApi.Controllers
             var result = CreateUserResponse(responseFromDb);
             return Ok(new { token, result });
         }
-
+        [Authorize(Roles = "User")]
         [Route("logout")]
         [HttpPost]
         public async Task<ActionResult> Logout()
@@ -136,7 +135,7 @@ namespace bbetterApi.Controllers
             return Ok(new { token, result });
         }
 
-        [Authorize]
+        [Authorize(Roles = "User")]
         [Route("checkCredentials")]
         [HttpPost]
         public async Task<ActionResult> CheckCredentials([FromBody] UserLoginDto request)

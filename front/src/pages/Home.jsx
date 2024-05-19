@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { ReflectService, UserService } from '../app/services/api';
+import { ReflectService } from '../app/services/api';
 import { useAuthContext } from '../app/store/auth-context';
 import RecentReflection from '../components/Home/RecentReflection';
 import UserPhoto from '../components/Home/UserPhoto';
@@ -35,17 +35,6 @@ const HomePage = () => {
     },
   );
 
-  const { data: homeData } = useQuery(
-    ['getHomePage', requestBody],
-    () => UserService.getHomePage(requestBody),
-    {
-      onError: (error) => {
-        console.log('Get Reflections error: ' + error.message);
-      },
-      staleTime: 500000,
-    },
-  );
-
   return (
     <Styled.Home>
       <Background />
@@ -55,12 +44,12 @@ const HomePage = () => {
             <UserPhoto />
             {userData.username || 'username'}
           </Styled.MiniProfile>
-          <Quote quote={homeData?.data.quote} />
+          <Quote />
         </Styled.HomeHeader>
         <Styled.HomeMain>
           <Styled.HomeInfo>
-            <WeeklyStats stats={homeData?.data.stats} />
-            <RecentReflection reflection={homeData?.data.reflection} />
+            <WeeklyStats />
+            <RecentReflection />
           </Styled.HomeInfo>
           <Styled.HomeActionsBlock>
             <Styled.HomeActions>

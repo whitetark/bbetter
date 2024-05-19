@@ -24,7 +24,7 @@ import {
   faToggleOn,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './app/shared/ProtectedRoute';
 import PathConstants from './app/shared/pathConstants';
 import { useAuthContext } from './app/store/auth-context';
@@ -82,14 +82,8 @@ function App() {
       <Routes>
         <Route path='/' element={<RootLayout />}>
           <Route index element={<BasePage />} />
-          <Route
-            path={PathConstants.LOGIN}
-            element={!userData ? <LoginPage /> : <Navigate replace to={PathConstants.BASE} />}
-          />
-          <Route
-            path={PathConstants.REGISTER}
-            element={!userData ? <RegisterPage /> : <Navigate replace to={PathConstants.BASE} />}
-          />
+          <Route path={PathConstants.LOGIN} element={<LoginPage />} />
+          <Route path={PathConstants.REGISTER} element={<RegisterPage />} />
           <Route
             path={PathConstants.HOME}
             element={

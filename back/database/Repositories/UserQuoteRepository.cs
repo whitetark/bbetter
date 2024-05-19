@@ -20,9 +20,11 @@ namespace database.Repositories
             {
                 string sql = @"SELECT * FROM bbetterSchema.UserQuotes
                 WHERE UserQuoteId = @quoteId";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var quote = await _dbConnection.QuerySingleAsync<UserQuote>(sql, new { quoteId });
-                return quote;
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+                {
+                    var quote = await _dbConnection.QuerySingleAsync<UserQuote>(sql, new { quoteId });
+                    return quote;
+                }
             }
             catch (Exception ex)
             {
@@ -37,17 +39,19 @@ namespace database.Repositories
             {
                 string sql = @"SELECT * FROM bbetterSchema.UserQuotes
                 WHERE AccountId = @accountId";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var quotes = await _dbConnection.QueryAsync<UserQuote>(sql, new { accountId });
-
-                if (!quotes.Any())
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    return [];
+                    var quotes = await _dbConnection.QueryAsync<UserQuote>(sql, new { accountId });
+
+                    if (!quotes.Any())
+                    {
+                        return [];
+                    }
+
+                    var result = quotes.ToList();
+
+                    return result;
                 }
-
-                var result = quotes.ToList();
-
-                return result;
             }
             catch (Exception ex)
             {
@@ -64,17 +68,19 @@ namespace database.Repositories
                 FROM bbetterSchema.UserQuotes
                 WHERE AccountId = @accountId
                 ORDER BY NEWID();";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var quotes = await _dbConnection.QueryAsync<UserQuote>(sql, new { accountId });
-
-                if (!quotes.Any())
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    return null;
+                    var quotes = await _dbConnection.QueryAsync<UserQuote>(sql, new { accountId });
+
+                    if (!quotes.Any())
+                    {
+                        return null;
+                    }
+
+                    var result = quotes.FirstOrDefault();
+
+                    return result;
                 }
-
-                var result = quotes.FirstOrDefault();
-
-                return result;
             }
             catch (Exception ex)
             {
@@ -87,19 +93,20 @@ namespace database.Repositories
         {
             try
             {
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-
                 string sql = @"INSERT INTO bbetterSchema.UserQuotes
                 ([AccountId],[Quote],[Author]) 
                 OUTPUT INSERTED.*
                 VALUES (@accountId, @quote, @author)";
 
-                return await _dbConnection.QuerySingleAsync<UserQuote>(sql, new
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    accountId = quote.AccountId,
-                    quote = quote.Quote,
-                    author = quote.Author,
-                });
+                    return await _dbConnection.QuerySingleAsync<UserQuote>(sql, new
+                    {
+                        accountId = quote.AccountId,
+                        quote = quote.Quote,
+                        author = quote.Author,
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -113,13 +120,15 @@ namespace database.Repositories
             string sql = @"UPDATE bbetterSchema.UserQuotes 
             SET [Quote] = @quote, [Author] = @author
             WHERE UserQuoteId = @quoteId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                quote = newQuote.Quote,
-                quoteId = newQuote.UserQuoteId,
-                author = newQuote.Author,
-            }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new
+                {
+                    quote = newQuote.Quote,
+                    quoteId = newQuote.UserQuoteId,
+                    author = newQuote.Author,
+                }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Update Quote");
         }
@@ -129,8 +138,10 @@ namespace database.Repositories
         {
             string sql = @"DELETE FROM bbetterSchema.UserQuotes
             WHERE UserQuoteId = @quoteId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { quoteId }) > 0) { return; }
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                if (await _dbConnection.ExecuteAsync(sql, new { quoteId }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Delete UserQuotes");
         }
@@ -140,8 +151,10 @@ namespace database.Repositories
         {
             string sql = @"DELETE FROM bbetterSchema.UserQuotes
             WHERE AccountId = @accountId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Delete UserQuotes");
         }

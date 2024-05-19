@@ -27,7 +27,6 @@ const textErrors = (meta) => ({
 
 const LoginForm = (props) => {
   const { mutateAsync: login, error: loginError } = useLogin();
-  console.log(loginError);
   const navigate = useNavigate();
   return (
     <Styled.LoginForm>

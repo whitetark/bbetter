@@ -7,6 +7,7 @@ export const HomeHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: 2rem;
 
   > div {
     background-color: ${variables.WHITE};
@@ -95,6 +96,7 @@ export const HomeContent = styled(HomePadding)`
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  gap: 2rem;
 `;
 
 export const Home = styled.div`
@@ -180,6 +182,7 @@ export const Productivity = styled.div`
     font-size: 14px;
     color: ${variables.DIVIDER};
     font-weight: 600;
+    text-align: center;
   }
 
   .MuiCircularProgress-root
@@ -204,6 +207,7 @@ export const RecentReflection = styled.div`
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 
   > p {
     display: grid;

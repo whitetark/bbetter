@@ -15,7 +15,7 @@ export const useRefetchBHabits = () => {
       onError: (error) => {
         console.log('Get BHabits error: ' + error.message);
       },
-      staleTime: 30000,
+      staleTime: 1000 * 60 * 15,
     },
   );
 
@@ -69,6 +69,7 @@ export const useAddBHabitDate = () => {
   return useMutation('addBHabitDate', (payload) => BHabitService.createDate(payload), {
     onSuccess: () => {
       queryClient.invalidateQueries('getBDatesByMonth');
+      queryClient.invalidateQueries('getBHabits');
     },
     onError: (error) => {
       console.log('BHabit date add error:' + error);
@@ -80,6 +81,7 @@ export const useDeleteBHabitDate = () => {
   return useMutation('deleteBHabitDate', (payload) => BHabitService.deleteDate(payload), {
     onSuccess: () => {
       queryClient.invalidateQueries('getBDatesByMonth');
+      queryClient.invalidateQueries('getBHabits');
     },
     onError: (error) => {
       console.log('BHabit date delete error:' + error);

@@ -20,9 +20,11 @@ namespace database.Repositories
             {
                 string sql = @"SELECT * FROM bbetterSchema.Reflections
                 WHERE ReflectionId = @reflectionid";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var refl = await _dbConnection.QuerySingleAsync<Reflection>(sql, new { reflectionid });
-                return refl;
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+                {
+                    var refl = await _dbConnection.QuerySingleAsync<Reflection>(sql, new { reflectionid });
+                    return refl;
+                }
             }
             catch (Exception ex)
             {
@@ -37,17 +39,19 @@ namespace database.Repositories
             {
                 string sql = @"SELECT * FROM bbetterSchema.Reflections
                 WHERE AccountId = @accountId";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var refl = await _dbConnection.QueryAsync<Reflection>(sql, new { accountId });
-
-                if (refl.Count() == 0)
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    return new List<Reflection>();
+                    var refl = await _dbConnection.QueryAsync<Reflection>(sql, new { accountId });
+
+                    if (!refl.Any())
+                    {
+                        return new List<Reflection>();
+                    }
+
+                    var result = refl.ToList();
+
+                    return result;
                 }
-
-                var result = refl.ToList();
-
-                return result;
             }
             catch (Exception ex)
             {
@@ -65,17 +69,19 @@ namespace database.Repositories
                 AND MONTH(DateOf) = @month
                 AND YEAR(DateOf) = @year;";
 
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var ghabits = await _dbConnection.QueryAsync<Reflection>(sql, new { accountId, month, year });
-
-                if (ghabits.Count() == 0)
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    return [];
+                    var ghabits = await _dbConnection.QueryAsync<Reflection>(sql, new { accountId, month, year });
+
+                    if (!ghabits.Any())
+                    {
+                        return [];
+                    }
+
+                    var result = ghabits.ToList();
+
+                    return result;
                 }
-
-                var result = ghabits.ToList();
-
-                return result;
             }
             catch (Exception ex)
             {
@@ -119,14 +125,17 @@ namespace database.Repositories
                 FROM bbetterSchema.Reflections
                 WHERE AccountId = @accountId
                 AND CONVERT(DATE, DateOf) = CONVERT(DATE, GETDATE());";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var result = await _dbConnection.QuerySingleAsync<int>(sql, new { accountId });
-                if(result == 0)
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    return false;
-                } else
-                {
-                    return true;
+                    var result = await _dbConnection.QuerySingleAsync<int>(sql, new { accountId });
+                    if (result == 0)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
 
             } catch (Exception ex)
@@ -140,22 +149,23 @@ namespace database.Repositories
         {
             try
             {
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-
                 string sql = @"INSERT INTO bbetterSchema.Reflections
                 ([AccountId],[DateOf],[Emotion],[Productivity],[ThreeWords],[UserGoal]) 
                 OUTPUT INSERTED.*
                 VALUES (@accountId, @dateOf, @emotion, @productivity, @threeWords, @userGoal)";
 
-                return await _dbConnection.QuerySingleAsync<Reflection>(sql, new
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    accountId = reflection.AccountId,
-                    dateOf = reflection.DateOf,
-                    emotion = reflection.Emotion,
-                    productivity = reflection.Productivity,
-                    threeWords = reflection.ThreeWords,
-                    userGoal = reflection.UserGoal,
-                });
+                    return await _dbConnection.QuerySingleAsync<Reflection>(sql, new
+                    {
+                        accountId = reflection.AccountId,
+                        dateOf = reflection.DateOf,
+                        emotion = reflection.Emotion,
+                        productivity = reflection.Productivity,
+                        threeWords = reflection.ThreeWords,
+                        userGoal = reflection.UserGoal,
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -169,15 +179,17 @@ namespace database.Repositories
             string sql = @"UPDATE bbetterSchema.Reflections
             SET [Emotion] = @emotion, [Productivity] = @productivity, [ThreeWords] = @threeWords, [UserGoal] = @userGoal
             WHERE ReflectionId = @reflectionId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-               emotion = newReflection.Emotion,
-               productivity = newReflection.Productivity,
-               threeWords = newReflection.ThreeWords,
-               userGoal = newReflection.UserGoal,
-               reflectionId = newReflection.ReflectionId,
-            }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new
+                {
+                    emotion = newReflection.Emotion,
+                    productivity = newReflection.Productivity,
+                    threeWords = newReflection.ThreeWords,
+                    userGoal = newReflection.UserGoal,
+                    reflectionId = newReflection.ReflectionId,
+                }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Update Reflection");
         }
@@ -187,8 +199,10 @@ namespace database.Repositories
         {
             string sql = @"DELETE FROM bbetterSchema.Reflections
             WHERE ReflectionId = @reflectionId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { reflectionId }) > 0) { return; }
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                if (await _dbConnection.ExecuteAsync(sql, new { reflectionId }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Delete Reflection");
         }
@@ -198,8 +212,10 @@ namespace database.Repositories
         {
             string sql = @"DELETE FROM bbetterSchema.Reflections
             WHERE AccountId = @accountId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Delete Reflections");
         }

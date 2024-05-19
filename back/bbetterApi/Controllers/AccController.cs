@@ -1,5 +1,4 @@
-﻿using bbetterApi.Dto;
-using bbetterApi.Models;
+﻿using bbetterApi.Models;
 using bbetterApi.Services;
 using bbetterApi.Utils;
 using database.Models;
@@ -15,11 +14,11 @@ using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Controllers
 {
+    [Authorize(Roles = "User, Admin")]
     [Route("[controller]")]
     [ApiController]
     public class AccController(AccService accountServices, QuoteOfDayService quoteOfDayService, ReflectService reflectService) : ControllerBase
     {
-        [Authorize(Roles ="User")]
         [Route("getByUsername")]
         [HttpGet]
         public async Task<ActionResult> GetAccount()
@@ -38,10 +37,9 @@ namespace bbetterApi.Controllers
 
             return Ok(user);
         }
-
-        [Route("deleteById/{id}")]
+        [Route("deleteById")]
         [HttpDelete]
-        public async Task<ActionResult> DeleteAccount(int id)
+        public async Task<ActionResult> DeleteAccount([FromQuery] int id)
         {
             await accountServices.DeleteAccount(id);
             return Ok();
@@ -70,36 +68,32 @@ namespace bbetterApi.Controllers
             return Ok();
         }
 
-        [Route("getAccs")]
-        [HttpGet]
-        public async Task<List<Account>> GetAccounts()
-        {
-            return await accountServices.GetAccounts();
-        }
-
         [Route("whatToDo")]
         [HttpGet]
-        public async Task<WhatToDoResponse> GetWhatToDo([FromQuery] int id)
+        public async Task<ActionResult<WhatToDoResponse>> GetWhatToDo([FromQuery] int id)
         {
-            return await accountServices.GetWhatToDo(id);
+            return Ok(await accountServices.GetWhatToDo(id));
         }
 
         [Route("getStatistics")]
         [HttpGet]
-        public async Task<Statistics> GetStatistics([FromQuery] int id, string type)
+        public async Task<ActionResult<Statistics>> GetStatistics([FromQuery] int id, string type)
         {
-            return await accountServices.GetStatistics(id, type);
+            return Ok(await accountServices.GetStatistics(id, type));
         }
 
-        [Route("getHomePage")]
+        [Route("getQuoteOfTheDay")]
         [HttpGet]
-        public async Task<ActionResult> GetHomePage([FromQuery] int id, string type)
+        public async Task<ActionResult<Quote>> GetRandomQuote([FromQuery] int id)
         {
-            var stats = await accountServices.GetStatistics(id, type);
-            var quote = await quoteOfDayService.GetQuote(id.ToString());
-            var reflection = await reflectService.GetRecent(id);
+            return Ok(await quoteOfDayService.GetQuote(id.ToString()));
+        }
 
-            return Ok(new {stats, quote, reflection });
+        [Route("getRecentReflection")]
+        [HttpGet]
+        public async Task<ActionResult<Reflection>> GetRecentReflection([FromQuery] int id)
+        {
+            return Ok(await reflectService.GetRecent(id));
         }
     }
 }

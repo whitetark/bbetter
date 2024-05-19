@@ -14,7 +14,7 @@ export const useRefetchTasks = () => {
       onError: (error) => {
         console.log('Get Tasks error: ' + error.message);
       },
-      staleTime: 30000,
+      staleTime: 1000 * 60 * 15,
     },
   );
 

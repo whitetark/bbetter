@@ -20,9 +20,11 @@ namespace database.Repositories
             {
                 string sql = @"SELECT * FROM bbetterSchema.BHabits
                 WHERE BHabitId = @bHabitId";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var bhabit = await _dbConnection.QuerySingleAsync<BHabit>(sql, new { bHabitId });
-                return bhabit;
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+                {
+                    var bhabit = await _dbConnection.QuerySingleAsync<BHabit>(sql, new { bHabitId });
+                    return bhabit;
+                }
             }
             catch (Exception ex)
             {
@@ -37,17 +39,19 @@ namespace database.Repositories
             {
                 string sql = @"SELECT * FROM bbetterSchema.BHabits
                 WHERE AccountId = @accountId";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var bhabits = await _dbConnection.QueryAsync<BHabit>(sql, new { accountId });
-
-                if (bhabits.Count() == 0)
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    return new List<BHabit>();
+                    var bhabits = await _dbConnection.QueryAsync<BHabit>(sql, new { accountId });
+
+                    if (!bhabits.Any())
+                    {
+                        return [];
+                    }
+
+                    var result = bhabits.ToList();
+
+                    return result;
                 }
-
-                var result = bhabits.ToList();
-
-                return result;
             }
             catch (Exception ex)
             {
@@ -55,24 +59,27 @@ namespace database.Repositories
             }
         }
 
+
         //create
         public async Task<BHabit> Add(BHabit bHabit)
         {
             try
             {
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-
                 string sql = @"INSERT INTO bbetterSchema.BHabits
                 ([AccountId],[Content],[IssueDate]) 
                 OUTPUT INSERTED.*
                 VALUES (@accountId, @content, @issueDate)";
 
-                return await _dbConnection.QuerySingleAsync<BHabit>(sql, new
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    accountId = bHabit.AccountId,
-                    content = bHabit.Content,
-                    issueDate = bHabit.IssueDate,
-                });
+                    return await _dbConnection.QuerySingleAsync<BHabit>(sql, new
+                    {
+                        accountId = bHabit.AccountId,
+                        content = bHabit.Content,
+                        issueDate = bHabit.IssueDate,
+                    });
+                }
+
             }
             catch (Exception)
             {
@@ -86,14 +93,16 @@ namespace database.Repositories
             string sql = @"UPDATE bbetterSchema.BHabits 
             SET [Content] = @content, [IssueDate] = @issueDate 
             WHERE BHabitId = @bHabitId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                content = newBHabit.Content,
-                issueDate = newBHabit.IssueDate,
-                bHabitId = newBHabit.BHabitId
+                if (await _dbConnection.ExecuteAsync(sql, new
+                {
+                    content = newBHabit.Content,
+                    issueDate = newBHabit.IssueDate,
+                    bHabitId = newBHabit.BHabitId
 
-            }) > 0) { return; }
+                }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Update BHabit");
         }
@@ -103,8 +112,10 @@ namespace database.Repositories
         {
             string sql = @"DELETE FROM bbetterSchema.BHabits
             WHERE BHabitId = @bHabitId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { bHabitId }) > 0) { return; }
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                if (await _dbConnection.ExecuteAsync(sql, new { bHabitId }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Delete BHabits");
         }
@@ -114,8 +125,10 @@ namespace database.Repositories
         {
             string sql = @"DELETE FROM bbetterSchema.BHabits
             WHERE AccountId = @accountId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Delete BHabits");
         }

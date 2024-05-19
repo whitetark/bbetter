@@ -1,7 +1,11 @@
 import { Box, CircularProgress, Typography, circularProgressClasses } from '@mui/material';
 import React from 'react';
+import { useQuery } from 'react-query';
+import { UserService } from '../../app/services/api';
 import * as variables from '../../app/shared/colorVariables';
+import { useAuthContext } from '../../app/store/auth-context';
 import * as Styled from '../../styles/Home.styled';
+import Loading from '../UI/Loading';
 
 function CircularProgressWithLabel(props) {
   const settings = {
@@ -52,46 +56,73 @@ function CircularProgressWithLabel(props) {
   );
 }
 
-const WeeklyStats = ({ stats }) => {
+const WeeklyStats = () => {
+  const { userData } = useAuthContext();
+  const requestBody = {
+    Id: userData.accountId,
+    Type: 'week',
+  };
+
+  const { data, isLoading } = useQuery(
+    ['getStatistics', requestBody],
+    () => UserService.getStatistics(requestBody),
+    {
+      onError: (error) => {
+        console.log('Get Statistics error: ' + error.message);
+      },
+      staleTime: 500000,
+    },
+  );
+
+  const stats = data?.data;
+
   return (
-    stats && (
-      <Styled.WeeklyStats>
-        <Styled.StatsMain>
-          <h1>Weekly Stats</h1>
-          <Styled.StatsBlock>
-            <h1>Tasks</h1>
-            <p>
-              Completion Rate: <span>{stats?.taskCompletionRate}%</span>
-            </p>
-            <p>
-              Completed: <span>{stats?.taskCompletedNum}</span>
-            </p>
-            <p>
-              Completed Extra: <span>{stats?.taskCompletedExtra}</span>
-            </p>
-          </Styled.StatsBlock>
-          <Styled.StatsBlock>
-            <h1>Wishes</h1>
-            <p>
-              Completed: <span>{stats.wishesCompleteNum}</span>
-            </p>
-          </Styled.StatsBlock>
-          <Styled.StatsBlock>
-            <h1>Good Habits</h1>
-            <p>
-              Completion Rate: <span>{stats.gHabitCompletionRate}%</span>
-            </p>
-            <p>
-              Completed: <span>{stats.gHabitFullyCompleted}</span>
-            </p>
-          </Styled.StatsBlock>
-        </Styled.StatsMain>
-        <Styled.Productivity>
-          <CircularProgressWithLabel value={stats.productivityCoef} />
-          <span>Productivity Coefficient</span>
-        </Styled.Productivity>
-      </Styled.WeeklyStats>
-    )
+    <Styled.WeeklyStats>
+      {!isLoading ? (
+        stats ? (
+          <>
+            <Styled.StatsMain>
+              <h1>Weekly Stats</h1>
+              <Styled.StatsBlock>
+                <h1>Tasks</h1>
+                <p>
+                  Completion Rate: <span>{stats?.taskCompletionRate}%</span>
+                </p>
+                <p>
+                  Completed: <span>{stats?.taskCompletedNum}</span>
+                </p>
+                <p>
+                  Completed Extra: <span>{stats?.taskCompletedExtra}</span>
+                </p>
+              </Styled.StatsBlock>
+              <Styled.StatsBlock>
+                <h1>Wishes</h1>
+                <p>
+                  Completed: <span>{stats.wishesCompleteNum}</span>
+                </p>
+              </Styled.StatsBlock>
+              <Styled.StatsBlock>
+                <h1>Good Habits</h1>
+                <p>
+                  Completion Rate: <span>{stats.gHabitCompletionRate}%</span>
+                </p>
+                <p>
+                  Completed: <span>{stats.gHabitFullyCompleted}</span>
+                </p>
+              </Styled.StatsBlock>
+            </Styled.StatsMain>
+            <Styled.Productivity>
+              <CircularProgressWithLabel value={stats.productivityCoef} />
+              <span>Productivity This Week</span>
+            </Styled.Productivity>
+          </>
+        ) : (
+          <div>Not enough data :(</div>
+        )
+      ) : (
+        <Loading />
+      )}
+    </Styled.WeeklyStats>
   );
 };
 

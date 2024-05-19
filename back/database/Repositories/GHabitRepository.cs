@@ -21,9 +21,11 @@ namespace database.Repositories
             {
                 string sql = @"SELECT * FROM bbetterSchema.GHabits
                 WHERE GHabitId = @gHabitId";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var ghabit = await _dbConnection.QuerySingleAsync<GHabit>(sql, new { gHabitId });
-                return ghabit;
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+                {
+                    var ghabit = await _dbConnection.QuerySingleAsync<GHabit>(sql, new { gHabitId });
+                    return ghabit;
+                }
             }
             catch (Exception ex)
             {
@@ -47,27 +49,29 @@ namespace database.Repositories
                 AND DATEPART(week, DateOf) = DATEPART(week, GETDATE())
                 AND DATEPART(year, DateOf) = DATEPART(year, GETDATE());";
 
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                await _dbConnection.OpenAsync();
-                var results = await _dbConnection.QueryMultipleAsync(sql, new { accountId });
-                var ghabits = results.ReadAsync<GHabit>().Result.ToList();
-                var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+                {
+                    await _dbConnection.OpenAsync();
+                    var results = await _dbConnection.QueryMultipleAsync(sql, new { accountId });
+                    var ghabits = results.ReadAsync<GHabit>().Result.ToList();
+                    var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
 
-                List<GHabitWithDates> habitWithDates = ghabits.GroupJoin(
-                        ghabitDates,
-                        gHabit => gHabit.GHabitId.ToString(),
-                        gHabitDate => gHabitDate.GHabitId,
-                        (gHabit, gHabitDateResultsGroup) =>
-                            new GHabitWithDates
-                            {
-                                GHabitId = gHabit.GHabitId.ToString(),
-                                AccountId = gHabit.AccountId,
-                                Content = gHabit.Content,
-                                GHabitDates = gHabitDateResultsGroup.ToList()
-                            })
-                    .ToList();
+                    List<GHabitWithDates> habitWithDates = ghabits.GroupJoin(
+                            ghabitDates,
+                            gHabit => gHabit.GHabitId.ToString(),
+                            gHabitDate => gHabitDate.GHabitId,
+                            (gHabit, gHabitDateResultsGroup) =>
+                                new GHabitWithDates
+                                {
+                                    GHabitId = gHabit.GHabitId.ToString(),
+                                    AccountId = gHabit.AccountId,
+                                    Content = gHabit.Content,
+                                    GHabitDates = gHabitDateResultsGroup.ToList()
+                                })
+                        .ToList();
 
-                return habitWithDates;
+                    return habitWithDates;
+                }
             }
             catch (Exception ex)
             {
@@ -82,17 +86,19 @@ namespace database.Repositories
             {
                 string sql = @"SELECT * FROM bbetterSchema.GHabits
                 WHERE AccountId = @accountId";
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-                var ghabits = await _dbConnection.QueryAsync<GHabit>(sql, new { accountId });
-
-                if (ghabits.Count() == 0)
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    return new List<GHabit>();
+                    var ghabits = await _dbConnection.QueryAsync<GHabit>(sql, new { accountId });
+
+                    if (!ghabits.Any())
+                    {
+                        return new List<GHabit>();
+                    }
+
+                    var result = ghabits.ToList();
+
+                    return result;
                 }
-
-                var result = ghabits.ToList();
-
-                return result;
             }
             catch (Exception ex)
             {
@@ -105,18 +111,19 @@ namespace database.Repositories
         {
             try
             {
-                var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-
-                string sql = @"INSERT INTO bbetterSchema.GHabits
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+                {
+                    string sql = @"INSERT INTO bbetterSchema.GHabits
                 ([AccountId],[Content]) 
                 OUTPUT INSERTED.*
                 VALUES (@accountId, @content)";
 
-                return await _dbConnection.QuerySingleAsync<GHabit>(sql, new
-                {
-                    accountId = gHabit.AccountId,
-                    content = gHabit.Content,
-                });
+                    return await _dbConnection.QuerySingleAsync<GHabit>(sql, new
+                    {
+                        accountId = gHabit.AccountId,
+                        content = gHabit.Content,
+                    });
+                }
             }
             catch (Exception)
             {
@@ -130,13 +137,15 @@ namespace database.Repositories
             string sql = @"UPDATE bbetterSchema.GHabits 
             SET [Content] = @content, 
             WHERE GHabitId = @gHabitId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                content = newGHabit.Content,
-                gHabitId = newGHabit.GHabitId,
-            
-            }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new
+                {
+                    content = newGHabit.Content,
+                    gHabitId = newGHabit.GHabitId,
+
+                }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Update GHabit");
         }
@@ -146,8 +155,10 @@ namespace database.Repositories
         {
             string sql = @"DELETE FROM bbetterSchema.GHabits
             WHERE GHabitId = @gHabitId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { gHabitId }) > 0) { return; }
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                if (await _dbConnection.ExecuteAsync(sql, new { gHabitId }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Delete GHabits");
         }
@@ -157,8 +168,10 @@ namespace database.Repositories
         {
             string sql = @"DELETE FROM bbetterSchema.GHabits
             WHERE AccountId = @accountId";
-            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+            }
 
             throw new Exception("Failed to Delete GHabits");
         }

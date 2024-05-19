@@ -67,7 +67,9 @@ const TaskItem = ({ isEdit, data }) => {
     return () => clearTimeout(timer);
   }, [isCompleted]);
 
-  const classname = `${isUrgent ? 'urgent ' : ''}${isImportant ? 'important' : ''}`;
+  const classname = `${isUrgent ? 'urgent ' : ''}${isImportant ? 'important' : ''} ${
+    isCompleted ? 'completed' : ''
+  }`;
 
   const handleDelete = (requestBody) => {
     deleteAsync(requestBody).then(toggleDelete());
