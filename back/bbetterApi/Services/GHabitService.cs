@@ -6,16 +6,8 @@ using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Services
 {
-    public class GHabitService
+    public class GHabitService(GHabitRepository ghabitRepository, GHabitDateRepository gHabitDateRepository)
     {
-        private readonly GHabitRepository ghabitRepository;
-        private readonly GHabitDateRepository ghabitDateRepository;
-        public GHabitService(GHabitRepository ghabitRepository, GHabitDateRepository gHabitDateRepository)
-        {
-            this.ghabitRepository = ghabitRepository;
-            this.ghabitDateRepository = gHabitDateRepository;
-        }
-
         public async Task<GHabit> GetGHabit(int id)
         {
             return await ghabitRepository.GetById(id);
@@ -32,7 +24,7 @@ namespace bbetterApi.Services
         }
 
 
-        public async Task<GHabit> CreateGHabit(GHabitAddDto gHabit)
+        public async Task<GHabit> CreateGHabit(GHabit gHabit)
         {
             var userRequest = new GHabit
             {
@@ -66,24 +58,24 @@ namespace bbetterApi.Services
         //Dates
         public async Task<GHabitDate> GetGHabitDatesById(int id)
         {
-            return await ghabitDateRepository.GetById(id);
+            return await gHabitDateRepository.GetById(id);
         }
 
 
         public async Task<List<GHabitDate>> GetDatesByHabitId(int habitId)
         {
-            return await ghabitDateRepository.GetByHabitId(habitId);
+            return await gHabitDateRepository.GetByHabitId(habitId);
         }
 
         public async Task<List<GHabitDate>> GetDatesByMonth(int habitId)
         {
-            return await ghabitDateRepository.GetByWeek(habitId);
+            return await gHabitDateRepository.GetByWeek(habitId);
         }
 
 
         public async Task<int[]> GetDatesByMonth(int habitId, int month, int year)
         {
-            var dates = await ghabitDateRepository.GetByMonth(habitId, month, year);
+            var dates = await gHabitDateRepository.GetByMonth(habitId, month, year);
             var days = dates.Select(h => h.DateOf.Day).ToArray();
             if (days.Length > 0)
             {
@@ -101,20 +93,20 @@ namespace bbetterApi.Services
                 DateOf = date.DateOf.Date
             };
 
-            await ghabitDateRepository.Add(userRequest);
+            await gHabitDateRepository.Add(userRequest);
             return;
         }
 
         public async Task DeleteGHabitDate(int id, DateTime date)
         {
             var reformatedDate = date.Date;
-            await ghabitDateRepository.Delete(id, reformatedDate);
+            await gHabitDateRepository.Delete(id, reformatedDate);
             return;
         }
 
         public async Task DeleteGHabitDates(int habitId)
         {
-            await ghabitDateRepository.DeleteMany(habitId);
+            await gHabitDateRepository.DeleteMany(habitId);
             return;
         }
     }

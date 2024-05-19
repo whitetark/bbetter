@@ -17,50 +17,52 @@ const ReflectionItem = ({ reflection }) => {
   };
 
   const requestBody = {
-    Id: reflection.reflectionId,
+    Id: reflection?.reflectionId,
   };
   return (
-    <Styled.ReflectionItem>
-      <Styled.ReflectionHeader>
-        <Styled.ReflectionDate>
-          {dayjs(reflection.dateOf).format('DD/MM/YYYY')}
-        </Styled.ReflectionDate>
-        <Styled.ReflectionActions>
-          <Button onClick={toggleEdit}>
-            <FontAwesomeIcon icon='fa-solid fa-pencil' fixedWidth />
-          </Button>
-          <Button onClick={toggleDelete}>
-            <FontAwesomeIcon icon='fa-solid fa-trash-can' fixedWidth />
-          </Button>
-        </Styled.ReflectionActions>
-      </Styled.ReflectionHeader>
-      <Styled.ReflectionMain>
-        <Styled.ReflectionMainEmotion>
-          <div>
-            <FontAwesomeIcon icon='fa-regular fa-face-smile' fixedWidth />
-            {reflection.emotion}
-          </div>
-          <div>
-            <FontAwesomeIcon icon='fa-solid fa-person-digging' fixedWidth />
-            {reflection.productivity}
-          </div>
-        </Styled.ReflectionMainEmotion>
-        <Styled.ReflectionMainBlock>
-          <p>Three Words</p>
-          <div>{reflection.threeWords}</div>
-        </Styled.ReflectionMainBlock>
-        <Styled.ReflectionMainBlock>
-          <p>User Goal</p>
-          <div>{reflection.userGoal}</div>
-        </Styled.ReflectionMainBlock>
-      </Styled.ReflectionMain>
-      <Modal isShowing={editIsShowing} hide={toggleEdit} className='task-modal' hasOverlay>
-        <ReflectionEdit data={reflection} hide={toggleEdit} />
-      </Modal>
-      <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='task-modal' hasOverlay>
-        <Confirmation hide={toggleDelete} onDelete={() => handleDelete(requestBody)} />
-      </Modal>
-    </Styled.ReflectionItem>
+    reflection && (
+      <Styled.ReflectionItem>
+        <Styled.ReflectionHeader>
+          <Styled.ReflectionDate>
+            {dayjs(reflection.dateOf).format('DD/MM/YYYY')}
+          </Styled.ReflectionDate>
+          <Styled.ReflectionActions>
+            <Button onClick={toggleEdit}>
+              <FontAwesomeIcon icon='fa-solid fa-pencil' fixedWidth />
+            </Button>
+            <Button onClick={toggleDelete}>
+              <FontAwesomeIcon icon='fa-solid fa-trash-can' fixedWidth />
+            </Button>
+          </Styled.ReflectionActions>
+        </Styled.ReflectionHeader>
+        <Styled.ReflectionMain>
+          <Styled.ReflectionMainEmotion>
+            <div>
+              <FontAwesomeIcon icon='fa-regular fa-face-smile' fixedWidth />
+              {reflection.emotion}
+            </div>
+            <div>
+              <FontAwesomeIcon icon='fa-solid fa-person-digging' fixedWidth />
+              {reflection.productivity}
+            </div>
+          </Styled.ReflectionMainEmotion>
+          <Styled.ReflectionMainBlock>
+            <p>Three Words</p>
+            <div>{reflection.threeWords}</div>
+          </Styled.ReflectionMainBlock>
+          <Styled.ReflectionMainBlock>
+            <p>User Goal</p>
+            <div>{reflection.userGoal}</div>
+          </Styled.ReflectionMainBlock>
+        </Styled.ReflectionMain>
+        <Modal isShowing={editIsShowing} hide={toggleEdit} className='task-modal' hasOverlay>
+          <ReflectionEdit data={reflection} hide={toggleEdit} />
+        </Modal>
+        <Modal isShowing={deleteIsShowing} hide={toggleDelete} className='task-modal' hasOverlay>
+          <Confirmation hide={toggleDelete} onDelete={() => handleDelete(requestBody)} />
+        </Modal>
+      </Styled.ReflectionItem>
+    )
   );
 };
 

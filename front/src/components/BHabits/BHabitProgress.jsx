@@ -43,7 +43,10 @@ const BHabitProgress = ({ number, setNumber, timeDiff, limit, setLimit }) => {
       { interval: '', intervalMinutes: Infinity },
     );
 
-    const percentage = ((totalMinutes / nearestInterval.intervalMinutes) * 100).toFixed(2);
+    var percentage = ((totalMinutes / nearestInterval.intervalMinutes) * 100).toFixed(2);
+    if (percentage >= 100) {
+      percentage = 100;
+    }
 
     setNumber(percentage);
     setLimit(nearestInterval.interval);

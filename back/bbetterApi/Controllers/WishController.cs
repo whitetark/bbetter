@@ -12,7 +12,7 @@ namespace bbetterApi.Controllers
     [Authorize(Roles = "User, Admin")]
     [Route("[controller]")]
     [ApiController]
-    public class WishController(WishService wishServices, IConfiguration configuration) : ControllerBase
+    public class WishController(WishService wishServices) : ControllerBase
     {
         [HttpGet]
         [Route("getById/{id}")]
@@ -30,9 +30,8 @@ namespace bbetterApi.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<Wish> CreateWish(WishAddDto wish)
+        public async Task<Wish> CreateWish(Wish wish)
         {
-            
             return await wishServices.CreateWish(wish);
         }
 

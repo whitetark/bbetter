@@ -52,7 +52,7 @@ export const HomeActions = styled.div`
   ${Button} {
     background-color: ${variables.GREEN};
     color: ${variables.WHITE};
-    font-size: 42px;
+    font-size: 32px;
     padding: 3rem 4rem;
     border-radius: 10px;
     box-shadow: ${variables.BOX_SHADOW};
@@ -66,6 +66,12 @@ export const HomeActions = styled.div`
       background-color: ${variables.DISABLED_BUTTON};
     }
   }
+`;
+
+export const HomeInfo = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
 `;
 
 export const HomeContent = styled(HomePadding)`
@@ -117,4 +123,78 @@ export const UserPhoto = styled.div`
   border-radius: 120px;
   overflow: hidden;
   width: 6rem;
+`;
+
+export const WeeklyStats = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: ${variables.WHITE};
+  border-radius: 10px;
+  padding: 2rem;
+`;
+export const StatsMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+export const StatsBlock = styled.div`
+  h1 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 18px;
+    color: ${variables.DISABLED_BUTTON};
+    font-weight: 200;
+
+    span {
+      font-weight: 500;
+    }
+  }
+`;
+export const Productivity = styled.div`
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+
+  > span {
+    font-size: 14px;
+    color: ${variables.DIVIDER};
+    font-weight: 600;
+  }
+
+  .MuiCircularProgress-root
+    .MuiCircularProgress-determinate
+    .MuiCircularProgress-colorPrimary
+    .css-1rn30mb-MuiCircularProgress-root {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .css-1sn4lm3-MuiTypography-root {
+    font-size: 32px;
+    font-weight: 500;
+  }
+`;
+
+export const RecentReflection = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: ${variables.WHITE};
+  border-radius: 10px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  > p {
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    place-self: center;
+    height: 100%;
+    color: ${variables.DIVIDER};
+    font-weight: 500;
+  }
 `;

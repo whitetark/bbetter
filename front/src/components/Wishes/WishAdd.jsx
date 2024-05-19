@@ -25,6 +25,7 @@ const WishAdd = ({ onClick, hide }) => {
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={async (values, actions) => {
           const wish = {
+            WishId: 0,
             AccountId: userData.accountId,
             Content: values.content,
             isCompleted: false,

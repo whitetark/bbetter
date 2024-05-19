@@ -6,14 +6,8 @@ using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Services
 {
-    public class WishService
+    public class WishService(WishRepository wishRepository)
     {
-        private readonly WishRepository wishRepository;
-        public WishService(WishRepository wishRepository)
-        {
-            this.wishRepository = wishRepository;
-        }
-
         public async Task<Wish> GetWish(int id)
         {
             return await wishRepository.GetById(id);
@@ -26,7 +20,7 @@ namespace bbetterApi.Services
         }
 
 
-        public async Task<Wish> CreateWish(WishAddDto wish)
+        public async Task<Wish> CreateWish(Wish wish)
         {
             var userRequest = new Wish
             {

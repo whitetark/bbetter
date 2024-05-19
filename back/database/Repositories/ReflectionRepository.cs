@@ -83,6 +83,33 @@ namespace database.Repositories
             }
         }
 
+        //get-recent
+        public async Task<Reflection> GetRecent(int accountId)
+        {
+            try
+            {
+                string sql = @"SELECT TOP 1 * FROM bbetterSchema.Reflections
+                WHERE AccountId = @accountId
+                ORDER BY DateOf DESC";
+
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+                {
+                    var reflection = await _dbConnection.QuerySingleOrDefaultAsync<Reflection>(sql, new { accountId });
+
+                    if(reflection == null)
+                    {
+                        return null;
+                    }
+
+                    return reflection;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Get Recent Reflection", ex);
+            }
+        }
+
         //check-by-today
         public async Task<bool> CheckToday(int accountId)
         {

@@ -61,6 +61,9 @@ export const UserService = {
   async getWhatToDo(payload) {
     return api.get(`/Acc/whatToDo?id=${payload.Id}`);
   },
+  async getHomePage(payload) {
+    return api.get(`/Acc/getHomePage?id=${payload.Id}&type=${payload.Type}`);
+  },
 };
 
 export const TaskService = {
@@ -201,7 +204,7 @@ export const ReflectService = {
     return api.get(`/Reflect/getByAccount/${payload.AccountId}`);
   },
   async checkForToday(payload) {
-    return api.get(`/Reflect/checkForToday?id=${payload.AccountId}`);
+    return api.get(`/Reflect/checkForToday?id=${payload.Id}`);
   },
   async getDatesByMonth(payload) {
     return api.get(

@@ -11,7 +11,7 @@ namespace bbetterApi.Controllers
     [Authorize(Roles = "User, Admin")]
     [Route("[controller]")]
     [ApiController]
-    public class GHabitController(GHabitService gHabitServices, IConfiguration configuration) : ControllerBase
+    public class GHabitController(GHabitService gHabitServices) : ControllerBase
     {
         [HttpGet]
         [Route("getById/{id}")]
@@ -36,7 +36,7 @@ namespace bbetterApi.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<GHabit> CreateGHabit(GHabitAddDto gHabit)
+        public async Task<GHabit> CreateGHabit(GHabit gHabit)
         {
 
             return await gHabitServices.CreateGHabit(gHabit);

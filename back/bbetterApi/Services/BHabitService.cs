@@ -5,16 +5,8 @@ using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Services
 {
-    public class BHabitService
+    public class BHabitService(BHabitRepository bhabitRepository, BHabitDateRepository bhabitDateRepository)
     {
-        private readonly BHabitRepository bhabitRepository;
-        private readonly BHabitDateRepository bhabitDateRepository;
-        public BHabitService(BHabitRepository bhabitRepository, BHabitDateRepository bhabitDateRepository)
-        {
-            this.bhabitRepository = bhabitRepository;
-            this.bhabitDateRepository = bhabitDateRepository;
-        }
-
         public async Task<BHabit> GetBHabit(int id)
         {
             return await bhabitRepository.GetById(id);

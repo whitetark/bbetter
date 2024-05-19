@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using bbetterApi.Dto;
+using bbetterApi.Middleware;
 using bbetterApi.Models;
 using bbetterApi.Utils;
 using database.Models;
@@ -10,14 +11,8 @@ using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Services
 {
-    public class AccService
+    public class AccService(AccountRepository accountRepository)
     {
-        private readonly AccountRepository accountRepository;
-        public AccService(AccountRepository accountRepository)
-        {
-            this.accountRepository = accountRepository;
-        }
-
         public async Task<Account> GetAccount(string username)
         {
 
@@ -37,7 +32,7 @@ namespace bbetterApi.Services
             var responseFromDb = await accountRepository.GetByUsername(updateDto.Username);
             if (responseFromDb == null)
             {
-                return null;
+                throw new AppException("Username not found");
             }
 
             var newAccount = new Account
@@ -62,7 +57,7 @@ namespace bbetterApi.Services
 
             if (responseFromDb == null)
             {
-                return;
+                throw new AppException("Username not found");
             }
 
             var user = responseFromDb;
@@ -79,8 +74,15 @@ namespace bbetterApi.Services
 
         public async Task<WhatToDoResponse> GetWhatToDo(int id)
         {
-            var data = await accountRepository.GetAllActivities(id);
+            var data = await accountRepository.GetActivitiesForToday(id);
             return WhatToDoUtil.FormatData(data);
+        }
+
+        public async Task<Statistics> GetStatistics(int id, string type)
+        {
+
+            var result = await accountRepository.GetActivitiesForDate(id, type);
+            return StatsUtil.CalculateStats(result, type);
         }
     }
 }

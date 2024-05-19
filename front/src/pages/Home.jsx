@@ -1,6 +1,8 @@
 import { useQuery } from 'react-query';
-import { ReflectService } from '../app/services/api';
+import { ReflectService, UserService } from '../app/services/api';
 import { useAuthContext } from '../app/store/auth-context';
+import RecentReflection from '../components/Home/RecentReflection';
+import WeeklyStats from '../components/Home/WeeklyStats';
 import WhatToDo from '../components/Home/WhatToDo';
 import ReflectionAdd from '../components/Reflections/ReflectionAdd';
 import { Background, Button, Modal } from '../components/UI/index';
@@ -17,7 +19,8 @@ const HomePage = () => {
   const currentDate = new Date();
   const isSunday = currentDate.getDay() == 0;
   const requestBody = {
-    AccountId: userData.accountId,
+    Id: userData.accountId,
+    Type: 'week',
   };
 
   const { data: isReflect } = useQuery(
@@ -31,6 +34,27 @@ const HomePage = () => {
     },
   );
 
+  const { data: homeData } = useQuery(
+    ['getHomePage', requestBody],
+    () => UserService.getHomePage(requestBody),
+    {
+      onError: (error) => {
+        console.log('Get Reflections error: ' + error.message);
+      },
+      staleTime: 500000,
+    },
+  );
+
+  const stats = {
+    productivityCoef: 29.5,
+    taskCompletionRate: 39.5,
+    taskCompletedNum: 4,
+    taskCompletedExtra: 1,
+    gHabitCompletionRate: 19.3,
+    gHabitFullyCompleted: 1,
+    wishesCompleteNum: 5,
+  };
+
   return (
     <Styled.Home>
       <Background />
@@ -40,7 +64,7 @@ const HomePage = () => {
             <UserPhoto />
             {userData.username || 'username'}
           </Styled.MiniProfile>
-          <Quote />
+          <Quote quote={homeData?.data.quote} />
         </Styled.HomeHeader>
         <Styled.HomeMain>
           <Styled.HomeActions>
@@ -49,7 +73,10 @@ const HomePage = () => {
               Weekly Reflection
             </Button>
           </Styled.HomeActions>
-          <Styled.HomeStats>Weekly Stats</Styled.HomeStats>
+          <Styled.HomeInfo>
+            <WeeklyStats stats={homeData?.data.stats} />
+            <RecentReflection reflection={homeData?.data.reflection} />
+          </Styled.HomeInfo>
         </Styled.HomeMain>
       </Styled.HomeContent>
       <Modal isShowing={isWTDShowing} hide={toggleWTD} className='wtd-modal' hasOverlay>

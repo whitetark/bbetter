@@ -14,8 +14,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
-namespace database.Repositories 
-{ 
+namespace database.Repositories
+{
     public class AccountRepository(IOptions<DbConfig> dbConfig)
     {
         public async Task<Account> GetById(string id)
@@ -122,28 +122,28 @@ namespace database.Repositories
             SET [PasswordHash] = @passwordHash, [RefreshToken] = @refreshToken, [TokenCreated] = @tokenCreated, [TokenExpires] = @tokenExpires, [QuoteOfDayId] = @quote, [QuoteExpires] = @quoteExpires
             WHERE Username = @username";
             var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
-            if (await _dbConnection.ExecuteAsync(sql, new { 
-                passwordHash = newAccount.PasswordHash, 
-                refreshToken = newAccount.RefreshToken, 
-                tokenCreated = newAccount.TokenCreated, 
-                tokenExpires = newAccount.TokenExpires, 
-                username = newAccount.Username, 
-                quote = newAccount.QuoteOfDayId, 
+            if (await _dbConnection.ExecuteAsync(sql, new {
+                passwordHash = newAccount.PasswordHash,
+                refreshToken = newAccount.RefreshToken,
+                tokenCreated = newAccount.TokenCreated,
+                tokenExpires = newAccount.TokenExpires,
+                username = newAccount.Username,
+                quote = newAccount.QuoteOfDayId,
                 quoteExpires = newAccount.QuoteExpires }) > 0) { return; }
 
             throw new Exception("Failed to Update Account");
         }
 
-        public async Task<AccountActivities> GetAllActivities(int accountId)
+        public async Task<AccountActivities> GetActivitiesForToday(int accountId)
         {
             string sql = @"
             SET DATEFIRST 1
             SELECT * 
-            FROM bbetterSchema.Tasks T
+            FROM bbetterSchema.Tasks
             WHERE AccountId = @accountId
             AND IsCompleted = 0;
             SELECT *
-            FROM bbetterSchema.Wishes W
+            FROM bbetterSchema.Wishes
             WHERE AccountId = @accountId
             AND IsCompleted = 0;
             SELECT * FROM bbetterSchema.GHabits
@@ -187,5 +187,84 @@ namespace database.Repositories
 
             return result;
         }
+
+        public async Task<AccountActivities> GetActivitiesForDate(int accountId, string type)
+        {
+            string dateSql = "";
+            switch (type)
+            {
+                case "week":
+                    dateSql = @"SET DATEFIRST 1;
+                    DECLARE @today DATE = GETDATE();
+                    DECLARE @startOfDate DATE = DATEADD(day, 1 - DATEPART(weekday, @today) - 7, @today);
+                    DECLARE @endOfDate DATE = DATEADD(day, 7, @startOfDate);";
+                    break;
+                case "month":
+                    dateSql = @"SET DATEFIRST 1;
+                    DECLARE @today DATE = GETDATE();
+                    DECLARE @startOfCurrentMonth DATE = DATEFROMPARTS(YEAR(@today), MONTH(@today), 1);
+                    DECLARE @startOfDate DATE = DATEADD(MONTH, -1, @startOfCurrentMonth);
+                    DECLARE @endOfDate DATE = @startOfCurrentMonth;";
+                    break;
+                case "3month":
+                    dateSql = @"SET DATEFIRST 1;
+                    DECLARE @today DATE = GETDATE();
+                    DECLARE @startOfCurrentMonth DATE = DATEFROMPARTS(YEAR(@today), MONTH(@today), 1);
+                    DECLARE @startOfDate DATE = DATEADD(MONTH, -3, @startOfCurrentMonth);
+                    DECLARE @endOfDate DATE = @startOfCurrentMonth;";
+                    break;
+            }
+
+            string sql = @"
+            SELECT * 
+            FROM bbetterSchema.Tasks
+            WHERE AccountId = @accountId;
+            SELECT *
+            FROM bbetterSchema.Wishes
+            WHERE AccountId = @accountId;
+            SELECT * FROM bbetterSchema.GHabits
+            WHERE AccountId = @accountId;
+            SELECT GHD.GHabitDateId, GHD.DateOf, GHD.GHabitId
+            FROM bbetterSchema.GHabits GH
+            JOIN bbetterSchema.GHabitDate GHD ON GH.GHabitId = GHD.GHabitId
+            WHERE GH.AccountId = @accountId 
+            AND GHD.DateOf >= @startOfDate 
+            AND GHD.DateOf < @endOfDate;";
+
+            dateSql += sql;
+
+            var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
+            await _dbConnection.OpenAsync();
+            var results = await _dbConnection.QueryMultipleAsync(dateSql, new { accountId });
+            var tasks = results.ReadAsync<Models.Task>().Result.ToList();
+            var wishes = results.ReadAsync<Wish>().Result.ToList();
+            var ghabits = results.ReadAsync<GHabit>().Result.ToList();
+            var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
+
+            List<GHabitWithDates> habitWithDates = ghabits.GroupJoin(
+                ghabitDates,
+                gHabit => gHabit.GHabitId.ToString(),
+                gHabitWeekResult => gHabitWeekResult.GHabitId,
+                (gHabit, gHabitWeekResultsGroup) =>
+                    new GHabitWithDates
+                    {
+                        GHabitId = gHabit.GHabitId.ToString(),
+                        AccountId = gHabit.AccountId,
+                        Content = gHabit.Content,
+                        GHabitDates = gHabitWeekResultsGroup.ToList()
+                    })
+                .ToList();
+
+            var result = new AccountActivities
+            {
+                accountId = accountId,
+                tasks = tasks,
+                wishes = wishes,
+                ghabits = habitWithDates,
+            };
+
+            return result;
+        }
     }
 }
+  

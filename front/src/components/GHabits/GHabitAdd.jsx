@@ -25,6 +25,7 @@ const GHabitAdd = ({ onClick, hide }) => {
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={async (values, actions) => {
           const ghabit = {
+            GHabitId: 0,
             AccountId: userData.accountId,
             Content: values.content,
           };

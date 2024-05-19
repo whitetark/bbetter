@@ -10,9 +10,11 @@ import Modal from '../UI/Modal';
 import TaskEdit from './TaskEdit';
 
 const TaskItem = ({ isEdit, data }) => {
+  const [isCompleted, setIsCompleted] = useState(data.isCompleted);
   const [isUrgent, setIsUrgent] = useState(data.isUrgent);
   const [isImportant, setIsImportant] = useState(data.isImportant);
-  const [initialRender, setInitialRender] = useState(false);
+  const [initialRender1, setInitialRender1] = useState(false);
+  const [initialRender2, setInitialRender2] = useState(false);
 
   const { isShowing: editIsShowing, toggle: toggleEdit } = useModal();
   const { isShowing: deleteIsShowing, toggle: toggleDelete } = useModal();
@@ -20,8 +22,8 @@ const TaskItem = ({ isEdit, data }) => {
   const { mutateAsync: editAsync } = useEditTask();
 
   useEffect(() => {
-    if (!initialRender) {
-      setInitialRender(true);
+    if (!initialRender1) {
+      setInitialRender1(true);
       return;
     }
 
@@ -32,11 +34,38 @@ const TaskItem = ({ isEdit, data }) => {
         isImportant: isImportant,
       };
 
+      if (data.isUrgent == isUrgent && data.isImportant == isImportant) {
+        return;
+      }
+
       editAsync(task);
     }, 3000);
 
     return () => clearTimeout(timer);
   }, [isUrgent, isImportant]);
+
+  useEffect(() => {
+    if (!initialRender2) {
+      setInitialRender2(true);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      const task = {
+        ...data,
+        isCompleted: isCompleted,
+        completeDate: dayjs(new Date()).format(),
+      };
+
+      if (data.isCompleted == isCompleted) {
+        return;
+      }
+
+      editAsync(task);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [isCompleted]);
 
   const classname = `${isUrgent ? 'urgent ' : ''}${isImportant ? 'important' : ''}`;
 
@@ -51,6 +80,13 @@ const TaskItem = ({ isEdit, data }) => {
   return (
     <>
       <Styled.TaskItem className={classname.trim()}>
+        <div>
+          <input
+            type='checkbox'
+            checked={isCompleted}
+            onChange={() => setIsCompleted(!isCompleted)}
+          />
+        </div>
         <div className='content'>{data.content}</div>
         <div>
           <input type='checkbox' checked={isUrgent} onChange={() => setIsUrgent(!isUrgent)} />

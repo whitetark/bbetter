@@ -11,7 +11,7 @@ namespace bbetterApi.Controllers
     [Authorize(Roles = "User, Admin")]
     [Route("[controller]")]
     [ApiController]
-    public class TaskController(TaskService taskServices, IConfiguration configuration) : ControllerBase
+    public class TaskController(TaskService taskServices) : ControllerBase
     {
         [HttpGet]
         [Route("getById/{id}")]
@@ -29,7 +29,7 @@ namespace bbetterApi.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<database.Models.Task> CreateTask(TaskAddDto task)
+        public async Task<database.Models.Task> CreateTask(database.Models.Task task)
         {
 
             return await taskServices.CreateTask(task);

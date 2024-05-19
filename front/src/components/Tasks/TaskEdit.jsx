@@ -40,8 +40,9 @@ const TaskEdit = ({ onClick, data, hide }) => {
             Content: values.content,
             IsUrgent: values.isUrgent,
             IsImportant: values.isImportant,
-            Deadline: values.deadline,
-            IsCompleted: false,
+            Deadline: values.deadline.format(),
+            IsCompleted: values.IsCompleted,
+            CompleteDate: values.completeDate,
           };
           actions.resetForm();
           mutateAsync(task).then(hide());

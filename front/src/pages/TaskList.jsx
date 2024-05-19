@@ -45,6 +45,7 @@ const TaskListPage = () => {
       </Styled.TaskListHeader>
       <Styled.TaskListMain>
         <Styled.TaskHeader>
+          <div>Completed?</div>
           <div>Content</div>
           <div>Urgent?</div>
           <div>Important?</div>

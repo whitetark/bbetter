@@ -64,9 +64,9 @@ namespace database.Repositories
                 var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
 
                 string sql = @"INSERT INTO bbetterSchema.Tasks
-                ([AccountId],[Content],[IsUrgent],[IsImportant],[Deadline],[IsCompleted]) 
+                ([AccountId],[Content],[IsUrgent],[IsImportant],[Deadline],[IsCompleted],[CompleteDate]) 
                 OUTPUT INSERTED.*
-                VALUES (@accountId, @content, @isUrgent, @isImportant, @deadline, @isCompleted)";
+                VALUES (@accountId, @content, @isUrgent, @isImportant, @deadline, @isCompleted, @completeDate)";
 
                 return await _dbConnection.QuerySingleAsync<Models.Task>(sql, new
                 {
@@ -76,6 +76,7 @@ namespace database.Repositories
                     isImportant = task.IsImportant,
                     deadline = task.Deadline,
                     isCompleted = task.IsCompleted,
+                    completeDate = task.CompleteDate
                 });
             }
             catch (Exception ex)
@@ -88,7 +89,7 @@ namespace database.Repositories
         public async Task Update(Models.Task newTask)
         {
             string sql = @"UPDATE bbetterSchema.Tasks 
-            SET [Content] = @content, [IsUrgent] = @isUrgent, [IsImportant] = @isImportant, [Deadline] = @deadline, [IsCompleted] = @isCompleted
+            SET [Content] = @content, [IsUrgent] = @isUrgent, [IsImportant] = @isImportant, [Deadline] = @deadline, [IsCompleted] = @isCompleted, [CompleteDate] = @completeDate
             WHERE TaskId = @taskId";
             var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection);
             if (await _dbConnection.ExecuteAsync(sql, new 
@@ -99,6 +100,7 @@ namespace database.Repositories
                deadline = newTask.Deadline,
                isCompleted = newTask.IsCompleted,
                taskId = newTask.TaskId,
+               completeDate = newTask.CompleteDate
             }) > 0) { return; }
 
             throw new Exception("Failed to Update Task");

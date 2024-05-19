@@ -17,7 +17,7 @@ namespace bbetterApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AccController(AccService accountServices, IConfiguration configuration) : ControllerBase
+    public class AccController(AccService accountServices, QuoteService quoteService, ReflectService reflectService) : ControllerBase
     {
         [Authorize(Roles ="User")]
         [Route("getByUsername")]
@@ -82,6 +82,24 @@ namespace bbetterApi.Controllers
         public async Task<WhatToDoResponse> GetWhatToDo([FromQuery] int id)
         {
             return await accountServices.GetWhatToDo(id);
+        }
+
+        [Route("getStatistics")]
+        [HttpGet]
+        public async Task<Statistics> GetStatistics([FromQuery] int id, string type)
+        {
+            return await accountServices.GetStatistics(id, type);
+        }
+
+        [Route("getHomePage")]
+        [HttpGet]
+        public async Task<ActionResult> GetHomePage([FromQuery] int id, string type)
+        {
+            var stats = await accountServices.GetStatistics(id, type);
+            var quote = await quoteService.GetQuoteOfDay(id.ToString());
+            var reflection = await reflectService.GetRecent(id);
+
+            return Ok(new {stats, quote, reflection });
         }
     }
 }

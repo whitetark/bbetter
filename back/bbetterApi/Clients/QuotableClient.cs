@@ -10,7 +10,7 @@ namespace bbetterApi.Clients
 
         public QuotableClient(IConfiguration configuration) {
 
-            _baseUrl = "https://api.quotable.io";
+            _baseUrl = configuration["quotableURL"];
 
             _httpClient = new HttpClient
             {

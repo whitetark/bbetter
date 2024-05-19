@@ -8,18 +8,8 @@ using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Services
 {
-    public class QuoteService
+    public class QuoteService(UserQuoteRepository quoteRepository, AccountRepository accountRepository, QuotableClient quotableClient)
     {
-        private readonly UserQuoteRepository quoteRepository;
-        private readonly AccountRepository accountRepository;
-        private readonly QuotableClient quotableClient;
-        public QuoteService(UserQuoteRepository quoteRepository, AccountRepository accountRepository, QuotableClient quotableClient)
-        {
-           this.quoteRepository = quoteRepository;
-           this.quotableClient = quotableClient;
-           this.accountRepository = accountRepository;
-        }
-
         public async Task<Quote> GetQuoteOfDay(string id)
         {
             var user = await accountRepository.GetById(id);
@@ -57,16 +47,9 @@ namespace bbetterApi.Services
         }
 
 
-        public async Task<UserQuote> CreateUserQuote(UserQuoteAddDto quote)
+        public async Task<UserQuote> CreateUserQuote(UserQuote quote)
         {
-            var userRequest = new UserQuote
-            {
-                AccountId = quote.AccountId,
-                Quote = quote.Quote,
-                Author = quote.Author,
-            };
-
-            return await quoteRepository.Add(userRequest);
+            return await quoteRepository.Add(quote);
         }
 
         public async Task UpdateUserQuote(UserQuote quote)

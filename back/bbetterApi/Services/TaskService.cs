@@ -4,15 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace bbetterApi.Services
 {
-    public class TaskService
+    public class TaskService(TaskRepository taskRepository)
     {
-        private readonly TaskRepository taskRepository;
-
-        public TaskService(TaskRepository taskRepository)
-        {
-            this.taskRepository = taskRepository;
-        }
-
         public async Task<database.Models.Task> GetTask(int id)
         {
             return await taskRepository.GetById(id);
@@ -23,19 +16,9 @@ namespace bbetterApi.Services
             return await taskRepository.GetByAccount(accountId);
         }
 
-        public async Task<database.Models.Task> CreateTask(TaskAddDto task)
+        public async Task<database.Models.Task> CreateTask(database.Models.Task task)
         {
-            var userRequest = new database.Models.Task
-            {
-                AccountId = task.AccountId,
-                Content = task.Content,
-                IsUrgent = task.IsUrgent,
-                IsImportant = task.IsImportant,
-                Deadline = task.Deadline,
-                IsCompleted = task.IsCompleted,
-            };
-
-            return await taskRepository.Add(userRequest);
+            return await taskRepository.Add(task);
         }
 
         public async Task UpdateTask(database.Models.Task task)

@@ -6,14 +6,8 @@ using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Services
 {
-    public class ReflectService
+    public class ReflectService(ReflectionRepository reflectRepository)
     {
-        private readonly ReflectionRepository reflectRepository;
-        public ReflectService(ReflectionRepository reflectRepository)
-        {
-            this.reflectRepository = reflectRepository;
-        }
-
         public async Task<Reflection> GetReflection(int id)
         {
             return await reflectRepository.GetById(id);
@@ -29,6 +23,10 @@ namespace bbetterApi.Services
             return await reflectRepository.GetByMonth(accountId, month, year);
         }
 
+        public async Task<Reflection> GetRecent(int accountId)
+        {
+            return await reflectRepository.GetRecent(accountId);
+        }
         public async Task<bool> CheckForToday(int accountId)
         {
             return await reflectRepository.CheckToday(accountId);

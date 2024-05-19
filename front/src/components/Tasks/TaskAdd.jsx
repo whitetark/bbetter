@@ -34,11 +34,12 @@ const TaskAdd = ({ onClick, hide }) => {
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={async (values, actions) => {
           const task = {
+            TaskId: 0,
             AccountId: userData.accountId,
             Content: values.content,
             IsUrgent: values.isUrgent,
             IsImportant: values.isImportant,
-            Deadline: values.deadline,
+            Deadline: values.deadline.format(),
             IsCompleted: false,
           };
           actions.resetForm();

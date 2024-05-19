@@ -1,4 +1,5 @@
-﻿using bbetterApi.Models;
+﻿using bbetterApi.Middleware;
+using bbetterApi.Models;
 using database.Models;
 using Task = database.Models.Task;
 
@@ -6,40 +7,43 @@ namespace bbetterApi.Utils
 {
     public class StatsUtil
     {
-        public static DateTime StartOfWeek(DateTime dt, DayOfWeek startOfWeek)
-        {
-            int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
-            return dt.AddDays(-1 * diff).Date;
-        }
-
-        public static Statistics CalculateStats(AccountActivities accountActivities)
+        public static Statistics CalculateStats(AccountActivities accountActivities, string type)
         {
             List<Task> tasks = accountActivities.tasks;
             List<Wish> wishes = accountActivities.wishes;
             List<GHabitWithDates> ghabits = accountActivities.ghabits;
-            DateTime startOfWeek = StartOfWeek(DateTime.Now, DayOfWeek.Monday);
-            DateTime endOfWeek = startOfWeek.AddDays(7);
+
+            GetDateRange(type, out DateTime startOfDate, out DateTime endOfDate);
 
             //Tasks
-            var numOfTasksWithDeadlineThisWeek = tasks.Count(t => t.Deadline >= startOfWeek && t.Deadline < endOfWeek);
-            var tasksWithDeadlineAndCompleteDateThisWeek = tasks.Where(t => t.Deadline >= startOfWeek && t.Deadline < endOfWeek && t.CompleteDate >= startOfWeek && t.CompleteDate < endOfWeek).ToList();
-            var tasksWithDeadlineThisWeekAndCompleteDateLater = tasks.Where(t => t.Deadline >= startOfWeek && t.Deadline < endOfWeek && t.CompleteDate > t.Deadline).ToList();
-            int numOfThisWeekCompleted = tasksWithDeadlineAndCompleteDateThisWeek.Count - tasksWithDeadlineThisWeekAndCompleteDateLater.Count;
-            int numOftasksWithCompleteDateThisWeek = tasks.Count(t => t.CompleteDate >= startOfWeek && t.CompleteDate < endOfWeek);
-            int numOfExtraWork = numOftasksWithCompleteDateThisWeek - numOfThisWeekCompleted;
+            var numOfTasksWithDeadlineThisWeek = tasks.Count(t => t.Deadline >= startOfDate && t.Deadline < endOfDate);
+            var tasksCompleted = tasks.Where(t => t.IsCompleted == true);
+            var tasksWithDeadlineAndCompleteDateThisWeek = tasksCompleted.Where(t => t.Deadline >= startOfDate && t.Deadline < endOfDate && t.CompleteDate >= startOfDate && t.CompleteDate < endOfDate).ToList();
+            var tasksWithDeadlineThisWeekAndCompleteDateLater = tasksCompleted.Where(t => t.Deadline >= startOfDate && t.Deadline < endOfDate && t.CompleteDate > t.Deadline).ToList();
+            double numOfThisWeekCompleted = tasksWithDeadlineAndCompleteDateThisWeek.Count - tasksWithDeadlineThisWeekAndCompleteDateLater.Count;
+            double numOftasksWithCompleteDateThisWeek = tasksCompleted.Count(t => t.CompleteDate >= startOfDate && t.CompleteDate < endOfDate);
+            double numOfExtraWork = numOftasksWithCompleteDateThisWeek - numOfThisWeekCompleted;
 
             //Wishes
-            List<Wish> thisWeekWishesCompleted = wishes.Where(w => w.IsCompleted && w.CompleteDate >= startOfWeek && w.CompleteDate <= endOfWeek).ToList();
-            int totalThisWeekWishes = thisWeekWishesCompleted.Count;
+            List<Wish> thisWeekWishesCompleted = wishes.Where(w => w.IsCompleted && w.CompleteDate >= startOfDate && w.CompleteDate <= endOfDate).ToList();
+            double totalThisWeekWishes = thisWeekWishesCompleted.Count;
 
             //GHabits
-            int totalGHabits = ghabits.Count;
-            int gHabitEntries = ghabits.Sum(g => g.GHabitDates.Count);
-            int gHabitsCompleted = ghabits.Count(g => g.GHabitDates.Count >= 7);
-            int totalPossibleGHabitEntries = totalGHabits * 7;
+            double totalGHabits = ghabits.Count;
+            double gHabitEntries = ghabits.Sum(g => g.GHabitDates.Count);
+            double gHabitsCompleted = ghabits.Count(g => g.GHabitDates.Count >= 7);
+            double totalPossibleGHabitEntries = totalGHabits * 7;
 
-            double taskCompletionRate = numOfTasksWithDeadlineThisWeek > 0 ? (double)(numOfThisWeekCompleted / numOfTasksWithDeadlineThisWeek) * 100 : 0;
-            double habitEngagementRate = totalPossibleGHabitEntries > 0 ? (double)(gHabitEntries / totalPossibleGHabitEntries) * 100 : 0;
+            double taskCompletionRate = 0;
+            double habitEngagementRate = 0;
+            if(numOfTasksWithDeadlineThisWeek > 0)
+            {
+                taskCompletionRate = (numOfThisWeekCompleted / numOfTasksWithDeadlineThisWeek) * 100;
+            }
+            if (totalPossibleGHabitEntries > 0)
+            {
+                habitEngagementRate = (double)(gHabitEntries / totalPossibleGHabitEntries) * 100;
+            }
             double wishBonus = totalThisWeekWishes * 10;
             double taskBonus = numOfExtraWork * 5;
 
@@ -47,18 +51,48 @@ namespace bbetterApi.Utils
 
             var stats = new Statistics
             {
-                EntryDate = endOfWeek,
+                AccountId = accountActivities.accountId,
+                EntryDate = endOfDate,
                 Type = "week",
                 ProductivityCoef = productivityCoefficient,
-                TaskCompletionRate = taskCompletionRate,
-                TaskCompeletedNum = numOfThisWeekCompleted,
+                TaskCompletionRate = Math.Round(taskCompletionRate, 2),
+                TaskCompletedNum = numOfThisWeekCompleted,
                 TaskCompletedExtra = numOfExtraWork,
-                GHabitCompletionRate = habitEngagementRate,
+                GHabitCompletionRate = Math.Round(habitEngagementRate, 2),
                 GHabitFullyCompleted = gHabitsCompleted,
                 WishesCompleteNum = totalThisWeekWishes,
             };
 
             return stats;
+        }
+
+        public static DateTime StartOfWeek(DateTime dt, DayOfWeek startOfWeek)
+        {
+            int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
+            return dt.AddDays(-1 * diff).Date;
+        }
+
+        public static void GetDateRange(string type, out DateTime startOfDate, out DateTime endOfDate)
+        {
+            DateTime today = DateTime.Now;
+
+            switch (type.ToLower())
+            {
+                case "week":
+                    startOfDate = StartOfWeek(today.AddDays(-7), DayOfWeek.Monday);
+                    endOfDate = StartOfWeek(today, DayOfWeek.Monday).AddDays(-1);
+                    break;
+                case "month":
+                    startOfDate = new DateTime(today.Year, today.Month, 1).AddMonths(-1);
+                    endOfDate = new DateTime(today.Year, today.Month, 1).AddDays(-1);
+                    break;
+                case "3month":
+                    startOfDate = new DateTime(today.Year, today.Month, 1).AddMonths(-3);
+                    endOfDate = new DateTime(today.Year, today.Month, 1).AddDays(-1);
+                    break;
+                default:
+                    throw new AppException("Invalid type");
+            }
         }
     }
 }

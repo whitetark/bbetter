@@ -15,6 +15,6 @@ namespace database.Models
         public bool IsImportant { get; set; }
         public DateTime Deadline { get; set; }
         public bool IsCompleted { get; set; }
-        public DateTime CompleteDate {  get; set; }
+        public DateTime CompleteDate { get; set; } = DateTime.Now;
     }
 }

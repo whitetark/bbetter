@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useEditWish } from '../../hooks/use-wish';
 import * as Styled from '../../styles/Wishes.styled';
@@ -17,7 +18,12 @@ const WishItem = ({ data }) => {
       const task = {
         ...data,
         isCompleted: isChecked,
+        completeDate: dayjs(new Date()).format(),
       };
+
+      if (data.isCompleted == isChecked) {
+        return;
+      }
 
       mutateAsync(task);
     }, 3000);

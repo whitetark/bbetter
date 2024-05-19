@@ -20,6 +20,9 @@ CREATE TABLE bbetterSchema.Accounts
     QuoteExpires DATETIME,
 )
 
+DROP TABLE bbetterSchema.Tasks
+DROP TABLE bbetterSchema.Wishes
+
 CREATE TABLE bbetterSchema.Tasks
 (
     TaskId INT IDENTITY(1,1) PRIMARY KEY,
@@ -29,6 +32,7 @@ CREATE TABLE bbetterSchema.Tasks
     IsImportant BIT,
     Deadline DATETIME,
     IsCompleted BIT,
+    CompleteDate DATETIME
 )
 
 CREATE TABLE bbetterSchema.Wishes
@@ -37,6 +41,7 @@ CREATE TABLE bbetterSchema.Wishes
     AccountId INT REFERENCES bbetterSchema.Accounts(AccountId),
     Content VARCHAR(300),
     IsCompleted BIT,
+    CompleteDate DATETIME,
 )
 
 CREATE TABLE bbetterSchema.GHabits
@@ -89,7 +94,13 @@ CREATE TABLE bbetterSchema.Reflections
 
 SELECT * FROM bbetterSchema.Accounts;
 
-SELECT COUNT(*) AS NumReflections 
-                FROM bbetterSchema.Reflections
-                WHERE AccountId = 1
-                AND CONVERT(DATE, DateOf) = CONVERT(DATE, GETDATE());
+SET DATEFIRST 1;
+DECLARE @today DATE = GETDATE();
+DECLARE @startOfLastWeek DATE = DATEADD(day, 1 - DATEPART(weekday, @today) - 7, @today);
+DECLARE @endOfLastWeek DATE = DATEADD(day, 7, @startOfLastWeek);
+SELECT GHD.GHabitDateId, GHD.DateOf, GHD.GHabitId
+FROM bbetterSchema.GHabits GH
+JOIN bbetterSchema.GHabitDate GHD ON GH.GHabitId = GHD.GHabitId
+WHERE GH.AccountId = 1
+AND GHD.DateOf >= @startOfLastWeek 
+AND GHD.DateOf < @endOfLastWeek;

@@ -26,6 +26,7 @@ const QuoteAdd = ({ onClick, hide }) => {
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={async (values, actions) => {
           const quote = {
+            UserQuoteId: 0,
             AccountId: 1,
             Quote: values.content,
             Author: values.author == '' ? 'Me' : values.author,

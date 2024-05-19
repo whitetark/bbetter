@@ -13,7 +13,7 @@ namespace bbetterApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class QuoteController(QuoteService quoteServices, IConfiguration configuration) : ControllerBase
+    public class QuoteController(QuoteService quoteServices) : ControllerBase
     {
 
         [HttpGet]
@@ -55,7 +55,7 @@ namespace bbetterApi.Controllers
 
         [HttpPost]
         [Route("user/create")]
-        public async Task<UserQuote> CreateUserQuote(UserQuoteAddDto quote)
+        public async Task<UserQuote> CreateUserQuote(UserQuote quote)
         {
             return await quoteServices.CreateUserQuote(quote);
         }

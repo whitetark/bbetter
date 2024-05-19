@@ -22,14 +22,14 @@ export const TaskListMain = styled.div`
 `;
 export const TaskHeader = styled.div`
   display: grid;
-  grid-template-columns: 4fr 1fr 1fr 2fr 1fr;
+  grid-template-columns: 1fr 4fr 1fr 1fr 2fr 1fr;
   text-align: center;
   font-weight: 500;
   color: ${variables.DISABLED_BUTTON};
 `;
 export const TaskItem = styled.div`
   display: grid;
-  grid-template-columns: 4fr 1fr 1fr 2fr 1fr;
+  grid-template-columns: 1fr 4fr 1fr 1fr 2fr 1fr;
   background-color: ${variables.DIVIDER};
   border-radius: 10px;
   padding: 1rem;
