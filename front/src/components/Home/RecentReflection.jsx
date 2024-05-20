@@ -4,7 +4,7 @@ import { UserService } from '../../app/services/api';
 import { useAuthContext } from '../../app/store/auth-context';
 import * as Styled from '../../styles/Home.styled';
 import ReflectionItem from '../Reflections/ReflectionItem';
-import Loading from '../UI/Loading';
+import LoadingWrapper from '../UI/LoadingWrapper';
 
 const RecentReflection = () => {
   const { userData } = useAuthContext();
@@ -27,15 +27,13 @@ const RecentReflection = () => {
   return (
     <Styled.RecentReflection>
       <h1>Recent Reflection</h1>
-      {!isLoading ? (
-        reflection ? (
+      <LoadingWrapper isLoading={isLoading}>
+        {reflection ? (
           <ReflectionItem reflection={reflection} />
         ) : (
-          <p>You don`t have reflections yet :(</p>
-        )
-      ) : (
-        <Loading />
-      )}
+          <p>You don`t have reflections yet</p>
+        )}
+      </LoadingWrapper>
     </Styled.RecentReflection>
   );
 };

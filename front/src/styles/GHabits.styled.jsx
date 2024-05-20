@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
-import { BHabitHeader, BHabitItemActions, BHabitItemHeader } from './BHabits.styled';
+import { BHabitItemActions, BHabitItemHeader } from './BHabits.styled';
+import { TaskListHeader, TaskListHeaderBlock } from './TaskList.styled';
 import { TaskActions } from './Tasks.styled';
 import { Button, HomePadding } from './UI.styled';
 import { AddWishButton, AddWishForm } from './Wishes.styled';
@@ -59,7 +60,12 @@ export const Checklist = styled.div`
   padding: 1rem 2rem 1rem 0;
 `;
 
-export const GHabitHeader = styled(BHabitHeader)``;
+export const GHabitHeader = styled(TaskListHeader)`
+  flex-direction: column;
+`;
+export const GHabitHeaderBlock = styled(TaskListHeaderBlock)`
+  justify-content: space-between;
+`;
 
 export const GHabitTableHeader = styled.div`
   display: grid;

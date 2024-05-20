@@ -80,15 +80,15 @@ namespace bbetterApi.Utils
             {
                 case "week":
                     startOfDate = StartOfWeek(today.AddDays(-7), DayOfWeek.Monday);
-                    endOfDate = StartOfWeek(today, DayOfWeek.Monday).AddDays(-1);
+                    endOfDate = StartOfWeek(today, DayOfWeek.Monday).AddMinutes(-1);
                     break;
                 case "month":
                     startOfDate = new DateTime(today.Year, today.Month, 1).AddMonths(-1);
-                    endOfDate = new DateTime(today.Year, today.Month, 1).AddDays(-1);
+                    endOfDate = new DateTime(today.Year, today.Month, 1).AddMinutes(-1);
                     break;
                 case "3month":
                     startOfDate = new DateTime(today.Year, today.Month, 1).AddMonths(-3);
-                    endOfDate = new DateTime(today.Year, today.Month, 1).AddDays(-1);
+                    endOfDate = new DateTime(today.Year, today.Month, 1).AddMinutes(-1);
                     break;
                 default:
                     throw new AppException("Invalid type");

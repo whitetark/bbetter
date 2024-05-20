@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import useModal from '../../hooks/use-modal';
 import { useDeleteWish, useEditWish } from '../../hooks/use-wish';
@@ -27,7 +28,12 @@ const WishListItem = ({ isEdit, data }) => {
       const task = {
         ...data,
         isCompleted: isChecked,
+        completeDate: dayjs().format(),
       };
+
+      if (data.isCompleted == isChecked) {
+        return;
+      }
 
       editAsync(task);
     }, 3000);

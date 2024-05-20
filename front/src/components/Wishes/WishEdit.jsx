@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
@@ -26,11 +27,17 @@ const WishEdit = ({ onClick, hide, data }) => {
         initialValues={initialValues}
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={async (values, actions) => {
+          let completeDate = dayjs(new Date()).format();
+          if (values.isCompleted == data.isCompleted) {
+            completeDate = data.completeDate;
+          }
+
           const wish = {
             WishId: data.wishId,
             AccountId: userData.accountId,
             Content: values.content,
             isCompleted: values.isCompleted,
+            CompleteDate: completeDate,
           };
           actions.resetForm();
           mutateAsync(wish).then(hide());

@@ -1,11 +1,13 @@
-﻿using database.Models;
+﻿using bbetterApi.Clients;
+using bbetterApi.Models;
+using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Services
 {
-    public class WishService(WishRepository wishRepository)
+    public class WishService(WishRepository wishRepository, BoredClient boredClient)
     {
         public async Task<Wish> GetWish(int id)
         {
@@ -18,6 +20,10 @@ namespace bbetterApi.Services
             return await wishRepository.GetByAccount(accountId);
         }
 
+        public async Task<BoredItem> GetNewWish()
+        {
+            return await boredClient.GetRandomActivity();
+        }
 
         public async Task<Wish> CreateWish(Wish wish)
         {

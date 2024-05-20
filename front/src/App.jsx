@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import {
   faArrowLeft,
+  faArrowRight,
   faCheckToSlot,
   faDrum,
   faGear,
@@ -68,6 +69,8 @@ library.add(
   faPersonDigging,
   faCheckToSlot,
   faToggleOn,
+  faArrowLeft,
+  faArrowRight,
 );
 
 function App() {

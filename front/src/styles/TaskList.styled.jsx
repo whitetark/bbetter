@@ -5,11 +5,17 @@ import { HomePadding } from './UI.styled';
 
 export const TaskList = styled(HomePadding)``;
 export const TaskListHeader = styled(BHabitHeader)`
-  font-size: 24px;
+  flex-direction: column;
   justify-content: flex-start;
+  font-size: 24px;
   gap: 1rem;
   color: ${variables.DISABLED_BUTTON};
 `;
+export const TaskListHeaderBlock = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 export const TaskListActions = styled(BHabitActions)`
   margin-left: auto;
 `;

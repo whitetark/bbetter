@@ -1,7 +1,7 @@
 import { Form } from 'formik';
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
-import { BHabitActions, BHabitHeader } from './BHabits.styled';
+import { BHabitActions } from './BHabits.styled';
 import { HomePadding } from './UI.styled';
 import { AddWishButton } from './Wishes.styled';
 
@@ -78,7 +78,11 @@ export const TableText = styled.div`
   }
 `;
 
-export const TaskHeader = styled(BHabitHeader)``;
+export const TaskHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 export const TaskActions = styled(BHabitActions)``;
 
 export const AddTask = styled.div`

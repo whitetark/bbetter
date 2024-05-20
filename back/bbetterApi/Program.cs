@@ -49,6 +49,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddSingleton<QuotableClient>();
+builder.Services.AddSingleton<BoredClient>();
 
 builder.Services.AddScoped<AccService>();
 builder.Services.AddScoped<BHabitService>();

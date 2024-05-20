@@ -5,7 +5,7 @@ import { UserService } from '../../app/services/api';
 import * as variables from '../../app/shared/colorVariables';
 import { useAuthContext } from '../../app/store/auth-context';
 import * as Styled from '../../styles/Home.styled';
-import Loading from '../UI/Loading';
+import LoadingWrapper from '../UI/LoadingWrapper';
 
 function CircularProgressWithLabel(props) {
   const settings = {
@@ -78,8 +78,8 @@ const WeeklyStats = () => {
 
   return (
     <Styled.WeeklyStats>
-      {!isLoading ? (
-        stats ? (
+      <LoadingWrapper isLoading={isLoading}>
+        {stats ? (
           <>
             <Styled.StatsMain>
               <h1>Weekly Stats</h1>
@@ -118,10 +118,8 @@ const WeeklyStats = () => {
           </>
         ) : (
           <div>Not enough data :(</div>
-        )
-      ) : (
-        <Loading />
-      )}
+        )}
+      </LoadingWrapper>
     </Styled.WeeklyStats>
   );
 };

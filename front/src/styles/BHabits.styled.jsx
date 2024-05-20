@@ -12,7 +12,15 @@ export const BHabitContent = styled(HomePadding)`
   }
 `;
 
-export const BHabitHeader = styled(WishHeader)``;
+export const BHabitHeader = styled(WishHeader)`
+  flex-direction: column;
+  gap: 1rem;
+`;
+export const BHabitHeaderBlock = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 export const BHabitActions = styled(WishActions)``;
 export const BHabitList = styled.div`
   display: grid;

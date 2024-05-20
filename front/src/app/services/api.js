@@ -94,6 +94,9 @@ export const WishService = {
   async getByAccount(payload) {
     return api.get(`/Wish/getByAccount?accountId=${payload.AccountId}`);
   },
+  async getNewWish() {
+    return api.get(`/Wish/getNewWish`);
+  },
   async create(payload) {
     return api.post('/Wish/create', payload);
   },

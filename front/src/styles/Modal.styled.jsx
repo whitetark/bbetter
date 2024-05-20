@@ -40,6 +40,8 @@ export const Children = styled.div`
     border-radius: 10px;
     background-color: white;
     place-self: center;
+    max-width: 40rem;
+    word-break: break-all;
 
     h1 {
       font-size: 24px;

@@ -219,3 +219,43 @@ export const RecentReflection = styled.div`
     font-weight: 500;
   }
 `;
+
+export const NewWish = styled.div`
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+export const NewWishHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+
+  ${Button} {
+    font-size: 24px;
+    color: ${variables.DISABLED_BUTTON};
+  }
+`;
+export const NewWishMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  gap: 2rem;
+
+  .type {
+    background-color: ${variables.GREEN};
+    padding: 0.5rem;
+    color: ${variables.WHITE};
+    border-radius: 10px;
+  }
+`;
+
+export const NewWishInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 4rem;
+  font-size: 16px;
+`;

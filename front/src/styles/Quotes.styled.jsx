@@ -18,11 +18,16 @@ export const QuoteHeader = styled.div`
   color: ${variables.DISABLED_BUTTON};
   background-color: ${variables.WHITE};
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
   padding: 1rem;
   border-radius: 10px;
+`;
+
+export const QuoteHeaderBlock = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 export const QuoteList = styled.div`

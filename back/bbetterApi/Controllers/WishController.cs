@@ -1,4 +1,5 @@
-﻿using bbetterApi.Services;
+﻿using bbetterApi.Models;
+using bbetterApi.Services;
 using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +20,13 @@ namespace bbetterApi.Controllers
         public async Task<ActionResult<List<Wish>>> GetWishes([FromQuery] int accountId)
         {
             return Ok(await wishServices.GetWishes(accountId));
+        }
+
+        [HttpGet]
+        [Route("getNewWish")]
+        public async Task<ActionResult<BoredItem>> GetNewWish()
+        {
+            return Ok(await wishServices.GetNewWish());
         }
 
         [HttpPost]

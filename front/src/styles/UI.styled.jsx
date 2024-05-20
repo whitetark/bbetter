@@ -118,3 +118,22 @@ export const Loading = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+export const Pagination = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  gap: 0.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  span {
+    width: 5rem;
+  }
+
+  button {
+    &:disabled {
+      color: ${variables.DIVIDER};
+      cursor: default;
+    }
+  }
+`;

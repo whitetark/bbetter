@@ -92,7 +92,7 @@ namespace database.Repositories
             try
             {
                 string sql = @"UPDATE bbetterSchema.Wishes 
-                SET [Content] = @content, [IsCompleted] = @isCompleted
+                SET [Content] = @content, [IsCompleted] = @isCompleted, [CompleteDate] = @completeDate
                 WHERE WishId = @wishId";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
@@ -101,6 +101,7 @@ namespace database.Repositories
                         content = newWish.Content,
                         isCompleted = newWish.IsCompleted,
                         wishId = newWish.WishId,
+                        completeDate = newWish.CompleteDate,
                     }) > 0) { return; }
 
                 }

@@ -15,7 +15,6 @@ import TableCell from './Tasks/TableCell';
 import TaskAdd from './Tasks/TaskAdd';
 import TaskItem from './Tasks/TaskItem';
 import WishAdd from './Wishes/WishAdd';
-import WishItem from './Wishes/WishItem';
 import WishListItem from './Wishes/WishListItem';
 
 export {
@@ -36,6 +35,5 @@ export {
   TaskAdd,
   TaskItem,
   WishAdd,
-  WishItem,
   WishListItem,
 };

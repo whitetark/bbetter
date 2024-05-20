@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 import { ReflectService } from '../app/services/api';
 import { useAuthContext } from '../app/store/auth-context';
+import NewWish from '../components/Home/NewWish';
 import RecentReflection from '../components/Home/RecentReflection';
 import UserPhoto from '../components/Home/UserPhoto';
 import WeeklyStats from '../components/Home/WeeklyStats';
@@ -16,6 +17,7 @@ const HomePage = () => {
   const { userData } = useAuthContext();
   const { isShowing: isWTDShowing, toggle: toggleWTD } = useModal();
   const { isShowing: isReflectShowing, toggle: toggleReflect } = useModal();
+  const { isShowing: isNewWishShowing, toggle: toggleNewWish } = useModal();
 
   const currentDate = new Date();
   const isSunday = currentDate.getDay() == 0;
@@ -55,7 +57,7 @@ const HomePage = () => {
             <Styled.HomeActions>
               <h1>Actions</h1>
               <Button onClick={toggleWTD}>What to do?</Button>
-              <Button>New Activity</Button>
+              <Button onClick={toggleNewWish}>New Activity</Button>
               <div>
                 <p>Every Sunday</p>
                 <Button onClick={toggleReflect} disabled={!isSunday || isReflect?.data}>
@@ -71,6 +73,9 @@ const HomePage = () => {
       </Modal>
       <Modal isShowing={isReflectShowing} hide={toggleReflect} className='task-modal' hasOverlay>
         <ReflectionAdd hide={toggleReflect} />
+      </Modal>
+      <Modal isShowing={isNewWishShowing} hide={toggleNewWish} className='task-modal' hasOverlay>
+        <NewWish hide={toggleNewWish} />
       </Modal>
     </Styled.Home>
   );
