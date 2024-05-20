@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import GHabitList from '../components/GHabits/GHabitList';
 import Pagination from '../components/UI/Paginations';
 import { Button, Modal } from '../components/UI/index';
-import { GHabitAdd, GHabitItem } from '../components/index';
+import { GHabitAdd } from '../components/index';
 import { useRefetchGHabits } from '../hooks/use-ghabits';
 import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/GHabits.styled';
@@ -58,25 +59,17 @@ const GHabitsPage = () => {
           />
         ) : undefined}
       </Styled.GHabitHeader>
-      <Styled.GHabitList>
-        <Styled.GHabitTableHeader>
-          <div></div>
-          <div></div>
-          <div className='weeks-list'>
-            <div>Mon</div>
-            <div>Tue</div>
-            <div>Wed</div>
-            <div>Thu</div>
-            <div>Fri</div>
-            <div>Sat</div>
-            <div>Sun</div>
-          </div>
-          <div></div>
-        </Styled.GHabitTableHeader>
-        {currentPosts.map((ghabit) => (
-          <GHabitItem key={ghabit.gHabitId} data={ghabit} />
-        ))}
-      </Styled.GHabitList>
+      <Styled.GHabitMain>
+        <Styled.GHabitItems>
+          <GHabitList ghabits={currentPosts} />
+          <Styled.FutureItem>Week Stats</Styled.FutureItem>
+        </Styled.GHabitItems>
+        <Styled.GHabitInfo>
+          <Styled.FutureItem>Work On</Styled.FutureItem>
+          <Styled.FutureItem>Best Habit</Styled.FutureItem>
+          <Styled.FutureItem>Streaks</Styled.FutureItem>
+        </Styled.GHabitInfo>
+      </Styled.GHabitMain>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
         <GHabitAdd hide={toggleModal} />
       </Modal>

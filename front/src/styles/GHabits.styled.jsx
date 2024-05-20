@@ -184,3 +184,31 @@ export const CalendarActions = styled.div`
     }
   }
 `;
+
+export const GHabitMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+export const GHabitItems = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+  gap: 2rem;
+`;
+export const GHabitInfo = styled.div`
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+`;
+export const FutureItem = styled.div`
+  background-color: ${variables.DIVIDER};
+  border-radius: 10px;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  color: ${variables.DISABLED_BUTTON};
+  font-weight: 500;
+`;

@@ -21,7 +21,6 @@ const ReflectionItemBlock = ({ reflection, value }) => {
   const findValuesSunday = (day) => dayjs.utc(day).startOf('week').add(6, 'day');
 
   const valuesSunday = findValuesSunday(value);
-  console.log(valuesSunday);
   return (
     <>
       <Styled.ReflectionAddBlock>

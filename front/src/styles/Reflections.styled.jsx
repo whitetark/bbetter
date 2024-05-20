@@ -6,10 +6,11 @@ import { AddWishButton } from './Wishes.styled';
 
 export const ReflectionsContent = styled(HomePadding)``;
 export const ReflectionsMain = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   max-width: 90rem;
   margin: 0 auto;
+  gap: 2rem;
 `;
 
 export const ReflectionButtonBlock = styled.div`
@@ -247,3 +248,27 @@ export const ReflectRating = styled.div`
 `;
 
 export const ReflectButton = styled(AddWishButton)``;
+
+export const ReflectionItems = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+`;
+export const ReflectionStats = styled.div`
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  max-height: 40rem;
+  gap: 2rem;
+`;
+export const FutureItem = styled.div`
+  background-color: ${variables.DIVIDER};
+  border-radius: 10px;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  color: ${variables.DISABLED_BUTTON};
+  font-weight: 500;
+`;

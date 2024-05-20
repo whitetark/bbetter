@@ -85,15 +85,19 @@ const ReflectionsPage = () => {
     <Styled.ReflectionsContent>
       <h1>Reflections</h1>
       <Styled.ReflectionsMain>
-        <div>
+        <Styled.ReflectionItems>
           <ReflectionCalendar
             value={value}
             setValue={setValue}
             highlightedDays={highlightedDaysArray}
             handleMonth={handleMonthChange}
           />
-        </div>
-        <ReflectionItemBlock reflection={reflection} value={value} />
+          <ReflectionItemBlock reflection={reflection} value={value} />
+        </Styled.ReflectionItems>
+        <Styled.ReflectionStats>
+          <Styled.FutureItem>Graphic</Styled.FutureItem>
+          <Styled.FutureItem>Advice</Styled.FutureItem>
+        </Styled.ReflectionStats>
       </Styled.ReflectionsMain>
     </Styled.ReflectionsContent>
   );
