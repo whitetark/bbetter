@@ -42,6 +42,11 @@ export const WishListItem = styled.div`
     text-align: center;
   }
 
+  .priority {
+    background-color: ${variables.WHITE};
+    border-radius: 10px;
+  }
+
   .content {
     display: inline-block;
     overflow-wrap: break-word;

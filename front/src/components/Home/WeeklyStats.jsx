@@ -86,7 +86,7 @@ const WeeklyStats = () => {
               <Styled.StatsBlock>
                 <h1>Tasks</h1>
                 <p>
-                  Completion Rate: <span>{stats?.taskCompletionRate}%</span>
+                  In Time Completion Rate: <span>{stats?.taskCompletionRate}%</span>
                 </p>
                 <p>
                   Completed: <span>{stats?.taskCompletedNum}</span>
@@ -107,7 +107,7 @@ const WeeklyStats = () => {
                   Completion Rate: <span>{stats.gHabitCompletionRate}%</span>
                 </p>
                 <p>
-                  Completed: <span>{stats.gHabitFullyCompleted}</span>
+                  Fully Completed: <span>{stats.gHabitFullyCompleted}</span>
                 </p>
               </Styled.StatsBlock>
             </Styled.StatsMain>

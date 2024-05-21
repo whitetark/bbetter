@@ -22,7 +22,7 @@ namespace bbetterApi.Utils
             var tasksWithDeadlineThisWeekAndCompleteDateLater = tasksCompleted.Where(t => t.Deadline >= startOfDate && t.Deadline < endOfDate && t.CompleteDate > t.Deadline).ToList();
             double numOfThisWeekCompleted = tasksWithDeadlineAndCompleteDateThisWeek.Count - tasksWithDeadlineThisWeekAndCompleteDateLater.Count;
             double numOftasksWithCompleteDateThisWeek = tasksCompleted.Count(t => t.CompleteDate >= startOfDate && t.CompleteDate < endOfDate);
-            double numOfExtraWork = numOftasksWithCompleteDateThisWeek - numOfThisWeekCompleted;
+            double numOfExtraWork = numOftasksWithCompleteDateThisWeek - tasksWithDeadlineAndCompleteDateThisWeek.Count;
 
             //Wishes
             List<Wish> thisWeekWishesCompleted = wishes.Where(w => w.IsCompleted && w.CompleteDate >= startOfDate && w.CompleteDate <= endOfDate).ToList();
@@ -56,7 +56,7 @@ namespace bbetterApi.Utils
                 Type = "week",
                 ProductivityCoef = productivityCoefficient,
                 TaskCompletionRate = Math.Round(taskCompletionRate, 2),
-                TaskCompletedNum = numOfThisWeekCompleted,
+                TaskCompletedNum = tasksWithDeadlineAndCompleteDateThisWeek.Count,
                 TaskCompletedExtra = numOfExtraWork,
                 GHabitCompletionRate = Math.Round(habitEngagementRate, 2),
                 GHabitFullyCompleted = gHabitsCompleted,

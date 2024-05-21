@@ -52,11 +52,7 @@ const WishListItem = ({ isEdit, data }) => {
   return (
     <>
       <Styled.WishListItem className={isChecked ? 'checked' : ''}>
-        <Styled.Input
-          type='checkbox'
-          checked={isChecked}
-          onChange={() => setIsChecked(!isChecked)}
-        />
+        <div className='number'>1</div>
         <div className='content'>{data.content}</div>
         {isEdit && (
           <Styled.WishListItemActions>
@@ -68,6 +64,11 @@ const WishListItem = ({ isEdit, data }) => {
             </Button>
           </Styled.WishListItemActions>
         )}
+        <Styled.Input
+          type='checkbox'
+          checked={isChecked}
+          onChange={() => setIsChecked(!isChecked)}
+        />
       </Styled.WishListItem>
       <Modal isShowing={editIsShowing} hide={toggleEdit} className='add-modal' hasOverlay>
         <WishEdit hide={toggleEdit} data={data} />
