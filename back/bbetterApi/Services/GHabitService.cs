@@ -1,4 +1,5 @@
-﻿using database.Models;
+﻿using bbetterApi.Utils;
+using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Task = System.Threading.Tasks.Task;
@@ -21,7 +22,12 @@ namespace bbetterApi.Services
         {
             return await ghabitRepository.GetWDatesByAccount(accountId);
         }
+        public async Task<ActionResult<Dictionary<string, int>>> GetStreaks(int accountId)
+        {
+            var ghabits = await ghabitRepository.GetWDatesByAccount(accountId, "last28Days");
 
+            return StatsUtil.CalculateBestStreaksForAllHabits(ghabits);
+        }
 
         public async Task<GHabit> CreateGHabit(GHabit gHabit)
         {

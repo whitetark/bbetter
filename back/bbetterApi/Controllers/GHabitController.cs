@@ -19,6 +19,14 @@ namespace bbetterApi.Controllers
             return Ok(await gHabitServices.GetWithDates(accountId));
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("getStreaks")]
+        public async Task<ActionResult<Dictionary<string, int>>> GetStreaks([FromQuery] int accountId)
+        {
+            return Ok(await gHabitServices.GetStreaks(accountId));
+        }
+
         [HttpPost]
         [Route("create")]
         public async Task<ActionResult<GHabit>> CreateGHabit([FromBody] GHabit gHabit)

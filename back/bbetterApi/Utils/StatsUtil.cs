@@ -94,5 +94,51 @@ namespace bbetterApi.Utils
                     throw new AppException("Invalid type");
             }
         }
+
+        public static Dictionary<string, int> CalculateBestStreaksForAllHabits(List<GHabitWithDates> habits)
+        {
+            var bestStreaks = new Dictionary<string, int>();
+
+            foreach (var habit in habits)
+            {
+                int bestStreak = CalculateBestStreak(habit);
+                bestStreaks[habit.GHabitId] = bestStreak;
+            }
+
+            return bestStreaks;
+        }
+
+        private static int CalculateBestStreak(GHabitWithDates gHabitWithDates)
+        {
+            var dates = gHabitWithDates.GHabitDates
+                .OrderBy(d => d.DateOf)
+                .Select(d => d.DateOf.Date) // Only consider the date part
+                .ToList();
+
+            if (dates.Count == 0) return 0;
+
+            int currentStreak = 1;
+            int maxStreak = 1;
+
+            for (int i = 1; i < dates.Count; i++)
+            {
+                if (dates[i] == dates[i - 1].AddDays(1))
+                {
+                    currentStreak++;
+                    if (currentStreak > maxStreak)
+                    {
+                        maxStreak = currentStreak;
+                    }
+                }
+                else
+                {
+                    currentStreak = 1;
+                }
+            }
+
+            return maxStreak;
+        }
+
+     
     }
 }
