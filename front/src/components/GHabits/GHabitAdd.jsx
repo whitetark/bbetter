@@ -1,10 +1,11 @@
 import { Field, Formik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { useAuthContext } from '../../app/store/auth-context';
 import { useAddGHabit } from '../../hooks/use-ghabits';
 import * as Styled from '../../styles/GHabits.styled';
-import { TextInput } from '../UI/Inputs';
+import { ReflectRating } from '../../styles/Reflections.styled';
+import { NumberInput, TextInput } from '../UI/Inputs';
 
 const initialValues = {
   content: '',
@@ -15,6 +16,7 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 });
 
 const GHabitAdd = ({ onClick, hide }) => {
+  const [priority, setPriority] = useState(1);
   const { mutateAsync, isError, error } = useAddGHabit();
   const { userData } = useAuthContext();
   return (
@@ -28,12 +30,23 @@ const GHabitAdd = ({ onClick, hide }) => {
             GHabitId: 0,
             AccountId: userData.accountId,
             Content: values.content,
+            priorityOf: priority,
           };
           actions.resetForm();
           mutateAsync(ghabit).then(hide());
         }}>
         <Styled.AddGHabitForm>
           <TextInput name='content' placeholder='Your new habit' />
+          <ReflectRating>
+            <p>Rate priority (1 max 9 min)</p>
+            <NumberInput
+              value={priority}
+              min={1}
+              max={9}
+              onChange={(event, val) => setPriority(val)}
+              readOnly
+            />
+          </ReflectRating>
           <Field>
             {(props) => (
               <Styled.AddGHabitButton

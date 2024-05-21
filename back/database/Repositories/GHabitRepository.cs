@@ -66,6 +66,7 @@ namespace database.Repositories
                                     GHabitId = gHabit.GHabitId.ToString(),
                                     AccountId = gHabit.AccountId,
                                     Content = gHabit.Content,
+                                    priorityOf = gHabit.priorityOf,
                                     GHabitDates = gHabitDateResultsGroup.ToList()
                                 })
                         .ToList();
@@ -114,14 +115,15 @@ namespace database.Repositories
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
                     string sql = @"INSERT INTO bbetterSchema.GHabits
-                ([AccountId],[Content]) 
+                ([AccountId],[Content],[priorityOf]) 
                 OUTPUT INSERTED.*
-                VALUES (@accountId, @content)";
+                VALUES (@accountId, @content, @priorityOf)";
 
                     return await _dbConnection.QuerySingleAsync<GHabit>(sql, new
                     {
                         accountId = gHabit.AccountId,
                         content = gHabit.Content,
+                        gHabit.priorityOf,
                     });
                 }
             }
@@ -135,7 +137,7 @@ namespace database.Repositories
         public async Task Update(GHabit newGHabit)
         {
             string sql = @"UPDATE bbetterSchema.GHabits 
-            SET [Content] = @content, 
+            SET [Content] = @content, [priorityOf] = @priorityOf
             WHERE GHabitId = @gHabitId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
@@ -143,7 +145,7 @@ namespace database.Repositories
                 {
                     content = newGHabit.Content,
                     gHabitId = newGHabit.GHabitId,
-
+                    newGHabit.priorityOf,
                 }) > 0) { return; }
             }
 

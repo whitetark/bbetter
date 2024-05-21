@@ -36,7 +36,8 @@ export const TaskHeader = styled.div`
 export const TaskItem = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr 1fr 1fr 2fr 1fr;
-  background-color: ${variables.DIVIDER};
+  background-color: ${variables.DELETE_CELL};
+  color: ${variables.WHITE};
   border-radius: 10px;
   padding: 1rem;
   font-weight: 500;
@@ -48,18 +49,22 @@ export const TaskItem = styled.div`
 
   &.important.urgent {
     background-color: ${variables.DO_CELL};
+    color: black;
   }
 
   &.important {
     background-color: ${variables.DECIDE_CELL};
+    color: black;
   }
 
   &.urgent {
     background-color: ${variables.DELEGATE_CELL};
+    color: black;
   }
 
   &.completed {
-    background-color: ${variables.DISABLED_BUTTON} !important;
+    background-color: ${variables.COMPLETED_CELL} !important;
+    color: ${variables.WHITE};
   }
 
   input {

@@ -26,6 +26,10 @@ export const useRefetchGHabits = () => {
     ghabits = data.data;
   }
 
+  ghabits = ghabits.sort((wishA, wishB) => {
+    return wishA.priorityOf - wishB.priorityOf;
+  });
+
   return { ghabits, error, isLoading };
 };
 

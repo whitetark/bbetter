@@ -38,11 +38,13 @@ export const NumberInput = forwardRef(function CustomNumberInput(props, ref) {
           children: '+',
           className: 'baseNumberInput-button increment',
           disabled: incrementDisable,
+          type: 'button',
         },
         decrementButton: {
           children: '-',
           className: 'baseNumberInput-button',
           disabled: decrementDisable,
+          type: 'button',
         },
       }}
       {...props}

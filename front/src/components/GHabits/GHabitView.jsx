@@ -10,6 +10,7 @@ const GHabitView = (props) => {
     <>
       <Styled.GHabitView onClick={props.onClick}>
         <Styled.GHabitViewHeader>
+          <h1 className='content'>{data.content}</h1>
           <Styled.GHabitViewActions>
             <Button onClick={props.toggleEdit}>
               <FontAwesomeIcon icon='fa-solid fa-pencil' fixedWidth />
@@ -20,7 +21,6 @@ const GHabitView = (props) => {
           </Styled.GHabitViewActions>
         </Styled.GHabitViewHeader>
         <Styled.GHabitViewMain>
-          <p className='content'>{data.content}</p>
           <GHabitCalendar ghabit={data} />
         </Styled.GHabitViewMain>
       </Styled.GHabitView>

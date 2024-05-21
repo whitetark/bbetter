@@ -25,6 +25,16 @@ export const useRefetchTasks = () => {
     tasks = data.data;
   }
 
+  tasks = tasks.sort((taskA, taskB) => {
+    if (taskA.isCompleted !== taskB.isCompleted) {
+      return taskA.isCompleted ? 1 : -1;
+    }
+    if (taskA.isImportant === taskB.isImportant) {
+      return taskA.isUrgent === taskB.isUrgent ? 0 : taskA.isUrgent ? -1 : 1;
+    }
+    return taskA.isImportant ? -1 : 1;
+  });
+
   return { tasks, error, isLoading };
 };
 

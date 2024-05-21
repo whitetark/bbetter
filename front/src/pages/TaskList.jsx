@@ -43,17 +43,9 @@ const TaskListPage = () => {
     navigate(PathConstants.TASK);
   };
 
-  const sortedTasks = tasks.sort((taskA, taskB) => {
-    if (taskA.isImportant === taskB.isImportant) {
-      return taskA.isUrgent ? -1 : 1;
-    }
-
-    return taskA.isImportant ? -1 : 1;
-  });
-
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
-  let currentPosts = sortedTasks && sortedTasks.slice(firstPostIndex, lastPostIndex);
+  let currentPosts = tasks && tasks.slice(firstPostIndex, lastPostIndex);
   return (
     <Styled.TaskList>
       <Styled.TaskListHeader>

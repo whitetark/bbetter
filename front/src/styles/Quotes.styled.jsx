@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
 import { BHabitActions, BHabitItemActions } from './BHabits.styled';
-import { HomePadding } from './UI.styled';
+import { HomePadding, Pagination } from './UI.styled';
 import { AddWishButton, AddWishForm } from './Wishes.styled';
 
 export const QuoteContent = styled(HomePadding)`
@@ -16,12 +16,21 @@ export const QuoteContent = styled(HomePadding)`
 
 export const QuoteHeader = styled.div`
   color: ${variables.DISABLED_BUTTON};
-  background-color: ${variables.WHITE};
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
-  border-radius: 10px;
+
+  > div {
+    background-color: ${variables.WHITE};
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  ${Pagination} {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
 `;
 
 export const QuoteHeaderBlock = styled.div`

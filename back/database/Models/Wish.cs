@@ -14,5 +14,6 @@ namespace database.Models
         public string Content {  get; set; }
         public bool IsCompleted { get; set; }
         public DateTime CompleteDate { get; set; }
+        public int priorityOf {  get; set; }
     }
 }

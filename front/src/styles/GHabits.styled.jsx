@@ -25,7 +25,8 @@ export const GHabitItemPart = styled.div`
   padding: 1rem 2rem;
 
   .number {
-    background-color: white;
+    background-color: ${variables.TAB_HOVER};
+    color: ${variables.DISABLED_BUTTON};
     border-radius: 80px;
     width: 25px;
     line-height: 25px;
@@ -34,7 +35,7 @@ export const GHabitItemPart = styled.div`
 `;
 export const GHabitItem = styled.div`
   display: grid;
-  grid-template-columns: 1fr 8fr 6fr;
+  grid-template-columns: 8fr 6fr 1fr;
   width: 100%;
   background-color: ${variables.BACKGROUND};
   border-radius: 10px;
@@ -69,7 +70,7 @@ export const GHabitHeaderBlock = styled(TaskListHeaderBlock)`
 
 export const GHabitTableHeader = styled.div`
   display: grid;
-  grid-template-columns: 1fr 8fr 6fr;
+  grid-template-columns: 8fr 6fr 1fr;
   .weeks-list {
     display: flex;
     flex-direction: row;
@@ -124,7 +125,7 @@ export const GHabitView = styled.div`
 `;
 export const GHabitViewHeader = styled(BHabitItemHeader)`
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
 `;
 export const GHabitViewActions = styled.div`
   color: ${variables.DISABLED_BUTTON};

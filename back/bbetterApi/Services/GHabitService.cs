@@ -25,13 +25,7 @@ namespace bbetterApi.Services
 
         public async Task<GHabit> CreateGHabit(GHabit gHabit)
         {
-            var userRequest = new GHabit
-            {
-                AccountId = gHabit.AccountId,
-                Content = gHabit.Content,
-            };
-
-            return await ghabitRepository.Add(userRequest);
+            return await ghabitRepository.Add(gHabit);
         }
 
 

@@ -7,7 +7,6 @@ const GHabitList = ({ ghabits }) => {
     <Styled.GHabitList>
       <Styled.GHabitTableHeader>
         <div></div>
-        <div></div>
         <div className='weeks-list'>
           <div>Mon</div>
           <div>Tue</div>

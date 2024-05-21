@@ -25,6 +25,15 @@ export const useRefetchWishes = () => {
   } else {
     wishes = data.data;
   }
+
+  wishes = wishes.sort((wishA, wishB) => {
+    if (wishA.isCompleted !== wishB.isCompleted) {
+      return wishA.isCompleted ? 1 : -1;
+    }
+
+    return wishA.priorityOf - wishB.priorityOf;
+  });
+
   return { wishes, error, isLoading };
 };
 
