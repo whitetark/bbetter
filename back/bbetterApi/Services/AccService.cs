@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using bbetter.API.Clients;
 using bbetterApi.Middleware;
 using bbetterApi.Models;
 using bbetterApi.Utils;
@@ -10,7 +11,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Services
 {
-    public class AccService(AccountRepository accountRepository)
+    public class AccService(AccountRepository accountRepository, GPTClient gPTClient)
     {
         public async Task<Account> GetAccount(string username)
         {
@@ -46,10 +47,24 @@ namespace bbetterApi.Services
             return await accountRepository.GetAccs();
         }
 
-        public async Task<WhatToDoResponse> GetWhatToDo(int id)
+        public async Task<WhatToDoResponse> GetWhatToDo(int accountId)
         {
-            var data = await accountRepository.GetActivitiesForToday(id);
-            return WhatToDoUtil.FormatData(data);
+            var activities = await accountRepository.GetActivitiesForToday(accountId);
+
+            if (activities.GetTotalActivities() < 9)
+            {
+                return WhatToDoUtil.FormatData(activities);
+            }
+
+            var activitiesText = WhatToDoUtil.TransformAccountActivitiesToString(activities);
+            var gptResponse = await gPTClient.GetWhatToDo(activitiesText);
+
+            if (gptResponse == null)
+            {
+                return WhatToDoUtil.FormatData(activities);
+            }
+
+            return WhatToDoUtil.ParseWhatToDoResponse(gptResponse, accountId);
         }
 
         public async Task<Statistics> GetStatistics(int id, string type)
@@ -59,3 +74,4 @@ namespace bbetterApi.Services
         }
     }
 }
+

@@ -68,6 +68,7 @@ namespace bbetterApi.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [Route("whatToDo")]
         [HttpGet]
         public async Task<ActionResult<WhatToDoResponse>> GetWhatToDo([FromQuery] int id)
