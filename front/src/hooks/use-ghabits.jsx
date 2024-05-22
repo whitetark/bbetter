@@ -38,6 +38,7 @@ export const useAddGHabit = () => {
   return useMutation('addGHabit', (payload) => GHabitService.create(payload), {
     onSuccess: () => {
       queryClient.invalidateQueries('getGHabits');
+      queryClient.invalidateQueries('getGHabitStats');
     },
     onError: (error) => {
       console.log('GHabit add error:' + error);
@@ -50,6 +51,7 @@ export const useEditGHabit = () => {
   return useMutation('editGHabit', (payload) => GHabitService.update(payload), {
     onSuccess: () => {
       queryClient.invalidateQueries('getGHabits');
+      queryClient.invalidateQueries('getGHabitStats');
     },
     onError: (error) => {
       console.log('GHabit update error:' + error);
@@ -62,6 +64,7 @@ export const useDeleteGHabit = () => {
   return useMutation('deleteGHabit', (payload) => GHabitService.deleteById(payload), {
     onSuccess: () => {
       queryClient.invalidateQueries('getGHabits');
+      queryClient.invalidateQueries('getGHabitStats');
     },
     onError: (error) => {
       console.log('GHabit delete error:' + error);
@@ -75,6 +78,7 @@ export const useAddGHabitDate = () => {
     onSuccess: () => {
       queryClient.invalidateQueries('getGHabits');
       queryClient.invalidateQueries('getDatesByMonth');
+      queryClient.invalidateQueries('getGHabitStats');
     },
     onError: (error) => {
       console.log('GHabit date add error:' + error);
@@ -87,6 +91,7 @@ export const useDeleteGHabitDate = () => {
     onSuccess: () => {
       queryClient.invalidateQueries('getGHabits');
       queryClient.invalidateQueries('getDatesByMonth');
+      queryClient.invalidateQueries('getGHabitStats');
     },
     onError: (error) => {
       console.log('GHabit date delete error:' + error);

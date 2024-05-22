@@ -7,7 +7,7 @@ import { useAuthContext } from '../../app/store/auth-context';
 import * as Styled from '../../styles/Home.styled';
 import LoadingWrapper from '../UI/LoadingWrapper';
 
-function CircularProgressWithLabel(props) {
+export function CircularProgressWithLabel(props) {
   const settings = {
     thickness: 3,
     size: 150,

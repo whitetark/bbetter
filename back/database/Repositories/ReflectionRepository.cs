@@ -59,6 +59,41 @@ namespace database.Repositories
             }
         }
 
+        //get-last-28-days
+        public async Task<List<Reflection>> GetLastMonth(int accountId)
+        {
+            try
+            {
+                string sql = @"SET DATEFIRST 1;
+                DECLARE @today DATE = GETDATE();
+                DECLARE @startOfDate DATE = DATEADD(WEEK, -4, DATEADD(DAY, 1 - (DATEPART(WEEKDAY, @today) + @@DATEFIRST - 2) % 7, @today));
+                DECLARE @endOfDate DATE = DATEADD(DAY, -1, DATEADD(DAY, 1 - (DATEPART(WEEKDAY, @today) + @@DATEFIRST - 2) % 7, @today));
+                SELECT * FROM bbetterSchema.Reflections
+                WHERE AccountId = @accountId
+                AND DateOf >= @startOfDate 
+                AND DateOf < @endOfDate
+                ORDER BY DateOf;";
+
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+                {
+                    var ghabits = await _dbConnection.QueryAsync<Reflection>(sql, new { accountId});
+
+                    if (!ghabits.Any())
+                    {
+                        return [];
+                    }
+
+                    var result = ghabits.ToList();
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Get GHabit Dates", ex);
+            }
+        }
+
         //get-by-month
         public async Task<List<Reflection>> GetByMonth(int accountId, int month, int year)
         {

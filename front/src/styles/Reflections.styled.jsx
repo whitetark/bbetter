@@ -262,13 +262,26 @@ export const ReflectionStats = styled.div`
   gap: 2rem;
 `;
 export const FutureItem = styled.div`
-  background-color: ${variables.DIVIDER};
+  background-color: ${variables.TAB_HOVER};
   border-radius: 10px;
   padding: 2rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 25px;
   color: ${variables.DISABLED_BUTTON};
   font-weight: 500;
+
+  &.advice {
+    justify-content: flex-start;
+    gap: 1rem;
+    p {
+      font-size: 20px;
+    }
+  }
+`;
+
+export const ReflectionGraphic = styled.div`
+  font-size: 20px !important;
 `;

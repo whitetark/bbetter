@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using bbetter.API.Clients;
+using bbetter.API.Utils;
 using bbetterApi.Middleware;
 using bbetterApi.Models;
 using bbetterApi.Utils;
@@ -56,7 +57,7 @@ namespace bbetterApi.Services
                 return WhatToDoUtil.FormatData(activities);
             }
 
-            var activitiesText = WhatToDoUtil.TransformAccountActivitiesToString(activities);
+            var activitiesText = PromptUtil.TransformAccountActivitiesToString(activities);
             var gptResponse = await gPTClient.GetWhatToDo(activitiesText);
 
             if (gptResponse == null)

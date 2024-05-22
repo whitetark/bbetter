@@ -1,4 +1,5 @@
-﻿using bbetterApi.Middleware;
+﻿using bbetter.API.Models;
+using bbetterApi.Middleware;
 using bbetterApi.Models;
 using database.Models;
 using Task = database.Models.Task;
@@ -7,6 +8,18 @@ namespace bbetterApi.Utils
 {
     public class StatsUtil
     {
+        public static GHabitStats CalculateGHabitStats(List<GHabitWithDates> habits)
+        {
+            var result = new GHabitStats
+            {
+                Streaks = CalculateBestStreaks(habits),
+                WorkOn = CalculateHabitToWorkOn(habits),
+                BestHabit = CalculateBestHabit(habits),
+            };
+
+            return result;
+        }
+
         public static Statistics CalculateStats(AccountActivities accountActivities, string type)
         {
             List<Task> tasks = accountActivities.tasks;
@@ -66,13 +79,7 @@ namespace bbetterApi.Utils
             return stats;
         }
 
-        public static DateTime StartOfWeek(DateTime dt, DayOfWeek startOfWeek)
-        {
-            int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
-            return dt.AddDays(-1 * diff).Date;
-        }
-
-        public static void GetDateRange(string type, out DateTime startOfDate, out DateTime endOfDate)
+        private static void GetDateRange(string type, out DateTime startOfDate, out DateTime endOfDate)
         {
             DateTime today = DateTime.Now;
 
@@ -94,25 +101,46 @@ namespace bbetterApi.Utils
                     throw new AppException("Invalid type");
             }
         }
-
-        public static Dictionary<string, int> CalculateBestStreaksForAllHabits(List<GHabitWithDates> habits)
+        private static DateTime StartOfWeek(DateTime dt, DayOfWeek startOfWeek)
         {
-            var bestStreaks = new Dictionary<string, int>();
+            int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
+            return dt.AddDays(-1 * diff).Date;
+        }
+
+        private static string CalculateBestHabit(List<GHabitWithDates> habits)
+        {
+            var bestHabit = habits.OrderByDescending(h => h.GHabitDates.Count).FirstOrDefault();
+            return bestHabit.Content;
+        }
+
+        private static string CalculateHabitToWorkOn(List<GHabitWithDates> habits)
+        {
+            var worstHabit = habits.OrderBy(h => h.GHabitDates.Count).FirstOrDefault();
+            return worstHabit.Content;
+        }
+
+        private static List<GHabitStreak> CalculateBestStreaks(List<GHabitWithDates> habits)
+        {
+            var bestStreaks = new List<GHabitStreak>();
 
             foreach (var habit in habits)
             {
                 int bestStreak = CalculateBestStreak(habit);
-                bestStreaks[habit.GHabitId] = bestStreak;
+                bestStreaks.Add(new GHabitStreak
+                {
+                    Content = habit.Content,
+                    Streak = bestStreak
+                });
             }
 
-            return bestStreaks;
+            return bestStreaks.OrderByDescending(h => h.Streak).ToList();
         }
 
         private static int CalculateBestStreak(GHabitWithDates gHabitWithDates)
         {
             var dates = gHabitWithDates.GHabitDates
                 .OrderBy(d => d.DateOf)
-                .Select(d => d.DateOf.Date) // Only consider the date part
+                .Select(d => d.DateOf.Date)
                 .ToList();
 
             if (dates.Count == 0) return 0;
@@ -138,7 +166,5 @@ namespace bbetterApi.Utils
 
             return maxStreak;
         }
-
-     
     }
 }

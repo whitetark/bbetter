@@ -39,5 +39,26 @@ namespace bbetter.API.Clients
                 return null;
             }
         }
+
+        public async Task<string?> GetReflectionRecommendation(string prompt)
+        {
+            try
+            {
+                var api = new OpenAI_API.OpenAIAPI(_apiKey);
+                var chat = api.Chat.CreateConversation();
+                chat.Model = Model.ChatGPTTurbo;
+                chat.RequestParameters.Temperature = 1;
+
+                chat.AppendUserInput(prompt);
+
+                string response = await chat.GetResponseFromChatbotAsync();
+                Console.WriteLine(response);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

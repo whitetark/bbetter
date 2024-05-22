@@ -8,36 +8,6 @@ namespace bbetterApi.Utils
 {
     public class WhatToDoUtil
     {
-        public static string TransformAccountActivitiesToString(AccountActivities accountActivities)
-        {
-            var lines = new List<string>();
-
-            int counter = 1;
-
-            foreach (var task in accountActivities.tasks)
-            {
-                string importance = task.IsImportant ? "important" : "not important";
-                string urgency = task.IsUrgent ? "urgent" : "not urgent";
-                lines.Add($"{counter}. {task.Content} isUrgent={urgency} isImportant={importance} Deadline={task.Deadline:yyyy-MM-dd} type=Task");
-                counter++;
-            }
-
-            foreach (var wish in accountActivities.wishes)
-            {
-                lines.Add($"{counter}. {wish.Content} type=Wish");
-                counter++;
-            }
-
-            foreach (var habit in accountActivities.ghabits)
-            {
-                lines.Add($"{counter}. {habit.Content} type=Good Habit");
-                counter++;
-            }
-            lines.Add("I would like the response without additional details like urgency, importance, deadlines or order numbers.");
-
-            return string.Join("\n", lines);
-        }
-
         public static WhatToDoResponse ParseWhatToDoResponse(string input, int id)
         {
             var response = new WhatToDoResponse

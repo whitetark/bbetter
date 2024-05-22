@@ -10,11 +10,14 @@ import {
   faArrowRight,
   faCheckToSlot,
   faDrum,
+  faDumbbell,
+  faFire,
   faGear,
   faHouse,
   faKey,
   faList,
   faListCheck,
+  faMedal,
   faPenToSquare,
   faPencil,
   faPersonDigging,
@@ -71,6 +74,9 @@ library.add(
   faToggleOn,
   faArrowLeft,
   faArrowRight,
+  faMedal,
+  faDumbbell,
+  faFire,
 );
 
 function App() {

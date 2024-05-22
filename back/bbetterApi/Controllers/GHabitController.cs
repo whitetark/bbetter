@@ -1,4 +1,5 @@
-﻿using bbetterApi.Services;
+﻿using bbetter.API.Models;
+using bbetterApi.Services;
 using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -19,12 +20,11 @@ namespace bbetterApi.Controllers
             return Ok(await gHabitServices.GetWithDates(accountId));
         }
 
-        [AllowAnonymous]
         [HttpGet]
-        [Route("getStreaks")]
-        public async Task<ActionResult<Dictionary<string, int>>> GetStreaks([FromQuery] int accountId)
+        [Route("getStats")]
+        public async Task<ActionResult<GHabitStats>> GetStats([FromQuery] int accountId)
         {
-            return Ok(await gHabitServices.GetStreaks(accountId));
+            return Ok(await gHabitServices.GetStats(accountId));
         }
 
         [HttpPost]
