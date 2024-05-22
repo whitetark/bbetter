@@ -28,6 +28,7 @@ const NewWish = ({ onClick, hide }) => {
       Content: result.activity,
       AccountId: userData.accountId,
       isCompleted: false,
+      priorityOf: 1,
     };
 
     mutateAsync(newWish).then(hide());

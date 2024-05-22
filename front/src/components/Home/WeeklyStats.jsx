@@ -113,7 +113,7 @@ const WeeklyStats = () => {
             </Styled.StatsMain>
             <Styled.Productivity>
               <CircularProgressWithLabel value={stats.productivityCoef} />
-              <span>Productivity This Week</span>
+              <span>Productivity Last Week</span>
             </Styled.Productivity>
           </>
         ) : (
