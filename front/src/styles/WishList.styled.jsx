@@ -35,11 +35,17 @@ export const WishListItem = styled.div`
   padding: 2rem 1rem;
 
   .number {
-    background-color: white;
+    background-color: ${variables.TAB_HOVER};
+    color: ${variables.DISABLED_BUTTON};
     border-radius: 80px;
     width: 25px;
     line-height: 25px;
     text-align: center;
+  }
+
+  .priority {
+    background-color: ${variables.WHITE};
+    border-radius: 10px;
   }
 
   .content {
@@ -55,7 +61,6 @@ export const WishListItem = styled.div`
 
   &.checked {
     background-color: ${variables.GREEN};
-    text-decoration: line-through;
   }
 `;
 export const WishListItemActions = styled.div`

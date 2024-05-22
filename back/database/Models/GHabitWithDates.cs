@@ -11,6 +11,7 @@ namespace database.Models
         public string GHabitId { get; set; }
         public int AccountId { get; set; }
         public string Content { get; set; }
+        public int priorityOf {  get; set; }
         public ICollection<GHabitWeekResult> GHabitDates { get; set; }
     }
 }

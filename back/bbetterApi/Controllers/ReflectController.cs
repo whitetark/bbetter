@@ -1,4 +1,5 @@
-﻿using bbetterApi.Services;
+﻿using bbetter.API.Models;
+using bbetterApi.Services;
 using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -18,6 +19,14 @@ namespace bbetterApi.Controllers
         public async Task<ActionResult<List<Reflection>>> GetDatesByMonth([FromQuery(Name ="id")] int accountId, [FromQuery(Name = "month")] int month, [FromQuery(Name = "year")] int year)
         {
             return Ok(await reflectionServices.GetDatesByMonth(accountId, month, year));
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("getStats")]
+        public async Task<ActionResult<ReflectionStats>> GetStats([FromQuery(Name = "id")] int accountId)
+        {
+            return Ok(await reflectionServices.GetStats(accountId));
         }
 
         [HttpGet]

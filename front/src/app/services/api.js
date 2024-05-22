@@ -112,6 +112,9 @@ export const GHabitService = {
   async getWithDates(payload) {
     return api.get(`/GHabit/getWithDates?accountId=${payload.AccountId}`);
   },
+  async getStats(payload) {
+    return api.get(`/GHabit/getStats?accountId=${payload.AccountId}`);
+  },
   async create(payload) {
     return api.post('/GHabit/create', payload);
   },
@@ -201,6 +204,9 @@ export const ReflectService = {
         signal: payload.signal,
       },
     );
+  },
+  async getStats(payload) {
+    return api.get(`/Reflect/getStats?id=${payload.AccountId}`);
   },
   async create(payload) {
     return api.post('/Reflect/create', payload);

@@ -66,7 +66,7 @@ export const BHabitItem = styled.div`
 
   .time-content {
     .time {
-      color: ${variables.DELETE_CELL};
+      color: ${variables.DISABLED_BUTTON};
       font-weight: 500;
     }
     span {
@@ -79,7 +79,7 @@ export const BHabitItem = styled.div`
     flex-direction: column;
     span {
       margin-left: auto;
-      color: ${variables.DELETE_CELL};
+      color: ${variables.DISABLED_BUTTON};
       font-weight: 500;
     }
 
@@ -103,9 +103,12 @@ export const BHabitItemActions = styled(BHabitActions)`
   font-size: 16px;
   gap: 1rem;
   color: ${variables.DISABLED_BUTTON};
-  transition: all 0.2s ease-out;
-  &:hover {
-    color: black;
+
+  ${Button} {
+    transition: all 0.2s ease-out;
+    &:hover {
+      color: black;
+    }
   }
 `;
 

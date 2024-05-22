@@ -38,12 +38,12 @@ const GHabitItem = ({ data }) => {
           toggleView();
         }}>
         <Styled.GHabitItemPart>
-          <span className='number'>1</span>
-        </Styled.GHabitItemPart>
-        <Styled.GHabitItemPart>
           <p>{data.content}</p>
         </Styled.GHabitItemPart>
         <Checklist data={data.gHabitDates} className='checklist' />
+        <Styled.GHabitItemPart>
+          <span className='number'>{data.priorityOf}</span>
+        </Styled.GHabitItemPart>
       </Styled.GHabitItem>
       <Modal isShowing={viewIsShowing} hide={toggleView} className='task-modal' hasOverlay>
         <GHabitView data={data} {...viewProps} />

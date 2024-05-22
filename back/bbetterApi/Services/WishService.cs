@@ -27,14 +27,7 @@ namespace bbetterApi.Services
 
         public async Task<Wish> CreateWish(Wish wish)
         {
-            var userRequest = new Wish
-            {
-                AccountId = wish.AccountId,
-                Content = wish.Content,
-                IsCompleted = wish.IsCompleted,
-            };
-
-            return await wishRepository.Add(userRequest);
+            return await wishRepository.Add(wish);
         }
 
 

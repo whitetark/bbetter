@@ -1,7 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
+import { GHabitService } from '../app/services/api';
+import { useAuthContext } from '../app/store/auth-context';
+import GHabitDiagram from '../components/GHabits/GHabitDiagram';
 import GHabitList from '../components/GHabits/GHabitList';
+import LoadingWrapper from '../components/UI/LoadingWrapper';
 import Pagination from '../components/UI/Paginations';
 import { Button, Modal } from '../components/UI/index';
 import { GHabitAdd } from '../components/index';
@@ -18,6 +23,22 @@ const GHabitsPage = () => {
 
   const { isShowing: modalIsShowing, toggle: toggleModal } = useModal();
   const { ghabits, error, isLoading } = useRefetchGHabits();
+
+  const { userData } = useAuthContext();
+  const requestBody = {
+    AccountId: userData.accountId,
+  };
+
+  const { data: stats, isLoading: statsIsLoading } = useQuery(
+    ['getGHabitStats', requestBody],
+    () => GHabitService.getStats(requestBody),
+    {
+      onError: (error) => {
+        console.log('Get GHabits error: ' + error.message);
+      },
+      staleTime: 1000 * 60 * 15,
+    },
+  );
 
   useEffect(() => {
     const pageValue = parseInt(searchParams.get('page'));
@@ -62,12 +83,43 @@ const GHabitsPage = () => {
       <Styled.GHabitMain>
         <Styled.GHabitItems>
           <GHabitList ghabits={currentPosts} />
-          <Styled.FutureItem>Week Stats</Styled.FutureItem>
+          <Styled.FutureItem className='stats'>
+            <h1>This Week Results</h1>
+            <GHabitDiagram ghabits={ghabits} />
+          </Styled.FutureItem>
         </Styled.GHabitItems>
         <Styled.GHabitInfo>
-          <Styled.FutureItem>Work On</Styled.FutureItem>
-          <Styled.FutureItem>Best Habit</Styled.FutureItem>
-          <Styled.FutureItem>Streaks</Styled.FutureItem>
+          <Styled.GHabitInfoItem>
+            <h1>Work on</h1>
+            <Styled.FutureItem>
+              <FontAwesomeIcon icon='fa-solid fa-dumbbell' fixedWidth />
+              <p>{stats?.data.value.workOn}</p>
+            </Styled.FutureItem>
+          </Styled.GHabitInfoItem>
+          <Styled.GHabitInfoItem>
+            <h1>Best Habit</h1>
+            <Styled.FutureItem>
+              <FontAwesomeIcon icon='fa-solid fa-medal' fixedWidth />
+              <p>{stats?.data.value.bestHabit}</p>
+            </Styled.FutureItem>
+          </Styled.GHabitInfoItem>
+          <Styled.GHabitInfoItem>
+            <h1>Best Streaks</h1>
+            <Styled.FutureItem className='row'>
+              <FontAwesomeIcon icon='fa-solid fa-fire' />
+              <LoadingWrapper>
+                <div>
+                  {stats?.data.value.streaks.slice(0, 3).map((item, index) => {
+                    return (
+                      <p key={index}>
+                        {item.content}: {item.streak}
+                      </p>
+                    );
+                  })}
+                </div>
+              </LoadingWrapper>
+            </Styled.FutureItem>
+          </Styled.GHabitInfoItem>
         </Styled.GHabitInfo>
       </Styled.GHabitMain>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>

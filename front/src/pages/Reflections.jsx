@@ -7,6 +7,7 @@ import { ReflectService } from '../app/services/api';
 import { useAuthContext } from '../app/store/auth-context';
 import ReflectionItemBlock from '../components/Reflections/ReflectionAddBlock';
 import ReflectionCalendar from '../components/Reflections/ReflectionCalendar';
+import ReflectionGraphic from '../components/Reflections/ReflectionGraphic';
 import * as Styled from '../styles/Reflections.styled';
 
 dayjs.extend(isBetweenPlugin);
@@ -67,6 +68,20 @@ const ReflectionsPage = () => {
     },
   );
 
+  const requestBody = {
+    AccountId: userData.accountId,
+  };
+  const { data: stats, isLoading: statsIsLoading } = useQuery(
+    ['getReflectStats', requestBody],
+    () => ReflectService.getStats(requestBody),
+    {
+      onError: (error) => {
+        console.log('Get Reflection Stats error: ' + error.message);
+      },
+      staleTime: 1000 * 60 * 15,
+    },
+  );
+
   const handleMonthChange = (date) => {
     if (requestAbortController.current) {
       requestAbortController.current.abort();
@@ -95,8 +110,14 @@ const ReflectionsPage = () => {
           <ReflectionItemBlock reflection={reflection} value={value} />
         </Styled.ReflectionItems>
         <Styled.ReflectionStats>
-          <Styled.FutureItem>Graphic</Styled.FutureItem>
-          <Styled.FutureItem>Advice</Styled.FutureItem>
+          <Styled.FutureItem>
+            <h1>Last 28 Days Graph</h1>
+            <ReflectionGraphic data={stats?.data} isLoading={isLoading} />
+          </Styled.FutureItem>
+          <Styled.FutureItem className='advice'>
+            <h1>Advice</h1>
+            <p>{stats?.data.advice}</p>
+          </Styled.FutureItem>
         </Styled.ReflectionStats>
       </Styled.ReflectionsMain>
     </Styled.ReflectionsContent>

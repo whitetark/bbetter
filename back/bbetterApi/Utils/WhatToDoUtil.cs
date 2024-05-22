@@ -1,12 +1,68 @@
 ﻿using bbetterApi.Models;
 using database.Models;
 using Microsoft.IdentityModel.Tokens;
+using System.Text.RegularExpressions;
 using Task = database.Models.Task;
 
 namespace bbetterApi.Utils
 {
     public class WhatToDoUtil
     {
+        public static WhatToDoResponse ParseWhatToDoResponse(string input, int id)
+        {
+            var response = new WhatToDoResponse
+            {
+                topThree = new List<WhatToDoItem>(),
+                topTasks = new List<WhatToDoItem>(),
+                topWishes = new List<WhatToDoItem>(),
+                topGhabits = new List<WhatToDoItem>()
+            };
+
+            var sections = input.Split(new string[] { "\n\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var section in sections)
+            {
+                var lines = section.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                var sectionTitle = lines[0];
+                var items = lines.Skip(1).Select(ParseWhatToDoItem).ToList();
+
+                if (sectionTitle.StartsWith("Top Three of All"))
+                {
+                    response.topThree.AddRange(items);
+                }
+                else if (sectionTitle.StartsWith("Top Three Tasks"))
+                {
+                    response.topTasks.AddRange(items);
+                }
+                else if (sectionTitle.StartsWith("Top Three Wishes"))
+                {
+                    response.topWishes.AddRange(items);
+                }
+                else if (sectionTitle.StartsWith("Top Three Good Habits"))
+                {
+                    response.topGhabits.AddRange(items);
+                }
+            }
+
+            response.accountId = id;
+
+            return response;
+        }
+
+        public static WhatToDoItem ParseWhatToDoItem(string line)
+        {
+            var contentEndIndex = line.LastIndexOf('[');
+            var content = line.Substring(2, contentEndIndex - 3).Trim(); // Skipping "- " at the start
+            var type = line.Substring(contentEndIndex + 1, line.Length - contentEndIndex - 2).Trim();
+
+            return new WhatToDoItem
+            {
+                Content = content,
+                Type = type
+            };
+        }
+
+
         public static WhatToDoResponse FormatData(AccountActivities accountActivities)
         {
             var result = new WhatToDoResponse

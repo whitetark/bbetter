@@ -3,12 +3,13 @@ import * as variables from '../app/shared/colorVariables';
 import { BHabitItemActions, BHabitItemHeader } from './BHabits.styled';
 import { TaskListHeader, TaskListHeaderBlock } from './TaskList.styled';
 import { TaskActions } from './Tasks.styled';
-import { Button, HomePadding } from './UI.styled';
+import { Button, HomePadding, Pagination } from './UI.styled';
 import { AddWishButton, AddWishForm } from './Wishes.styled';
 
 export const GHabitContent = styled(HomePadding)`
   display: flex;
   flex-direction: column;
+  gap: 2rem;
 `;
 export const GHabitList = styled.div`
   display: flex;
@@ -25,7 +26,8 @@ export const GHabitItemPart = styled.div`
   padding: 1rem 2rem;
 
   .number {
-    background-color: white;
+    background-color: ${variables.TAB_HOVER};
+    color: ${variables.DISABLED_BUTTON};
     border-radius: 80px;
     width: 25px;
     line-height: 25px;
@@ -34,7 +36,7 @@ export const GHabitItemPart = styled.div`
 `;
 export const GHabitItem = styled.div`
   display: grid;
-  grid-template-columns: 1fr 8fr 6fr;
+  grid-template-columns: 8fr 6fr 1fr;
   width: 100%;
   background-color: ${variables.BACKGROUND};
   border-radius: 10px;
@@ -62,6 +64,9 @@ export const Checklist = styled.div`
 
 export const GHabitHeader = styled(TaskListHeader)`
   flex-direction: column;
+  ${Pagination} {
+    margin-left: 0;
+  }
 `;
 export const GHabitHeaderBlock = styled(TaskListHeaderBlock)`
   justify-content: space-between;
@@ -69,7 +74,7 @@ export const GHabitHeaderBlock = styled(TaskListHeaderBlock)`
 
 export const GHabitTableHeader = styled.div`
   display: grid;
-  grid-template-columns: 1fr 8fr 6fr;
+  grid-template-columns: 8fr 6fr 1fr;
   .weeks-list {
     display: flex;
     flex-direction: row;
@@ -124,7 +129,7 @@ export const GHabitView = styled.div`
 `;
 export const GHabitViewHeader = styled(BHabitItemHeader)`
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
 `;
 export const GHabitViewActions = styled.div`
   color: ${variables.DISABLED_BUTTON};
@@ -189,6 +194,7 @@ export const GHabitMain = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  gap: 2rem;
 `;
 export const GHabitItems = styled.div`
   display: grid;
@@ -201,6 +207,8 @@ export const GHabitInfo = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   gap: 2rem;
 `;
+export const GHabitInfoItem = styled.div``;
+
 export const FutureItem = styled.div`
   background-color: ${variables.DIVIDER};
   border-radius: 10px;
@@ -208,7 +216,33 @@ export const FutureItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 25px;
+  font-size: 28px;
   color: ${variables.DISABLED_BUTTON};
   font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &.row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  &.stats {
+    h1 {
+    }
+  }
+
+  svg {
+    font-size: 64px;
+  }
+`;
+
+export const GHabitDiagram = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 `;

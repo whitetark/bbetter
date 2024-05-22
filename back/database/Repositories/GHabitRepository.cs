@@ -32,27 +32,44 @@ namespace database.Repositories
                 throw new Exception("Failed to Get GHabit", ex);
             }
         }
-
-        //get-by-account-with-dates
-        public async Task<List<GHabitWithDates>> GetWDatesByAccount(int accountId)
+        public async Task<List<GHabitWithDates>> GetWDatesByAccount(int accountId, string type = "currentWeek")
         {
             try
             {
+                string dateSql = "";
+                switch (type)
+                {
+                    case "currentWeek":
+                        dateSql = @"SET DATEFIRST 1;
+                    DECLARE @today DATE = GETDATE();
+                    DECLARE @startOfDate DATE = DATEADD(day, 1 - ((DATEPART(weekday, @today) + @@DATEFIRST - 2) % 7 + 1), @today);
+                    DECLARE @endOfDate DATE = DATEADD(day, 7, @startOfDate);";
+                        break;
 
-                string sql = @"SET DATEFIRST 1
+                    case "last28Days":
+                        dateSql = @"
+                    DECLARE @today DATE = GETDATE();
+                    DECLARE @startOfDate DATE = DATEADD(day, -27, @today);
+                    DECLARE @endOfDate DATE = @today;";
+                        break;
+                }
+
+                string sql = @"
                 SELECT * FROM bbetterSchema.GHabits
                 WHERE AccountId = @accountId;
                 SELECT GHD.GHabitDateId, GHD.DateOf, GHD.GHabitId
                 FROM bbetterSchema.GHabits GH
                 JOIN bbetterSchema.GHabitDate GHD ON GH.GHabitId = GHD.GHabitId
                 WHERE GH.AccountId = @accountId 
-                AND DATEPART(week, DateOf) = DATEPART(week, GETDATE())
-                AND DATEPART(year, DateOf) = DATEPART(year, GETDATE());";
+                AND GHD.DateOf >= @startOfDate 
+                AND GHD.DateOf < @endOfDate;";
+
+                dateSql += sql;
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
                     await _dbConnection.OpenAsync();
-                    var results = await _dbConnection.QueryMultipleAsync(sql, new { accountId });
+                    var results = await _dbConnection.QueryMultipleAsync(dateSql, new { accountId });
                     var ghabits = results.ReadAsync<GHabit>().Result.ToList();
                     var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
 
@@ -66,6 +83,7 @@ namespace database.Repositories
                                     GHabitId = gHabit.GHabitId.ToString(),
                                     AccountId = gHabit.AccountId,
                                     Content = gHabit.Content,
+                                    priorityOf = gHabit.priorityOf,
                                     GHabitDates = gHabitDateResultsGroup.ToList()
                                 })
                         .ToList();
@@ -78,6 +96,54 @@ namespace database.Repositories
                 throw new Exception("Failed to Get GHabit", ex);
             }
         }
+
+
+        //get-by-account-with-dates
+        //public async Task<List<GHabitWithDates>> GetWDatesByAccount(int accountId)
+        //{
+        //    try
+        //    {
+
+        //        string sql = @"SET DATEFIRST 1
+        //        SELECT * FROM bbetterSchema.GHabits
+        //        WHERE AccountId = @accountId;
+        //        SELECT GHD.GHabitDateId, GHD.DateOf, GHD.GHabitId
+        //        FROM bbetterSchema.GHabits GH
+        //        JOIN bbetterSchema.GHabitDate GHD ON GH.GHabitId = GHD.GHabitId
+        //        WHERE GH.AccountId = @accountId 
+        //        AND DATEPART(week, DateOf) = DATEPART(week, GETDATE())
+        //        AND DATEPART(year, DateOf) = DATEPART(year, GETDATE());";
+
+        //        using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+        //        {
+        //            await _dbConnection.OpenAsync();
+        //            var results = await _dbConnection.QueryMultipleAsync(sql, new { accountId });
+        //            var ghabits = results.ReadAsync<GHabit>().Result.ToList();
+        //            var ghabitDates = results.ReadAsync<GHabitWeekResult>().Result.ToList();
+
+        //            List<GHabitWithDates> habitWithDates = ghabits.GroupJoin(
+        //                    ghabitDates,
+        //                    gHabit => gHabit.GHabitId.ToString(),
+        //                    gHabitDate => gHabitDate.GHabitId,
+        //                    (gHabit, gHabitDateResultsGroup) =>
+        //                        new GHabitWithDates
+        //                        {
+        //                            GHabitId = gHabit.GHabitId.ToString(),
+        //                            AccountId = gHabit.AccountId,
+        //                            Content = gHabit.Content,
+        //                            priorityOf = gHabit.priorityOf,
+        //                            GHabitDates = gHabitDateResultsGroup.ToList()
+        //                        })
+        //                .ToList();
+
+        //            return habitWithDates;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Failed to Get GHabit", ex);
+        //    }
+        //}
 
         //get-tasks
         public async Task<List<GHabit>> GetByAccount(int accountId)
@@ -114,14 +180,15 @@ namespace database.Repositories
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
                     string sql = @"INSERT INTO bbetterSchema.GHabits
-                ([AccountId],[Content]) 
+                ([AccountId],[Content],[priorityOf]) 
                 OUTPUT INSERTED.*
-                VALUES (@accountId, @content)";
+                VALUES (@accountId, @content, @priorityOf)";
 
                     return await _dbConnection.QuerySingleAsync<GHabit>(sql, new
                     {
                         accountId = gHabit.AccountId,
                         content = gHabit.Content,
+                        gHabit.priorityOf,
                     });
                 }
             }
@@ -135,7 +202,7 @@ namespace database.Repositories
         public async Task Update(GHabit newGHabit)
         {
             string sql = @"UPDATE bbetterSchema.GHabits 
-            SET [Content] = @content, 
+            SET [Content] = @content, [priorityOf] = @priorityOf
             WHERE GHabitId = @gHabitId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
@@ -143,7 +210,7 @@ namespace database.Repositories
                 {
                     content = newGHabit.Content,
                     gHabitId = newGHabit.GHabitId,
-
+                    newGHabit.priorityOf,
                 }) > 0) { return; }
             }
 

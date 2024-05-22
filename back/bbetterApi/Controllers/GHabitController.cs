@@ -1,4 +1,5 @@
-﻿using bbetterApi.Services;
+﻿using bbetter.API.Models;
+using bbetterApi.Services;
 using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -17,6 +18,13 @@ namespace bbetterApi.Controllers
         public async Task<ActionResult<List<GHabitWithDates>>> GetWithDates([FromQuery] int accountId)
         {
             return Ok(await gHabitServices.GetWithDates(accountId));
+        }
+
+        [HttpGet]
+        [Route("getStats")]
+        public async Task<ActionResult<GHabitStats>> GetStats([FromQuery] int accountId)
+        {
+            return Ok(await gHabitServices.GetStats(accountId));
         }
 
         [HttpPost]

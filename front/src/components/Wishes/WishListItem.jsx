@@ -68,6 +68,7 @@ const WishListItem = ({ isEdit, data }) => {
             </Button>
           </Styled.WishListItemActions>
         )}
+        <div className='number'>{data.priorityOf}</div>
       </Styled.WishListItem>
       <Modal isShowing={editIsShowing} hide={toggleEdit} className='add-modal' hasOverlay>
         <WishEdit hide={toggleEdit} data={data} />

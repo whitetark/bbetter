@@ -1,4 +1,5 @@
-﻿using bbetterApi.Middleware;
+﻿using bbetter.API.Models;
+using bbetterApi.Middleware;
 using bbetterApi.Models;
 using database.Models;
 using Task = database.Models.Task;
@@ -7,6 +8,18 @@ namespace bbetterApi.Utils
 {
     public class StatsUtil
     {
+        public static GHabitStats CalculateGHabitStats(List<GHabitWithDates> habits)
+        {
+            var result = new GHabitStats
+            {
+                Streaks = CalculateBestStreaks(habits),
+                WorkOn = CalculateHabitToWorkOn(habits),
+                BestHabit = CalculateBestHabit(habits),
+            };
+
+            return result;
+        }
+
         public static Statistics CalculateStats(AccountActivities accountActivities, string type)
         {
             List<Task> tasks = accountActivities.tasks;
@@ -22,7 +35,7 @@ namespace bbetterApi.Utils
             var tasksWithDeadlineThisWeekAndCompleteDateLater = tasksCompleted.Where(t => t.Deadline >= startOfDate && t.Deadline < endOfDate && t.CompleteDate > t.Deadline).ToList();
             double numOfThisWeekCompleted = tasksWithDeadlineAndCompleteDateThisWeek.Count - tasksWithDeadlineThisWeekAndCompleteDateLater.Count;
             double numOftasksWithCompleteDateThisWeek = tasksCompleted.Count(t => t.CompleteDate >= startOfDate && t.CompleteDate < endOfDate);
-            double numOfExtraWork = numOftasksWithCompleteDateThisWeek - numOfThisWeekCompleted;
+            double numOfExtraWork = numOftasksWithCompleteDateThisWeek - tasksWithDeadlineAndCompleteDateThisWeek.Count;
 
             //Wishes
             List<Wish> thisWeekWishesCompleted = wishes.Where(w => w.IsCompleted && w.CompleteDate >= startOfDate && w.CompleteDate <= endOfDate).ToList();
@@ -56,7 +69,7 @@ namespace bbetterApi.Utils
                 Type = "week",
                 ProductivityCoef = productivityCoefficient,
                 TaskCompletionRate = Math.Round(taskCompletionRate, 2),
-                TaskCompletedNum = numOfThisWeekCompleted,
+                TaskCompletedNum = tasksWithDeadlineAndCompleteDateThisWeek.Count,
                 TaskCompletedExtra = numOfExtraWork,
                 GHabitCompletionRate = Math.Round(habitEngagementRate, 2),
                 GHabitFullyCompleted = gHabitsCompleted,
@@ -66,13 +79,7 @@ namespace bbetterApi.Utils
             return stats;
         }
 
-        public static DateTime StartOfWeek(DateTime dt, DayOfWeek startOfWeek)
-        {
-            int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
-            return dt.AddDays(-1 * diff).Date;
-        }
-
-        public static void GetDateRange(string type, out DateTime startOfDate, out DateTime endOfDate)
+        private static void GetDateRange(string type, out DateTime startOfDate, out DateTime endOfDate)
         {
             DateTime today = DateTime.Now;
 
@@ -93,6 +100,71 @@ namespace bbetterApi.Utils
                 default:
                     throw new AppException("Invalid type");
             }
+        }
+        private static DateTime StartOfWeek(DateTime dt, DayOfWeek startOfWeek)
+        {
+            int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
+            return dt.AddDays(-1 * diff).Date;
+        }
+
+        private static string CalculateBestHabit(List<GHabitWithDates> habits)
+        {
+            var bestHabit = habits.OrderByDescending(h => h.GHabitDates.Count).FirstOrDefault();
+            return bestHabit.Content;
+        }
+
+        private static string CalculateHabitToWorkOn(List<GHabitWithDates> habits)
+        {
+            var worstHabit = habits.OrderBy(h => h.GHabitDates.Count).FirstOrDefault();
+            return worstHabit.Content;
+        }
+
+        private static List<GHabitStreak> CalculateBestStreaks(List<GHabitWithDates> habits)
+        {
+            var bestStreaks = new List<GHabitStreak>();
+
+            foreach (var habit in habits)
+            {
+                int bestStreak = CalculateBestStreak(habit);
+                bestStreaks.Add(new GHabitStreak
+                {
+                    Content = habit.Content,
+                    Streak = bestStreak
+                });
+            }
+
+            return bestStreaks.OrderByDescending(h => h.Streak).ToList();
+        }
+
+        private static int CalculateBestStreak(GHabitWithDates gHabitWithDates)
+        {
+            var dates = gHabitWithDates.GHabitDates
+                .OrderBy(d => d.DateOf)
+                .Select(d => d.DateOf.Date)
+                .ToList();
+
+            if (dates.Count == 0) return 0;
+
+            int currentStreak = 1;
+            int maxStreak = 1;
+
+            for (int i = 1; i < dates.Count; i++)
+            {
+                if (dates[i] == dates[i - 1].AddDays(1))
+                {
+                    currentStreak++;
+                    if (currentStreak > maxStreak)
+                    {
+                        maxStreak = currentStreak;
+                    }
+                }
+                else
+                {
+                    currentStreak = 1;
+                }
+            }
+
+            return maxStreak;
         }
     }
 }

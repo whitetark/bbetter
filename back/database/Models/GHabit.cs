@@ -11,5 +11,6 @@ namespace database.Models
         public int GHabitId { get; set; }
         public int AccountId { get; set; }
         public string Content { get; set; }
+        public int priorityOf { get; set; }
     }
 }

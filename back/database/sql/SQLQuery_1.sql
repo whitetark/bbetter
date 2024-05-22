@@ -107,3 +107,43 @@ AND GHD.DateOf < @endOfLastWeek;
 
 ALTER TABLE bbetterSchema.Accounts
 ADD isUserQuote BIT DEFAULT 0;
+
+ALTER TABLE bbetterSchema.Wishes
+ADD priorityOf INT DEFAULT 1;
+
+ALTER TABLE bbetterSchema.GHabits
+ADD priorityOf INT DEFAULT 1;
+
+UPDATE bbetterSchema.Wishes
+SET priorityOf = 1;
+UPDATE bbetterSchema.GHabits
+SET priorityOf = 1;
+
+SELECT * FROM bbetterSchema.Wishes;
+SELECT * FROM bbetterSchema.GHabits;
+
+UPDATE bbetterSchema.Wishes
+SET CompleteDate = GETDATE()
+WHERE CompleteDate IS NULL;
+
+SET DATEFIRST 1;
+DECLARE @today DATE = GETDATE();
+DECLARE @startOfDate DATE = DATEADD(WEEK, -4, DATEADD(DAY, 1 - (DATEPART(WEEKDAY, @today) + @@DATEFIRST - 2) % 7, @today));
+DECLARE @endOfDate DATE = DATEADD(DAY, -1, DATEADD(DAY, 1 - (DATEPART(WEEKDAY, @today) + @@DATEFIRST - 2) % 7, @today));
+SELECT * FROM bbetterSchema.Reflections
+WHERE AccountId = 1
+AND DateOf >= @startOfDate 
+AND DateOf < @endOfDate
+ORDER BY DateOf;
+
+DECLARE @today DATE = GETDATE();
+DECLARE @startOfDate DATE = DATEADD(day, -27, @today);
+DECLARE @endOfDate DATE = @today;
+SELECT * FROM bbetterSchema.GHabits
+WHERE AccountId = 1;
+SELECT GHD.GHabitDateId, GHD.DateOf, GHD.GHabitId
+FROM bbetterSchema.GHabits GH
+JOIN bbetterSchema.GHabitDate GHD ON GH.GHabitId = GHD.GHabitId
+WHERE GH.AccountId = 1 
+AND GHD.DateOf >= @startOfDate 
+AND GHD.DateOf < @endOfDate;

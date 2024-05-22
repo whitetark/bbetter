@@ -1,3 +1,4 @@
+using bbetter.API.Clients;
 using bbetterApi.Clients;
 using bbetterApi.Middleware;
 using bbetterApi.Services;
@@ -50,6 +51,7 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddSingleton<QuotableClient>();
 builder.Services.AddSingleton<BoredClient>();
+builder.Services.AddScoped<GPTClient>();
 
 builder.Services.AddScoped<AccService>();
 builder.Services.AddScoped<BHabitService>();

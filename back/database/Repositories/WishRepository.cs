@@ -66,9 +66,9 @@ namespace database.Repositories
             {
 
                 string sql = @"INSERT INTO bbetterSchema.Wishes
-                ([AccountId],[Content],[IsCompleted]) 
+                ([AccountId],[Content],[IsCompleted],[priorityOf]) 
                 OUTPUT INSERTED.*
-                VALUES (@accountId, @content, @isCompleted)";
+                VALUES (@accountId, @content, @isCompleted, @priorityOf)";
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
@@ -77,6 +77,7 @@ namespace database.Repositories
                         accountId = wish.AccountId,
                         content = wish.Content,
                         isCompleted = wish.IsCompleted,
+                        wish.priorityOf,
                     });
                 }
             }
@@ -92,7 +93,7 @@ namespace database.Repositories
             try
             {
                 string sql = @"UPDATE bbetterSchema.Wishes 
-                SET [Content] = @content, [IsCompleted] = @isCompleted, [CompleteDate] = @completeDate
+                SET [Content] = @content, [IsCompleted] = @isCompleted, [CompleteDate] = @completeDate, [priorityOf] = @priorityOf
                 WHERE WishId = @wishId";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
@@ -102,6 +103,7 @@ namespace database.Repositories
                         isCompleted = newWish.IsCompleted,
                         wishId = newWish.WishId,
                         completeDate = newWish.CompleteDate,
+                        newWish.priorityOf
                     }) > 0) { return; }
 
                 }
