@@ -6,20 +6,9 @@ using Task = database.Models.Task;
 
 namespace bbetterApi.Utils
 {
-    public class StatsUtil
+    public class WeeklyStatsUtil
     {
-        public static GHabitStats CalculateGHabitStats(List<GHabitWithDates> habits)
-        {
-            var result = new GHabitStats
-            {
-                Streaks = CalculateBestStreaks(habits),
-                WorkOn = CalculateHabitToWorkOn(habits),
-                BestHabit = CalculateBestHabit(habits),
-            };
-
-            return result;
-        }
-
+      
         public static Statistics CalculateStats(AccountActivities accountActivities, string type)
         {
             List<Task> tasks = accountActivities.tasks;
@@ -107,64 +96,5 @@ namespace bbetterApi.Utils
             return dt.AddDays(-1 * diff).Date;
         }
 
-        private static string CalculateBestHabit(List<GHabitWithDates> habits)
-        {
-            var bestHabit = habits.OrderByDescending(h => h.GHabitDates.Count).FirstOrDefault();
-            return bestHabit.Content;
-        }
-
-        private static string CalculateHabitToWorkOn(List<GHabitWithDates> habits)
-        {
-            var worstHabit = habits.OrderBy(h => h.GHabitDates.Count).FirstOrDefault();
-            return worstHabit.Content;
-        }
-
-        private static List<GHabitStreak> CalculateBestStreaks(List<GHabitWithDates> habits)
-        {
-            var bestStreaks = new List<GHabitStreak>();
-
-            foreach (var habit in habits)
-            {
-                int bestStreak = CalculateBestStreak(habit);
-                bestStreaks.Add(new GHabitStreak
-                {
-                    Content = habit.Content,
-                    Streak = bestStreak
-                });
-            }
-
-            return bestStreaks.OrderByDescending(h => h.Streak).ToList();
-        }
-
-        private static int CalculateBestStreak(GHabitWithDates gHabitWithDates)
-        {
-            var dates = gHabitWithDates.GHabitDates
-                .OrderBy(d => d.DateOf)
-                .Select(d => d.DateOf.Date)
-                .ToList();
-
-            if (dates.Count == 0) return 0;
-
-            int currentStreak = 1;
-            int maxStreak = 1;
-
-            for (int i = 1; i < dates.Count; i++)
-            {
-                if (dates[i] == dates[i - 1].AddDays(1))
-                {
-                    currentStreak++;
-                    if (currentStreak > maxStreak)
-                    {
-                        maxStreak = currentStreak;
-                    }
-                }
-                else
-                {
-                    currentStreak = 1;
-                }
-            }
-
-            return maxStreak;
-        }
     }
 }

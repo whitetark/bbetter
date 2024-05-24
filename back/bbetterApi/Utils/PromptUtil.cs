@@ -30,7 +30,7 @@ namespace bbetter.API.Utils
                 lines.Add($"{counter}. {habit.Content} type=Good Habit");
                 counter++;
             }
-            lines.Add("Answer in this format:\r\nTop Three of All:\r\n- Activity_Content [Type]\r\n- Activity_Content [Type]\r\n- Activity_Content [Type]\r\nTop Three Tasks:\r\n- Activity_Content [Tasks]\r\n- Activity_Content [Tasks]\r\n- Activity_Content [Tasks];\r\nTop Three Wishes:\r\n- Activity_Content [Wish]\r\n- Activity_Content [Wish]\r\nActivity_Content [Wish]\r\nTop Three Good Habits:\r\n- Activity_Content [Good Habits]\r\n- Activity_Content [Good Habits]\r\n- Activity_Content [Good Habits]");
+            lines.Add("Answer in this format:\r\nTop Three of All:\r\n- Activity_Content [Type]\r\n- Activity_Content [Type]\r\n- Activity_Content [Type]\r\n\r\nTop Three Tasks:\r\n- Activity_Content [Tasks]\r\n- Activity_Content [Tasks]\r\n- Activity_Content [Tasks];\r\n\r\nTop Three Wishes:\r\n- Activity_Content [Wish]\r\n- Activity_Content [Wish]\r\nActivity_Content [Wish]\r\n\r\nTop Three Good Habits:\r\n- Activity_Content [Good Habits]\r\n- Activity_Content [Good Habits]\r\n- Activity_Content [Good Habits]");
             lines.Add("I would like the response without additional details like urgency, importance, deadlines or order numbers. But you should add [Type] to every activity");
 
             return string.Join("\n", lines);

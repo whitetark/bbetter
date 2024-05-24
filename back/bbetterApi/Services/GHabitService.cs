@@ -28,7 +28,7 @@ namespace bbetterApi.Services
         {
             var ghabits = await ghabitRepository.GetWDatesByAccount(accountId, "last28Days");
 
-            return StatsUtil.CalculateGHabitStats(ghabits);
+            return WeeklyStatsUtil.CalculateGHabitStats(ghabits);
         }
 
         public async Task<GHabit> CreateGHabit(GHabit gHabit)

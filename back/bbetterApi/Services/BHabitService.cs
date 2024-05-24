@@ -1,4 +1,6 @@
-﻿using database.Models;
+﻿using bbetter.API.Models;
+using bbetter.API.Utils;
+using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -13,9 +15,10 @@ namespace bbetterApi.Services
             return await bhabitRepository.GetById(id);
         }
 
-        public async Task<List<BHabit>> GetBHabits(int accountId)
+        public async Task<List<BHabitWithStats>> GetBHabits(int accountId)
         {
-            return await bhabitRepository.GetByAccount(accountId);
+            var data = await bhabitRepository.GetWDatesByAccount(accountId);
+            return HabitStatsUtil.CalculateBHabitStats(data);
         }
 
 

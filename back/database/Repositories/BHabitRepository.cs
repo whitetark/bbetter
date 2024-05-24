@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using bbetter.Database.Models;
+using Dapper;
 using database.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
@@ -59,6 +60,47 @@ namespace database.Repositories
             }
         }
 
+        //get-w-dates
+        public async Task<List<BHabitWithDates>> GetWDatesByAccount(int accountId)
+        {
+            try
+            {
+                string sql = @"
+                SELECT * FROM bbetterSchema.BHabits
+                WHERE AccountId = @accountId;
+                SELECT BHD.BHabitDateId, BHD.BHabitId, BHD.DateOf, FROM bbetterSchema.BHabits BH
+                JOIN bbetterSchema.BHabitDate BHD ON BH.BHabitId = BHD.BHabitId
+                WHERE BH.AccountId = @accountId;";
+
+                using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+                {
+                    await _dbConnection.OpenAsync();
+                    var results = await _dbConnection.QueryMultipleAsync(sql, new { accountId });
+                    var bhabits = results.ReadAsync<BHabit>().Result.ToList();
+                    var bhabitDates = results.ReadAsync<BHabitDate>().Result.ToList();
+
+                    List<BHabitWithDates> habitWithDates = bhabits.GroupJoin(
+                            bhabitDates,
+                            bHabit => bHabit.BHabitId,
+                            bHabitDate => bHabitDate.BHabitId,
+                            (bHabit, bHabitDateResultsGroup) =>
+                                new BHabitWithDates
+                                {
+                                    BHabitId = bHabit.BHabitId,
+                                    AccountId = bHabit.AccountId,
+                                    Content = bHabit.Content,
+                                    BHabitDates = bHabitDateResultsGroup.ToList()
+                                })
+                        .ToList();
+
+                    return habitWithDates;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Get GHabit", ex);
+            }
+        }
 
         //create
         public async Task<BHabit> Add(BHabit bHabit)

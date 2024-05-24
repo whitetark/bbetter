@@ -71,7 +71,7 @@ namespace bbetterApi.Services
         public async Task<Statistics> GetStatistics(int id, string type)
         {
             var result = await accountRepository.GetActivitiesForDate(id, type);
-            return StatsUtil.CalculateStats(result, type);
+            return WeeklyStatsUtil.CalculateStats(result, type);
         }
     }
 }

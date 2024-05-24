@@ -1,4 +1,5 @@
 using bbetter.API.Clients;
+using bbetter.Database.Repositories;
 using bbetterApi.Clients;
 using bbetterApi.Middleware;
 using bbetterApi.Services;
@@ -26,7 +27,7 @@ builder.Services.AddAuthentication(x =>
     x.SaveToken = true;
     x.TokenValidationParameters = new TokenValidationParameters
     {
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtKey"]!)),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("mamamamamsforttie9i44i3erjt3945i9o34td")),
         ValidateIssuer = false,
         ValidateAudience = false,
         ValidateLifetime = true,
@@ -71,6 +72,8 @@ builder.Services.AddScoped<TaskRepository>();
 builder.Services.AddScoped<UserQuoteRepository>();
 builder.Services.AddScoped<WishRepository>();
 builder.Services.AddScoped<ReflectionRepository>();
+builder.Services.AddScoped<DEventRepository>();
+builder.Services.AddScoped<DReflectionRepository>();
 
 builder.Services.Configure<DbConfig>(builder.Configuration);
 builder.Services.AddCors(options =>
