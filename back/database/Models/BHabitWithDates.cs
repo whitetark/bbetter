@@ -13,6 +13,7 @@ namespace bbetter.Database.Models
         public int AccountId { get; set; }
         public string Content { get; set; }
         public DateTime IssueDate { get; set; }
+        public DateTime LastDate { get; set; }
         public List<BHabitDate> BHabitDates { get; set; }
     }
 }

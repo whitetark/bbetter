@@ -1,5 +1,5 @@
 ﻿using bbetter.API.Clients;
-using bbetter.API.Models;
+using bbetter.API.Models.Stats;
 using bbetter.API.Utils;
 using bbetterApi.Clients;
 using bbetterApi.Utils;

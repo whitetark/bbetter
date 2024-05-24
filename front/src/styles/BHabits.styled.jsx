@@ -231,6 +231,28 @@ export const BHabitViewItem = styled(BHabitItem)`
   background-color: initial;
   pointer-events: none;
 `;
+export const BHabitViewStats = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  font-size: 18px;
+  padding: 2rem 0;
+  font-weight: 500;
+  color: ${variables.DIVIDER};
+
+  > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  span {
+    background-color: ${variables.GREEN};
+    color: ${variables.WHITE};
+    border-radius: 20px;
+    padding: 0.5rem;
+    text-align: center;
+  }
+`;
 
 export const Calendar = styled.div`
   .css-23p0if-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,

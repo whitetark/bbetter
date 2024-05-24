@@ -1,4 +1,4 @@
-﻿using bbetter.API.Models;
+﻿using bbetter.API.Models.Stats;
 using bbetter.API.Utils;
 using database.Models;
 using database.Repositories;
@@ -24,22 +24,8 @@ namespace bbetterApi.Services
 
         public async Task<BHabit> CreateBHabit(BHabit bHabit)
         {
-            var userRequest = new BHabit
-            {
-                AccountId = bHabit.AccountId,
-                Content = bHabit.Content,
-                IssueDate = bHabit.IssueDate,
-            };
+            var bhabitResult = await bhabitRepository.Add(bHabit);
 
-            var bhabitResult = await bhabitRepository.Add(userRequest);
-
-            var dateRequest = new BHabitDate
-            {
-                BHabitId = bhabitResult.BHabitId,
-                DateOf = bhabitResult.IssueDate,
-            };
-
-            await bhabitDateRepository.Add(dateRequest);
 
             return bhabitResult;
         }
@@ -93,9 +79,9 @@ namespace bbetterApi.Services
 
             var recent = await bhabitDateRepository.GetRecent(bhabit.BHabitId);
 
-            if (bhabit.IssueDate < recent.DateOf)
+            if (bhabit.LastDate < recent.DateOf)
             {
-                bhabit.IssueDate = recent.DateOf;
+                bhabit.LastDate = recent.DateOf;
                 await bhabitRepository.Update(bhabit);
             }
 
@@ -111,25 +97,16 @@ namespace bbetterApi.Services
 
             var recent = await bhabitDateRepository.GetRecent(bhabit.BHabitId);
 
-            if(recent == null)
+            if (recent == null)
             {
-                var newBHabitDate = new BHabitDate
-                {
-                    DateOf = DateTime.Now,
-                    BHabitId = bhabit.BHabitId
-                };
-
-                await CreateBHabitDate(newBHabitDate);
-
-                bhabit.IssueDate = newBHabitDate.DateOf;
+                bhabit.LastDate = bhabit.IssueDate;
             }
             else
             {
-                bhabit.IssueDate = recent.DateOf;
+                bhabit.LastDate = recent.DateOf;
             }
 
             await bhabitRepository.Update(bhabit);
-
             return;
         }
 

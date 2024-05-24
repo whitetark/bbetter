@@ -1,6 +1,6 @@
 ﻿using bbetter.API.Models;
+using bbetter.API.Models.Stats;
 using bbetterApi.Middleware;
-using bbetterApi.Models;
 using database.Models;
 using Task = database.Models.Task;
 

@@ -15,7 +15,7 @@ namespace database.Repositories
     public class BHabitDateRepository(IOptions<DbConfig> dbConfig)
     {
         //get-by-id
-        public async Task<BHabitDate> GetByHabitDateId(int habitDateId)
+        public async Task<BHabitDate?> GetByHabitDateId(int habitDateId)
         {
             try
             {
@@ -24,12 +24,6 @@ namespace database.Repositories
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
                     var bhabit = await _dbConnection.QuerySingleAsync<BHabitDate>(sql, new { habitDateId });
-
-                    if (bhabit == null)
-                    {
-                        return null;
-                    }
-
                     return bhabit;
                 }
             }

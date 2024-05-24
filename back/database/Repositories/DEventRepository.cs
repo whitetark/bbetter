@@ -15,32 +15,62 @@ namespace bbetter.Database.Repositories
 {
     public class DEventRepository(IOptions<DbConfig> dbConfig)
     {
-        public async List<DEvent> GetByDate(DateTime date, int accountId)
+        public async Task<List<DEvent>> GetByDate(DateTime date, int accountId)
         {
+            string sql = @"SELECT * FROM bbetterSchema.DEvents
+            WHERE AccountId = @accountId
+            AND DAY(DateOf) = @day";
 
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                var ghabits = await _dbConnection.QueryAsync<DEvent>(sql, new { accountId, day = date.Day });
+
+                if (!ghabits.Any())
+                {
+                    return [];
+                }
+
+                var result = ghabits.ToList();
+
+                return result;
+            }
+
+            throw new Exception("Failed to Get BHabit Dates");
         }
         public async void Update(DEvent dEvent)
         {
             string sql = @"UPDATE bbetterSchema.DEvents
-            SET [Emotion] = @emotion, [Productivity] = @productivity, [ThreeWords] = @threeWords, [UserGoal] = @userGoal
+            SET [DateOf] = @dateOf, [Rating] = @rating, [WhatHappened] = @whatHappened
             WHERE DEventId = @dEventId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
                 if (await _dbConnection.ExecuteAsync(sql, new
                 {
-                    emotion = newReflection.Emotion,
-                    productivity = newReflection.Productivity,
-                    threeWords = newReflection.ThreeWords,
-                    userGoal = newReflection.UserGoal,
-                    reflectionId = newReflection.ReflectionId,
+                      dateOf = dEvent.DateOf,
+                      rating = dEvent.Rating,
+                      whatHappened = dEvent.WhatHappened,
                 }) > 0) { return; }
             }
 
-            throw new Exception("Failed to Update Reflection");
+            throw new Exception("Failed to Update DEvent");
         }
-        public async void Create(DEvent dEvent)
+        public async Task<DEvent> Create(DEvent dEvent)
         {
+            string sql = @"INSERT INTO bbetterSchema.DEvents
+                ([AccountId],[DateOf],[Rating],[WhatHappenned]) 
+                OUTPUT INSERTED.*
+                VALUES (@accountId, @dateOf, @rating, @whatHappened)";
 
+            using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
+            {
+                return await _dbConnection.QuerySingleAsync<DEvent>(sql, new
+                {
+                    accountId = dEvent.AccountId,
+                    dateOf = dEvent.DateOf,
+                    emotion = dEvent.Rating,
+                    whatHappened = dEvent.WhatHappened,
+                });
+            }
         }
         public async void Delete(int dEventId)
         {
@@ -58,14 +88,16 @@ namespace bbetter.Database.Repositories
             //Declare dates
 
             string sql = @"DELETE FROM bbetterSchema.DEvents
-            WHERE AccountId = @accountId";
+            WHERE AccountId = @accountId
+            AND DAY(DateOf) = @day";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new { accountId, day = date.Day }) > 0) { return; }
             }
 
             throw new Exception("Failed to Delete BEvents");
         }
+
         public async void DeleteMany(int accountId)
         {
             string sql = @"DELETE FROM bbetterSchema.DEvents

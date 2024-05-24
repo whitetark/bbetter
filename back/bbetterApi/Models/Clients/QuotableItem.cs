@@ -1,4 +1,4 @@
-﻿namespace bbetterApi.Models
+﻿namespace bbetter.API.Models.Clients
 {
     public class QuotableItem
     {

@@ -12,5 +12,6 @@ namespace database.Models
         public int AccountId { get; set; }
         public string Content { get; set; }
         public DateTime IssueDate { get; set; }
+        public DateTime LastDate { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Azure.Core;
 using bbetter.API.Clients;
+using bbetter.API.Models.Responses;
+using bbetter.API.Models.Stats;
 using bbetter.API.Utils;
 using bbetterApi.Middleware;
 using bbetterApi.Models;

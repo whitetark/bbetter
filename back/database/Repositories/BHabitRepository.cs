@@ -68,7 +68,7 @@ namespace database.Repositories
                 string sql = @"
                 SELECT * FROM bbetterSchema.BHabits
                 WHERE AccountId = @accountId;
-                SELECT BHD.BHabitDateId, BHD.BHabitId, BHD.DateOf, FROM bbetterSchema.BHabits BH
+                SELECT BHD.BHabitDateId, BHD.BHabitId, BHD.DateOf FROM bbetterSchema.BHabits BH
                 JOIN bbetterSchema.BHabitDate BHD ON BH.BHabitId = BHD.BHabitId
                 WHERE BH.AccountId = @accountId;";
 
@@ -88,6 +88,8 @@ namespace database.Repositories
                                 {
                                     BHabitId = bHabit.BHabitId,
                                     AccountId = bHabit.AccountId,
+                                    IssueDate = bHabit.IssueDate,
+                                    LastDate = bHabit.LastDate,
                                     Content = bHabit.Content,
                                     BHabitDates = bHabitDateResultsGroup.ToList()
                                 })
@@ -108,7 +110,7 @@ namespace database.Repositories
             try
             {
                 string sql = @"INSERT INTO bbetterSchema.BHabits
-                ([AccountId],[Content],[IssueDate]) 
+                ([AccountId],[Content],[IssueDate],[LastDate]) 
                 OUTPUT INSERTED.*
                 VALUES (@accountId, @content, @issueDate)";
 
@@ -119,6 +121,7 @@ namespace database.Repositories
                         accountId = bHabit.AccountId,
                         content = bHabit.Content,
                         issueDate = bHabit.IssueDate,
+                        lastDate = bHabit.IssueDate,
                     });
                 }
 
@@ -133,7 +136,7 @@ namespace database.Repositories
         public async Task Update(BHabit newBHabit)
         {
             string sql = @"UPDATE bbetterSchema.BHabits 
-            SET [Content] = @content, [IssueDate] = @issueDate 
+            SET [Content] = @content, [IssueDate] = @issueDate, [LastDate] = @lastDate
             WHERE BHabitId = @bHabitId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
@@ -141,7 +144,8 @@ namespace database.Repositories
                 {
                     content = newBHabit.Content,
                     issueDate = newBHabit.IssueDate,
-                    bHabitId = newBHabit.BHabitId
+                    bHabitId = newBHabit.BHabitId,
+                    lastDate = newBHabit.LastDate,
 
                 }) > 0) { return; }
             }

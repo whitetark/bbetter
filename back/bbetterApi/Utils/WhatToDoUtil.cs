@@ -1,4 +1,4 @@
-﻿using bbetterApi.Models;
+﻿using bbetter.API.Models.Responses;
 using database.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.RegularExpressions;

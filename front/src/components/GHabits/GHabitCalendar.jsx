@@ -11,6 +11,7 @@ import { GHabitService } from '../../app/services/api';
 import { useAddGHabitDate, useDeleteGHabitDate } from '../../hooks/use-ghabits';
 import * as Styled from '../../styles/GHabits.styled';
 import Button from '../UI/Button';
+import Notification from '../UI/Notification';
 
 function ServerDay(props) {
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
@@ -35,6 +36,7 @@ export default function GHabitCalendar({ ghabit }) {
   const requestAbortController = useRef(null);
   const [value, setValue] = useState(dayjs(new Date()));
   const [month, setMonth] = useState(dayjs(new Date()));
+  const [open, setOpen] = useState(false);
 
   const { mutateAsync: addAsync } = useAddGHabitDate();
   const { mutateAsync: deleteAsync } = useDeleteGHabitDate();
@@ -75,7 +77,7 @@ export default function GHabitCalendar({ ghabit }) {
       GHabitId: ghabit.gHabitId,
       DateOf: value.format('YYYY-MM-DDTHH:mm:ss'),
     };
-    addAsync(requestBody);
+    addAsync(requestBody).then(setOpen(true));
   };
 
   const handleRemove = () => {
@@ -86,40 +88,51 @@ export default function GHabitCalendar({ ghabit }) {
     deleteAsync(requestBody);
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const isSelected = highlightedDays?.data?.indexOf(value.date()) >= 0;
 
   return (
-    <Styled.Calendar>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateCalendar
-          value={value}
-          loading={isLoading}
-          renderLoading={() => <DayCalendarSkeleton />}
-          onChange={(newValue) => setValue(newValue)}
-          onMonthChange={handleMonthChange}
-          onYearChange={handleMonthChange}
-          disableFuture
-          slots={{
-            day: ServerDay,
-          }}
-          slotProps={{
-            day: {
-              highlightedDays,
-            },
-          }}
-        />
-      </LocalizationProvider>
-      <Styled.CalendarActions>
-        {isSelected ? (
-          <Button onClick={handleRemove} className='remove'>
-            <FontAwesomeIcon icon='fa-solid fa-trash-can' fixedWidth />
-          </Button>
-        ) : (
-          <Button onClick={handleAdd} className='add'>
-            <FontAwesomeIcon icon='fa-solid fa-plus' fixedWidth />
-          </Button>
-        )}
-      </Styled.CalendarActions>
-    </Styled.Calendar>
+    <>
+      <Styled.Calendar>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateCalendar
+            value={value}
+            loading={isLoading}
+            renderLoading={() => <DayCalendarSkeleton />}
+            onChange={(newValue) => setValue(newValue)}
+            onMonthChange={handleMonthChange}
+            onYearChange={handleMonthChange}
+            disableFuture
+            slots={{
+              day: ServerDay,
+            }}
+            slotProps={{
+              day: {
+                highlightedDays,
+              },
+            }}
+          />
+        </LocalizationProvider>
+        <Styled.CalendarActions>
+          {isSelected ? (
+            <Button onClick={handleRemove} className='remove'>
+              <FontAwesomeIcon icon='fa-solid fa-trash-can' fixedWidth />
+            </Button>
+          ) : (
+            <Button onClick={handleAdd} className='add'>
+              <FontAwesomeIcon icon='fa-solid fa-plus' fixedWidth />
+            </Button>
+          )}
+        </Styled.CalendarActions>
+      </Styled.Calendar>
+      <Notification open={open} onClose={handleClose} severity='success' type='ghabitAdd' />
+    </>
   );
 }

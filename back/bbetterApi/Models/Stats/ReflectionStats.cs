@@ -1,4 +1,4 @@
-﻿namespace bbetter.API.Models
+﻿namespace bbetter.API.Models.Stats
 {
     public class ReflectionStats
     {

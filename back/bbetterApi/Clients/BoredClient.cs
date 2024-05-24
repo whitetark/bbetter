@@ -1,4 +1,4 @@
-﻿using bbetterApi.Models;
+﻿using bbetter.API.Models.Clients;
 using database.Models;
 using Newtonsoft.Json;
 

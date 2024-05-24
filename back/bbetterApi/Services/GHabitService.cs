@@ -1,4 +1,5 @@
-﻿using bbetter.API.Models;
+﻿using bbetter.API.Models.Stats;
+using bbetter.API.Utils;
 using bbetterApi.Utils;
 using database.Models;
 using database.Repositories;
@@ -28,7 +29,7 @@ namespace bbetterApi.Services
         {
             var ghabits = await ghabitRepository.GetWDatesByAccount(accountId, "last28Days");
 
-            return WeeklyStatsUtil.CalculateGHabitStats(ghabits);
+            return HabitStatsUtil.CalculateGHabitStats(ghabits);
         }
 
         public async Task<GHabit> CreateGHabit(GHabit gHabit)

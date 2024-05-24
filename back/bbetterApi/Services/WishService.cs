@@ -1,5 +1,5 @@
-﻿using bbetterApi.Clients;
-using bbetterApi.Models;
+﻿using bbetter.API.Models.Clients;
+using bbetterApi.Clients;
 using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Mvc;

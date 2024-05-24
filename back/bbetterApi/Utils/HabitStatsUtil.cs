@@ -1,4 +1,4 @@
-﻿using bbetter.API.Models;
+﻿using bbetter.API.Models.Stats;
 using bbetter.Database.Models;
 using database.Models;
 
@@ -21,15 +21,22 @@ namespace bbetter.API.Utils
         public static List<BHabitWithStats> CalculateBHabitStats(List<BHabitWithDates> habitsWithDates)
         {
             var result = new List<BHabitWithStats>();
+            DateTime now = DateTime.Now;
 
             foreach (var habitWithDates in habitsWithDates)
             {
-                var dates = habitWithDates.BHabitDates.OrderBy(hd => hd.DateOf).ToList();
-                var intervals = dates.Zip(dates.Skip(1), (d1, d2) => d2.DateOf - d1.DateOf).ToList();
+                var dates = habitWithDates.BHabitDates.Select(hd => hd.DateOf).ToList();
+                dates.Insert(0, habitWithDates.IssueDate);
+                dates.Add(now);
+
+                dates = dates.OrderBy(d => d).ToList();
+
+                var intervals = dates.Zip(dates.Skip(1), (d1, d2) => d2 - d1).ToList();
 
                 var maxInterval = intervals.Any() ? intervals.Max() : TimeSpan.Zero;
                 var minInterval = intervals.Any() ? intervals.Min() : TimeSpan.Zero;
-                var numOfEntries = dates.Count;
+                var avgInterval = intervals.Any() ? TimeSpan.FromTicks((long)intervals.Average(ts => ts.Ticks)) : TimeSpan.Zero;
+                var numOfEntries = dates.Count - 1;
 
                 result.Add(new BHabitWithStats
                 {
@@ -37,9 +44,11 @@ namespace bbetter.API.Utils
                     AccountId = habitWithDates.AccountId,
                     Content = habitWithDates.Content,
                     IssueDate = habitWithDates.IssueDate,
+                    LastDate = habitWithDates.LastDate,
                     NumOfEntries = numOfEntries,
-                    MaxInterval = maxInterval,
-                    MinInterval = minInterval
+                    MaxInterval = maxInterval.TotalMilliseconds,
+                    MinInterval = minInterval.TotalMilliseconds,
+                    AvgInterval = avgInterval.TotalMilliseconds,
                 });
             }
 

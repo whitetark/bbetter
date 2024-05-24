@@ -1,4 +1,6 @@
-﻿using bbetterApi.Models;
+﻿using bbetter.API.Models.Responses;
+using bbetter.API.Models.Stats;
+using bbetterApi.Models;
 using bbetterApi.Services;
 using bbetterApi.Utils;
 using database.Models;

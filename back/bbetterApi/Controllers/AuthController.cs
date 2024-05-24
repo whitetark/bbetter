@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
+using bbetter.API.Models.Responses;
 
 namespace bbetterApi.Controllers
 {

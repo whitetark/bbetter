@@ -1,4 +1,4 @@
-﻿namespace bbetterApi.Models
+﻿namespace bbetter.API.Models.Responses
 {
     public class WhatToDoResponse
     {

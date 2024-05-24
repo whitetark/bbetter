@@ -114,6 +114,9 @@ ADD priorityOf INT DEFAULT 1;
 ALTER TABLE bbetterSchema.GHabits
 ADD priorityOf INT DEFAULT 1;
 
+ALTER TABLE bbetterSchema.BHabits
+ADD LastDate DATETIME;
+
 UPDATE bbetterSchema.Wishes
 SET priorityOf = 1;
 UPDATE bbetterSchema.GHabits
@@ -147,3 +150,10 @@ JOIN bbetterSchema.GHabitDate GHD ON GH.GHabitId = GHD.GHabitId
 WHERE GH.AccountId = 1 
 AND GHD.DateOf >= @startOfDate 
 AND GHD.DateOf < @endOfDate;
+
+DELETE BHD
+FROM bbetterSchema.BHabitDate BHD
+JOIN bbetterSchema.BHabits BH
+ON BHD.BHabitId = BH.BHabitId
+WHERE BHD.DateOf < BH.IssueDate
+OR DAY(BHD.DateOf) = DAY(BH.IssueDate);

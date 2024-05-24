@@ -45,7 +45,7 @@ const BHabitItem = ({ data }) => {
             <div className='time'>Abstinence Time</div>
             <span>
               <BHabitClock
-                issueDate={data.issueDate}
+                issueDate={data.lastDate}
                 timeDiff={timeDiff}
                 setTimeDiff={setTimeDiff}
               />

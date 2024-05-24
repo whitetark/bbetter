@@ -1,4 +1,4 @@
-﻿namespace bbetter.API.Models
+﻿namespace bbetter.API.Models.Stats
 {
     public class GHabitStats
     {
@@ -10,6 +10,6 @@
     public class GHabitStreak
     {
         public string Content { get; set; }
-        public int Streak {  get; set; }
-    } 
+        public int Streak { get; set; }
+    }
 }

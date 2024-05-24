@@ -11,6 +11,7 @@ import { BHabitService } from '../../app/services/api';
 import { useAddBHabitDate, useDeleteBHabitDate } from '../../hooks/use-bhabits';
 import * as Styled from '../../styles/BHabits.styled';
 import Button from '../UI/Button';
+import Notification from '../UI/Notification';
 
 const findBHabitDateIdByDay = (data, day) => {
   const result = data.find((item) => {
@@ -21,15 +22,21 @@ const findBHabitDateIdByDay = (data, day) => {
 };
 
 function ServerDay(props) {
-  const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
+  const { highlightedDays = [], day, outsideCurrentMonth, issueDate, ...other } = props;
+
+  const isIssueDate = props.day.date() === issueDate.date();
 
   const isSelected =
     !props.outsideCurrentMonth && highlightedDays?.data?.days?.indexOf(props.day.date()) >= 0;
 
+  let badgeContent = '💢';
+  if (isIssueDate) {
+    badgeContent = '📆';
+  }
   return (
     <>
-      {isSelected ? (
-        <Badge key={props.day.toString()} overlap='circular' badgeContent={isSelected && '💢'}>
+      {isSelected || isIssueDate ? (
+        <Badge key={props.day.toString()} overlap='circular' badgeContent={badgeContent}>
           <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
         </Badge>
       ) : (
@@ -41,9 +48,9 @@ function ServerDay(props) {
 
 export default function BHabitCalendar({ bhabit }) {
   const requestAbortController = useRef(null);
-
   const [value, setValue] = useState(dayjs(new Date()));
   const [month, setMonth] = useState(dayjs(new Date()));
+  const [open, setOpen] = useState(false);
 
   const { mutateAsync: addAsync } = useAddBHabitDate();
   const { mutateAsync: deleteAsync } = useDeleteBHabitDate();
@@ -84,7 +91,7 @@ export default function BHabitCalendar({ bhabit }) {
       BHabitId: bhabit.bHabitId,
       DateOf: value.format('YYYY-MM-DDTHH:mm:ss'),
     };
-    addAsync(requestBody);
+    addAsync(requestBody).then(setOpen(true));
   };
 
   const handleRemove = () => {
@@ -95,40 +102,57 @@ export default function BHabitCalendar({ bhabit }) {
     deleteAsync(requestBody);
   };
 
-  const isSelected = highlightedDays?.data?.days?.indexOf(value.date()) >= 0;
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
 
+    setOpen(false);
+  };
+
+  const isSelected = highlightedDays?.data?.days?.indexOf(value.date()) >= 0;
   return (
-    <Styled.Calendar>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateCalendar
-          value={value}
-          loading={isLoading}
-          renderLoading={() => <DayCalendarSkeleton />}
-          onChange={(newValue) => setValue(newValue)}
-          disableFuture
-          onMonthChange={handleMonthChange}
-          onYearChange={handleMonthChange}
-          slots={{
-            day: ServerDay,
-          }}
-          slotProps={{
-            day: {
-              highlightedDays,
-            },
-          }}
-        />
-      </LocalizationProvider>
-      <Styled.CalendarActions>
-        {isSelected ? (
-          <Button onClick={handleRemove} className='remove'>
-            <FontAwesomeIcon icon='fa-solid fa-trash-can' fixedWidth />
-          </Button>
-        ) : (
-          <Button onClick={handleAdd} className='add'>
-            <FontAwesomeIcon icon='fa-solid fa-plus' fixedWidth />
-          </Button>
-        )}
-      </Styled.CalendarActions>
-    </Styled.Calendar>
+    <>
+      <Styled.Calendar>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateCalendar
+            value={value}
+            loading={isLoading}
+            renderLoading={() => <DayCalendarSkeleton />}
+            onChange={(newValue) => setValue(newValue)}
+            disableFuture
+            shouldDisableDate={(date) => {
+              const issueDate = dayjs(bhabit.issueDate);
+              const otherDate = dayjs(date);
+
+              return issueDate > otherDate;
+            }}
+            onMonthChange={handleMonthChange}
+            onYearChange={handleMonthChange}
+            slots={{
+              day: ServerDay,
+            }}
+            slotProps={{
+              day: {
+                highlightedDays,
+                issueDate: dayjs(bhabit.issueDate),
+              },
+            }}
+          />
+        </LocalizationProvider>
+        <Styled.CalendarActions>
+          {isSelected ? (
+            <Button onClick={handleRemove} className='remove'>
+              <FontAwesomeIcon icon='fa-solid fa-trash-can' fixedWidth />
+            </Button>
+          ) : (
+            <Button onClick={handleAdd} className='add'>
+              <FontAwesomeIcon icon='fa-solid fa-plus' fixedWidth />
+            </Button>
+          )}
+        </Styled.CalendarActions>
+      </Styled.Calendar>
+      <Notification open={open} onClose={handleClose} severity='error' type='bhabitAdd' />
+    </>
   );
 }
