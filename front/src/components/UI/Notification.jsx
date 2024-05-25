@@ -1,32 +1,31 @@
 import { Alert, Snackbar } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getRandomBHabitPhrase, getRandomGHabitPhrase } from '../../app/shared/phases';
 
 const Notification = ({ open, onClose, severity, type }) => {
-  const [message, setMessage] = useState('What is this snackbar for? O.O');
+  const [message, setMessage] = useState('Thats a Step!');
+  const initialMessage = useRef(null);
 
-  let temp;
+  if (!initialMessage.current) {
+    switch (type) {
+      case 'ghabitAdd':
+        initialMessage.current = getRandomGHabitPhrase();
+        break;
 
-  switch (type) {
-    case 'ghabitAdd':
-      temp = getRandomGHabitPhrase();
-      break;
+      case 'bhabitAdd':
+        initialMessage.current = getRandomBHabitPhrase();
+        break;
 
-    case 'bhabitAdd':
-      temp = getRandomBHabitPhrase();
-      break;
-
-    default:
-      temp = 'What is this snackbar for? O.O';
-      break;
+      default:
+        initialMessage.current = 'What is this snackbar for? O.O';
+        break;
+    }
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setMessage(temp);
-    }, 3500);
-
-    return () => clearTimeout(timer);
+    if (open) {
+      setMessage(initialMessage.current);
+    }
   }, [open]);
 
   return (

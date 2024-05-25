@@ -25,10 +25,13 @@ const QuoteItem = ({ isEdit, data }) => {
   return (
     <>
       <Styled.Quote>
-        <div>
+        <Styled.QuoteMain>
           <div className='content'>{data.quote}</div>
-          <div className='author'>{data.author}</div>
-        </div>
+          <Styled.QuoteInfo>
+            <div className='type'>{data.typeOf || 'motivational'}</div>
+            <div className='author'>{data.author}</div>
+          </Styled.QuoteInfo>
+        </Styled.QuoteMain>
         {isEdit && (
           <Styled.QuoteItemActions>
             <Button onClick={toggleEdit}>

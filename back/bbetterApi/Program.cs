@@ -1,5 +1,4 @@
 using bbetter.API.Clients;
-using bbetter.Database.Repositories;
 using bbetterApi.Clients;
 using bbetterApi.Middleware;
 using bbetterApi.Services;
@@ -72,8 +71,6 @@ builder.Services.AddScoped<TaskRepository>();
 builder.Services.AddScoped<UserQuoteRepository>();
 builder.Services.AddScoped<WishRepository>();
 builder.Services.AddScoped<ReflectionRepository>();
-builder.Services.AddScoped<DEventRepository>();
-builder.Services.AddScoped<DReflectionRepository>();
 
 builder.Services.Configure<DbConfig>(builder.Configuration);
 builder.Services.AddCors(options =>

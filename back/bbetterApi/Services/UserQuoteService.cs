@@ -1,4 +1,5 @@
-﻿using bbetterApi.Clients;
+﻿using bbetter.API.Models.Responses;
+using bbetterApi.Clients;
 using bbetterApi.Models;
 using database.Models;
 using database.Repositories;
@@ -10,9 +11,25 @@ namespace bbetterApi.Services
     public class UserQuoteService(UserQuoteRepository quoteRepository, AccountRepository accountRepository, QuotableClient quotableClient)
     {
 
-        public async Task<List<UserQuote>> GetUserQuotes(int accountId)
+        public async Task<QuotesResponse> GetUserQuotes(int accountId)
         {
-            return await quoteRepository.GetAllByUser(accountId);
+            var quotes = await quoteRepository.GetAllByUser(accountId);
+            var typesOf = quotes
+            .GroupBy(uq => uq.TypeOf)
+            .Select(group => new QuoteType
+            {
+                TypeOf = group.Key,
+                Count = group.Count()
+            })
+            .ToList();
+
+            var result = new QuotesResponse
+            {
+                Quotes = quotes,
+                TypesOf = typesOf,
+        };
+
+            return result;
         }
 
 

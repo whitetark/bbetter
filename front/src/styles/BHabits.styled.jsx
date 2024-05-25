@@ -58,7 +58,7 @@ export const BHabitItem = styled.div`
     gap: 2rem;
 
     .perc {
-      font-size: 40px;
+      font-size: 36px;
       font-weight: 500;
       margin-left: auto;
     }
@@ -237,7 +237,6 @@ export const BHabitViewStats = styled.div`
   gap: 1rem;
   font-size: 18px;
   padding: 2rem 0;
-  font-weight: 500;
   color: ${variables.DIVIDER};
 
   > div {
@@ -251,6 +250,7 @@ export const BHabitViewStats = styled.div`
     border-radius: 20px;
     padding: 0.5rem;
     text-align: center;
+    font-weight: 400;
   }
 `;
 

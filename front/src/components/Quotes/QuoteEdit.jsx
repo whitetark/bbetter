@@ -14,6 +14,7 @@ const QuoteEdit = ({ onClick, data, hide }) => {
   const initialValues = {
     content: data.quote,
     author: data.author,
+    type: data.typeOf || 'motivational',
   };
   const { mutateAsync, error, isError } = useEditQuote();
   return (
@@ -27,6 +28,7 @@ const QuoteEdit = ({ onClick, data, hide }) => {
             UserQuoteId: data.userQuoteId,
             AccountId: data.accountId,
             Quote: values.content,
+            TypeOf: values.type,
             Author: values.author == '' ? 'Me' : values.author,
           };
           mutateAsync(quote).then(hide());
@@ -35,6 +37,19 @@ const QuoteEdit = ({ onClick, data, hide }) => {
         <Styled.AddQuoteForm>
           <TextInput name='content' placeholder='Your Quote' component='textarea' rows='4' />
           <TextInput name='author' placeholder='Author' />
+          <Field as='select' name='type'>
+            <option value='motivational'>Motivational</option>
+            <option value='life'>Life</option>
+            <option value='inspirational'>Inspirational</option>
+            <option value='funny'>Funny</option>
+            <option value='positive'>Positive</option>
+            <option value='music'>Music</option>
+            <option value='attitude'>Attitude</option>
+            <option value='beauty'>Beauty</option>
+            <option value='dreams'>Dreams</option>
+            <option value='friendship'>Friendship</option>
+            <option value='other'>Other</option>
+          </Field>
           <Field>
             {(props) => (
               <Styled.AddQuoteButton

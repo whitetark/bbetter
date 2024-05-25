@@ -94,9 +94,9 @@ namespace database.Repositories
             try
             {
                 string sql = @"INSERT INTO bbetterSchema.UserQuotes
-                ([AccountId],[Quote],[Author]) 
+                ([AccountId],[Quote],[Author],[TypeOf]) 
                 OUTPUT INSERTED.*
-                VALUES (@accountId, @quote, @author)";
+                VALUES (@accountId, @quote, @author, @typeOf)";
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
@@ -105,6 +105,7 @@ namespace database.Repositories
                         accountId = quote.AccountId,
                         quote = quote.Quote,
                         author = quote.Author,
+                        typeOf = quote.TypeOf,
                     });
                 }
             }
@@ -118,7 +119,7 @@ namespace database.Repositories
         public async Task Update(UserQuote newQuote)
         {
             string sql = @"UPDATE bbetterSchema.UserQuotes 
-            SET [Quote] = @quote, [Author] = @author
+            SET [Quote] = @quote, [Author] = @author, [TypeOf] = @typeOf
             WHERE UserQuoteId = @quoteId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
@@ -127,6 +128,7 @@ namespace database.Repositories
                     quote = newQuote.Quote,
                     quoteId = newQuote.UserQuoteId,
                     author = newQuote.Author,
+                    typeOf = newQuote.TypeOf,
                 }) > 0) { return; }
             }
 

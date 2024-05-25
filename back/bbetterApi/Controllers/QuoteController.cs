@@ -1,4 +1,5 @@
-﻿using bbetterApi.Services;
+﻿using bbetter.API.Models.Responses;
+using bbetterApi.Services;
 using database.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace bbetterApi.Controllers
 
         [HttpGet]
         [Route("user/getAll")]
-        public async Task<ActionResult<List<UserQuote>>> GetUserQuotes([FromQuery] int accountId)
+        public async Task<ActionResult<QuotesResponse>> GetUserQuotes([FromQuery] int accountId)
         {
             return Ok(await quoteServices.GetUserQuotes(accountId));
         }

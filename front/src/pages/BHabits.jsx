@@ -13,7 +13,7 @@ const BHabitsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(2);
   const [searchParams, setSearchParams] = useSearchParams();
-  const postsPerPage = 6;
+  const postsPerPage = 8;
 
   const { isShowing: modalIsShowing, toggle: toggleModal } = useModal();
   const { bhabits, error, isLoading } = useRefetchBHabits();

@@ -117,6 +117,15 @@ ADD priorityOf INT DEFAULT 1;
 ALTER TABLE bbetterSchema.BHabits
 ADD LastDate DATETIME;
 
+ALTER TABLE bbetterSchema.UserQuotes
+ADD TypeOf VARCHAR(50);
+
+ALTER TABLE bbetterSchema.UserQuotes
+DROP COLUMN Type;
+
+UPDATE bbetterSchema.BHabits
+SET LastDate = IssueDate;
+
 UPDATE bbetterSchema.Wishes
 SET priorityOf = 1;
 UPDATE bbetterSchema.GHabits

@@ -3,23 +3,48 @@ import { Background, Button, Modal } from '../components/UI/index';
 import { QuoteAdd, QuoteItem } from '../components/index';
 
 import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
+import { QuoteService } from '../app/services/api';
+import { useAuthContext } from '../app/store/auth-context';
+import QuoteFilter from '../components/Quotes/QuoteFilter';
 import Pagination from '../components/UI/Paginations';
 import useEdit from '../hooks/use-edit';
 import useModal from '../hooks/use-modal';
-import { useRefetchQuotes } from '../hooks/use-quote';
 import * as Styled from '../styles/Quotes.styled';
 
 const QuotesPage = () => {
   document.title = `bbetter - Quotes`;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(2);
+  const [showData, setShowData] = useState([]);
+  const [jsonData, setJsonData] = useState([]);
+  const [keywordList, setKeywordList] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const postsPerPage = 15;
+  const postsPerPage = 6;
 
   const { isShowing: modalIsShowing, toggle: toggleModal } = useModal();
   const { isEditMode: isEdit, toggle: toggleEdit } = useEdit();
-  const { quotes, error, isLoading } = useRefetchQuotes();
+
+  const { userData } = useAuthContext();
+  const requestBody = {
+    AccountId: userData.accountId,
+  };
+
+  const { isLoading } = useQuery(
+    ['getQuotes', requestBody],
+    () => QuoteService.getByAccount(requestBody),
+    {
+      onSuccess: (data) => {
+        setJsonData(data.data.quotes);
+        setKeywordList(data.data.typesOf);
+      },
+      onError: (error) => {
+        console.log('Get Quotes error: ' + error.message);
+      },
+      refetchOnMount: 'always',
+    },
+  );
 
   useEffect(() => {
     const pageValue = parseInt(searchParams.get('page'));
@@ -29,8 +54,12 @@ const QuotesPage = () => {
   }, []);
 
   useEffect(() => {
-    quotes && setTotalPages(Math.ceil(quotes.length / postsPerPage));
-  }, [quotes]);
+    setShowData(jsonData);
+  }, [jsonData]);
+
+  useEffect(() => {
+    setTotalPages(Math.ceil(showData?.length / postsPerPage));
+  }, [showData]);
 
   useEffect(() => {
     const newSearch = new URLSearchParams(searchParams);
@@ -38,9 +67,23 @@ const QuotesPage = () => {
     setSearchParams(newSearch);
   }, [currentPage]);
 
+  const clientFiltersHandler = (filtersValue) => {
+    let rawData = jsonData;
+
+    if (filtersValue.checkedKeywords.length > 0) {
+      rawData = rawData.filter((publication) =>
+        filtersValue.checkedKeywords.some((keyword) =>
+          publication.typeOf ? publication.typeOf == keyword : null,
+        ),
+      );
+    }
+
+    setShowData(rawData);
+  };
+
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
-  let currentPosts = quotes && quotes.slice(firstPostIndex, lastPostIndex);
+  let currentPosts = showData?.slice(firstPostIndex, lastPostIndex);
   return (
     <Styled.QuotesPage>
       <Background />
@@ -57,7 +100,7 @@ const QuotesPage = () => {
               </Button>
             </Styled.QuoteActions>
           </Styled.QuoteHeaderBlock>
-          {quotes && quotes.length > 0 ? (
+          {jsonData && jsonData.length > 0 ? (
             <Pagination
               totalPages={totalPages}
               currentPage={currentPage}
@@ -65,11 +108,20 @@ const QuotesPage = () => {
             />
           ) : undefined}
         </Styled.QuoteHeader>
-        <Styled.QuoteList>
-          {currentPosts.map((quote) => (
-            <QuoteItem key={quote.userQuoteId} isEdit={isEdit} data={quote} />
-          ))}
-        </Styled.QuoteList>
+        <Styled.QuoteMainBlock>
+          <Styled.QuoteFilter>
+            <QuoteFilter
+              keywordsList={keywordList}
+              getClientFilters={clientFiltersHandler}
+              isLoading={isLoading}
+            />
+          </Styled.QuoteFilter>
+          <Styled.QuoteList>
+            {currentPosts?.map((quote) => (
+              <QuoteItem key={quote.userQuoteId} isEdit={isEdit} data={quote} />
+            ))}
+          </Styled.QuoteList>
+        </Styled.QuoteMainBlock>
       </Styled.QuoteContent>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
         <QuoteAdd hide={toggleModal} />

@@ -12,5 +12,6 @@ namespace database.Models
         public int AccountId { get; set; }
         public string Author { get; set; }
         public string Quote {  get; set; }
+        public string TypeOf { get; set; }
     }
 }

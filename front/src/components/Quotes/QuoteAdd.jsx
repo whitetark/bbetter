@@ -8,6 +8,7 @@ import { TextInput } from '../UI/Inputs';
 const initialValues = {
   content: '',
   author: '',
+  type: 'motivational',
 };
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
@@ -29,6 +30,7 @@ const QuoteAdd = ({ onClick, hide }) => {
             UserQuoteId: 0,
             AccountId: 1,
             Quote: values.content,
+            TypeOf: values.type,
             Author: values.author == '' ? 'Me' : values.author,
           };
           mutateAsync(quote).then(hide());
@@ -37,6 +39,19 @@ const QuoteAdd = ({ onClick, hide }) => {
         <Styled.AddQuoteForm>
           <TextInput name='content' placeholder='Your Quote' component='textarea' rows='4' />
           <TextInput name='author' placeholder='Author' />
+          <Field as='select' name='type'>
+            <option value='motivational'>Motivational</option>
+            <option value='life'>Life</option>
+            <option value='inspirational'>Inspirational</option>
+            <option value='funny'>Funny</option>
+            <option value='positive'>Positive</option>
+            <option value='music'>Music</option>
+            <option value='attitude'>Attitude</option>
+            <option value='beauty'>Beauty</option>
+            <option value='dreams'>Dreams</option>
+            <option value='friendship'>Friendship</option>
+            <option value='other'>Other</option>
+          </Field>
           <Field>
             {(props) => (
               <Styled.AddQuoteButton
