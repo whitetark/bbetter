@@ -10,7 +10,7 @@ namespace bbetter.API.Clients
 
         public GPTClient(IConfiguration configuration)
         {
-            _apiKey = configuration["openAIKey"];
+            _apiKey = configuration.GetValue<string>("openAIKey");
         }
 
         public async Task<string?> GetWhatToDo(string prompt)
@@ -31,7 +31,6 @@ namespace bbetter.API.Clients
                 chat.AppendUserInput(prompt);
 
                 string response = await chat.GetResponseFromChatbotAsync();
-                Console.WriteLine(response);
                 return response;
             }
             catch (Exception ex)
@@ -52,7 +51,6 @@ namespace bbetter.API.Clients
                 chat.AppendUserInput(prompt);
 
                 string response = await chat.GetResponseFromChatbotAsync();
-                Console.WriteLine(response);
                 return response;
             }
             catch (Exception ex)

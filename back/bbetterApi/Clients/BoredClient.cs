@@ -11,7 +11,7 @@ namespace bbetterApi.Clients
 
         public BoredClient(IConfiguration configuration)
         {
-            _baseUrl = configuration["boredURL"];
+            _baseUrl = configuration.GetValue<string>("boredURL");
 
             _httpClient = new HttpClient
             {
@@ -23,7 +23,7 @@ namespace bbetterApi.Clients
         {
             try
             {
-                var response = await _httpClient.GetAsync($"api/activity?participants=1");
+                var response = await _httpClient.GetAsync($"/random?participants=1");
                 response.EnsureSuccessStatusCode();
                 var content = response.Content.ReadAsStringAsync().Result;
 
@@ -33,7 +33,7 @@ namespace bbetterApi.Clients
 
             } catch (Exception ex)
             {
-                return null;
+                throw new Exception("err", ex);
             }
         }
 

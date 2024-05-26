@@ -112,7 +112,7 @@ namespace database.Repositories
                 string sql = @"INSERT INTO bbetterSchema.BHabits
                 ([AccountId],[Content],[IssueDate],[LastDate]) 
                 OUTPUT INSERTED.*
-                VALUES (@accountId, @content, @issueDate)";
+                VALUES (@accountId, @content, @issueDate, @lastDate)";
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {

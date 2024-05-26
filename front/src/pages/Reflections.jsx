@@ -112,11 +112,15 @@ const ReflectionsPage = () => {
         <Styled.ReflectionStats>
           <Styled.FutureItem>
             <h1>Last 28 Days Graph</h1>
-            <ReflectionGraphic data={stats?.data} isLoading={isLoading} />
+            {stats && stats.length > 0 ? (
+              <ReflectionGraphic data={stats?.data} isLoading={isLoading} />
+            ) : (
+              <div>Not enough data</div>
+            )}
           </Styled.FutureItem>
           <Styled.FutureItem className='advice'>
             <h1>Advice</h1>
-            <p>{stats?.data.advice}</p>
+            {stats && stats.length > 0 ? <p>{stats?.data.advice}</p> : <div>Not enough data</div>}
           </Styled.FutureItem>
         </Styled.ReflectionStats>
       </Styled.ReflectionsMain>

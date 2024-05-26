@@ -11,7 +11,7 @@ namespace bbetterApi.Clients
 
         public QuotableClient(IConfiguration configuration) {
 
-            _baseUrl = configuration["quotableURL"];
+            _baseUrl = configuration.GetValue<string>("quotableURL");
 
             _httpClient = new HttpClient
             {
@@ -39,7 +39,7 @@ namespace bbetterApi.Clients
                 return quote;
             } catch (Exception ex)
             {
-                return null;
+                throw new Exception("err", ex);
             }
         }
 
@@ -64,7 +64,7 @@ namespace bbetterApi.Clients
             }
             catch (Exception ex)
             {
-                return null;
+                throw new Exception("err", ex);
             }
         }
     }
