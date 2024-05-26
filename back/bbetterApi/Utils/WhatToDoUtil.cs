@@ -26,21 +26,22 @@ namespace bbetterApi.Utils
                 var sectionTitle = lines[0];
                 var items = lines.Skip(1).Select(ParseWhatToDoItem).ToList();
 
-                if (sectionTitle.StartsWith("Top Three of All"))
+                switch (sectionTitle)
                 {
-                    response.topThree.AddRange(items);
-                }
-                else if (sectionTitle.StartsWith("Top Three Tasks"))
-                {
-                    response.topTasks.AddRange(items);
-                }
-                else if (sectionTitle.StartsWith("Top Three Wishes"))
-                {
-                    response.topWishes.AddRange(items);
-                }
-                else if (sectionTitle.StartsWith("Top Three Good Habits"))
-                {
-                    response.topGhabits.AddRange(items);
+                    case string s when s.StartsWith("Top Three of All"):
+                        response.topThree.AddRange(items);
+                        break;
+                    case string s when s.StartsWith("Top Three Tasks"):
+                        response.topTasks.AddRange(items);
+                        break;
+                    case string s when s.StartsWith("Top Three Wishes"):
+                        response.topWishes.AddRange(items);
+                        break;
+                    case string s when s.StartsWith("Top Three Good Habits"):
+                        response.topGhabits.AddRange(items);
+                        break;
+                    default:
+                        break;
                 }
             }
 

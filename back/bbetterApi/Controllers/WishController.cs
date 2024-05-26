@@ -19,28 +19,28 @@ namespace bbetterApi.Controllers
         [Route("getByAccount")]
         public async Task<ActionResult<List<Wish>>> GetWishes([FromQuery] int accountId)
         {
-            return Ok(await wishServices.GetWishes(accountId));
+            return Ok(await wishServices.GetWishes(accountId).ConfigureAwait(false));
         }
 
         [HttpGet]
         [Route("getNewWish")]
         public async Task<ActionResult<BoredItem>> GetNewWish()
         {
-            return Ok(await wishServices.GetNewWish());
+            return Ok(await wishServices.GetNewWish().ConfigureAwait(false));
         }
 
         [HttpPost]
         [Route("create")]
         public async Task<ActionResult<Wish>> CreateWish([FromBody] Wish wish)
         {
-            return Ok(await wishServices.CreateWish(wish));
+            return Ok(await wishServices.CreateWish(wish).ConfigureAwait(false));
         }
 
         [HttpPut]
         [Route("update")]
         public async Task<ActionResult> UpdateWish([FromBody] Wish wish)
         {
-            await wishServices.UpdateWish(wish);
+            await wishServices.UpdateWish(wish).ConfigureAwait(false);
             return Ok();
         }
 
@@ -48,7 +48,7 @@ namespace bbetterApi.Controllers
         [Route("deleteById")]
         public async Task<ActionResult> DeleteWish([FromQuery] int id)
         {
-            await wishServices.DeleteWish(id);
+            await wishServices.DeleteWish(id).ConfigureAwait(false);
             return Ok();
         }
     }

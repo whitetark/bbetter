@@ -39,7 +39,7 @@ namespace bbetterApi.Clients
                 return quote;
             } catch (Exception ex)
             {
-                throw new Exception("err", ex);
+                throw new ArgumentException("err", ex);
             }
         }
 
@@ -64,7 +64,7 @@ namespace bbetterApi.Clients
             }
             catch (Exception ex)
             {
-                throw new Exception("err", ex);
+                throw new ArgumentException("err", ex);
             }
         }
     }

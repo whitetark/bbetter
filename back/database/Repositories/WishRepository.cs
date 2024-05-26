@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using database.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using System;
@@ -18,17 +19,17 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.Wishes
+                const string sql = @"SELECT * FROM bbetterSchema.Wishes
                 WHERE WishId = @wishId";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var wish = await _dbConnection.QuerySingleAsync<Wish>(sql, new { wishId });
+                    var wish = await _dbConnection.QuerySingleAsync<Wish>(sql, new { wishId }).ConfigureAwait(false);
                     return wish;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get Wish", ex);
+                throw new ArgumentException("Failed to Get Wish", ex);
             }
         }
 
@@ -37,11 +38,11 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.Wishes
+                const string sql = @"SELECT * FROM bbetterSchema.Wishes
                 WHERE AccountId = @accountId";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var wishes = await _dbConnection.QueryAsync<Wish>(sql, new { accountId });
+                    var wishes = await _dbConnection.QueryAsync<Wish>(sql, new { accountId }).ConfigureAwait(false);
 
                     if (!wishes.Any())
                     {
@@ -55,7 +56,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get Wishes", ex);
+                throw new ArgumentException("Failed to Get Wishes", ex);
             }
         }
 
@@ -65,7 +66,7 @@ namespace database.Repositories
             try
             {
 
-                string sql = @"INSERT INTO bbetterSchema.Wishes
+                const string sql = @"INSERT INTO bbetterSchema.Wishes
                 ([AccountId],[Content],[IsCompleted],[priorityOf]) 
                 OUTPUT INSERTED.*
                 VALUES (@accountId, @content, @isCompleted, @priorityOf)";
@@ -78,12 +79,12 @@ namespace database.Repositories
                         content = wish.Content,
                         isCompleted = wish.IsCompleted,
                         wish.priorityOf,
-                    });
+                    }).ConfigureAwait(false);
                 }
             }
             catch (Exception)
             {
-                throw new Exception();
+                throw new ArgumentException("Failed to Add Wish");
             }
         }
 
@@ -92,7 +93,7 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"UPDATE bbetterSchema.Wishes 
+                const string sql = @"UPDATE bbetterSchema.Wishes 
                 SET [Content] = @content, [IsCompleted] = @isCompleted, [CompleteDate] = @completeDate, [priorityOf] = @priorityOf
                 WHERE WishId = @wishId";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
@@ -104,40 +105,40 @@ namespace database.Repositories
                         wishId = newWish.WishId,
                         completeDate = newWish.CompleteDate,
                         newWish.priorityOf
-                    }) > 0) { return; }
+                    }).ConfigureAwait(false) > 0) { return; }
 
                 }
 
             } catch (Exception ex)
             {
-                throw new Exception("Failed to Update Wish", ex);
+                throw new ArgumentException("Failed to Update Wish", ex);
             }
         }
 
         //delete
         public async Task Delete(int wishId)
         {
-            string sql = @"DELETE FROM bbetterSchema.Wishes
+            const string sql = @"DELETE FROM bbetterSchema.Wishes
             WHERE WishId = @wishId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                if (await _dbConnection.ExecuteAsync(sql, new { wishId }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new { wishId }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Delete Wishes");
+            throw new ArgumentException("Failed to Delete Wishes");
         }
 
         //delete-by-account
         public async Task DeleteMany(int accountId)
         {
-            string sql = @"DELETE FROM bbetterSchema.Wishes
+            const string sql = @"DELETE FROM bbetterSchema.Wishes
             WHERE AccountId = @accountId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new { accountId }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Delete Wishes");
+            throw new ArgumentException("Failed to Delete Wishes");
         }
     }
 }

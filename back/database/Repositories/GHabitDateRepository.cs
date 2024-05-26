@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using database.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using System;
@@ -18,17 +19,17 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.GHabitDate
+                const string sql = @"SELECT * FROM bbetterSchema.GHabitDate
                 WHERE GHabitDateId = @GHabitDateId";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var ghabit = await _dbConnection.QuerySingleAsync<GHabitDate>(sql, new { gHabitDateId });
+                    var ghabit = await _dbConnection.QuerySingleAsync<GHabitDate>(sql, new { gHabitDateId }).ConfigureAwait(false);
                     return ghabit;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get GHabitDate", ex);
+                throw new ArgumentException("Failed to Get GHabitDate", ex);
             }
         }
 
@@ -37,11 +38,11 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.GHabitDate
+                const string sql = @"SELECT * FROM bbetterSchema.GHabitDate
                 WHERE GHabitId = @habitId";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var ghabits = await _dbConnection.QueryAsync<GHabitDate>(sql, new { habitId });
+                    var ghabits = await _dbConnection.QueryAsync<GHabitDate>(sql, new { habitId }).ConfigureAwait(false);
 
                     if (!ghabits.Any())
                     {
@@ -55,7 +56,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get GHabit Dates", ex);
+                throw new ArgumentException("Failed to Get GHabit Dates", ex);
             }
         }
 
@@ -64,7 +65,7 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SET DATEFIRST 1
+                const string sql = @"SET DATEFIRST 1
                 SELECT * FROM bbetterSchema.GHabitDate
                 WHERE GHabitId = @habitId
                 WHERE DATEPART(week, DateOf) = DATEPART(week, GETDATE())
@@ -72,7 +73,7 @@ namespace database.Repositories
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var ghabits = await _dbConnection.QueryAsync<GHabitDate>(sql, new { habitId });
+                    var ghabits = await _dbConnection.QueryAsync<GHabitDate>(sql, new { habitId }).ConfigureAwait(false);
 
                     if (!ghabits.Any())
                     {
@@ -86,7 +87,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get GHabit Dates", ex);
+                throw new ArgumentException("Failed to Get GHabit Dates", ex);
             }
         }
 
@@ -95,14 +96,14 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.GHabitDate
+                const string sql = @"SELECT * FROM bbetterSchema.GHabitDate
                 WHERE GHabitId = @habitId
                 AND MONTH(DateOf) = @month
                 AND YEAR(DateOf) = @year;";
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var ghabits = await _dbConnection.QueryAsync<GHabitDate>(sql, new { habitId, month, year });
+                    var ghabits = await _dbConnection.QueryAsync<GHabitDate>(sql, new { habitId, month, year }).ConfigureAwait(false);
 
                     if (!ghabits.Any())
                     {
@@ -116,7 +117,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get GHabit Dates", ex);
+                throw new ArgumentException("Failed to Get GHabit Dates", ex);
             }
         }
 
@@ -125,30 +126,30 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.GHabitDate
+                const string sql = @"SELECT * FROM bbetterSchema.GHabitDate
                 WHERE DateOf = @dateof
                 AND GHabitId = @gHabitId";
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var test = await _dbConnection.QueryAsync<GHabitDate>(sql, new { dateof = gHabitDate.DateOf, gHabitId = gHabitDate.GHabitId });
+                    var test = await _dbConnection.QueryAsync<GHabitDate>(sql, new { dateof = gHabitDate.DateOf, gHabitId = gHabitDate.GHabitId }).ConfigureAwait(false);
 
                     if (test.Count() > 0) { return false; }
 
-                    sql = @"INSERT INTO bbetterSchema.GHabitDate
+                    const string sql2 = @"INSERT INTO bbetterSchema.GHabitDate
                     ([GHabitId],[DateOf]) 
                     VALUES (@gHabitId, @dateOf)";
 
-                    return await _dbConnection.ExecuteAsync(sql, new
+                    return await _dbConnection.ExecuteAsync(sql2, new
                     {
                         gHabitId = gHabitDate.GHabitId,
                         dateOf = gHabitDate.DateOf,
-                    }) > 0;
+                    }).ConfigureAwait(false) > 0;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("err", ex);
+                throw new ArgumentException("err", ex);
             }
         }
 
@@ -157,16 +158,16 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"DELETE FROM bbetterSchema.GHabitDate
+                const string sql = @"DELETE FROM bbetterSchema.GHabitDate
                 WHERE GHabitId = @gHabitId
                 AND DateOf = @dateOf";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    if (await _dbConnection.ExecuteAsync(sql, new { gHabitId, dateOf }) > 0) { return; }
+                    if (await _dbConnection.ExecuteAsync(sql, new { gHabitId, dateOf }).ConfigureAwait(false) > 0) { return; }
                 }
             } catch(Exception ex)
             {
-                throw new Exception("err", ex);
+                throw new ArgumentException("err", ex);
             }
             
         }
@@ -174,14 +175,14 @@ namespace database.Repositories
         //delete-by-ghabit
         public async Task DeleteMany(int gHabitId)
         {
-            string sql = @"DELETE FROM bbetterSchema.GHabitDate
+            const string sql = @"DELETE FROM bbetterSchema.GHabitDate
             WHERE GHabitId = @gHabitId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                if (await _dbConnection.ExecuteAsync(sql, new { gHabitId }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new { gHabitId }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Delete GHabitDates");
+            throw new ArgumentException("Failed to Delete GHabitDates");
         }
     }
 }

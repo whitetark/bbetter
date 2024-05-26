@@ -50,6 +50,8 @@ import {
   WishListPage,
 } from './pages/index';
 
+import MaintenancePage from './pages/system/Maintenance';
+
 library.add(
   faHouse,
   faListCheck,
@@ -80,11 +82,11 @@ library.add(
 );
 
 function App() {
-  const { userData } = useAuthContext();
+  const { serverIsOn } = useAuthContext();
 
-  // if (!serverIsOn) {
-  //   return <MaintenancePage />;
-  // }
+  if (!serverIsOn) {
+    return <MaintenancePage />;
+  }
 
   return (
     <BrowserRouter basename='/'>

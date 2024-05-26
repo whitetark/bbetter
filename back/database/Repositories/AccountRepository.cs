@@ -13,6 +13,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
+using Microsoft.AspNetCore.Http;
 
 namespace database.Repositories
 {
@@ -22,17 +23,17 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.Accounts
+                const string sql = @"SELECT * FROM bbetterSchema.Accounts
                 WHERE AccountId = @id";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var account = await _dbConnection.QuerySingleAsync<Account>(sql, new { id });
+                    var account = await _dbConnection.QuerySingleAsync<Account>(sql, new { id }).ConfigureAwait(false);
                     return account;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get Account", ex);
+                throw new ArgumentException("Failed to Get Account", ex);
             }
         }
 
@@ -40,17 +41,17 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.Accounts
+                const string sql = @"SELECT * FROM bbetterSchema.Accounts
                 WHERE Username = @username";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var account = await _dbConnection.QuerySingleAsync<Account>(sql, new { username });
+                    var account = await _dbConnection.QuerySingleAsync<Account>(sql, new { username }).ConfigureAwait(false);
                     return account;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get Account", ex);
+                throw new ArgumentException("Failed to Get Account", ex);
             }
         }
 
@@ -58,10 +59,10 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.Accounts";
+                const string sql = @"SELECT * FROM bbetterSchema.Accounts";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var accounts = await _dbConnection.QueryAsync<Account>(sql);
+                    var accounts = await _dbConnection.QueryAsync<Account>(sql).ConfigureAwait(false);
                     if (!accounts.Any())
                     {
                         return new List<Account>();
@@ -74,7 +75,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get Account", ex);
+                throw new ArgumentException("Failed to Get Account", ex);
             }
         }
 
@@ -82,23 +83,23 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.Accounts
+                const string sql = @"SELECT * FROM bbetterSchema.Accounts
                 WHERE Username = @username";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var test = await _dbConnection.QueryAsync<Account>(sql, new { username = account.Username });
+                    var test = await _dbConnection.QueryAsync<Account>(sql, new { username = account.Username }).ConfigureAwait(false);
 
                     if (test.Any())
                     {
                         return null;
                     }
 
-                    sql = @"INSERT INTO bbetterSchema.Accounts
+                const string sql2 = @"INSERT INTO bbetterSchema.Accounts
                 ([Username],[PasswordHash],[RefreshToken],[TokenCreated],[TokenExpires],[QuoteOfDayId],[QuoteExpires],[isUserQuote]) 
                 OUTPUT INSERTED.*
                 VALUES (@username, @passwordHash, @refreshToken, @tokenCreated, @tokenExpires, @quoteId, @quoteExpires, @isUserQuote)";
 
-                    return await _dbConnection.QuerySingleAsync<Account>(sql, new
+                    return await _dbConnection.QuerySingleAsync<Account>(sql2, new
                     {
                         username = account.Username,
                         passwordHash = account.PasswordHash,
@@ -108,28 +109,28 @@ namespace database.Repositories
                         quoteId = account.QuoteOfDayId,
                         quoteExpires = account.QuoteExpires,
                         account.isUserQuote,
-                    });
+                    }).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("err", ex);
+                throw new ArgumentException("err", ex);
             }
         }
         public async Task Delete(int id)
         {
-            string sql = @"DELETE FROM bbetterSchema.Accounts
+            const string sql = @"DELETE FROM bbetterSchema.Accounts
             WHERE AccountId = @id";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                if (await _dbConnection.ExecuteAsync(sql, new { id }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new { id }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Delete Account");
+            throw new ArgumentException("Failed to Delete Account");
         }
         public async Task Update(Account newAccount)
         {
-            string sql = @"UPDATE bbetterSchema.Accounts 
+            const string sql = @"UPDATE bbetterSchema.Accounts 
             SET [PasswordHash] = @passwordHash, [RefreshToken] = @refreshToken, [TokenCreated] = @tokenCreated, [TokenExpires] = @tokenExpires, [QuoteOfDayId] = @quote, [QuoteExpires] = @quoteExpires, [isUserQuote] = @isUserQuote
             WHERE Username = @username";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
@@ -144,22 +145,20 @@ namespace database.Repositories
                     quote = newAccount.QuoteOfDayId,
                     quoteExpires = newAccount.QuoteExpires,
                     newAccount.isUserQuote
-                }) > 0) { return; }
+                }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Update Account");
+            throw new ArgumentException("Failed to Update Account");
         }
 
         public async Task<AccountActivities> GetActivitiesForToday(int accountId)
         {
-            string sql = @"
+            const string sql = @"
             SET DATEFIRST 1
-            SELECT * 
-            FROM bbetterSchema.Tasks
+            SELECT * FROM bbetterSchema.Tasks
             WHERE AccountId = @accountId
             AND IsCompleted = 0;
-            SELECT *
-            FROM bbetterSchema.Wishes
+            SELECT * FROM bbetterSchema.Wishes
             WHERE AccountId = @accountId
             AND IsCompleted = 0;
             SELECT * FROM bbetterSchema.GHabits
@@ -174,7 +173,7 @@ namespace database.Repositories
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
                 await _dbConnection.OpenAsync();
-                var results = await _dbConnection.QueryMultipleAsync(sql, new { accountId });
+                var results = await _dbConnection.QueryMultipleAsync(sql, new { accountId }).ConfigureAwait(false);
                 var tasks = results.ReadAsync<Models.Task>().Result.ToList();
                 var wishes = results.ReadAsync<Wish>().Result.ToList();
                 var ghabits = results.ReadAsync<GHabit>().Result.ToList();
@@ -232,12 +231,10 @@ namespace database.Repositories
                     break;
             }
 
-            string sql = @"
-            SELECT * 
-            FROM bbetterSchema.Tasks
+            const string sql = @"
+            SELECT * FROM bbetterSchema.Tasks
             WHERE AccountId = @accountId;
-            SELECT *
-            FROM bbetterSchema.Wishes
+            SELECT * FROM bbetterSchema.Wishes
             WHERE AccountId = @accountId;
             SELECT * FROM bbetterSchema.GHabits
             WHERE AccountId = @accountId;
@@ -252,8 +249,8 @@ namespace database.Repositories
 
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                await _dbConnection.OpenAsync();
-                var results = await _dbConnection.QueryMultipleAsync(dateSql, new { accountId });
+                await _dbConnection.OpenAsync().ConfigureAwait(false);
+                var results = await _dbConnection.QueryMultipleAsync(dateSql, new { accountId }).ConfigureAwait(false);
                 var tasks = results.ReadAsync<Models.Task>().Result.ToList();
                 var wishes = results.ReadAsync<Wish>().Result.ToList();
                 var ghabits = results.ReadAsync<GHabit>().Result.ToList();

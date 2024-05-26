@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using database.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
@@ -19,17 +20,17 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.BHabitDate
+                const string sql = @"SELECT * FROM bbetterSchema.BHabitDate
                 WHERE BHabitDateId = @habitDateId";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var bhabit = await _dbConnection.QuerySingleAsync<BHabitDate>(sql, new { habitDateId });
+                    var bhabit = await _dbConnection.QuerySingleAsync<BHabitDate>(sql, new { habitDateId }).ConfigureAwait(false);
                     return bhabit;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get BHabit Dates", ex);
+                throw new ArgumentException("Failed to Get BHabit Dates", ex);
             }
         }
 
@@ -38,11 +39,11 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.BHabitDate
+                const string sql = @"SELECT * FROM bbetterSchema.BHabitDate
                 WHERE BHabitId = @habitId";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var bhabits = await _dbConnection.QueryAsync<BHabitDate>(sql, new { habitId });
+                    var bhabits = await _dbConnection.QueryAsync<BHabitDate>(sql, new { habitId }).ConfigureAwait(false);
 
                     if (!bhabits.Any())
                     {
@@ -56,7 +57,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get BHabit Dates", ex);
+                throw new ArgumentException("Failed to Get BHabit Dates", ex);
             }
         }
 
@@ -65,14 +66,14 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.BHabitDate
+                const string sql = @"SELECT * FROM bbetterSchema.BHabitDate
                 WHERE BHabitId = @habitId
                 AND MONTH(DateOf) = @month
                 AND YEAR(DateOf) = @year;";
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var ghabits = await _dbConnection.QueryAsync<BHabitDate>(sql, new { habitId, month, year });
+                    var ghabits = await _dbConnection.QueryAsync<BHabitDate>(sql, new { habitId, month, year }).ConfigureAwait(false);
 
                     if (!ghabits.Any())
                     {
@@ -86,7 +87,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get BHabit Dates", ex);
+                throw new ArgumentException("Failed to Get BHabit Dates", ex);
             }
         }
 
@@ -94,13 +95,13 @@ namespace database.Repositories
         public async Task<BHabitDate> GetRecent(int habitId) {
             try
             {
-                string sql = @"SELECT TOP 1 * FROM bbetterSchema.BHabitDate
+                const string sql = @"SELECT TOP 1 * FROM bbetterSchema.BHabitDate
                 WHERE BHabitId = @habitId
                 ORDER BY DateOf DESC";
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var reflection = await _dbConnection.QuerySingleOrDefaultAsync<BHabitDate>(sql, new { habitId });
+                    var reflection = await _dbConnection.QuerySingleOrDefaultAsync<BHabitDate>(sql, new { habitId }).ConfigureAwait(false);
 
                     if (reflection == null)
                     {
@@ -112,7 +113,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get Recent BHabitDate", ex);
+                throw new ArgumentException("Failed to Get Recent BHabitDate", ex);
             }
 
         }
@@ -122,30 +123,30 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.BHabitDate
+                const string sql = @"SELECT * FROM bbetterSchema.BHabitDate
                 WHERE (DateOf = @dateof)
                 AND BHabitId = @bHabitId";
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var test = await _dbConnection.QueryAsync<BHabitDate>(sql, new { dateof = bHabitDate.DateOf, bHabitId = bHabitDate.BHabitId });
+                    var test = await _dbConnection.QueryAsync<BHabitDate>(sql, new { dateof = bHabitDate.DateOf, bHabitId = bHabitDate.BHabitId }).ConfigureAwait(false);
 
                     if (test.Any()) { return false; }
 
-                    sql = @"INSERT INTO bbetterSchema.BHabitDate
+                const string sql2 = @"INSERT INTO bbetterSchema.BHabitDate
                 ([BHabitId],[DateOf]) 
                 VALUES (@bHabitId, @dateOf)";
 
-                    return await _dbConnection.ExecuteAsync(sql, new
+                    return await _dbConnection.ExecuteAsync(sql2, new
                     {
                         bHabitId = bHabitDate.BHabitId,
                         dateOf = bHabitDate.DateOf,
-                    }) > 0;
+                    }).ConfigureAwait(false) > 0;
                 }
             }
             catch (Exception)
             {
-                throw new Exception();
+                throw new ArgumentException("Failed to Add BHabitDate");
             }
         }
 
@@ -153,26 +154,26 @@ namespace database.Repositories
         //delete
         public async Task Delete(int bHabitDateId)
         {
-            string sql = @"DELETE FROM bbetterSchema.BHabitDate
+            const string sql = @"DELETE FROM bbetterSchema.BHabitDate
             WHERE BHabitDateId = @bHabitDateId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                if (await _dbConnection.ExecuteAsync(sql, new { bHabitDateId }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new { bHabitDateId }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Delete BHabitDate");
+            throw new ArgumentException("Failed to Delete BHabitDate");
         }
 
         //delete-by-bhabit
         public async Task DeleteMany(int bHabitId)
         {
-            string sql = @"DELETE FROM bbetterSchema.BHabitDate
+            const string sql = @"DELETE FROM bbetterSchema.BHabitDate
             WHERE BHabitId = @bHabitId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                if (await _dbConnection.ExecuteAsync(sql, new { bHabitId }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new { bHabitId }).ConfigureAwait(false) > 0) { return; }
             }
-            throw new Exception("Failed to Delete BHabitDates");
+            throw new ArgumentException("Failed to Delete BHabitDates");
         }
     }
 }

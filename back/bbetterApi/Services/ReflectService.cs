@@ -14,25 +14,25 @@ namespace bbetterApi.Services
     {
         public async Task<Reflection> GetReflection(int id)
         {
-            return await reflectRepository.GetById(id);
+            return await reflectRepository.GetById(id).ConfigureAwait(false);
         }
 
         public async Task<List<Reflection>> GetReflections(int accountId)
         {
-            return await reflectRepository.GetByAccount(accountId);
+            return await reflectRepository.GetByAccount(accountId).ConfigureAwait(false);
         }
 
         public async Task<List<Reflection>> GetDatesByMonth(int accountId, int month, int year)
         {
-            return await reflectRepository.GetByMonth(accountId, month, year);
+            return await reflectRepository.GetByMonth(accountId, month, year).ConfigureAwait(false);
         }
 
         public async Task<ReflectionStats> GetStats([FromQuery(Name = "id")] int accountId)
         {
-            var reflections = await reflectRepository.GetLastMonth(accountId);
+            var reflections = await reflectRepository.GetLastMonth(accountId).ConfigureAwait(false);
             // gpt advice + converter
             var prompt = PromptUtil.TransformReflectionsToString(reflections);
-            var advice = await gPTClient.GetReflectionRecommendation(prompt);
+            var advice = await gPTClient.GetReflectionRecommendation(prompt).ConfigureAwait(false);
 
             if(advice == null)
             {
@@ -55,33 +55,33 @@ namespace bbetterApi.Services
 
         public async Task<Reflection> GetRecent(int accountId)
         {
-            return await reflectRepository.GetRecent(accountId);
+            return await reflectRepository.GetRecent(accountId).ConfigureAwait(false);
         }
         public async Task<bool> CheckForToday(int accountId)
         {
-            return await reflectRepository.CheckToday(accountId);
+            return await reflectRepository.CheckToday(accountId).ConfigureAwait(false);
         }
 
         public async Task<Reflection> CreateReflection(Reflection reflection)
         {
-            return await reflectRepository.Add(reflection);
+            return await reflectRepository.Add(reflection).ConfigureAwait(false);
         }
 
         public async Task UpdateReflection(Reflection task)
         {
-            await reflectRepository.Update(task);
+            await reflectRepository.Update(task).ConfigureAwait(false);
             return;
         }
 
         public async Task DeleteReflection(int id)
         {
-            await reflectRepository.Delete(id);
+            await reflectRepository.Delete(id).ConfigureAwait(false);
             return;
         }
 
         public async Task DeleteReflectionsByAccount(int accountId)
         {
-            await reflectRepository.DeleteMany(accountId);
+            await reflectRepository.DeleteMany(accountId).ConfigureAwait(false);
             return;
         }
     }

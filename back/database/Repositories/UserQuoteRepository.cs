@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using database.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using System;
@@ -18,11 +19,11 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.UserQuotes
+                const string sql = @"SELECT * FROM bbetterSchema.UserQuotes
                 WHERE UserQuoteId = @quoteId";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var quote = await _dbConnection.QuerySingleAsync<UserQuote>(sql, new { quoteId });
+                    var quote = await _dbConnection.QuerySingleAsync<UserQuote>(sql, new { quoteId }).ConfigureAwait(false);
                     return quote;
                 }
             }
@@ -37,11 +38,11 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.UserQuotes
+                const string sql = @"SELECT * FROM bbetterSchema.UserQuotes
                 WHERE AccountId = @accountId";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var quotes = await _dbConnection.QueryAsync<UserQuote>(sql, new { accountId });
+                    var quotes = await _dbConnection.QueryAsync<UserQuote>(sql, new { accountId }).ConfigureAwait(false);
 
                     if (!quotes.Any())
                     {
@@ -55,7 +56,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get UserQuotes", ex);
+                throw new ArgumentException("Failed to Get UserQuotes", ex);
             }
         }
 
@@ -64,13 +65,12 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT TOP 1 *
-                FROM bbetterSchema.UserQuotes
+                const string sql = @"SELECT TOP 1 * FROM bbetterSchema.UserQuotes
                 WHERE AccountId = @accountId
                 ORDER BY NEWID();";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var quotes = await _dbConnection.QueryAsync<UserQuote>(sql, new { accountId });
+                    var quotes = await _dbConnection.QueryAsync<UserQuote>(sql, new { accountId }).ConfigureAwait(false);
 
                     if (!quotes.Any())
                     {
@@ -84,7 +84,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get UserQuotes", ex);
+                throw new ArgumentException("Failed to Get UserQuotes", ex);
             }
         }
 
@@ -93,7 +93,7 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"INSERT INTO bbetterSchema.UserQuotes
+                const string sql = @"INSERT INTO bbetterSchema.UserQuotes
                 ([AccountId],[Quote],[Author],[TypeOf]) 
                 OUTPUT INSERTED.*
                 VALUES (@accountId, @quote, @author, @typeOf)";
@@ -106,19 +106,19 @@ namespace database.Repositories
                         quote = quote.Quote,
                         author = quote.Author,
                         typeOf = quote.TypeOf,
-                    });
+                    }).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Error", ex);
+                throw new ArgumentException("Error", ex);
             }
         }
 
         //update
         public async Task Update(UserQuote newQuote)
         {
-            string sql = @"UPDATE bbetterSchema.UserQuotes 
+            const string sql = @"UPDATE bbetterSchema.UserQuotes 
             SET [Quote] = @quote, [Author] = @author, [TypeOf] = @typeOf
             WHERE UserQuoteId = @quoteId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
@@ -129,36 +129,36 @@ namespace database.Repositories
                     quoteId = newQuote.UserQuoteId,
                     author = newQuote.Author,
                     typeOf = newQuote.TypeOf,
-                }) > 0) { return; }
+                }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Update Quote");
+            throw new ArgumentException("Failed to Update Quote");
         }
 
         //delete
         public async Task Delete(int quoteId)
         {
-            string sql = @"DELETE FROM bbetterSchema.UserQuotes
+            const string sql = @"DELETE FROM bbetterSchema.UserQuotes
             WHERE UserQuoteId = @quoteId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                if (await _dbConnection.ExecuteAsync(sql, new { quoteId }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new { quoteId }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Delete UserQuotes");
+            throw new ArgumentException("Failed to Delete UserQuotes");
         }
 
         //delete-by-account
         public async Task DeleteMany(int accountId)
         {
-            string sql = @"DELETE FROM bbetterSchema.UserQuotes
+            const string sql = @"DELETE FROM bbetterSchema.UserQuotes
             WHERE AccountId = @accountId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new { accountId }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Delete UserQuotes");
+            throw new ArgumentException("Failed to Delete UserQuotes");
         }
     }
 }

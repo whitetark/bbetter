@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using database.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using System;
@@ -18,17 +19,17 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.Reflections
+                const string sql = @"SELECT * FROM bbetterSchema.Reflections
                 WHERE ReflectionId = @reflectionid";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var refl = await _dbConnection.QuerySingleAsync<Reflection>(sql, new { reflectionid });
+                    var refl = await _dbConnection.QuerySingleAsync<Reflection>(sql, new { reflectionid }).ConfigureAwait(false);
                     return refl;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get Reflection", ex);
+                throw new ArgumentException("Failed to Get Reflection", ex);
             }
         }
 
@@ -37,11 +38,11 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.Reflections
+                const string sql = @"SELECT * FROM bbetterSchema.Reflections
                 WHERE AccountId = @accountId";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var refl = await _dbConnection.QueryAsync<Reflection>(sql, new { accountId });
+                    var refl = await _dbConnection.QueryAsync<Reflection>(sql, new { accountId }).ConfigureAwait(false);
 
                     if (!refl.Any())
                     {
@@ -55,7 +56,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get Reflection", ex);
+                throw new ArgumentException("Failed to Get Reflection", ex);
             }
         }
 
@@ -64,7 +65,7 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SET DATEFIRST 1;
+                const string sql = @"SET DATEFIRST 1;
                 DECLARE @today DATE = GETDATE();
                 DECLARE @startOfDate DATE = DATEADD(WEEK, -4, DATEADD(DAY, 1 - (DATEPART(WEEKDAY, @today) + @@DATEFIRST - 2) % 7, @today));
                 DECLARE @endOfDate DATE = DATEADD(DAY, -1, DATEADD(DAY, 1 - (DATEPART(WEEKDAY, @today) + @@DATEFIRST - 2) % 7, @today));
@@ -76,7 +77,7 @@ namespace database.Repositories
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var ghabits = await _dbConnection.QueryAsync<Reflection>(sql, new { accountId});
+                    var ghabits = await _dbConnection.QueryAsync<Reflection>(sql, new { accountId}).ConfigureAwait(false);
 
                     if (!ghabits.Any())
                     {
@@ -90,7 +91,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get GHabit Dates", ex);
+                throw new ArgumentException("Failed to Get GHabit Dates", ex);
             }
         }
 
@@ -99,14 +100,14 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.Reflections
+                const string sql = @"SELECT * FROM bbetterSchema.Reflections
                 WHERE AccountId = @accountId
                 AND MONTH(DateOf) = @month
                 AND YEAR(DateOf) = @year;";
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var ghabits = await _dbConnection.QueryAsync<Reflection>(sql, new { accountId, month, year });
+                    var ghabits = await _dbConnection.QueryAsync<Reflection>(sql, new { accountId, month, year }).ConfigureAwait(false);
 
                     if (!ghabits.Any())
                     {
@@ -120,7 +121,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get GHabit Dates", ex);
+                throw new ArgumentException("Failed to Get GHabit Dates", ex);
             }
         }
 
@@ -129,13 +130,13 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT TOP 1 * FROM bbetterSchema.Reflections
+                const string sql = @"SELECT TOP 1 * FROM bbetterSchema.Reflections
                 WHERE AccountId = @accountId
                 ORDER BY DateOf DESC";
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var reflection = await _dbConnection.QuerySingleOrDefaultAsync<Reflection>(sql, new { accountId });
+                    var reflection = await _dbConnection.QuerySingleOrDefaultAsync<Reflection>(sql, new { accountId }).ConfigureAwait(false);
 
                     if(reflection == null)
                     {
@@ -147,7 +148,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get Recent Reflection", ex);
+                throw new ArgumentException("Failed to Get Recent Reflection", ex);
             }
         }
 
@@ -156,26 +157,19 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT COUNT(*) AS NumReflections 
+                const string sql = @"SELECT COUNT(*) AS NumReflections 
                 FROM bbetterSchema.Reflections
                 WHERE AccountId = @accountId
                 AND CONVERT(DATE, DateOf) = CONVERT(DATE, GETDATE());";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var result = await _dbConnection.QuerySingleAsync<int>(sql, new { accountId });
-                    if (result == 0)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
+                    var result = await _dbConnection.QuerySingleAsync<int>(sql, new { accountId }).ConfigureAwait(false);
+                    return result != 0;
                 }
 
             } catch (Exception ex)
             {
-                throw new Exception("Failed to Check Reflection", ex);
+                throw new ArgumentException("Failed to Check Reflection", ex);
             }
         }
 
@@ -184,7 +178,7 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"INSERT INTO bbetterSchema.Reflections
+                const string sql = @"INSERT INTO bbetterSchema.Reflections
                 ([AccountId],[DateOf],[Emotion],[Productivity],[ThreeWords],[UserGoal]) 
                 OUTPUT INSERTED.*
                 VALUES (@accountId, @dateOf, @emotion, @productivity, @threeWords, @userGoal)";
@@ -199,19 +193,19 @@ namespace database.Repositories
                         productivity = reflection.Productivity,
                         threeWords = reflection.ThreeWords,
                         userGoal = reflection.UserGoal,
-                    });
+                    }).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Reflection added error: ", ex);
+                throw new ArgumentException("Reflection added error: ", ex);
             }
         }
 
         //update
         public async Task Update(Reflection newReflection)
         {
-            string sql = @"UPDATE bbetterSchema.Reflections
+            const string sql = @"UPDATE bbetterSchema.Reflections
             SET [Emotion] = @emotion, [Productivity] = @productivity, [ThreeWords] = @threeWords, [UserGoal] = @userGoal
             WHERE ReflectionId = @reflectionId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
@@ -223,36 +217,36 @@ namespace database.Repositories
                     threeWords = newReflection.ThreeWords,
                     userGoal = newReflection.UserGoal,
                     reflectionId = newReflection.ReflectionId,
-                }) > 0) { return; }
+                }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Update Reflection");
+            throw new ArgumentException("Failed to Update Reflection");
         }
 
         //delete
         public async Task Delete(int reflectionId)
         {
-            string sql = @"DELETE FROM bbetterSchema.Reflections
+            const string sql = @"DELETE FROM bbetterSchema.Reflections
             WHERE ReflectionId = @reflectionId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                if (await _dbConnection.ExecuteAsync(sql, new { reflectionId }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new { reflectionId }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Delete Reflection");
+            throw new ArgumentException("Failed to Delete Reflection");
         }
 
         //delete-by-account
         public async Task DeleteMany(int accountId)
         {
-            string sql = @"DELETE FROM bbetterSchema.Reflections
+            const string sql = @"DELETE FROM bbetterSchema.Reflections
             WHERE AccountId = @accountId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new { accountId }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Delete Reflections");
+            throw new ArgumentException("Failed to Delete Reflections");
         }
     }
 }

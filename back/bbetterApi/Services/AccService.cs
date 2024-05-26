@@ -18,18 +18,18 @@ namespace bbetterApi.Services
     {
         public async Task<Account> GetAccount(string username)
         {
-            return await accountRepository.GetByUsername(username);
+            return await accountRepository.GetByUsername(username).ConfigureAwait(false);
         }
 
         public async Task DeleteAccount(int id)
         {
-            await accountRepository.Delete(id);
+            await accountRepository.Delete(id).ConfigureAwait(false);
             return;
         }
 
         public async Task<Account?> UpdateAccount(Account updateDto)
         {
-            var responseFromDb = await accountRepository.GetByUsername(updateDto.Username) ?? throw new AppException("Username not found");
+            var responseFromDb = await accountRepository.GetByUsername(updateDto.Username).ConfigureAwait(false) ?? throw new AppException("Username not found");
            
             await accountRepository.Update(updateDto);
             return updateDto;
@@ -37,22 +37,22 @@ namespace bbetterApi.Services
 
         public async Task ChangePassword(UserLoginDto request)
         {
-            var responseFromDb = await accountRepository.GetByUsername(request.username) ?? throw new AppException("Username not found");
+            var responseFromDb = await accountRepository.GetByUsername(request.username).ConfigureAwait(false) ?? throw new AppException("Username not found");
             var user = responseFromDb;
             string newPasswordHash = BCrypt.Net.BCrypt.HashPassword(request.password);
 
             user.PasswordHash = newPasswordHash;
-            await accountRepository.Update(user);
+            await accountRepository.Update(user).ConfigureAwait(false);
             return;
         }
         public async Task<List<Account>> GetAccounts()
         {
-            return await accountRepository.GetAccs();
+            return await accountRepository.GetAccs().ConfigureAwait(false);
         }
 
         public async Task<WhatToDoResponse> GetWhatToDo(int accountId)
         {
-            var activities = await accountRepository.GetActivitiesForToday(accountId);
+            var activities = await accountRepository.GetActivitiesForToday(accountId).ConfigureAwait(false);
 
             if (activities.GetTotalActivities() < 9)
             {
@@ -60,7 +60,7 @@ namespace bbetterApi.Services
             }
 
             var activitiesText = PromptUtil.TransformAccountActivitiesToString(activities);
-            var gptResponse = await gPTClient.GetWhatToDo(activitiesText);
+            var gptResponse = await gPTClient.GetWhatToDo(activitiesText).ConfigureAwait(false);
 
             if (gptResponse == null)
             {
@@ -72,7 +72,7 @@ namespace bbetterApi.Services
 
         public async Task<Statistics> GetStatistics(int id, string type)
         {
-            var result = await accountRepository.GetActivitiesForDate(id, type);
+            var result = await accountRepository.GetActivitiesForDate(id, type).ConfigureAwait(false);
             return WeeklyStatsUtil.CalculateStats(result, type);
         }
     }

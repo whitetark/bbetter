@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
 using bbetter.API.Models.Responses;
+using bbetterApi.Middleware;
 
 namespace bbetterApi.Controllers
 {
@@ -21,6 +22,11 @@ namespace bbetterApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Account>> Register([FromBody] UserLoginDto request)
         {
+            if (request == null)
+            {
+                throw new AppException(nameof(request) + "is null");
+            }
+
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.password);
 
             var refreshToken = GenerateRefreshToken();
@@ -34,7 +40,7 @@ namespace bbetterApi.Controllers
                 QuoteExpires = DateTime.Now,
                 QuoteOfDayId = "",
             };
-            var user = await accountServices.Add(userRequest);
+            var user = await accountServices.Add(userRequest).ConfigureAwait(false);
 
             if (user == null) {
                 return BadRequest("Login is occupied");
@@ -50,7 +56,12 @@ namespace bbetterApi.Controllers
         [HttpPost]
         public async Task<ActionResult<object>> Login([FromBody] UserLoginDto request)
         {
-            var responseFromDb = await accountServices.GetByUsername(request.username);
+            if (request == null)
+            {
+                throw new AppException(nameof(request) + "is null");
+            }
+
+            var responseFromDb = await accountServices.GetByUsername(request.username).ConfigureAwait(false);
 
             if (responseFromDb == null)
             {
@@ -80,13 +91,13 @@ namespace bbetterApi.Controllers
             {
                 return BadRequest("User not found");
             }
-            var responseFromDb = await accountServices.GetByUsername(id);
+            var responseFromDb = await accountServices.GetByUsername(id).ConfigureAwait(false);
             var user = responseFromDb;
 
             user.RefreshToken = "";
             user.TokenExpires = DateTime.UtcNow;
             user.TokenCreated = DateTime.UtcNow;
-            _ = accountServices.Update(user);
+            _ = accountServices.Update(user).ConfigureAwait(false);
 
             Response.Cookies.Delete("username");
             Response.Cookies.Delete("refresh_token");
@@ -110,7 +121,7 @@ namespace bbetterApi.Controllers
                 return BadRequest("No Username");
             }
 
-            var responseFromDb = await accountServices.GetByUsername(id);
+            var responseFromDb = await accountServices.GetByUsername(id).ConfigureAwait(false);
             var user = responseFromDb;
 
             if (user == null)
@@ -141,7 +152,12 @@ namespace bbetterApi.Controllers
         [HttpPost]
         public async Task<ActionResult> CheckCredentials([FromBody] UserLoginDto request)
         {
-            var responseFromDb = await accountServices.GetByUsername(request.username);
+            if (request == null)
+            {
+                throw new AppException(nameof(request) + "is null");
+            }
+
+            var responseFromDb = await accountServices.GetByUsername(request.username).ConfigureAwait(false);
 
             if (responseFromDb == null)
             {
@@ -179,7 +195,7 @@ namespace bbetterApi.Controllers
             account.RefreshToken = newRefreshToken.Token;
             account.TokenCreated = newRefreshToken.Created;
             account.TokenExpires = newRefreshToken.Expires;
-            _ = accountServices.Update(account);
+            _ = accountServices.Update(account).ConfigureAwait(false);
         }
 
         private static RefreshToken GenerateRefreshToken()

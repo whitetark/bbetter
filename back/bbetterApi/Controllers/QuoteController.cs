@@ -18,7 +18,7 @@ namespace bbetterApi.Controllers
         [Route("user/getAll")]
         public async Task<ActionResult<QuotesResponse>> GetUserQuotes([FromQuery] int accountId)
         {
-            return Ok(await quoteServices.GetUserQuotes(accountId));
+            return Ok(await quoteServices.GetUserQuotes(accountId).ConfigureAwait(false));
         }
 
 
@@ -26,14 +26,14 @@ namespace bbetterApi.Controllers
         [Route("user/create")]
         public async Task<ActionResult<UserQuote>> CreateUserQuote([FromBody] UserQuote quote)
         {
-            return Ok(await quoteServices.CreateUserQuote(quote));
+            return Ok(await quoteServices.CreateUserQuote(quote).ConfigureAwait(false));
         }
 
         [HttpPut]
         [Route("user/update")]
         public async Task<ActionResult> UpdateUserQuote([FromBody] UserQuote quote)
         {
-            await quoteServices.UpdateUserQuote(quote);
+            await quoteServices.UpdateUserQuote(quote).ConfigureAwait(false);
             return Ok();
         }
 
@@ -41,7 +41,7 @@ namespace bbetterApi.Controllers
         [Route("user/deleteById")]
         public async Task<ActionResult> DeleteUserQuote([FromQuery] int id)
         {
-            await quoteServices.DeleteUserQuote(id);
+            await quoteServices.DeleteUserQuote(id).ConfigureAwait(false);
             return Ok();
         }
     }

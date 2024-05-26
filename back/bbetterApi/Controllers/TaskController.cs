@@ -16,7 +16,7 @@ namespace bbetterApi.Controllers
         [Route("getByAccount")]
         public async Task<ActionResult<List<database.Models.Task>>> GetTasks([FromQuery] int accountId)
         {
-            return Ok(await taskServices.GetTasks(accountId));
+            return Ok(await taskServices.GetTasks(accountId).ConfigureAwait(false));
         }
 
         [HttpPost]
@@ -24,14 +24,14 @@ namespace bbetterApi.Controllers
         public async Task<ActionResult<database.Models.Task>> CreateTask([FromBody] database.Models.Task task)
         {
 
-            return Ok(await taskServices.CreateTask(task));
+            return Ok(await taskServices.CreateTask(task).ConfigureAwait(false));
         }
 
         [HttpPut]
         [Route("update")]
         public async Task<ActionResult> UpdateTask([FromBody] database.Models.Task task)
         {
-            await taskServices.UpdateTask(task);
+            await taskServices.UpdateTask(task).ConfigureAwait(false);
             return Ok();
         }
 
@@ -39,7 +39,7 @@ namespace bbetterApi.Controllers
         [Route("deleteById")]
         public async Task<ActionResult> DeleteTask([FromQuery] int id)
         {
-            await taskServices.DeleteTask(id);
+            await taskServices.DeleteTask(id).ConfigureAwait(false);
             return Ok();
         }
     }

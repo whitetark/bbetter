@@ -12,73 +12,73 @@ namespace bbetterApi.Services
     {
         public async Task<GHabit> GetGHabit(int id)
         {
-            return await ghabitRepository.GetById(id);
+            return await ghabitRepository.GetById(id).ConfigureAwait(false);
         }
 
         public async Task<List<GHabit>> GetGHabits(int accountId)
         {
-            return await ghabitRepository.GetByAccount(accountId);
+            return await ghabitRepository.GetByAccount(accountId).ConfigureAwait(false);
         }
 
         public async Task<List<GHabitWithDates>> GetWithDates(int accountId)
         {
-            return await ghabitRepository.GetWDatesByAccount(accountId);
+            return await ghabitRepository.GetWDatesByAccount(accountId).ConfigureAwait(false);
         }
 
         public async Task<ActionResult<GHabitStats>> GetStats(int accountId)
         {
-            var ghabits = await ghabitRepository.GetWDatesByAccount(accountId, "last28Days");
+            var ghabits = await ghabitRepository.GetWDatesByAccount(accountId, "last28Days").ConfigureAwait(false);
 
             return HabitStatsUtil.CalculateGHabitStats(ghabits);
         }
 
         public async Task<GHabit> CreateGHabit(GHabit gHabit)
         {
-            return await ghabitRepository.Add(gHabit);
+            return await ghabitRepository.Add(gHabit).ConfigureAwait(false);
         }
 
 
         public async Task UpdateGHabit(GHabit ghabit)
         {
-            await ghabitRepository.Update(ghabit);
+            await ghabitRepository.Update(ghabit).ConfigureAwait(false);
             return;
         }
 
 
         public async Task DeleteGHabit(int id)
         {
-            await gHabitDateRepository.DeleteMany(id);
-            await ghabitRepository.Delete(id);
+            await gHabitDateRepository.DeleteMany(id).ConfigureAwait(false);
+            await ghabitRepository.Delete(id).ConfigureAwait(false);
             return;
         }
 
         public async Task DeleteGHabits(int accountId)
         {
-            await ghabitRepository.DeleteMany(accountId);
+            await ghabitRepository.DeleteMany(accountId).ConfigureAwait(false);
             return;
         }
 
         //Dates
         public async Task<GHabitDate> GetGHabitDatesById(int id)
         {
-            return await gHabitDateRepository.GetById(id);
+            return await gHabitDateRepository.GetById(id).ConfigureAwait(false);
         }
 
 
         public async Task<List<GHabitDate>> GetDatesByHabitId(int habitId)
         {
-            return await gHabitDateRepository.GetByHabitId(habitId);
+            return await gHabitDateRepository.GetByHabitId(habitId).ConfigureAwait(false);
         }
 
         public async Task<List<GHabitDate>> GetDatesByMonth(int habitId)
         {
-            return await gHabitDateRepository.GetByWeek(habitId);
+            return await gHabitDateRepository.GetByWeek(habitId).ConfigureAwait(false);
         }
 
 
         public async Task<int[]> GetDatesByMonth(int habitId, int month, int year)
         {
-            var dates = await gHabitDateRepository.GetByMonth(habitId, month, year);
+            var dates = await gHabitDateRepository.GetByMonth(habitId, month, year).ConfigureAwait(false);
             var days = dates.Select(h => h.DateOf.Day).ToArray();
             if (days.Length > 0)
             {
@@ -96,20 +96,20 @@ namespace bbetterApi.Services
                 DateOf = date.DateOf.Date
             };
 
-            await gHabitDateRepository.Add(userRequest);
+            await gHabitDateRepository.Add(userRequest).ConfigureAwait(false);
             return;
         }
 
         public async Task DeleteGHabitDate(int id, DateTime date)
         {
             var reformatedDate = date.Date;
-            await gHabitDateRepository.Delete(id, reformatedDate);
+            await gHabitDateRepository.Delete(id, reformatedDate).ConfigureAwait(false);
             return;
         }
 
         public async Task DeleteGHabitDates(int habitId)
         {
-            await gHabitDateRepository.DeleteMany(habitId);
+            await gHabitDateRepository.DeleteMany(habitId).ConfigureAwait(false);
             return;
         }
     }

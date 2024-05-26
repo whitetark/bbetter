@@ -7,35 +7,35 @@ namespace bbetterApi.Services
     {
         public async Task<database.Models.Task> GetTask(int id)
         {
-            return await taskRepository.GetById(id);
+            return await taskRepository.GetById(id).ConfigureAwait(false);
         }
 
         public async Task<List<database.Models.Task>> GetTasks(int accountId)
         {
-            return await taskRepository.GetByAccount(accountId);
+            return await taskRepository.GetByAccount(accountId).ConfigureAwait(false);
         }
 
         public async Task<database.Models.Task> CreateTask(database.Models.Task task)
         {
-            return await taskRepository.Add(task);
+            return await taskRepository.Add(task).ConfigureAwait(false);
         }
 
         public async Task UpdateTask(database.Models.Task task)
         {
-            await taskRepository.Update(task);
+            await taskRepository.Update(task).ConfigureAwait(false);
             return;
         }
 
 
         public async Task DeleteTask(int id)
         {
-            await taskRepository.Delete(id);
+            await taskRepository.Delete(id).ConfigureAwait(false);
             return;
         }
 
         public async Task DeleteTaskByAccount(int accountId)
         {
-            await taskRepository.DeleteMany(accountId);
+            await taskRepository.DeleteMany(accountId).ConfigureAwait(false);
             return;
         }
     }

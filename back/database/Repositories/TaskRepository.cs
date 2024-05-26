@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using database.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using System;
@@ -19,17 +20,17 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.Tasks
+                const string sql = @"SELECT * FROM bbetterSchema.Tasks
                 WHERE TaskId = @taskid";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var task = await _dbConnection.QuerySingleAsync<Models.Task>(sql, new { taskid });
+                    var task = await _dbConnection.QuerySingleAsync<Models.Task>(sql, new { taskid }).ConfigureAwait(false);
                     return task;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get Task", ex);
+                throw new ArgumentException("Failed to Get Task", ex);
             }
         }
 
@@ -38,11 +39,11 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"SELECT * FROM bbetterSchema.Tasks
+                const string sql = @"SELECT * FROM bbetterSchema.Tasks
                 WHERE AccountId = @accountId";
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
-                    var tasks = await _dbConnection.QueryAsync<Models.Task>(sql, new { accountId });
+                    var tasks = await _dbConnection.QueryAsync<Models.Task>(sql, new { accountId }).ConfigureAwait(false);
 
                     if (tasks.Count() == 0)
                     {
@@ -56,7 +57,7 @@ namespace database.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to Get Task", ex);
+                throw new ArgumentException("Failed to Get Task", ex);
             }
         }
 
@@ -65,7 +66,7 @@ namespace database.Repositories
         {
             try
             {
-                string sql = @"INSERT INTO bbetterSchema.Tasks
+                const string sql = @"INSERT INTO bbetterSchema.Tasks
                 ([AccountId],[Content],[IsUrgent],[IsImportant],[Deadline],[IsCompleted],[CompleteDate]) 
                 OUTPUT INSERTED.*
                 VALUES (@accountId, @content, @isUrgent, @isImportant, @deadline, @isCompleted, @completeDate)";
@@ -81,19 +82,19 @@ namespace database.Repositories
                         deadline = task.Deadline,
                         isCompleted = task.IsCompleted,
                         completeDate = task.CompleteDate
-                    });
+                    }).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Task added error: ", ex);
+                throw new ArgumentException("Task added error: ", ex);
             }
         }
 
         //update
         public async Task Update(Models.Task newTask)
         {
-            string sql = @"UPDATE bbetterSchema.Tasks 
+            const string sql = @"UPDATE bbetterSchema.Tasks 
             SET [Content] = @content, [IsUrgent] = @isUrgent, [IsImportant] = @isImportant, [Deadline] = @deadline, [IsCompleted] = @isCompleted, [CompleteDate] = @completeDate
             WHERE TaskId = @taskId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
@@ -107,36 +108,36 @@ namespace database.Repositories
                     isCompleted = newTask.IsCompleted,
                     taskId = newTask.TaskId,
                     completeDate = newTask.CompleteDate
-                }) > 0) { return; }
+                }).ConfigureAwait(false) > 0) { return; }
             }
             
-            throw new Exception("Failed to Update Task");
+            throw new ArgumentException("Failed to Update Task");
         }
 
         //delete
         public async Task Delete(int taskId)
         {
-            string sql = @"DELETE FROM bbetterSchema.Tasks
+            const string sql = @"DELETE FROM bbetterSchema.Tasks
             WHERE TaskId = @taskId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                if (await _dbConnection.ExecuteAsync(sql, new { taskId }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new { taskId }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Delete Task");
+            throw new ArgumentException("Failed to Delete Task");
         }
 
         //delete-by-account
         public async Task DeleteMany(int accountId)
         {
-            string sql = @"DELETE FROM bbetterSchema.Tasks
+            const string sql = @"DELETE FROM bbetterSchema.Tasks
             WHERE AccountId = @accountId";
             using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
             {
-                if (await _dbConnection.ExecuteAsync(sql, new { accountId }) > 0) { return; }
+                if (await _dbConnection.ExecuteAsync(sql, new { accountId }).ConfigureAwait(false) > 0) { return; }
             }
 
-            throw new Exception("Failed to Delete Tasks");
+            throw new ArgumentException("Failed to Delete Tasks");
         }
     }
 }

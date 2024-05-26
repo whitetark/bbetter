@@ -12,19 +12,19 @@ namespace bbetterApi.Services
     {
         public async Task<BHabit> GetBHabit(int id)
         {
-            return await bhabitRepository.GetById(id);
+            return await bhabitRepository.GetById(id).ConfigureAwait(false);
         }
 
         public async Task<List<BHabitWithStats>> GetBHabits(int accountId)
         {
-            var data = await bhabitRepository.GetWDatesByAccount(accountId);
+            var data = await bhabitRepository.GetWDatesByAccount(accountId).ConfigureAwait(false);
             return HabitStatsUtil.CalculateBHabitStats(data);
         }
 
 
         public async Task<BHabit> CreateBHabit(BHabit bHabit)
         {
-            var bhabitResult = await bhabitRepository.Add(bHabit);
+            var bhabitResult = await bhabitRepository.Add(bHabit).ConfigureAwait(false);
 
 
             return bhabitResult;
@@ -32,27 +32,27 @@ namespace bbetterApi.Services
 
         public async Task UpdateBHabit(BHabit bhabit)
         {
-            await bhabitRepository.Update(bhabit);
+            await bhabitRepository.Update(bhabit).ConfigureAwait(false);
             return;
         }
 
         public async Task DeleteBHabit(int id)
         {
-            await bhabitDateRepository.DeleteMany(id);
-            await bhabitRepository.Delete(id);
+            await bhabitDateRepository.DeleteMany(id).ConfigureAwait(false);
+            await bhabitRepository.Delete(id).ConfigureAwait(false);
             return;
         }
 
         public async Task DeleteBHabits(int accountId)
         {
-            await bhabitRepository.DeleteMany(accountId);
+            await bhabitRepository.DeleteMany(accountId).ConfigureAwait(false);
             return;
         }
 
         //Dates
         public async Task<object> GetDatesByMonth(int habitId, int month, int year)
         {
-            var dates = await bhabitDateRepository.GetByMonth(habitId, month, year);
+            var dates = await bhabitDateRepository.GetByMonth(habitId, month, year).ConfigureAwait(false);
             var days = dates.Select(h => h.DateOf.Day).ToArray();
 
             return new { dates, days };
@@ -61,7 +61,7 @@ namespace bbetterApi.Services
 
         public async Task<List<BHabitDate>> GetDatesByHabitId(int habitId)
         {
-            return await bhabitDateRepository.GetByHabitId(habitId);
+            return await bhabitDateRepository.GetByHabitId(habitId).ConfigureAwait(false);
         }
 
 
@@ -75,14 +75,14 @@ namespace bbetterApi.Services
 
             await bhabitDateRepository.Add(userRequest);
 
-            var bhabit = await bhabitRepository.GetById(date.BHabitId);
+            var bhabit = await bhabitRepository.GetById(date.BHabitId).ConfigureAwait(false);
 
-            var recent = await bhabitDateRepository.GetRecent(bhabit.BHabitId);
+            var recent = await bhabitDateRepository.GetRecent(bhabit.BHabitId).ConfigureAwait(false);
 
             if (bhabit.LastDate < recent.DateOf)
             {
                 bhabit.LastDate = recent.DateOf;
-                await bhabitRepository.Update(bhabit);
+                await bhabitRepository.Update(bhabit).ConfigureAwait(false);
             }
 
             return;
@@ -90,12 +90,12 @@ namespace bbetterApi.Services
 
         public async Task DeleteBHabitDate(int id)
         {
-            var bHabitDate = await bhabitDateRepository.GetByHabitDateId(id);
-            var bhabit = await bhabitRepository.GetById(bHabitDate.BHabitId);
+            var bHabitDate = await bhabitDateRepository.GetByHabitDateId(id).ConfigureAwait(false);
+            var bhabit = await bhabitRepository.GetById(bHabitDate.BHabitId).ConfigureAwait(false);
 
             await bhabitDateRepository.Delete(id);
 
-            var recent = await bhabitDateRepository.GetRecent(bhabit.BHabitId);
+            var recent = await bhabitDateRepository.GetRecent(bhabit.BHabitId).ConfigureAwait(false);
 
             if (recent == null)
             {
@@ -106,13 +106,13 @@ namespace bbetterApi.Services
                 bhabit.LastDate = recent.DateOf;
             }
 
-            await bhabitRepository.Update(bhabit);
+            await bhabitRepository.Update(bhabit).ConfigureAwait(false);
             return;
         }
 
         public async Task DeleteBHabitDates(int habitId)
         {
-            await bhabitDateRepository.DeleteMany(habitId);
+            await bhabitDateRepository.DeleteMany(habitId).ConfigureAwait(false);
             return;
         }
 

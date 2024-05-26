@@ -13,7 +13,7 @@ namespace bbetterApi.Services
 
         public async Task<QuotesResponse> GetUserQuotes(int accountId)
         {
-            var quotes = await quoteRepository.GetAllByUser(accountId);
+            var quotes = await quoteRepository.GetAllByUser(accountId).ConfigureAwait(false);
             var typesOf = quotes
             .GroupBy(uq => uq.TypeOf)
             .Select(group => new QuoteType
@@ -35,18 +35,18 @@ namespace bbetterApi.Services
 
         public async Task<UserQuote> CreateUserQuote(UserQuote quote)
         {
-            return await quoteRepository.Add(quote);
+            return await quoteRepository.Add(quote).ConfigureAwait(false);
         }
 
         public async Task UpdateUserQuote(UserQuote quote)
         {
-            await quoteRepository.Update(quote);
+            await quoteRepository.Update(quote).ConfigureAwait(false);
             return;
         }
 
         public async Task DeleteUserQuote(int id)
         {
-            await quoteRepository.Delete(id);
+            await quoteRepository.Delete(id).ConfigureAwait(false);
             return;
         }
     }

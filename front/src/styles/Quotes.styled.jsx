@@ -194,7 +194,6 @@ export const QuoteTypeList = styled.div`
   caret-color: ${variables.GREEN};
   text-transform: capitalize;
   gap: 0.5rem;
-  color: ${variables.TEXT_COLOR};
 
   > div {
     display: flex;
