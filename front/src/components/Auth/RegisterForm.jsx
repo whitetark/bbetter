@@ -17,11 +17,11 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
   login: Yup.string().min(3, 'Too Short!').max(12, 'Too Long!').required('Required'),
   password: Yup.string()
     .min(3, 'Too Short!')
-    .max(12, 'Must be 12 characters or less')
+    .max(36, 'Must be 12 characters or less')
     .required('Required'),
   repeatPassword: Yup.string()
     .min(3, 'Too Short!')
-    .max(12, 'Must be 12 characters or less')
+    .max(36, 'Must be 12 characters or less')
     .required('Required')
     .oneOf([Yup.ref('password')], 'Passwords must match'),
 });

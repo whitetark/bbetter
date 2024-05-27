@@ -1,6 +1,7 @@
 import { Field, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import { useAuthContext } from '../../app/store/auth-context';
 import { useAddQuote } from '../../hooks/use-quote';
 import * as Styled from '../../styles/Quotes.styled';
 import { TextInput } from '../UI/Inputs';
@@ -18,7 +19,7 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 
 const QuoteAdd = ({ onClick, hide }) => {
   const { mutateAsync, error, isError } = useAddQuote();
-
+  const { userData } = useAuthContext();
   return (
     <Styled.AddQuote onClick={onClick}>
       <h1>Add Quote</h1>
@@ -28,7 +29,7 @@ const QuoteAdd = ({ onClick, hide }) => {
         onSubmit={async (values, actions) => {
           const quote = {
             UserQuoteId: 0,
-            AccountId: 1,
+            AccountId: userData.accountId,
             Quote: values.content,
             TypeOf: values.type,
             Author: values.author == '' ? 'Me' : values.author,

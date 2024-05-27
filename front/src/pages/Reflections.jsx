@@ -112,7 +112,7 @@ const ReflectionsPage = () => {
         <Styled.ReflectionStats>
           <Styled.FutureItem>
             <h1>Last 28 Days Graph</h1>
-            {stats && stats.length > 0 ? (
+            {stats ? (
               <ReflectionGraphic data={stats?.data} isLoading={isLoading} />
             ) : (
               <div>Not enough data</div>
@@ -120,7 +120,14 @@ const ReflectionsPage = () => {
           </Styled.FutureItem>
           <Styled.FutureItem className='advice'>
             <h1>Advice</h1>
-            {stats && stats.length > 0 ? <p>{stats?.data.advice}</p> : <div>Not enough data</div>}
+            {stats && stats.length > 0 ? (
+              <p>{stats?.data.advice}</p>
+            ) : (
+              <div>
+                Try to do something you always want, because you emotion is much lower than
+                productivity
+              </div>
+            )}
           </Styled.FutureItem>
         </Styled.ReflectionStats>
       </Styled.ReflectionsMain>

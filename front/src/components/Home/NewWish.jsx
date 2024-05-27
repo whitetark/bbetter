@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { WishService } from '../../app/services/api';
 import { useAuthContext } from '../../app/store/auth-context';
 import { useAddWish } from '../../hooks/use-wish';
@@ -9,9 +9,13 @@ import { Button } from '../UI';
 import LoadingWrapper from '../UI/LoadingWrapper';
 
 const NewWish = ({ onClick, hide }) => {
+  const queryClient = useQueryClient();
   const { data, isLoading } = useQuery(['getNewActivity'], () => WishService.getNewWish(), {
     onError: (error) => {
       console.log('Get New Activity error: ' + error.message);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries('getWishes');
     },
     staleTime: 0,
     refetchOnMount: true,

@@ -67,9 +67,9 @@ namespace database.Repositories
             {
 
                 const string sql = @"INSERT INTO bbetterSchema.Wishes
-                ([AccountId],[Content],[IsCompleted],[priorityOf]) 
+                ([AccountId],[Content],[IsCompleted],[CompleteDate],[priorityOf]) 
                 OUTPUT INSERTED.*
-                VALUES (@accountId, @content, @isCompleted, @priorityOf)";
+                VALUES (@accountId, @content, @isCompleted, @completeDate, @priorityOf)";
 
                 using (var _dbConnection = new SqlConnection(dbConfig.Value.Database_Connection))
                 {
@@ -78,6 +78,7 @@ namespace database.Repositories
                         accountId = wish.AccountId,
                         content = wish.Content,
                         isCompleted = wish.IsCompleted,
+                        completeDate = DateTime.Now,
                         wish.priorityOf,
                     }).ConfigureAwait(false);
                 }
