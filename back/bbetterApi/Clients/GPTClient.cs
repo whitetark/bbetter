@@ -30,7 +30,7 @@ namespace bbetter.API.Clients
 
                 chat.AppendUserInput(prompt);
 
-                string response = await chat.GetResponseFromChatbotAsync();
+                string response = await chat.GetResponseFromChatbotAsync().ConfigureAwait(false);
                 return response;
             }
             catch (Exception ex)
@@ -50,7 +50,7 @@ namespace bbetter.API.Clients
 
                 chat.AppendUserInput(prompt);
 
-                string response = await chat.GetResponseFromChatbotAsync();
+                string response = await chat.GetResponseFromChatbotAsync().ConfigureAwait(false);
                 return response;
             }
             catch (Exception ex)

@@ -73,7 +73,7 @@ namespace bbetterApi.Services
                 DateOf = date.DateOf
             };
 
-            await bhabitDateRepository.Add(userRequest);
+            await bhabitDateRepository.Add(userRequest).ConfigureAwait(false);
 
             var bhabit = await bhabitRepository.GetById(date.BHabitId).ConfigureAwait(false);
 
@@ -93,7 +93,7 @@ namespace bbetterApi.Services
             var bHabitDate = await bhabitDateRepository.GetByHabitDateId(id).ConfigureAwait(false);
             var bhabit = await bhabitRepository.GetById(bHabitDate.BHabitId).ConfigureAwait(false);
 
-            await bhabitDateRepository.Delete(id);
+            await bhabitDateRepository.Delete(id).ConfigureAwait(false);
 
             var recent = await bhabitDateRepository.GetRecent(bhabit.BHabitId).ConfigureAwait(false);
 

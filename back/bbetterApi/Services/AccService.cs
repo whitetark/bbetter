@@ -31,7 +31,7 @@ namespace bbetterApi.Services
         {
             var responseFromDb = await accountRepository.GetByUsername(updateDto.Username).ConfigureAwait(false) ?? throw new AppException("Username not found");
            
-            await accountRepository.Update(updateDto);
+            await accountRepository.Update(updateDto).ConfigureAwait(false);
             return updateDto;
         }
 

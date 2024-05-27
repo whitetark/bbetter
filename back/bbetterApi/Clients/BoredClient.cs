@@ -23,7 +23,7 @@ namespace bbetterApi.Clients
         {
             try
             {
-                var response = await _httpClient.GetAsync($"/random?participants=1");
+                var response = await _httpClient.GetAsync($"/random?participants=1").ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
                 var content = response.Content.ReadAsStringAsync().Result;
 

@@ -23,7 +23,7 @@ namespace bbetterApi.Clients
         {
             try
             {
-                var response = await _httpClient.GetAsync($"quotes/random?limit=1&maxLength=160");
+                var response = await _httpClient.GetAsync($"quotes/random?limit=1&maxLength=160").ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
                 var content = response.Content.ReadAsStringAsync().Result;
 
@@ -47,7 +47,7 @@ namespace bbetterApi.Clients
         {
             try
             {
-                var response = await _httpClient.GetAsync($"quotes/{id}");
+                var response = await _httpClient.GetAsync($"quotes/{id}").ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
                 var content = response.Content.ReadAsStringAsync().Result;
 
