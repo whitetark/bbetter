@@ -94,7 +94,14 @@ const WeeklyStats = () => {
       </Styled.StatsHeader>
       <LoadingWrapper isLoading={isLoading}>
         {stats ? (
-          <div style={{ display: 'flex', flexDirection: 'row', gap: '2rem', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: '2rem',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
             <Styled.StatsMain>
               <Styled.StatsBlock>
                 <h1>Tasks</h1>
@@ -126,7 +133,7 @@ const WeeklyStats = () => {
             </Styled.StatsMain>
             <Styled.Productivity>
               <CircularProgressWithLabel value={stats.productivityCoef} />
-              <span>Productivity Last Week</span>
+              <span>Productivity</span>
             </Styled.Productivity>
           </div>
         ) : (

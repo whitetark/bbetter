@@ -264,6 +264,7 @@ export const StatsHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 2rem;
 
   select {
     padding: 0.5rem;

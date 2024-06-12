@@ -5,6 +5,7 @@ import useModal from '../../hooks/use-modal';
 import { useDeleteReflection } from '../../hooks/use-reflections';
 import * as Styled from '../../styles/Reflections.styled';
 import { Button, Confirmation, Modal } from '../UI';
+import GradientBar from './GradientBar';
 import ReflectionEdit from './ReflectionEdit';
 
 const ReflectionItem = ({ reflection }) => {
@@ -46,6 +47,7 @@ const ReflectionItem = ({ reflection }) => {
               {reflection.productivity}
             </div>
           </Styled.ReflectionMainEmotion>
+          <GradientBar emotion={reflection.emotion} productivity={reflection.productivity} />
           <Styled.ReflectionMainBlock>
             <p>Three Words</p>
             <div>{reflection.threeWords}</div>

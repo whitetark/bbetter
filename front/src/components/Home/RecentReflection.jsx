@@ -26,7 +26,6 @@ const RecentReflection = () => {
   const reflection = data?.data;
   return (
     <Styled.RecentReflection>
-      <h1>Recent Reflection</h1>
       <LoadingWrapper isLoading={isLoading}>
         {reflection ? (
           <ReflectionItem reflection={reflection} />

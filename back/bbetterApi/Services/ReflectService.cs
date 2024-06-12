@@ -36,7 +36,7 @@ namespace bbetterApi.Services
 
             if(advice == null)
             {
-                advice = "Not enough data";
+                advice = "Try to do something you always want, because you emotion is much lower than productivity";
             }
 
             var result = reflections

@@ -86,7 +86,9 @@ const ReflectionsPage = () => {
     if (requestAbortController.current) {
       requestAbortController.current.abort();
     }
+
     setMonth(date);
+    setValue(date);
   };
 
   const highlightedDaysArray = reflects?.data.map((reflection) => {
@@ -95,6 +97,8 @@ const ReflectionsPage = () => {
   });
 
   const reflection = findSundayReflectionByDay(reflects, value);
+
+  console.log(stats?.data);
 
   return (
     <Styled.ReflectionsContent>
@@ -109,7 +113,7 @@ const ReflectionsPage = () => {
           />
           <ReflectionItemBlock reflection={reflection} value={value} />
         </Styled.ReflectionItems>
-        {stats?.data.emotion?.length > 0 ? (
+        {stats?.data ? (
           <Styled.ReflectionStats>
             <Styled.FutureItem>
               <h1>Last 28 Days Graph</h1>

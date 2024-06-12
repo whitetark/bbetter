@@ -23,7 +23,7 @@ const ReflectionEdit = ({ onClick, hide, data }) => {
   const { userData } = useAuthContext();
   return (
     <Styled.ReflectionAdd onClick={onClick}>
-      <h1>Add Reflection</h1>
+      <h1>Edit Reflection</h1>
       <Styled.ReflectRating>
         <p>Rate your emotionality</p>
         <NumberInput

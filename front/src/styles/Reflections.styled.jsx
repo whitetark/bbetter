@@ -49,6 +49,7 @@ export const ReflectionItem = styled.div`
   flex-direction: column;
   gap: 1rem;
   justify-content: space-between;
+  max-width: 40rem;
 `;
 export const ReflectionActions = styled.div`
   display: flex;
@@ -72,6 +73,12 @@ export const ReflectionMain = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  .divider {
+    height: 1px;
+    background: #ddd;
+    margin: 15px 0;
+  }
 `;
 export const ReflectionMainEmotion = styled.div`
   display: flex;
@@ -96,10 +103,11 @@ export const ReflectionMainBlock = styled.div`
 
   > div {
     font-size: 18px;
+    font-weight: 300;
   }
 `;
 export const ReflectionDate = styled.div`
-  font-weight: 700;
+  font-weight: 500;
   color: ${variables.DISABLED_BUTTON};
 `;
 
@@ -284,4 +292,10 @@ export const FutureItem = styled.div`
 
 export const ReflectionGraphic = styled.div`
   font-size: 20px !important;
+`;
+
+export const GradientBar = styled.div`
+  width: 100%;
+  height: 12px;
+  border-radius: 80px;
 `;
