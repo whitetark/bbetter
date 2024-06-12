@@ -9,7 +9,7 @@ import * as Styled from '../../styles/Reflections.styled';
 import LoadingWrapper from '../UI/LoadingWrapper';
 
 const ReflectionGraphic = ({ data, isLoading }) => {
-  const xAxisData = data?.dates.map((date) => {
+  const xAxisData = data?.dates?.map((date) => {
     return new Date(date);
   });
 

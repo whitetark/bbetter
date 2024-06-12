@@ -43,7 +43,7 @@ const TasksPage = () => {
           </Button>
         </Styled.TaskActions>
       </Styled.TaskHeader>
-      {tasks.length > 0 && (
+      {tasks.length > 0 ? (
         <Styled.TaskTable>
           <div></div>
           <Styled.TableText>Urgent</Styled.TableText>
@@ -55,6 +55,8 @@ const TasksPage = () => {
           <TableCell array={urgentNotImportantTasks} type={'Delegate'} />
           <TableCell array={notUrgentNotImportantTasks} type={'Delete'} />
         </Styled.TaskTable>
+      ) : (
+        <Styled.TaskEmpty>Create your first task!</Styled.TaskEmpty>
       )}
       <Modal isShowing={addIsShowing} hide={toggleAdd} className='add-modal' hasOverlay>
         <TaskAdd hide={toggleAdd} />

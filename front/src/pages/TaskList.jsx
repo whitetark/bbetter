@@ -9,6 +9,7 @@ import useEdit from '../hooks/use-edit';
 import useModal from '../hooks/use-modal';
 import { useRefetchTasks } from '../hooks/use-task';
 import * as Styled from '../styles/TaskList.styled';
+import { TaskEmpty } from '../styles/Tasks.styled';
 
 const TaskListPage = () => {
   document.title = `bbetter - All Tasks`;
@@ -71,17 +72,21 @@ const TaskListPage = () => {
         ) : undefined}
       </Styled.TaskListHeader>
       <Styled.TaskListMain>
-        <Styled.TaskHeader>
-          <div>Completed?</div>
-          <div>Content</div>
-          <div>Urgent?</div>
-          <div>Important?</div>
-          <div className='deadline'>Deadline</div>
-        </Styled.TaskHeader>
         {currentPosts?.length > 0 ? (
-          currentPosts?.map((task) => <TaskItem key={task.taskId} isEdit={isEdit} data={task} />)
+          <>
+            <Styled.TaskHeader>
+              <div>Completed?</div>
+              <div>Content</div>
+              <div>Urgent?</div>
+              <div>Important?</div>
+              <div className='deadline'>Deadline</div>
+            </Styled.TaskHeader>
+            {currentPosts?.map((task) => (
+              <TaskItem key={task.taskId} isEdit={isEdit} data={task} />
+            ))}
+          </>
         ) : (
-          <div>Create your first task!</div>
+          <TaskEmpty>Create your first task!</TaskEmpty>
         )}
       </Styled.TaskListMain>
       <Modal isShowing={addIsShowing} hide={toggleAdd} className='add-modal' hasOverlay>

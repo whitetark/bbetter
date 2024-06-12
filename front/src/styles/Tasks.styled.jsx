@@ -85,6 +85,14 @@ export const TaskHeader = styled.div`
 `;
 export const TaskActions = styled(BHabitActions)``;
 
+export const TaskEmpty = styled.div`
+  display: grid;
+  place-items: center;
+  font-size: 36px;
+  font-weight: 500;
+  color: ${variables.DIVIDER};
+`;
+
 export const AddTask = styled.div`
   padding: 2rem;
 `;

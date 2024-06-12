@@ -7,6 +7,7 @@ import { WishAdd, WishListItem } from '../components/index';
 import useEdit from '../hooks/use-edit';
 import useModal from '../hooks/use-modal';
 import { useRefetchWishes } from '../hooks/use-wish';
+import { TaskEmpty } from '../styles/Tasks.styled';
 import * as Styled from '../styles/WishList.styled';
 
 const WishListPage = () => {
@@ -65,7 +66,9 @@ const WishListPage = () => {
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />
-          ) : undefined}
+          ) : (
+            <TaskEmpty>Create your first wish!</TaskEmpty>
+          )}
         </Styled.WishListHeader>
         <Styled.WishListMain>
           {currentWishes.map((wish) => (

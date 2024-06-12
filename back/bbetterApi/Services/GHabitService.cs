@@ -29,6 +29,11 @@ namespace bbetterApi.Services
         {
             var ghabits = await ghabitRepository.GetWDatesByAccount(accountId, "last28Days").ConfigureAwait(false);
 
+            if (!ghabits.Any())
+            {
+                return new GHabitStats();
+            }
+
             return HabitStatsUtil.CalculateGHabitStats(ghabits);
         }
 

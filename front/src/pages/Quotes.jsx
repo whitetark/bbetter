@@ -109,18 +109,24 @@ const QuotesPage = () => {
           ) : undefined}
         </Styled.QuoteHeader>
         <Styled.QuoteMainBlock>
-          <Styled.QuoteFilter>
-            <QuoteFilter
-              keywordsList={keywordList}
-              getClientFilters={clientFiltersHandler}
-              isLoading={isLoading}
-            />
-          </Styled.QuoteFilter>
-          <Styled.QuoteList>
-            {currentPosts?.map((quote) => (
-              <QuoteItem key={quote.userQuoteId} isEdit={isEdit} data={quote} />
-            ))}
-          </Styled.QuoteList>
+          {showData && showData.length > 0 ? (
+            <>
+              <Styled.QuoteFilter>
+                <QuoteFilter
+                  keywordsList={keywordList}
+                  getClientFilters={clientFiltersHandler}
+                  isLoading={isLoading}
+                />
+              </Styled.QuoteFilter>
+              <Styled.QuoteList>
+                {currentPosts?.map((quote) => (
+                  <QuoteItem key={quote.userQuoteId} isEdit={isEdit} data={quote} />
+                ))}
+              </Styled.QuoteList>
+            </>
+          ) : (
+            <Styled.QuoteEmpty>Save your first quote!</Styled.QuoteEmpty>
+          )}
         </Styled.QuoteMainBlock>
       </Styled.QuoteContent>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>

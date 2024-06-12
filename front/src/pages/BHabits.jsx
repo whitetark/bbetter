@@ -7,6 +7,7 @@ import { BHabitAdd, BHabitItem } from '../components/index';
 import { useRefetchBHabits } from '../hooks/use-bhabits';
 import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/BHabits.styled';
+import { TaskEmpty } from '../styles/Tasks.styled';
 
 const BHabitsPage = () => {
   document.title = `bbetter - Bad Habits`;
@@ -58,11 +59,15 @@ const BHabitsPage = () => {
           />
         ) : undefined}
       </Styled.BHabitHeader>
-      <Styled.BHabitList>
-        {currentPosts.map((bhabit) => (
-          <BHabitItem key={bhabit.bHabitId} data={bhabit} />
-        ))}
-      </Styled.BHabitList>
+      {bhabits && bhabits.length > 0 ? (
+        <Styled.BHabitList>
+          {currentPosts.map((bhabit) => (
+            <BHabitItem key={bhabit.bHabitId} data={bhabit} />
+          ))}
+        </Styled.BHabitList>
+      ) : (
+        <TaskEmpty>Create your first habit!</TaskEmpty>
+      )}
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
         <BHabitAdd hide={toggleModal} />
       </Modal>

@@ -51,7 +51,7 @@ namespace database.Repositories
                         dateSql = @"
                     DECLARE @today DATE = GETDATE();
                     DECLARE @startOfDate DATE = DATEADD(day, -27, @today);
-                    DECLARE @endOfDate DATE = @today;";
+                    DECLARE @endOfDate DATE = DATEADD(day, 1, @today);";
                         break;
                 }
 

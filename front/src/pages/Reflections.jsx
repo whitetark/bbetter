@@ -109,27 +109,27 @@ const ReflectionsPage = () => {
           />
           <ReflectionItemBlock reflection={reflection} value={value} />
         </Styled.ReflectionItems>
-        <Styled.ReflectionStats>
-          <Styled.FutureItem>
-            <h1>Last 28 Days Graph</h1>
-            {stats ? (
+        {stats && stats.length > 0 && (
+          <Styled.ReflectionStats>
+            <Styled.FutureItem>
+              <h1>Last 28 Days Graph</h1>
               <ReflectionGraphic data={stats?.data} isLoading={isLoading} />
-            ) : (
-              <div>Not enough data</div>
-            )}
-          </Styled.FutureItem>
-          <Styled.FutureItem className='advice'>
-            <h1>Advice</h1>
-            {stats && stats.length > 0 ? (
-              <p>{stats?.data.advice}</p>
-            ) : (
-              <div>
-                Try to do something you always want, because you emotion is much lower than
-                productivity
-              </div>
-            )}
-          </Styled.FutureItem>
-        </Styled.ReflectionStats>
+            </Styled.FutureItem>
+            <Styled.FutureItem className='advice'>
+              <h1>Advice</h1>
+              <p>
+                {stats?.data.advice ? (
+                  stats.data.advice
+                ) : (
+                  <div>
+                    Try to do something you always want, because you emotion is much lower than
+                    productivity
+                  </div>
+                )}
+              </p>
+            </Styled.FutureItem>
+          </Styled.ReflectionStats>
+        )}
       </Styled.ReflectionsMain>
     </Styled.ReflectionsContent>
   );

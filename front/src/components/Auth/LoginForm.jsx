@@ -26,7 +26,7 @@ const textErrors = (meta) => ({
 });
 
 const LoginForm = (props) => {
-  const { mutateAsync: login, error: loginError } = useLogin();
+  const { mutateAsync: login, error: loginError, isLoading } = useLogin();
   const navigate = useNavigate();
   return (
     <Styled.LoginForm>
@@ -71,8 +71,10 @@ const LoginForm = (props) => {
           </Field>
           <Field>
             {(props) => (
-              <Button disabled={!props.form.isValid && !props.form.isTouched} type='submit'>
-                Sign in
+              <Button
+                disabled={(!props.form.isValid && !props.form.isTouched) || isLoading}
+                type='submit'>
+                {isLoading ? <div>...</div> : <div>Sign in</div>}
               </Button>
             )}
           </Field>

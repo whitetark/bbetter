@@ -13,6 +13,7 @@ import { GHabitAdd } from '../components/index';
 import { useRefetchGHabits } from '../hooks/use-ghabits';
 import useModal from '../hooks/use-modal';
 import * as Styled from '../styles/GHabits.styled';
+import { TaskEmpty } from '../styles/Tasks.styled';
 
 const GHabitsPage = () => {
   document.title = `bbetter - Good Habits`;
@@ -81,46 +82,53 @@ const GHabitsPage = () => {
         ) : undefined}
       </Styled.GHabitHeader>
       <Styled.GHabitMain>
-        <Styled.GHabitItems>
-          <GHabitList ghabits={currentPosts} />
-          <Styled.FutureItem className='stats'>
-            <h1>This Week Results</h1>
-            <GHabitDiagram ghabits={ghabits} />
-          </Styled.FutureItem>
-        </Styled.GHabitItems>
-        <Styled.GHabitInfo>
-          <Styled.GHabitInfoItem>
-            <h1>Work on</h1>
-            <Styled.FutureItem>
-              <FontAwesomeIcon icon='fa-solid fa-dumbbell' fixedWidth />
-              <p>{stats?.data.value.workOn}</p>
-            </Styled.FutureItem>
-          </Styled.GHabitInfoItem>
-          <Styled.GHabitInfoItem>
-            <h1>Best Habit</h1>
-            <Styled.FutureItem>
-              <FontAwesomeIcon icon='fa-solid fa-medal' fixedWidth />
-              <p>{stats?.data.value.bestHabit}</p>
-            </Styled.FutureItem>
-          </Styled.GHabitInfoItem>
-          <Styled.GHabitInfoItem>
-            <h1>Best Streaks</h1>
-            <Styled.FutureItem className='row'>
-              <FontAwesomeIcon icon='fa-solid fa-fire' />
-              <LoadingWrapper>
-                <div>
-                  {stats?.data.value.streaks.slice(0, 3).map((item, index) => {
-                    return (
-                      <p key={index}>
-                        {item.content}: {item.streak}
-                      </p>
-                    );
-                  })}
-                </div>
-              </LoadingWrapper>
-            </Styled.FutureItem>
-          </Styled.GHabitInfoItem>
-        </Styled.GHabitInfo>
+        {ghabits.length > 0 ? (
+          <>
+            <Styled.GHabitItems>
+              <GHabitList ghabits={currentPosts} />
+              <Styled.FutureItem className='stats'>
+                <h1>This Week Results</h1>
+                <GHabitDiagram ghabits={ghabits} />
+              </Styled.FutureItem>
+            </Styled.GHabitItems>
+            <Styled.GHabitInfo>
+              <Styled.GHabitInfoItem>
+                <h1>Work on</h1>
+                <Styled.FutureItem>
+                  <FontAwesomeIcon icon='fa-solid fa-dumbbell' fixedWidth />
+                  <p>{stats?.data.value.workOn}</p>
+                </Styled.FutureItem>
+              </Styled.GHabitInfoItem>
+              <Styled.GHabitInfoItem>
+                <h1>Best Habit</h1>
+                <Styled.FutureItem>
+                  <FontAwesomeIcon icon='fa-solid fa-medal' fixedWidth />
+                  <p>{stats?.data.value.bestHabit}</p>
+                </Styled.FutureItem>
+              </Styled.GHabitInfoItem>
+              <Styled.GHabitInfoItem>
+                <h1>Best Streaks</h1>
+                <Styled.FutureItem className='row'>
+                  <FontAwesomeIcon icon='fa-solid fa-fire' />
+                  <LoadingWrapper>
+                    <div>
+                      {stats &&
+                        stats?.data.value.streaks?.slice(0, 3).map((item, index) => {
+                          return (
+                            <p key={index}>
+                              {item.content}: {item.streak}
+                            </p>
+                          );
+                        })}
+                    </div>
+                  </LoadingWrapper>
+                </Styled.FutureItem>
+              </Styled.GHabitInfoItem>
+            </Styled.GHabitInfo>
+          </>
+        ) : (
+          <TaskEmpty>Create your first habit!</TaskEmpty>
+        )}
       </Styled.GHabitMain>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
         <GHabitAdd hide={toggleModal} />

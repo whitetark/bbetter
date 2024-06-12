@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
 import { BHabitActions, BHabitItemActions } from './BHabits.styled';
+import { TaskEmpty } from './Tasks.styled';
 import { HomePadding, Pagination } from './UI.styled';
 import { AddWishButton, AddWishForm } from './Wishes.styled';
 
@@ -240,4 +241,11 @@ export const QuoteTypeList = styled.div`
     border-radius: 10px;
     background-color: ${variables.GREEN};
   }
+`;
+
+export const QuoteEmpty = styled(TaskEmpty)`
+  background-color: ${variables.WHITE};
+  padding: 2rem;
+  width: 100%;
+  border-radius: 10px;
 `;
