@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Typography, circularProgressClasses } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { UserService } from '../../app/services/api';
 import * as variables from '../../app/shared/colorVariables';
@@ -57,10 +57,12 @@ export function CircularProgressWithLabel(props) {
 }
 
 const WeeklyStats = () => {
+  const [period, setPeriod] = useState('week');
+
   const { userData } = useAuthContext();
   const requestBody = {
     Id: userData.accountId,
-    Type: 'week',
+    Type: period,
   };
 
   const { data, isLoading } = useQuery(
@@ -74,15 +76,26 @@ const WeeklyStats = () => {
     },
   );
 
+  const changeHandler = (event) => {
+    setPeriod(event.target.value);
+  };
+
   const stats = data?.data;
 
   return (
     <Styled.WeeklyStats>
+      <Styled.StatsHeader>
+        <h1>Statistics</h1>
+        <select name='period' value={period} onChange={changeHandler}>
+          <option value='week'>Last Week</option>
+          <option value='month'>Last Month</option>
+          <option value='3month'>Last 3 Months</option>
+        </select>
+      </Styled.StatsHeader>
       <LoadingWrapper isLoading={isLoading}>
         {stats ? (
-          <>
+          <div style={{ display: 'flex', flexDirection: 'row', gap: '2rem', alignItems: 'center' }}>
             <Styled.StatsMain>
-              <h1>Weekly Stats</h1>
               <Styled.StatsBlock>
                 <h1>Tasks</h1>
                 <p>
@@ -115,7 +128,7 @@ const WeeklyStats = () => {
               <CircularProgressWithLabel value={stats.productivityCoef} />
               <span>Productivity Last Week</span>
             </Styled.Productivity>
-          </>
+          </div>
         ) : (
           <div>Not enough data :(</div>
         )}

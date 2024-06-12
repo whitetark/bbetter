@@ -109,7 +109,7 @@ const ReflectionsPage = () => {
           />
           <ReflectionItemBlock reflection={reflection} value={value} />
         </Styled.ReflectionItems>
-        {stats && stats.length > 0 && (
+        {stats?.data.emotion?.length > 0 ? (
           <Styled.ReflectionStats>
             <Styled.FutureItem>
               <h1>Last 28 Days Graph</h1>
@@ -117,18 +117,11 @@ const ReflectionsPage = () => {
             </Styled.FutureItem>
             <Styled.FutureItem className='advice'>
               <h1>Advice</h1>
-              <p>
-                {stats?.data.advice ? (
-                  stats.data.advice
-                ) : (
-                  <div>
-                    Try to do something you always want, because you emotion is much lower than
-                    productivity
-                  </div>
-                )}
-              </p>
+              <p>{stats.data.advice}</p>
             </Styled.FutureItem>
           </Styled.ReflectionStats>
+        ) : (
+          <div>No data</div>
         )}
       </Styled.ReflectionsMain>
     </Styled.ReflectionsContent>

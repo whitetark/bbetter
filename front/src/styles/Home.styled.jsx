@@ -145,7 +145,7 @@ export const UserPhoto = styled.div`
 
 export const WeeklyStats = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 2rem;
   justify-content: space-between;
   background-color: ${variables.WHITE};
@@ -258,4 +258,18 @@ export const NewWishInfo = styled.div`
   justify-content: space-between;
   gap: 4rem;
   font-size: 16px;
+`;
+
+export const StatsHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  select {
+    padding: 0.5rem;
+    border-radius: 10px;
+    outline: none;
+    font-size: 20px;
+    border: 1px solid ${variables.DIVIDER};
+  }
 `;

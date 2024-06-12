@@ -31,7 +31,6 @@ import {
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './app/shared/ProtectedRoute';
 import PathConstants from './app/shared/pathConstants';
-import { useAuthContext } from './app/store/auth-context';
 import {
   AppLayout,
   BHabitsPage,
@@ -49,8 +48,6 @@ import {
   TasksPage,
   WishListPage,
 } from './pages/index';
-
-import MaintenancePage from './pages/system/Maintenance';
 
 library.add(
   faHouse,
@@ -82,12 +79,6 @@ library.add(
 );
 
 function App() {
-  const { serverIsOn } = useAuthContext();
-
-  if (!serverIsOn) {
-    return <MaintenancePage />;
-  }
-
   return (
     <BrowserRouter basename='/'>
       <Routes>

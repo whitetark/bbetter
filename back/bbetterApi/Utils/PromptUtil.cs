@@ -11,6 +11,8 @@ namespace bbetter.API.Utils
 
             int counter = 1;
 
+            lines.Add("I have activities like this:");
+
             foreach (var task in accountActivities.tasks)
             {
                 string importance = task.IsImportant ? "important" : "not important";

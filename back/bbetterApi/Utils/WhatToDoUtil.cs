@@ -105,15 +105,15 @@ namespace bbetterApi.Utils
         }
         private static List<WhatToDoItem> FindTopWishes(List<Wish> accountWishes)
         {
-            Random random = new Random();
-            List<Wish> threeWishes = accountWishes.OrderBy(x => random.Next()).Take(3).ToList();
+            List<Wish> threeWishes = accountWishes.OrderBy(x => x.priorityOf).Take(3).ToList();
             var whatToDoItems = threeWishes.Select(ConvertToWhatToDoItem).ToList();
             return whatToDoItems;
         }
         private static List<WhatToDoItem> FindTopGHabits(List<GHabitWithDates> accountGHabits)
         {
             var filteredArray = accountGHabits.Where(habit => habit.GHabitDates.IsNullOrEmpty());
-            var whatToDoItems = filteredArray.Select(ConvertToWhatToDoItem).ToList();
+            var sortedArray = filteredArray.OrderBy(x => x.priorityOf);
+            var whatToDoItems = filteredArray.Select(ConvertToWhatToDoItem).Take(3).ToList();
             return whatToDoItems;
         }
 
