@@ -71,5 +71,13 @@ export const TaskItem = styled.div`
     transform: scale(1.5);
     outline: none;
   }
+
+  .deadline {
+    &.overdue {
+      background-color: #7c0000;
+      border-radius: 10px;
+      color: white;
+    }
+  }
 `;
 export const TaskItemActions = styled(BHabitItemActions)``;

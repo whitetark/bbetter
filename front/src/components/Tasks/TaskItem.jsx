@@ -100,7 +100,12 @@ const TaskItem = ({ isEdit, data }) => {
             onChange={() => setIsImportant(!isImportant)}
           />
         </div>
-        <div className='deadline'>{dayjs(data.deadline).format('DD/MM/YYYY')}</div>
+        <div
+          className={
+            dayjs(data.deadline) < dayjs() && !isCompleted ? 'deadline overdue' : 'deadline'
+          }>
+          {dayjs(data.deadline).format('DD/MM/YYYY')}
+        </div>
         <Styled.TaskItemActions>
           {isEdit && (
             <>

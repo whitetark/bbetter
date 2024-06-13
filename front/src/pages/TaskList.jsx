@@ -75,7 +75,7 @@ const TaskListPage = () => {
         {currentPosts?.length > 0 ? (
           <>
             <Styled.TaskHeader>
-              <div>Completed?</div>
+              <div>Done?</div>
               <div>Content</div>
               <div>Urgent?</div>
               <div>Important?</div>

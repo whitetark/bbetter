@@ -21,8 +21,14 @@ namespace bbetterApi.Utils
             var numOfTasksWithDeadlineThisWeek = tasks.Count(t => t.Deadline >= startOfDate && t.Deadline < endOfDate);
             var tasksCompleted = tasks.Where(t => t.IsCompleted == true);
             var tasksWithDeadlineAndCompleteDateThisWeek = tasksCompleted.Where(t => t.Deadline >= startOfDate && t.Deadline < endOfDate && t.CompleteDate >= startOfDate && t.CompleteDate < endOfDate).ToList();
-            var tasksWithDeadlineThisWeekAndCompleteDateLater = tasksCompleted.Where(t => t.Deadline >= startOfDate && t.Deadline < endOfDate && t.CompleteDate > t.Deadline).ToList();
+            var tasksWithDeadlineThisWeekAndCompleteDateLater = tasksWithDeadlineAndCompleteDateThisWeek.Where(t => t.Deadline >= startOfDate && t.Deadline < endOfDate && t.CompleteDate > t.Deadline).ToList();
             double numOfThisWeekCompleted = tasksWithDeadlineAndCompleteDateThisWeek.Count - tasksWithDeadlineThisWeekAndCompleteDateLater.Count;
+
+            if(numOfThisWeekCompleted < 0)
+            {
+                numOfThisWeekCompleted = 0;
+            }
+
             double numOftasksWithCompleteDateThisWeek = tasksCompleted.Count(t => t.CompleteDate >= startOfDate && t.CompleteDate < endOfDate);
             double numOfExtraWork = numOftasksWithCompleteDateThisWeek - tasksWithDeadlineAndCompleteDateThisWeek.Count;
 
