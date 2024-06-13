@@ -1,4 +1,5 @@
-﻿using bbetter.API.Models.Stats;
+﻿using bbetter.API.Models.Responses;
+using bbetter.API.Models.Stats;
 using bbetter.Database.Models;
 using database.Models;
 
@@ -18,7 +19,7 @@ namespace bbetter.API.Utils
             return result;
         }
 
-        public static List<BHabitWithStats> CalculateBHabitStats(List<BHabitWithDates> habitsWithDates)
+        public static BHabitResponse CalculateBHabitStats(List<BHabitWithDates> habitsWithDates)
         {
             var result = new List<BHabitWithStats>();
             DateTime now = DateTime.Now;
@@ -52,7 +53,15 @@ namespace bbetter.API.Utils
                 });
             }
 
-            return result;
+            var bestBadHabit = result.OrderByDescending(h => h.AvgInterval).FirstOrDefault();
+            var habitToWorkOn = result.OrderBy(h => h.AvgInterval).FirstOrDefault();
+
+            return new BHabitResponse
+            {
+                BHabits = result,
+                BestBHabit = bestBadHabit.Content,
+                WorstBHabit = habitToWorkOn.Content,
+            };
         }
 
         private static string CalculateBestHabit(List<GHabitWithDates> habits)

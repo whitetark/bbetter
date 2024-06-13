@@ -1,4 +1,5 @@
-﻿using bbetterApi.Services;
+﻿using bbetter.API.Models.Responses;
+using bbetterApi.Services;
 using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +15,7 @@ namespace bbetterApi.Controllers
     {
         [HttpGet]
         [Route("getByAccount")]
-        public async Task<ActionResult<List<database.Models.Task>>> GetTasks([FromQuery] int accountId)
+        public async Task<ActionResult<TaskResponse>> GetTasks([FromQuery] int accountId)
         {
             return Ok(await taskServices.GetTasks(accountId).ConfigureAwait(false));
         }

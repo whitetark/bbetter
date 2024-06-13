@@ -1,4 +1,6 @@
-﻿using database.Repositories;
+﻿using bbetter.API.Models.Responses;
+using bbetter.API.Utils;
+using database.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bbetterApi.Services
@@ -10,9 +12,10 @@ namespace bbetterApi.Services
             return await taskRepository.GetById(id).ConfigureAwait(false);
         }
 
-        public async Task<List<database.Models.Task>> GetTasks(int accountId)
+        public async Task<TaskResponse> GetTasks(int accountId)
         {
-            return await taskRepository.GetByAccount(accountId).ConfigureAwait(false);
+            var tasks = await taskRepository.GetByAccount(accountId).ConfigureAwait(false);
+            return TaskStatsUtil.FormTaskResponse(tasks);
         }
 
         public async Task<database.Models.Task> CreateTask(database.Models.Task task)

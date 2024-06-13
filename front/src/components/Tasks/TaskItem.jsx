@@ -62,7 +62,7 @@ const TaskItem = ({ isEdit, data }) => {
       }
 
       editAsync(task);
-    }, 3000);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, [isCompleted]);

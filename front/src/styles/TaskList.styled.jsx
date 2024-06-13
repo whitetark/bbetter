@@ -64,7 +64,7 @@ export const TaskItem = styled.div`
 
   &.completed {
     background-color: ${variables.COMPLETED_CELL} !important;
-    color: ${variables.WHITE};
+    color: ${variables.WHITE} !important;
   }
 
   input {

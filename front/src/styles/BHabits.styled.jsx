@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import * as variables from '../app/shared/colorVariables';
-import { Button, HomePadding } from './UI.styled';
+import { Button, HomePadding, Pagination } from './UI.styled';
 import { AddWishButton, AddWishForm, WishActions, WishHeader } from './Wishes.styled';
 
 export const BHabitContent = styled(HomePadding)`
@@ -27,10 +27,8 @@ export const BHabitList = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   gap: 2rem;
-  max-width: 90rem;
   width: 100%;
-  height: 100%;
-  margin: 0 auto;
+  align-self: center;
 `;
 
 export const BHabitItemHeader = styled.div`
@@ -286,5 +284,74 @@ export const CalendarActions = styled.div`
     &:hover {
       filter: brightness(0.8);
     }
+  }
+`;
+
+export const BHabitMain = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 10px 1fr;
+  max-width: 120rem;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  gap: 2rem;
+
+  .divider {
+    border-color: ${variables.TAB_HOVER};
+  }
+`;
+export const BHabitStats = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-self: center;
+`;
+export const BHabitInfoItem = styled.div``;
+export const FutureItem = styled.div`
+  background-color: ${variables.DIVIDER};
+  border-radius: 10px;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  color: ${variables.DISABLED_BUTTON};
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &.row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  &.stats {
+    h1 {
+    }
+  }
+
+  .content {
+    font-size: 16px;
+  }
+  .author {
+    font-size: 18px;
+    align-self: flex-end;
+    color: ${variables.DISABLED_BUTTON};
+  }
+
+  svg {
+    font-size: 64px;
+  }
+`;
+
+export const BHabitMainIdea = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  ${Pagination} {
+    align-self: flex-end;
   }
 `;

@@ -1,5 +1,7 @@
-﻿using bbetter.API.Models.Stats;
+﻿using bbetter.API.Models.Responses;
+using bbetter.API.Models.Stats;
 using bbetter.API.Utils;
+using bbetterApi.Clients;
 using database.Models;
 using database.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -8,25 +10,25 @@ using Task = System.Threading.Tasks.Task;
 
 namespace bbetterApi.Services
 {
-    public class BHabitService(BHabitRepository bhabitRepository, BHabitDateRepository bhabitDateRepository)
+    public class BHabitService(BHabitRepository bhabitRepository, BHabitDateRepository bhabitDateRepository, QuotableClient quotableClient)
     {
         public async Task<BHabit> GetBHabit(int id)
         {
             return await bhabitRepository.GetById(id).ConfigureAwait(false);
         }
 
-        public async Task<List<BHabitWithStats>> GetBHabits(int accountId)
+        public async Task<BHabitResponse> GetBHabits(int accountId)
         {
             var data = await bhabitRepository.GetWDatesByAccount(accountId).ConfigureAwait(false);
-            return HabitStatsUtil.CalculateBHabitStats(data);
+            var response =  HabitStatsUtil.CalculateBHabitStats(data);
+            response.Quote = await quotableClient.GetMotivationalQuote().ConfigureAwait(false); 
+            return response;
         }
 
 
         public async Task<BHabit> CreateBHabit(BHabit bHabit)
         {
             var bhabitResult = await bhabitRepository.Add(bHabit).ConfigureAwait(false);
-
-
             return bhabitResult;
         }
 

@@ -1,4 +1,5 @@
-﻿using bbetter.API.Models.Stats;
+﻿using bbetter.API.Models.Responses;
+using bbetter.API.Models.Stats;
 using bbetterApi.Services;
 using database.Models;
 using database.Repositories;
@@ -16,7 +17,7 @@ namespace bbetterApi.Controllers
 
         [HttpGet]
         [Route("getAll")]
-        public async Task<ActionResult<List<BHabitWithStats>>> GetBHabits([FromQuery] int accountId)
+        public async Task<ActionResult<BHabitResponse>> GetBHabits([FromQuery] int accountId)
         {
             return Ok(await bHabitServices.GetBHabits(accountId).ConfigureAwait(false));
         }

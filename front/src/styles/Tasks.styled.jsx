@@ -16,10 +16,8 @@ export const TaskTable = styled.div`
   grid-template-rows: 1fr 4fr 4fr;
   grid-template-columns: 1fr 4fr 4fr;
   place-items: center;
-  max-width: 90rem;
   width: 100%;
   gap: 1rem;
-  margin: 0 auto;
 `;
 
 export const TableCell = styled.div`
@@ -29,6 +27,7 @@ export const TableCell = styled.div`
   border-radius: 10px;
   width: 100%;
   gap: 0.5rem;
+  height: 100%;
   background-color: ${variables.DIVIDER};
 
   h3 {
@@ -43,6 +42,7 @@ export const TableCell = styled.div`
     border-radius: 10px;
     gap: 0.5rem;
     min-height: 10rem;
+    height: 100%;
     > div {
       background-color: ${variables.DIVIDER};
       border-radius: 10px;
@@ -158,4 +158,121 @@ export const AddTaskButton = styled(AddWishButton)``;
 
 export const EditTask = styled.div`
   padding: 2rem;
+`;
+
+export const TaskMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 100rem;
+  width: 100%;
+  margin: 0 auto;
+`;
+export const TaskStats = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+  gap: 2rem;
+`;
+export const TaskDeadlineListBlock = styled.div``;
+export const TaskDeadlineList = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: ${variables.DIVIDER};
+  border-radius: 10px;
+  padding: 2rem;
+  gap: 0.5rem;
+`;
+export const TaskDeadlineItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  color: ${variables.DISABLED_BUTTON};
+  background-color: ${variables.WHITE};
+  border-radius: 10px;
+  border: 4px solid ${variables.DELETE_CELL};
+
+  &.important.urgent {
+    border-color: ${variables.DO_CELL};
+  }
+
+  &.important {
+    border-color: ${variables.DECIDE_CELL};
+  }
+
+  &.urgent {
+    border-color: ${variables.DELEGATE_CELL};
+  }
+
+  &.completed {
+    border-color: ${variables.COMPLETED_CELL} !important;
+  }
+
+  .content {
+    font-size: 18px;
+  }
+
+  .deadline {
+    background-color: ${variables.DIVIDER};
+    border-radius: 80px;
+    padding: 0.5rem;
+    color: ${variables.DISABLED_BUTTON};
+  }
+`;
+export const TaskStatsBlock = styled.div``;
+export const TaskStatsInfo = styled.div`
+  background-color: ${variables.DIVIDER};
+  border-radius: 10px;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 1.5rem;
+  align-items: center;
+
+  .divider {
+    border-left: 0 !important;
+    margin: 0 !important;
+    border-top: 1px solid #bdbdbd;
+  }
+`;
+
+export const TaskStatsProgress = styled.div`
+  color: ${variables.DISABLED_BUTTON};
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 400;
+
+  span {
+    font-weight: 600;
+  }
+`;
+export const TaskStatsProgressHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const TaskStatsInfoHeaders = styled.div`
+  display: flex;
+  flex-direction: row;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  color: #bdbdbd;
+  font-weight: 500;
+`;
+
+export const TaskStatsOverallData = styled.div`
+  color: ${variables.DISABLED_BUTTON};
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  font-size: 18px;
+
+  span {
+    font-weight: 500;
+  }
 `;

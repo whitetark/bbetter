@@ -67,5 +67,30 @@ namespace bbetterApi.Clients
                 throw new ArgumentException("err", ex);
             }
         }
+
+        public async Task<Quote> GetMotivationalQuote()
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"quotes/random?tags=Inspirational&maxLength=240&limit=1").ConfigureAwait(false);
+                response.EnsureSuccessStatusCode();
+                var content = response.Content.ReadAsStringAsync().Result;
+
+                var resultOfDes = JsonConvert.DeserializeObject<List<QuotableItem>>(content);
+
+                var quote = new Quote
+                {
+                    QuoteId = resultOfDes.First()._id,
+                    Content = resultOfDes.First().content,
+                    Author = resultOfDes.First().author,
+                };
+
+                return quote;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("err", ex);
+            }
+        }
     }
 }

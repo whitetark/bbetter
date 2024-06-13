@@ -17,7 +17,7 @@ const BHabitsPage = () => {
   const postsPerPage = 8;
 
   const { isShowing: modalIsShowing, toggle: toggleModal } = useModal();
-  const { bhabits, error, isLoading } = useRefetchBHabits();
+  const { bhabits, bestHabit, workOnHabit, quote, error, isLoading } = useRefetchBHabits();
 
   useEffect(() => {
     const pageValue = parseInt(searchParams.get('page'));
@@ -51,20 +51,49 @@ const BHabitsPage = () => {
             </Button>
           </Styled.BHabitActions>
         </Styled.BHabitHeaderBlock>
-        {bhabits && bhabits.length > 0 ? (
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        ) : undefined}
       </Styled.BHabitHeader>
       {bhabits && bhabits.length > 0 ? (
-        <Styled.BHabitList>
-          {currentPosts.map((bhabit) => (
-            <BHabitItem key={bhabit.bHabitId} data={bhabit} />
-          ))}
-        </Styled.BHabitList>
+        <Styled.BHabitMain>
+          <Styled.BHabitMainIdea>
+            {bhabits && bhabits.length > 0 ? (
+              <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+            ) : undefined}
+            <Styled.BHabitList>
+              {currentPosts.map((bhabit) => (
+                <BHabitItem key={bhabit.bHabitId} data={bhabit} />
+              ))}
+            </Styled.BHabitList>
+          </Styled.BHabitMainIdea>
+          <div className='divider'></div>
+          <Styled.BHabitStats>
+            <Styled.BHabitInfoItem>
+              <h1>Best Habit</h1>
+              <Styled.FutureItem>
+                <FontAwesomeIcon icon='fa-solid fa-medal' fixedWidth />
+                <p>{bestHabit}</p>
+              </Styled.FutureItem>
+            </Styled.BHabitInfoItem>
+            <Styled.BHabitInfoItem>
+              <h1>Work on</h1>
+              <Styled.FutureItem>
+                <FontAwesomeIcon icon='fa-solid fa-dumbbell' fixedWidth />
+                <p>{workOnHabit}</p>
+              </Styled.FutureItem>
+            </Styled.BHabitInfoItem>
+            <Styled.BHabitInfoItem>
+              <h1>Quote</h1>
+              <Styled.FutureItem>
+                <p className='content'>&quot;{quote.content}&quot;</p>
+                <p className='author'>{quote.author}</p>
+              </Styled.FutureItem>
+            </Styled.BHabitInfoItem>
+          </Styled.BHabitStats>
+          <div className='divider'></div>
+        </Styled.BHabitMain>
       ) : (
         <TaskEmpty>Create your first habit!</TaskEmpty>
       )}

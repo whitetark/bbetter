@@ -18,11 +18,14 @@ export const useRefetchTasks = () => {
     },
   );
 
-  let tasks;
+  let tasks, stats, closestTasks;
   if (!data) {
     tasks = [];
+    stats = [];
   } else {
-    tasks = data.data;
+    tasks = data.data.tasks;
+    stats = data.data.stats;
+    closestTasks = data.data.closestTasks;
   }
 
   tasks = tasks.sort((taskA, taskB) => {
@@ -35,7 +38,7 @@ export const useRefetchTasks = () => {
     return taskA.isImportant ? -1 : 1;
   });
 
-  return { tasks, error, isLoading };
+  return { tasks, stats, closestTasks, error, isLoading };
 };
 
 export const useAddTask = () => {

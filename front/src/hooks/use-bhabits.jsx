@@ -19,13 +19,18 @@ export const useRefetchBHabits = () => {
     },
   );
 
-  let bhabits;
+  let bhabits, quote, workOnHabit, bestHabit;
   if (!data) {
     bhabits = [];
+    quote = [];
   } else {
-    bhabits = data.data;
+    bhabits = data.data.bHabits;
+    quote = data.data.quote;
+    workOnHabit = data.data.worstBHabit;
+    bestHabit = data.data.bestBHabit;
   }
-  return { bhabits, error, isLoading };
+
+  return { bhabits, quote, workOnHabit, bestHabit, error, isLoading };
 };
 
 export const useAddBHabit = () => {
