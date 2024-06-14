@@ -25,10 +25,13 @@ export const BHabitActions = styled(WishActions)``;
 export const BHabitList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
   gap: 2rem;
   width: 100%;
   align-self: center;
+
+  @media only screen and (max-width: ${variables.EXTRA_MOBILE_WIDTH}) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const BHabitItemHeader = styled.div`
@@ -298,6 +301,11 @@ export const BHabitMain = styled.div`
 
   .divider {
     border-color: ${variables.TAB_HOVER};
+  }
+
+  @media only screen and (max-width: ${variables.MOBILE_WIDTH}) {
+    display: flex;
+    flex-direction: column;
   }
 `;
 export const BHabitStats = styled.div`

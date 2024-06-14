@@ -98,8 +98,6 @@ const ReflectionsPage = () => {
 
   const reflection = findSundayReflectionByDay(reflects, value);
 
-  console.log(stats?.data);
-
   return (
     <Styled.ReflectionsContent>
       <h1>Reflections</h1>

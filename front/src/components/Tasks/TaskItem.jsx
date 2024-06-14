@@ -82,18 +82,23 @@ const TaskItem = ({ isEdit, data }) => {
   return (
     <>
       <Styled.TaskItem className={classname.trim()}>
-        <div>
+        <div style={{ gridArea: 'completed' }} className='details'>
+          <span className='hide'>Completed?</span>
           <input
             type='checkbox'
             checked={isCompleted}
             onChange={() => setIsCompleted(!isCompleted)}
           />
         </div>
-        <div className='content'>{data.content}</div>
-        <div>
+        <div className='content' style={{ gridArea: 'content' }}>
+          {data.content}
+        </div>
+        <div style={{ gridArea: 'urgent' }} className='details'>
+          <span className='hide'>Urgent?</span>
           <input type='checkbox' checked={isUrgent} onChange={() => setIsUrgent(!isUrgent)} />
         </div>
-        <div>
+        <div style={{ gridArea: 'important' }} className='details'>
+          <span className='hide'>Important?</span>
           <input
             type='checkbox'
             checked={isImportant}
@@ -103,10 +108,11 @@ const TaskItem = ({ isEdit, data }) => {
         <div
           className={
             dayjs(data.deadline) < dayjs() && !isCompleted ? 'deadline overdue' : 'deadline'
-          }>
-          {dayjs(data.deadline).format('DD/MM/YYYY')}
+          }
+          style={{ gridArea: 'deadline' }}>
+          <div>{dayjs(data.deadline).format('DD/MM/YYYY')}</div>
         </div>
-        <Styled.TaskItemActions>
+        <Styled.TaskItemActions style={{ gridArea: 'actions' }}>
           {isEdit && (
             <>
               <Button onClick={toggleEdit}>

@@ -44,10 +44,19 @@ export const QuoteMainBlock = styled.div`
   display: flex;
   flex-direction: row;
   gap: 2rem;
+
+  @media only screen and (max-width: ${variables.EXTRA_MOBILE_WIDTH}) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const QuoteFilter = styled.div`
   max-width: 25rem;
   width: 100%;
+
+  @media only screen and (max-width: ${variables.EXTRA_MOBILE_WIDTH}) {
+    max-width: unset;
+  }
 `;
 
 export const QuoteList = styled.div`
@@ -61,7 +70,6 @@ export const QuoteList = styled.div`
 export const QuotesPage = styled.div`
   position: relative;
   overflow: hidden;
-  border-radius: 10px;
 `;
 
 export const Quote = styled.div`
@@ -163,6 +171,10 @@ export const QuoteFilterMain = styled.div`
     font-size: 2rem;
     font-weight: 500;
     color: ${variables.DISABLED_BUTTON};
+  }
+
+  @media only screen and (max-width: ${variables.EXTRA_MOBILE_WIDTH}) {
+    align-items: normal;
   }
 `;
 export const QuoteFilterDiv = styled.div`

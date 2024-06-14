@@ -13,6 +13,12 @@ export const HomeHeader = styled.div`
     background-color: ${variables.WHITE};
     box-shadow: ${variables.BOX_SHADOW};
   }
+
+  @media only screen and (max-width: ${variables.EXTRA_MOBILE_WIDTH}) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const HomeStats = styled.div`
@@ -44,6 +50,12 @@ export const HomeMain = styled.div`
   flex-direction: row;
   justify-content: space-between;
   gap: 4rem;
+
+  @media only screen and (max-width: ${variables.EXTRA_MOBILE_WIDTH}) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const HomeActions = styled.div`

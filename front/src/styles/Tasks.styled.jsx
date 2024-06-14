@@ -11,6 +11,19 @@ export const TaskContent = styled(HomePadding)`
   gap: 3rem;
 `;
 
+export const TableText = styled.div`
+  color: ${variables.DIVIDER};
+  font-weight: 500;
+  align-self: flex-end;
+
+  &.vertical-text {
+    align-self: center;
+    justify-self: flex-end;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+  }
+`;
+
 export const TaskTable = styled.div`
   display: grid;
   grid-template-rows: 1fr 4fr 4fr;
@@ -18,6 +31,15 @@ export const TaskTable = styled.div`
   place-items: center;
   width: 100%;
   gap: 1rem;
+
+  @media only screen and (max-width: ${variables.EXTRA_MOBILE_WIDTH}) {
+    display: flex;
+    flex-direction: column;
+
+    ${TableText} {
+      display: none;
+    }
+  }
 `;
 
 export const TableCell = styled.div`
@@ -62,19 +84,6 @@ export const TableCell = styled.div`
   }
   &.delete {
     background-color: ${variables.DELETE_CELL};
-  }
-`;
-
-export const TableText = styled.div`
-  color: ${variables.DIVIDER};
-  font-weight: 500;
-  align-self: flex-end;
-
-  &.vertical-text {
-    align-self: center;
-    justify-self: flex-end;
-    writing-mode: vertical-lr;
-    transform: rotate(180deg);
   }
 `;
 
@@ -172,6 +181,11 @@ export const TaskStats = styled.div`
   display: grid;
   grid-template-columns: 4fr 2fr;
   gap: 2rem;
+
+  @media only screen and (max-width: ${variables.MOBILE_WIDTH}) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const TaskDeadlineListBlock = styled.div``;
 export const TaskDeadlineList = styled.div`

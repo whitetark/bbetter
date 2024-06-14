@@ -12,3 +12,7 @@ export const DELETE_CELL = '#454372';
 export const DECIDE_CELL = '#EF946C';
 export const DELEGATE_CELL = '#C4A77D';
 export const COMPLETED_CELL = '#2F2963';
+
+export const EXTRA_MOBILE_WIDTH = '666px';
+export const MOBILE_WIDTH = '1011px';
+export const MIDDLE_WIDTH = '1200px';

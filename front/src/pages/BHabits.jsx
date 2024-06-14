@@ -92,7 +92,6 @@ const BHabitsPage = () => {
               </Styled.FutureItem>
             </Styled.BHabitInfoItem>
           </Styled.BHabitStats>
-          <div className='divider'></div>
         </Styled.BHabitMain>
       ) : (
         <TaskEmpty>Create your first habit!</TaskEmpty>

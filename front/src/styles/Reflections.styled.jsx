@@ -50,6 +50,10 @@ export const ReflectionItem = styled.div`
   gap: 1rem;
   justify-content: space-between;
   max-width: 40rem;
+
+  @media only screen and (max-width: ${variables.EXTRA_MOBILE_WIDTH}) {
+    max-width: unset;
+  }
 `;
 export const ReflectionActions = styled.div`
   display: flex;
@@ -261,13 +265,22 @@ export const ReflectionItems = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
+
+  @media only screen and (max-width: ${variables.EXTRA_MOBILE_WIDTH}) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const ReflectionStats = styled.div`
   margin-top: auto;
   display: grid;
   grid-template-columns: 5fr 2fr;
-  max-height: 40rem;
   gap: 2rem;
+
+  @media only screen and (max-width: ${variables.EXTRA_MOBILE_WIDTH}) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const FutureItem = styled.div`
   background-color: ${variables.TAB_HOVER};

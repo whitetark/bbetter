@@ -8,6 +8,7 @@ import {
 import {
   faArrowLeft,
   faArrowRight,
+  faBars,
   faCheckToSlot,
   faDrum,
   faDumbbell,
@@ -76,6 +77,7 @@ library.add(
   faMedal,
   faDumbbell,
   faFire,
+  faBars,
 );
 
 function App() {

@@ -63,10 +63,8 @@ export const Checklist = styled.div`
 `;
 
 export const GHabitHeader = styled(TaskListHeader)`
-  flex-direction: column;
-  ${Pagination} {
-    margin-left: 0;
-  }
+  flex-direction: row;
+  justify-content: space-between;
 `;
 export const GHabitHeaderBlock = styled(TaskListHeaderBlock)`
   justify-content: space-between;
@@ -200,12 +198,22 @@ export const GHabitItems = styled.div`
   display: grid;
   grid-template-columns: 4fr 2fr;
   gap: 2rem;
+
+  @media only screen and (max-width: ${variables.MOBILE_WIDTH}) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const GHabitInfo = styled.div`
   margin-top: auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 2rem;
+
+  @media only screen and (max-width: ${variables.MOBILE_WIDTH}) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const GHabitInfoItem = styled.div``;
 
@@ -245,4 +253,14 @@ export const GHabitDiagram = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+`;
+
+export const GHabitListPages = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  ${Pagination} {
+    margin-left: auto;
+  }
 `;

@@ -55,8 +55,17 @@ export const Button = styled.button`
 `;
 
 export const Logo = styled.div`
+  display: flex;
+  justify-content: center;
+
   img {
     width: 18rem;
+  }
+
+  @media only screen and (max-width: ${variables.MIDDLE_WIDTH}) {
+    img {
+      width: 6rem;
+    }
   }
 `;
 

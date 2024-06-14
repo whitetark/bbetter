@@ -65,27 +65,27 @@ const GHabitsPage = () => {
   return (
     <Styled.GHabitContent>
       <Styled.GHabitHeader>
-        <Styled.GHabitHeaderBlock>
-          <h1>Good Habits</h1>
-          <Styled.GHabitActions>
-            <Button onClick={toggleModal}>
-              <FontAwesomeIcon icon='fa-solid fa-plus' fixedWidth />
-            </Button>
-          </Styled.GHabitActions>
-        </Styled.GHabitHeaderBlock>
-        {ghabits && ghabits.length > 0 ? (
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        ) : undefined}
+        <h1>Good Habits</h1>
+        <Styled.GHabitActions>
+          <Button onClick={toggleModal}>
+            <FontAwesomeIcon icon='fa-solid fa-plus' fixedWidth />
+          </Button>
+        </Styled.GHabitActions>
       </Styled.GHabitHeader>
       <Styled.GHabitMain>
         {ghabits.length > 0 ? (
           <>
             <Styled.GHabitItems>
-              <GHabitList ghabits={currentPosts} />
+              <Styled.GHabitListPages>
+                {ghabits && ghabits.length > 0 ? (
+                  <Pagination
+                    totalPages={totalPages}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                  />
+                ) : undefined}
+                <GHabitList ghabits={currentPosts} />
+              </Styled.GHabitListPages>
               <Styled.FutureItem className='stats'>
                 <h1>This Week Results</h1>
                 <GHabitDiagram ghabits={ghabits} />

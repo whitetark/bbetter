@@ -33,7 +33,7 @@ const textErrors = (meta) => ({
 
 const RegisterForm = (props) => {
   const navigate = useNavigate();
-  const { mutateAsync: register, error: registerError } = useRegister();
+  const { mutateAsync: register, error: registerError, isLoading } = useRegister();
   return (
     <Styled.LoginForm>
       <Formik
@@ -88,11 +88,11 @@ const RegisterForm = (props) => {
             )}
           </Field>
           <Field>
-            {(props) => (
-              <Button disabled={!props.form.isValid && !props.form.isTouched} type='submit'>
-                Sign up
-              </Button>
-            )}
+            <Button
+              disabled={(!props.form.isValid && !props.form.isTouched) || isLoading}
+              type='submit'>
+              {isLoading ? <div>...</div> : <div>Sign up</div>}
+            </Button>
           </Field>
           {registerError ? (
             registerError.response.data.length < 40 ? (
