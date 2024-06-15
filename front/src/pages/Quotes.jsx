@@ -8,6 +8,7 @@ import { useSearchParams } from 'react-router-dom';
 import { QuoteService } from '../app/services/api';
 import { useAuthContext } from '../app/store/auth-context';
 import QuoteFilter from '../components/Quotes/QuoteFilter';
+import LoadingWrapper from '../components/UI/LoadingWrapper';
 import Pagination from '../components/UI/Paginations';
 import useEdit from '../hooks/use-edit';
 import useModal from '../hooks/use-modal';
@@ -108,26 +109,28 @@ const QuotesPage = () => {
             />
           ) : undefined}
         </Styled.QuoteHeader>
-        <Styled.QuoteMainBlock>
-          {showData && showData.length > 0 ? (
-            <>
-              <Styled.QuoteFilter>
-                <QuoteFilter
-                  keywordsList={keywordList}
-                  getClientFilters={clientFiltersHandler}
-                  isLoading={isLoading}
-                />
-              </Styled.QuoteFilter>
-              <Styled.QuoteList>
-                {currentPosts?.map((quote) => (
-                  <QuoteItem key={quote.userQuoteId} isEdit={isEdit} data={quote} />
-                ))}
-              </Styled.QuoteList>
-            </>
-          ) : (
-            <Styled.QuoteEmpty>Save your first quote!</Styled.QuoteEmpty>
-          )}
-        </Styled.QuoteMainBlock>
+        <LoadingWrapper isLoading={isLoading}>
+          <Styled.QuoteMainBlock>
+            {showData && showData.length > 0 ? (
+              <>
+                <Styled.QuoteFilter>
+                  <QuoteFilter
+                    keywordsList={keywordList}
+                    getClientFilters={clientFiltersHandler}
+                    isLoading={isLoading}
+                  />
+                </Styled.QuoteFilter>
+                <Styled.QuoteList>
+                  {currentPosts?.map((quote) => (
+                    <QuoteItem key={quote.userQuoteId} isEdit={isEdit} data={quote} />
+                  ))}
+                </Styled.QuoteList>
+              </>
+            ) : (
+              <Styled.QuoteEmpty>Save your first quote!</Styled.QuoteEmpty>
+            )}
+          </Styled.QuoteMainBlock>
+        </LoadingWrapper>
       </Styled.QuoteContent>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
         <QuoteAdd hide={toggleModal} />

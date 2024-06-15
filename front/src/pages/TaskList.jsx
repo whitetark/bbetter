@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import PathConstants from '../app/shared/pathConstants';
+import LoadingWrapper from '../components/UI/LoadingWrapper';
 import Pagination from '../components/UI/Paginations';
 import { Button, Modal } from '../components/UI/index';
 import { TaskAdd, TaskItem } from '../components/index';
@@ -71,24 +72,26 @@ const TaskListPage = () => {
           />
         ) : undefined}
       </Styled.TaskListHeader>
-      <Styled.TaskListMain>
-        {currentPosts?.length > 0 ? (
-          <>
-            <Styled.TaskHeader>
-              <div>Done?</div>
-              <div>Content</div>
-              <div>Urgent?</div>
-              <div>Important?</div>
-              <div className='deadline'>Deadline</div>
-            </Styled.TaskHeader>
-            {currentPosts?.map((task) => (
-              <TaskItem key={task.taskId} isEdit={isEdit} data={task} />
-            ))}
-          </>
-        ) : (
-          <TaskEmpty>Create your first task!</TaskEmpty>
-        )}
-      </Styled.TaskListMain>
+      <LoadingWrapper isLoading={isLoading}>
+        <Styled.TaskListMain>
+          {currentPosts?.length > 0 ? (
+            <>
+              <Styled.TaskHeader>
+                <div>Done?</div>
+                <div>Content</div>
+                <div>Urgent?</div>
+                <div>Important?</div>
+                <div className='deadline'>Deadline</div>
+              </Styled.TaskHeader>
+              {currentPosts?.map((task) => (
+                <TaskItem key={task.taskId} isEdit={isEdit} data={task} />
+              ))}
+            </>
+          ) : (
+            <TaskEmpty>Create your first task!</TaskEmpty>
+          )}
+        </Styled.TaskListMain>
+      </LoadingWrapper>
       <Modal isShowing={addIsShowing} hide={toggleAdd} className='add-modal' hasOverlay>
         <TaskAdd hide={toggleAdd} />
       </Modal>

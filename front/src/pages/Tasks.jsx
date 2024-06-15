@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import * as variables from '../app/shared/colorVariables';
 import PathConstants from '../app/shared/pathConstants';
 import TaskDeadlineItem from '../components/Tasks/TaskDeadlineItem';
+import LoadingWrapper from '../components/UI/LoadingWrapper';
 import { Button, Modal } from '../components/UI/index';
 import { TableCell, TaskAdd } from '../components/index';
 import useModal from '../hooks/use-modal';
@@ -46,70 +47,74 @@ const TasksPage = () => {
           </Button>
         </Styled.TaskActions>
       </Styled.TaskHeader>
-      {tasks.length > 0 ? (
-        <Styled.TaskMain>
-          <Styled.TaskTable>
-            <div></div>
-            <Styled.TableText>Urgent</Styled.TableText>
-            <Styled.TableText>Non urgent</Styled.TableText>
-            <Styled.TableText className='text vertical-text'>Important</Styled.TableText>
-            <TableCell array={urgentImportantTasks} type={'Do'} />
-            <TableCell array={importantNotUrgentTasks} type={'Decide'} />
-            <Styled.TableText className='text vertical-text'>Not important</Styled.TableText>
-            <TableCell array={urgentNotImportantTasks} type={'Delegate'} />
-            <TableCell array={notUrgentNotImportantTasks} type={'Delete'} />
-          </Styled.TaskTable>
-          <Styled.TaskStats>
-            <Styled.TaskDeadlineListBlock>
-              <h1>Closest Deadlines</h1>
-              <Styled.TaskDeadlineList>
-                {closestTasks &&
-                  closestTasks.map((task, index) => {
-                    return <TaskDeadlineItem key={task.taskId} task={task} index={index} />;
-                  })}
-              </Styled.TaskDeadlineList>
-            </Styled.TaskDeadlineListBlock>
-            <Styled.TaskStatsBlock>
-              <h1>Statistics</h1>
-              <Styled.TaskStatsInfo>
-                <Styled.TaskStatsInfoHeaders>This Week</Styled.TaskStatsInfoHeaders>
-                <Styled.TaskStatsProgress>
-                  <Styled.TaskStatsProgressHeader>
+      <LoadingWrapper isLoading={isLoading}>
+        {tasks.length > 0 ? (
+          <Styled.TaskMain>
+            <Styled.TaskTable>
+              <div></div>
+              <Styled.TableText>Urgent</Styled.TableText>
+              <Styled.TableText>Non urgent</Styled.TableText>
+              <Styled.TableText className='text vertical-text'>Important</Styled.TableText>
+              <TableCell array={urgentImportantTasks} type={'Do'} />
+              <TableCell array={importantNotUrgentTasks} type={'Decide'} />
+              <Styled.TableText className='text vertical-text'>Not important</Styled.TableText>
+              <TableCell array={urgentNotImportantTasks} type={'Delegate'} />
+              <TableCell array={notUrgentNotImportantTasks} type={'Delete'} />
+            </Styled.TaskTable>
+            <Styled.TaskStats>
+              <Styled.TaskDeadlineListBlock>
+                <h1>Closest Deadlines</h1>
+                <Styled.TaskDeadlineList>
+                  {closestTasks &&
+                    closestTasks.map((task, index) => {
+                      return <TaskDeadlineItem key={task.taskId} task={task} index={index} />;
+                    })}
+                </Styled.TaskDeadlineList>
+              </Styled.TaskDeadlineListBlock>
+              <Styled.TaskStatsBlock>
+                <h1>Statistics</h1>
+                <Styled.TaskStatsInfo>
+                  <Styled.TaskStatsInfoHeaders>This Week</Styled.TaskStatsInfoHeaders>
+                  <Styled.TaskStatsProgress>
+                    <Styled.TaskStatsProgressHeader>
+                      <div>
+                        Done: <span>{stats.numOfCompletedThisWeek}</span>
+                      </div>
+                      <div>
+                        Overall:{' '}
+                        <span>
+                          {stats.numOfNonCompletedThisWeek + stats.numOfCompletedThisWeek}
+                        </span>
+                      </div>
+                    </Styled.TaskStatsProgressHeader>
+                    <ProgressBar
+                      completed={stats.numOfCompletedThisWeek}
+                      maxCompleted={stats.numOfCompletedThisWeek + stats.numOfNonCompletedThisWeek}
+                      bgColor={variables.GREEN}
+                      baseBgColor={variables.WHITE}
+                      isLabelVisible={false}
+                      animateOnRender={true}
+                    />
+                  </Styled.TaskStatsProgress>
+                  <div></div>
+                  <div className='divider'></div>
+                  <Styled.TaskStatsInfoHeaders>Overall</Styled.TaskStatsInfoHeaders>
+                  <Styled.TaskStatsOverallData>
                     <div>
-                      Done: <span>{stats.numOfCompletedThisWeek}</span>
+                      Overall Done: <span>{stats.numOfCompleted}</span>
                     </div>
                     <div>
-                      Overall:{' '}
-                      <span>{stats.numOfNonCompletedThisWeek + stats.numOfCompletedThisWeek}</span>
+                      Completion Rate: <span>{stats.percOfInTimeCompletion}%</span>
                     </div>
-                  </Styled.TaskStatsProgressHeader>
-                  <ProgressBar
-                    completed={stats.numOfCompletedThisWeek}
-                    maxCompleted={stats.numOfCompletedThisWeek + stats.numOfNonCompletedThisWeek}
-                    bgColor={variables.GREEN}
-                    baseBgColor={variables.WHITE}
-                    isLabelVisible={false}
-                    animateOnRender={true}
-                  />
-                </Styled.TaskStatsProgress>
-                <div></div>
-                <div className='divider'></div>
-                <Styled.TaskStatsInfoHeaders>Overall</Styled.TaskStatsInfoHeaders>
-                <Styled.TaskStatsOverallData>
-                  <div>
-                    Overall Done: <span>{stats.numOfCompleted}</span>
-                  </div>
-                  <div>
-                    Completion Rate: <span>{stats.percOfInTimeCompletion}%</span>
-                  </div>
-                </Styled.TaskStatsOverallData>
-              </Styled.TaskStatsInfo>
-            </Styled.TaskStatsBlock>
-          </Styled.TaskStats>
-        </Styled.TaskMain>
-      ) : (
-        <Styled.TaskEmpty>Create your first task!</Styled.TaskEmpty>
-      )}
+                  </Styled.TaskStatsOverallData>
+                </Styled.TaskStatsInfo>
+              </Styled.TaskStatsBlock>
+            </Styled.TaskStats>
+          </Styled.TaskMain>
+        ) : (
+          <Styled.TaskEmpty>Create your first task!</Styled.TaskEmpty>
+        )}
+      </LoadingWrapper>
       <Modal isShowing={addIsShowing} hide={toggleAdd} className='add-modal' hasOverlay>
         <TaskAdd hide={toggleAdd} />
       </Modal>

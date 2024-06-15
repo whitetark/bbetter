@@ -21,7 +21,6 @@ namespace bbetterApi.Controllers
             return Ok(await reflectionServices.GetDatesByMonth(accountId, month, year).ConfigureAwait(false));
         }
 
-        [AllowAnonymous]
         [HttpGet]
         [Route("getStats")]
         public async Task<ActionResult<ReflectionStats>> GetStats([FromQuery(Name = "id")] int accountId)

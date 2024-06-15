@@ -36,7 +36,7 @@ const WishListItem = ({ isEdit, data }) => {
       }
 
       editAsync(task);
-    }, 1500);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [isChecked]);

@@ -18,7 +18,7 @@ const TaskItem = ({ isEdit, data }) => {
 
   const { isShowing: editIsShowing, toggle: toggleEdit } = useModal();
   const { isShowing: deleteIsShowing, toggle: toggleDelete } = useModal();
-  const { mutateAsync: deleteAsync, isError, error } = useDeleteTask();
+  const { mutateAsync: deleteAsync } = useDeleteTask();
   const { mutateAsync: editAsync } = useEditTask();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const TaskItem = ({ isEdit, data }) => {
       }
 
       editAsync(task);
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [isUrgent, isImportant]);
@@ -62,7 +62,7 @@ const TaskItem = ({ isEdit, data }) => {
       }
 
       editAsync(task);
-    }, 1500);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [isCompleted]);

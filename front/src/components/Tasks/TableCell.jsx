@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import * as Styled from '../../styles/Tasks.styled';
 
@@ -7,7 +8,12 @@ const TableCell = ({ array, type }) => {
       <h3>{type}</h3>
       <div className='item-list'>
         {array.slice(0, 4).map((task) => {
-          return <div key={task.taskId}>{task.content}</div>;
+          return (
+            <div key={task.taskId}>
+              {dayjs(task.deadline) < dayjs() ? '❗' : ''}
+              {task.content}
+            </div>
+          );
         })}
       </div>
     </Styled.TableCell>

@@ -24,7 +24,8 @@ const findBHabitDateIdByDay = (data, day) => {
 function ServerDay(props) {
   const { highlightedDays = [], day, outsideCurrentMonth, issueDate, ...other } = props;
 
-  const isIssueDate = props.day.date() === issueDate.date();
+  const isIssueDate =
+    dayjs(props.day).format('DD/MM/YYYY') === dayjs(issueDate).format('DD/MM/YYYY');
 
   const isSelected =
     !props.outsideCurrentMonth && highlightedDays?.data?.days?.indexOf(props.day.date()) >= 0;

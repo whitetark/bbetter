@@ -12,7 +12,7 @@ export const AuthContextProvider = ({ children }) => {
     }
     return null;
   });
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState(null);
   const [serverIsOn, setServerIsOn] = useState(false);
   const queryClient = useQueryClient();
 

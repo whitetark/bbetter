@@ -72,64 +72,66 @@ const GHabitsPage = () => {
           </Button>
         </Styled.GHabitActions>
       </Styled.GHabitHeader>
-      <Styled.GHabitMain>
-        {ghabits.length > 0 ? (
-          <>
-            <Styled.GHabitItems>
-              <Styled.GHabitListPages>
-                {ghabits && ghabits.length > 0 ? (
-                  <Pagination
-                    totalPages={totalPages}
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                  />
-                ) : undefined}
-                <GHabitList ghabits={currentPosts} />
-              </Styled.GHabitListPages>
-              <Styled.FutureItem className='stats'>
-                <h1>This Week Results</h1>
-                <GHabitDiagram ghabits={ghabits} />
-              </Styled.FutureItem>
-            </Styled.GHabitItems>
-            <Styled.GHabitInfo>
-              <Styled.GHabitInfoItem>
-                <h1>Work on</h1>
-                <Styled.FutureItem>
-                  <FontAwesomeIcon icon='fa-solid fa-dumbbell' fixedWidth />
-                  <p>{stats?.data.value.workOn}</p>
+      <LoadingWrapper isLoading={isLoading}>
+        <Styled.GHabitMain>
+          {ghabits.length > 0 ? (
+            <>
+              <Styled.GHabitItems>
+                <Styled.GHabitListPages>
+                  {ghabits && ghabits.length > 0 ? (
+                    <Pagination
+                      totalPages={totalPages}
+                      currentPage={currentPage}
+                      setCurrentPage={setCurrentPage}
+                    />
+                  ) : undefined}
+                  <GHabitList ghabits={currentPosts} />
+                </Styled.GHabitListPages>
+                <Styled.FutureItem className='stats'>
+                  <h1>This Week Results</h1>
+                  <GHabitDiagram ghabits={ghabits} />
                 </Styled.FutureItem>
-              </Styled.GHabitInfoItem>
-              <Styled.GHabitInfoItem>
-                <h1>Best Habit</h1>
-                <Styled.FutureItem>
-                  <FontAwesomeIcon icon='fa-solid fa-medal' fixedWidth />
-                  <p>{stats?.data.value.bestHabit}</p>
-                </Styled.FutureItem>
-              </Styled.GHabitInfoItem>
-              <Styled.GHabitInfoItem>
-                <h1>Best Streaks</h1>
-                <Styled.FutureItem className='row'>
-                  <FontAwesomeIcon icon='fa-solid fa-fire' />
-                  <LoadingWrapper>
-                    <div>
-                      {stats &&
-                        stats?.data.value.streaks?.slice(0, 3).map((item, index) => {
-                          return (
-                            <p key={index}>
-                              {item.content}: {item.streak}
-                            </p>
-                          );
-                        })}
-                    </div>
-                  </LoadingWrapper>
-                </Styled.FutureItem>
-              </Styled.GHabitInfoItem>
-            </Styled.GHabitInfo>
-          </>
-        ) : (
-          <TaskEmpty>Create your first habit!</TaskEmpty>
-        )}
-      </Styled.GHabitMain>
+              </Styled.GHabitItems>
+              <Styled.GHabitInfo>
+                <Styled.GHabitInfoItem>
+                  <h1>Work on</h1>
+                  <Styled.FutureItem>
+                    <FontAwesomeIcon icon='fa-solid fa-dumbbell' fixedWidth />
+                    <p>{stats?.data.value.workOn}</p>
+                  </Styled.FutureItem>
+                </Styled.GHabitInfoItem>
+                <Styled.GHabitInfoItem>
+                  <h1>Best Habit</h1>
+                  <Styled.FutureItem>
+                    <FontAwesomeIcon icon='fa-solid fa-medal' fixedWidth />
+                    <p>{stats?.data.value.bestHabit}</p>
+                  </Styled.FutureItem>
+                </Styled.GHabitInfoItem>
+                <Styled.GHabitInfoItem>
+                  <h1>Best Streaks</h1>
+                  <Styled.FutureItem className='row'>
+                    <FontAwesomeIcon icon='fa-solid fa-fire' />
+                    <LoadingWrapper>
+                      <div>
+                        {stats &&
+                          stats?.data.value.streaks?.slice(0, 3).map((item, index) => {
+                            return (
+                              <p key={index}>
+                                {item.content}: {item.streak}
+                              </p>
+                            );
+                          })}
+                      </div>
+                    </LoadingWrapper>
+                  </Styled.FutureItem>
+                </Styled.GHabitInfoItem>
+              </Styled.GHabitInfo>
+            </>
+          ) : (
+            <TaskEmpty>Create your first habit!</TaskEmpty>
+          )}
+        </Styled.GHabitMain>
+      </LoadingWrapper>
       <Modal isShowing={modalIsShowing} hide={toggleModal} className='add-modal' hasOverlay>
         <GHabitAdd hide={toggleModal} />
       </Modal>

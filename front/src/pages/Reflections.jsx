@@ -8,6 +8,7 @@ import { useAuthContext } from '../app/store/auth-context';
 import ReflectionItemBlock from '../components/Reflections/ReflectionAddBlock';
 import ReflectionCalendar from '../components/Reflections/ReflectionCalendar';
 import ReflectionGraphic from '../components/Reflections/ReflectionGraphic';
+import LoadingWrapper from '../components/UI/LoadingWrapper';
 import * as Styled from '../styles/Reflections.styled';
 
 dayjs.extend(isBetweenPlugin);
@@ -111,20 +112,22 @@ const ReflectionsPage = () => {
           />
           <ReflectionItemBlock reflection={reflection} value={value} />
         </Styled.ReflectionItems>
-        {stats?.data ? (
-          <Styled.ReflectionStats>
-            <Styled.FutureItem>
-              <h1>Last 28 Days Graph</h1>
-              <ReflectionGraphic data={stats?.data} isLoading={isLoading} />
-            </Styled.FutureItem>
-            <Styled.FutureItem className='advice'>
-              <h1>Advice</h1>
-              <p>{stats.data.advice}</p>
-            </Styled.FutureItem>
-          </Styled.ReflectionStats>
-        ) : (
-          <div>No data</div>
-        )}
+        <LoadingWrapper isLoading={isLoading}>
+          {stats?.data ? (
+            <Styled.ReflectionStats>
+              <Styled.FutureItem>
+                <h1>Last 28 Days Graph</h1>
+                <ReflectionGraphic data={stats?.data} isLoading={isLoading} />
+              </Styled.FutureItem>
+              <Styled.FutureItem className='advice'>
+                <h1>Advice</h1>
+                <p>{stats.data.advice}</p>
+              </Styled.FutureItem>
+            </Styled.ReflectionStats>
+          ) : (
+            <div></div>
+          )}
+        </LoadingWrapper>
       </Styled.ReflectionsMain>
     </Styled.ReflectionsContent>
   );

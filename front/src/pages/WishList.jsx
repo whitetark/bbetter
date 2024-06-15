@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import LoadingWrapper from '../components/UI/LoadingWrapper';
 import Pagination from '../components/UI/Paginations';
 import { Button, Modal } from '../components/UI/index';
 import { WishAdd, WishListItem } from '../components/index';
@@ -70,11 +71,13 @@ const WishListPage = () => {
             <TaskEmpty>Create your first wish!</TaskEmpty>
           )}
         </Styled.WishListHeader>
-        <Styled.WishListMain>
-          {currentWishes.map((wish) => (
-            <WishListItem key={wish.wishId} isEdit={isEdit} data={wish} />
-          ))}
-        </Styled.WishListMain>
+        <LoadingWrapper isLoading={isLoading}>
+          <Styled.WishListMain>
+            {currentWishes.map((wish) => (
+              <WishListItem key={wish.wishId} isEdit={isEdit} data={wish} />
+            ))}
+          </Styled.WishListMain>
+        </LoadingWrapper>
       </Styled.WishList>
       <Modal isShowing={addIsShowing} hide={toggleAdd} className='add-modal' hasOverlay>
         <WishAdd hide={toggleAdd} />

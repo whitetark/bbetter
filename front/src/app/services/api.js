@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-//const baseURL = 'https://bbetterapi.azurewebsites.net';
-const baseURL = 'http://localhost:5265';
+const baseURL = 'https://bbetterapi.azurewebsites.net';
+//const baseURL = 'http://localhost:5265';
 
 const api = axios.create({
   baseURL,
