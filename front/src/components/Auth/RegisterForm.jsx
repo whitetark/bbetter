@@ -88,11 +88,13 @@ const RegisterForm = (props) => {
             )}
           </Field>
           <Field>
-            <Button
-              disabled={(!props.form.isValid && !props.form.isTouched) || isLoading}
-              type='submit'>
-              {isLoading ? <div>...</div> : <div>Sign up</div>}
-            </Button>
+            {(props) => (
+              <Button
+                disabled={(!props.form.isValid && !props.form.isTouched) || isLoading}
+                type='submit'>
+                {isLoading ? <div>...</div> : <div>Sign up</div>}
+              </Button>
+            )}
           </Field>
           {registerError ? (
             registerError.response.data.length < 40 ? (

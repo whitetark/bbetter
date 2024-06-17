@@ -1,54 +1,76 @@
 .css-23p0if-MuiButtonBase-root-MuiPickersDay-root,
-.css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root {
+.css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root,
+.css-a78wou,
+.css-o9cot7 {
   font-size: 16px !important;
 }
 
-.css-rhmlg1-MuiTypography-root-MuiDayCalendar-weekDayLabel {
+.css-rhmlg1-MuiTypography-root-MuiDayCalendar-weekDayLabel,
+.css-10qkmc3 {
   font-size: 14px !important;
 }
 
 .css-kg9q0s-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button,
-.css-1nkg345-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button {
+.css-1nkg345-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button,
+.css-1fklenr,
+.css-11wxb {
   font-size: 18px !important;
 }
 
-.css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
+.css-cyfsxc-MuiPickersCalendarHeader-labelContainer,
+.css-16j77m4 {
   font-size: 16px !important;
 }
 
-.css-innj4t-MuiPickersYear-yearButton {
+.css-innj4t-MuiPickersYear-yearButton,
+.css-rhiqj0 {
   font-size: 14px !important;
   text-align: center;
 }
 
-.css-1r7ctd-MuiBadge-badge {
+.css-innj4t-MuiPickersYear-yearButton.Mui-selected,
+.css-rhiqj0.Mui-selected {
+  background-color: #00990f !important;
+}
+
+.css-1r7ctd-MuiBadge-badge,
+.css-5u2lav {
   font-size: 14px !important;
 }
 
-.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root,
+.css-1ujsas3 {
   color: #00990f !important;
 }
 
 .css-1e3wlyl-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item,
-.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root,
+.css-1ox9k5z,
+.css-1ujsas3 {
   font-size: 16px !important;
 }
 
 .css-1e3wlyl-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected,
 .css-23p0if-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected,
 .css-23p0if-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
-.css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+.css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
+.css-a78wou.Mui-selected,
+.css-1ox9k5z.Mui-selected,
+.css-o9cot7:focus.Mui-selected,
+.css-o9cot7.Mui-selected {
   background-color: #00990f !important;
 }
 
-.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root,
+.css-1bn53lx {
   input[type='text'] {
     border-width: 0px !important;
     outline: none !important;
   }
 }
 
-.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline,
+.css-igs3ac {
   border-color: #d9d9d9 !important;
   border-radius: 10px !important;
   outline: none !important;
@@ -59,7 +81,8 @@
   }
 }
 
-.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+.css-1bn53lx.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: inherit !important;
   border-width: 1px !important;
 }

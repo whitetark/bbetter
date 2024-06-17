@@ -127,25 +127,8 @@ export const AddBHabitForm = styled(AddWishForm)`
     font-weight: 500;
   }
 
-  .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
-    input[type='text'] {
-      border-width: 0px;
-      outline: none;
-    }
-  }
-
-  .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
-    border-color: ${variables.DIVIDER};
-    border-radius: 10px;
-    outline: none;
-
-    &.Mui-focused {
-      border-color: inherit;
-      border-width: 1px;
-    }
-  }
-
-  .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+  .css-1bn53lx.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: inherit;
     border-width: 1px;
   }

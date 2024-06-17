@@ -68,15 +68,19 @@ const WishListPage = () => {
               setCurrentPage={setCurrentPage}
             />
           ) : (
-            <TaskEmpty>Create your first wish!</TaskEmpty>
+            <div></div>
           )}
         </Styled.WishListHeader>
         <LoadingWrapper isLoading={isLoading}>
-          <Styled.WishListMain>
-            {currentWishes.map((wish) => (
-              <WishListItem key={wish.wishId} isEdit={isEdit} data={wish} />
-            ))}
-          </Styled.WishListMain>
+          {wishes && wishes.length > 0 ? (
+            <Styled.WishListMain>
+              {currentWishes.map((wish) => (
+                <WishListItem key={wish.wishId} isEdit={isEdit} data={wish} />
+              ))}
+            </Styled.WishListMain>
+          ) : (
+            <TaskEmpty>Create your first wish!</TaskEmpty>
+          )}
         </LoadingWrapper>
       </Styled.WishList>
       <Modal isShowing={addIsShowing} hide={toggleAdd} className='add-modal' hasOverlay>

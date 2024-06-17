@@ -82,6 +82,11 @@ const WeeklyStats = () => {
 
   const stats = data?.data;
 
+  var value = stats ? stats.productivityCoef : 0;
+
+  if (value > 100) {
+    value = 100;
+  }
   return (
     <Styled.WeeklyStats>
       <Styled.StatsHeader>
@@ -132,7 +137,7 @@ const WeeklyStats = () => {
               </Styled.StatsBlock>
             </Styled.StatsMain>
             <Styled.Productivity>
-              <CircularProgressWithLabel value={stats.productivityCoef} />
+              <CircularProgressWithLabel value={value} />
               <span>Productivity</span>
             </Styled.Productivity>
           </div>

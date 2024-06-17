@@ -153,13 +153,7 @@ export const GHabitViewMain = styled.div`
   }
 `;
 
-export const Calendar = styled.div`
-  .css-23p0if-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
-  .css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
-  .css-innj4t-MuiPickersYear-yearButton.Mui-selected {
-    background-color: #00990f !important;
-  }
-`;
+export const Calendar = styled.div``;
 
 export const CalendarActions = styled.div`
   display: flex;

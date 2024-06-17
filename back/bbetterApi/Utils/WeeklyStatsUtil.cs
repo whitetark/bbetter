@@ -40,7 +40,22 @@ namespace bbetterApi.Utils
             double totalGHabits = ghabits.Count;
             double gHabitEntries = ghabits.Sum(g => g.GHabitDates.Count);
             double gHabitsCompleted = ghabits.Count(g => g.GHabitDates.Count >= 7);
-            double totalPossibleGHabitEntries = totalGHabits * 7;
+
+            var coef = 7;
+            switch (type)
+            {
+                case "month":
+                    coef = 30;
+                    break;
+                case "3month":
+                    coef = 90;
+                    break;
+                default:
+                    coef = 7;
+                    break;
+            }
+
+            double totalPossibleGHabitEntries = totalGHabits * coef;
 
             double taskCompletionRate = 0;
             double habitEngagementRate = 0;

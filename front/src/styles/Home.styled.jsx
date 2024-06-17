@@ -197,15 +197,8 @@ export const Productivity = styled.div`
     text-align: center;
   }
 
-  .MuiCircularProgress-root
-    .MuiCircularProgress-determinate
-    .MuiCircularProgress-colorPrimary
-    .css-1rn30mb-MuiCircularProgress-root {
-    width: 100px !important;
-    height: 100px !important;
-  }
-
-  .css-1sn4lm3-MuiTypography-root {
+  .css-1sn4lm3-MuiTypography-root,
+  .css-1v2gfp5 {
     font-size: 32px;
     font-weight: 500;
   }

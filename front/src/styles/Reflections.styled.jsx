@@ -116,16 +116,19 @@ export const ReflectionDate = styled.div`
 `;
 
 export const Calendar = styled.div`
-  .css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root {
+  .css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root,
+  .css-a78wou {
     border-radius: 0;
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     margin: 0;
   }
 
-  .css-23p0if-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected) {
+  .css-23p0if-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected),
+  .css-o9cot7:not(.Mui-selected) {
     border: none;
   }
   .css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
+  .css-a78wou.Mui-selected,
   .selected {
     color: ${variables.WHITE};
     background-color: ${variables.GREEN_HOVER} !important;
@@ -136,7 +139,8 @@ export const Calendar = styled.div`
     }
   }
 
-  .css-23p0if-MuiButtonBase-root-MuiPickersDay-root {
+  .css-23p0if-MuiButtonBase-root-MuiPickersDay-root,
+  .css-o9cot7 {
     margin: 0;
     border-radius: 0;
   }
